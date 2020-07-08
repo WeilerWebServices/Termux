@@ -1,0 +1,44 @@
+## Do pointless things to the bird to test odd cases.
+n
+seed 694608006
+in
+take lamp
+take keys
+rub keys
+out
+go s
+walk s
+travel s
+attack grate
+unlock grate
+lock grate
+unlock grate
+down
+w
+take cage
+w
+read
+read keys
+on lamp
+read
+take rod
+w
+w
+enter water
+listen bird
+eat bird
+feed bird
+cage bird
+y
+y
+drop rod
+take bird
+get rod
+wave rod
+attack bird
+# Also, test grare as a motion verb.
+grate
+up
+n
+n
+grate

@@ -1,0 +1,699 @@
+
+Welcome to Adventure!!  Would you like instructions?
+
+> foo
+
+Please answer the question.
+
+Welcome to Adventure!!  Would you like instructions?
+
+> 
+
+Please answer the question.
+
+Welcome to Adventure!!  Would you like instructions?
+
+> y
+
+Somewhere nearby is Colossal Cave, where others have found fortunes in
+treasure and gold, though it is rumored that some who enter are never
+seen again.  Magic is said to work in the cave.  I will be your eyes
+and hands.  Direct me with commands of 1 or 2 words.  I should warn
+you that I look at only the first five letters of each word, so you'll
+have to enter "northeast" as "ne" to distinguish it from "north".
+You can type "help" for some general hints.  For information on how
+to end your adventure, scoring, etc., type "info".
+			      - - -
+This program was originally developed by Willie Crowther.  Most of the
+features of the current program were added by Don Woods.
+
+You are standing at the end of a road before a small brick building.
+Around you is a forest.  A small stream flows out of the building and
+down a gully.
+
+> seed 1635997320
+
+Seed set to 1635997320
+
+You're in front of building.
+
+> back
+
+You can't get there from here.
+
+You're in front of building.
+
+> take grate
+
+I see no grate here.
+
+> no rub
+
+OK
+
+> say axe
+
+Okay, "axe".
+
+> say rub
+
+Okay, "rub".
+
+> say grate
+
+Okay, "grate".
+
+> _
+
+Sorry, I don't know the word "_".
+
+> back
+
+Sorry, but I no longer seem to remember how it was you got here.
+
+You're in front of building.
+
+> seed
+
+This command requires a numeric argument.
+
+You're in front of building.
+
+> waste
+
+This command requires a numeric argument.
+
+You are standing at the end of a road before a small brick building.
+Around you is a forest.  A small stream flows out of the building and
+down a gully.
+
+> eat grate
+
+I see no grate here.
+
+> 23
+
+Sorry, I don't know the word "23".
+
+> eat building
+
+You are inside a building, a well house for a large spring.
+
+There are some keys on the ground here.
+
+There is a shiny brass lamp nearby.
+
+There is food here.
+
+There is a bottle of water here.
+
+> in
+
+I don't know in from out here.  Use compass points or name something
+in the general direction you want to go.
+
+You're inside building.
+
+There are some keys on the ground here.
+
+There is a shiny brass lamp nearby.
+
+There is food here.
+
+There is a bottle of water here.
+
+> say F'UNJ
+
+Nothing happens.
+
+> say fee
+
+OK
+
+> say fie
+
+OK
+
+> say foe
+
+OK
+
+> say fum
+
+Nothing happens.
+
+> in
+
+I don't know in from out here.  Use compass points or name something
+in the general direction you want to go.
+
+You're inside building.
+
+There are some keys on the ground here.
+
+There is a shiny brass lamp nearby.
+
+There is food here.
+
+There is a bottle of water here.
+
+> keys
+
+What do you want to do with the keys?
+
+> throw food
+
+You aren't carrying it!
+
+> nothing food
+
+OK
+
+> calm food
+
+I'm game.  Would you care to explain how?
+
+> walk food
+
+Where?
+
+> score food
+
+Huh?
+
+> foo food
+
+I don't know how.
+
+> brief food
+
+On what?
+
+> blast food
+
+Blasting requires dynamite.
+
+> find grate
+
+I can only tell you what you see as you move about and manipulate
+things.  I cannot tell you where remote things are.
+
+> light food
+
+I'm afraid I don't understand.
+
+> lock food
+
+I don't know how to lock or unlock such a thing.
+
+> unlock food
+
+I don't know how to lock or unlock such a thing.
+
+> extinguish food
+
+I'm afraid I don't understand.
+
+> suspend food
+
+Huh?
+
+> resume food
+
+Huh?
+
+> crawl
+
+Which way?
+
+You're inside building.
+
+There are some keys on the ground here.
+
+There is a shiny brass lamp nearby.
+
+There is food here.
+
+There is a bottle of water here.
+
+> out
+
+You're in front of building.
+
+> stream
+
+You are in a valley in the forest beside a stream tumbling along a
+rocky bed.
+
+> lock
+
+There is nothing here with a lock!
+
+> take water
+
+You have nothing in which to carry it.
+
+> blast
+
+Blasting requires dynamite.
+
+> building
+
+You're in front of building.
+
+> cave
+
+I don't know where the cave is, but hereabouts no stream can run on
+the surface for long.  I would try the stream.
+
+You're in front of building.
+
+> enter stream
+
+Your feet are now wet.
+
+> try three words
+
+Please stick to 1- and 2-word commands.
+
+> listen
+
+The stream is gurgling placidly.
+
+> carry
+
+Carry what?
+
+> forward
+
+I am unsure how you are facing.  Use compass points or nearby objects.
+
+You're in front of building.
+
+> eat
+
+Eat what?
+
+> drink
+
+You have taken a drink from the stream.  The water tastes strongly of
+minerals, but is not unpleasant.  It is extremely cold.
+
+> throw keys
+
+I see no keys here.
+
+> find keys
+
+I can only tell you what you see as you move about and manipulate
+things.  I cannot tell you where remote things are.
+
+> inven keys
+
+I can only tell you what you see as you move about and manipulate
+things.  I cannot tell you where remote things are.
+
+> nothing
+
+OK
+
+> in
+
+You're inside building.
+
+There are some keys on the ground here.
+
+There is a shiny brass lamp nearby.
+
+There is food here.
+
+There is a bottle of water here.
+
+> listen
+
+The stream is gurgling placidly.
+
+> find keys
+
+I believe what you want is right here with you.
+
+> unlock keys
+
+You can't unlock the keys.
+
+> find foo
+
+Well, that was remarkably pointless.
+
+> find bar
+
+Sorry, I don't know the word "bar".
+
+> carry
+
+Carry what?
+
+> blast
+
+Blasting requires dynamite.
+
+> take bottle
+
+OK
+
+> find bottle
+
+You are already carrying it!
+
+> drink water
+
+The bottle of water is now empty.
+
+> fill bottle
+
+Your bottle is now full of water.
+
+> throw axe
+
+I see no axe here.
+
+> throw knife
+
+I see no knife here.
+
+> lock
+
+There is nothing here with a lock!
+
+> unlock
+
+There is nothing here with a lock!
+
+> throw
+
+Throw what?
+
+> attack
+
+There is nothing here to attack.
+
+> unlock chain
+
+I see no chain here.
+
+> fill urn
+
+I see no urn here.
+
+> eat keys
+
+Don't be ridiculous!
+
+> discard keys
+
+You aren't carrying it!
+
+> drink keys
+
+Don't be ridiculous!
+
+> off keys
+
+I'm afraid I don't understand.
+
+> break keys
+
+It is beyond your power to do that.
+
+> wake keys
+
+Don't be ridiculous!
+
+> take keys
+
+OK
+
+> feed keys
+
+I'm game.  Would you care to explain how?
+
+> fly keys
+
+I'm game.  Would you care to explain how?
+
+> pour keys
+
+You can't pour that.
+
+> throw keys
+
+OK
+
+> foo up
+
+There is no way to go that direction.
+
+You are inside a building, a well house for a large spring.
+
+There are some keys on the ground here.
+
+There is a shiny brass lamp nearby.
+
+There is food here.
+
+> get
+
+Get what?
+
+> food
+
+OK
+
+> eat food
+
+Thank you, it was delicious!
+
+> drink blood
+
+I see no blood here.
+
+> drink keys
+
+Don't be ridiculous!
+
+> light keys
+
+I'm afraid I don't understand.
+
+> brief
+
+Okay, from now on I'll only describe a place in full the first time
+you come to it.  To get the full description, say "look".
+
+> frob grate
+
+Sorry, I don't know the word "frob".
+
+> read grate
+
+I see no grate here.
+
+> grate
+
+I don't know how to apply that word here.
+
+You're inside building.
+
+There are some keys on the ground here.
+
+There is a shiny brass lamp nearby.
+
+> pour bottle
+
+Your bottle is empty and the ground is wet.
+
+> fill bottle
+
+Your bottle is now full of water.
+
+> building
+
+I don't know how to apply that word here.
+
+You're inside building.
+
+There are some keys on the ground here.
+
+There is a shiny brass lamp nearby.
+
+> on
+
+Your lamp is now on.
+
+> pour bottle
+
+Your bottle is empty and the ground is wet.
+
+> xyzzy
+
+>>Foof!<<
+
+It is now pitch dark.  If you proceed you will likely fall into a pit.
+
+> take rod
+
+OK
+
+> wave rod
+
+Nothing happens.
+
+> listen
+
+All is silent.
+
+> quit
+
+Do you really want to quit now?
+
+> n
+
+OK
+
+> read
+
+Read what?
+
+> look
+
+It is now pitch dark.  If you proceed you will likely fall into a pit.
+
+> l
+
+It is now pitch dark.  If you proceed you will likely fall into a pit.
+
+> x
+
+It is now pitch dark.  If you proceed you will likely fall into a pit.
+
+> i
+
+You are currently holding the following:
+Black rod
+Small bottle
+
+> news
+
+Open Adventure is an author-approved open-source release of
+Version 2.5 with, as yet, no gameplay changes.
+Version 2.5 was essentially the same as Version II; the cave and the
+hazards therein are unchanged, and top score is still 430 points.
+There are a few more hints, especially for some of the more obscure
+puzzles.  There are a few minor bugfixes and cosmetic changes.  You
+can now save a game and resume it at once (formerly you had to wait a
+while first), but it now costs you a few points each time you save the
+game.  Saved games are now stored in much smaller files than before.
+
+> go back
+
+>>Foof!<<
+
+You're inside building.
+
+There are some keys on the ground here.
+
+There is a lamp shining nearby.
+
+> fuck
+
+Watch it!
+
+> walk
+
+Where?
+
+> fly
+
+Though you flap your arms furiously, it is to no avail.
+
+> say boo
+
+Okay, "boo".
+
+> score
+
+You have garnered 27 out of a possible 430 points, using 118 turns.
+
+> z
+
+OK
+
+> score
+
+You have garnered 27 out of a possible 430 points, using 120 turns.
+
+> quit keys
+
+Huh?
+
+> out
+
+You're in front of building.
+
+> s
+
+You're in valley.
+
+> s
+
+At your feet all the water of the stream splashes into a 2-inch slit
+in the rock.  Downstream the streambed is bare rock.
+
+> down
+
+You don't fit through a two-inch slit!
+
+You're at slit in streambed.
+
+> s
+
+You are in a 20-foot depression floored with bare dirt.  Set into the
+dirt is a strong steel grate mounted in concrete.  A dry streambed
+leads into the depression.
+
+The grate is locked.
+
+> in
+
+You can't go through a locked steel grate!
+
+You're outside grate.
+
+The grate is locked.
+
+> seed -123
+
+Seed set to -123
+
+You're outside grate.
+
+The grate is locked.
+
+> no
+
+OK
+
+Are you trying to get into the cave?
+
+> quit
+
+Please answer the question.
+
+Are you trying to get into the cave?
+
+> yes
+
+I am prepared to give you a hint, but it will cost you 2 points.
+
+Do you want the hint?
+

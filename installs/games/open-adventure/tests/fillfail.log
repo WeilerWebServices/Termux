@@ -1,0 +1,12 @@
+## Attempt to fill lamp, attempt to fill bottle with no source
+n
+in
+carry lamp
+carry bottle
+drop water
+carry bottle
+drink
+fill bottle
+xyzzy
+fill lamp
+fill bottle

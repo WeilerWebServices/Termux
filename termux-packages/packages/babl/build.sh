@@ -1,0 +1,10 @@
+TERMUX_PKG_HOMEPAGE=http://gegl.org/babl/
+TERMUX_PKG_DESCRIPTION="Dynamic pixel format translation library"
+TERMUX_PKG_LICENSE="LGPL-3.0"
+TERMUX_PKG_VERSION=0.1.74
+TERMUX_PKG_SRCURL=https://download.gimp.org/pub/babl/0.1/babl-$TERMUX_PKG_VERSION.tar.xz
+TERMUX_PKG_SHA256=9a710b6950da37ada94cd9e2046cbce26de12473da32a7b79b7d1432fc66ce0e
+TERMUX_PKG_DEPENDS="littlecms"
+TERMUX_PKG_BREAKS="babl-dev"
+TERMUX_PKG_REPLACES="babl-dev"
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-Denable-gir=false"

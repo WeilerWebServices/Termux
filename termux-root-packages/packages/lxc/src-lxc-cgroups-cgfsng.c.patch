@@ -1,0 +1,53 @@
+--- ./src/lxc/cgroups/cgfsng.c.orig	2020-04-07 13:18:11.768499944 +0200
++++ ./src/lxc/cgroups/cgfsng.c	2020-04-07 13:22:05.304800371 +0200
+@@ -348,7 +348,7 @@
+ 	ssize_t maxisol = 0, maxoffline = 0, maxposs = 0;
+ 	bool flipped_bit = false;
+ 
+-	fpath = must_make_path(parent_cgroup, "cpuset.cpus", NULL);
++	fpath = must_make_path(parent_cgroup, "cpus", NULL);
+ 	posscpus = read_file(fpath);
+ 	if (!posscpus)
+ 		return log_error_errno(false, errno, "Failed to read file \"%s\"", fpath);
+@@ -439,10 +439,10 @@
+ 
+ copy_parent:
+ 	if (!am_initialized) {
+-		ret = lxc_write_openat(child_cgroup, "cpuset.cpus", cpulist, strlen(cpulist));
++		ret = lxc_write_openat(child_cgroup, "cpus", cpulist, strlen(cpulist));
+ 		if (ret < 0)
+ 			return log_error_errno(false,
+-					       errno, "Failed to write cpu list to \"%s/cpuset.cpus\"",
++					       errno, "Failed to write cpu list to \"%s/cpus\"",
+ 					       child_cgroup);
+ 
+ 		TRACE("Copied cpu settings of parent cgroup");
+@@ -542,7 +542,7 @@
+ 	if (ret < 0)
+ 		return log_error_errno(-1, errno, "Failed to read file \"%s/cgroup.clone_children\"", child_cgroup);
+ 
+-	/* Make sure any isolated cpus are removed from cpuset.cpus. */
++	/* Make sure any isolated cpus are removed from cpus. */
+ 	if (!cg_legacy_filter_and_set_cpus(parent_cgroup, child_cgroup, v == '1'))
+ 		return log_error_errno(-1, errno, "Failed to remove isolated cpus");
+ 
+@@ -551,8 +551,8 @@
+ 		TRACE("\"cgroup.clone_children\" was already set to \"1\"");
+ 
+ 	/* copy parent's settings */
+-	if (!copy_parent_file(parent_cgroup, child_cgroup, "cpuset.mems"))
+-		return log_error_errno(-1, errno, "Failed to copy \"cpuset.mems\" settings");
++	if (!copy_parent_file(parent_cgroup, child_cgroup, "mems"))
++		return log_error_errno(-1, errno, "Failed to copy \"mems\" settings");
+ 
+ 	/* Set clone_children so children inherit our settings */
+ 	ret = lxc_writeat(cgroup_fd, "cgroup.clone_children", "1", 1);
+@@ -653,7 +653,7 @@
+ 	 * verify /sys/fs/cgroup/ in this field.
+ 	 */
+ 	if (strncmp(p, DEFAULT_CGROUP_MOUNTPOINT "/", 15) != 0)
+-		return log_error(NULL, "Found hierarchy not under " DEFAULT_CGROUP_MOUNTPOINT ": \"%s\"", p);
++		return log_warn(NULL, "Found hierarchy not under " DEFAULT_CGROUP_MOUNTPOINT ": \"%s\"", p);
+ 
+ 	p += 15;
+ 	p2 = strchr(p, ' ');

@@ -1,0 +1,30 @@
+# This is not a real Debian control file
+# It's project metadata for the shipper tool
+
+Package: open-adventure
+
+Description: Colossal Cave Adventure, the 1995 430-point version.
+ This is the last descendant of the original 1976 Colossal Cave Adventure
+ worked on by the original authors - Crowther & Woods.  It has sometimes
+ been known as Adventure 2.5.  The original PDP-10 name 'advent' is used
+ for the built program to avoid collision with the BSD Games version.
+
+XBS-Destinations: mailto:ubuntu-devel-discuss@lists.ubuntu.com
+
+Homepage: http://www.catb.org/~esr/open-adventure
+
+XBS-HTML-Target: index.html
+
+XBS-Repository-URL: https://gitlab.com/esr/open-adventure
+
+XBS-Debian-Packages: open-adventure
+
+XBS-IRC-Channel: irc://chat.freenode.net/#open-adventure
+
+XBS-Project-Tags: Games/Entertainment
+
+XBS-VC-Tag-Template: %(version)s
+
+XBS-Logo: lamp.png
+
+XBS-Validate: make check

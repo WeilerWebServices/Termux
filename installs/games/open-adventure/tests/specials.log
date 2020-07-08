@@ -1,0 +1,19 @@
+## Test special words
+n
+thank
+shazam
+help
+no
+tree
+dig
+lost
+mist
+fuck
+stop
+info
+swim
+wizard
+yes
+news
+# Too much of a PITA to edit the check file after every release bump.
+#version

@@ -1,0 +1,20 @@
+TERMUX_PKG_HOMEPAGE=https://sourceware.org/lvm2/
+TERMUX_PKG_DESCRIPTION="A device-mapper library from LVM2 package"
+TERMUX_PKG_LICENSE="GPL-2.0"
+TERMUX_PKG_VERSION=2.03.07
+TERMUX_PKG_SRCURL=https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.${TERMUX_PKG_VERSION}.tgz
+TERMUX_PKG_SHA256=c72f1095c82ca884c0f46c003a0da9b60b68554a8c913ca6c29d01fae04301e9
+TERMUX_PKG_DEPENDS="libandroid-support, libaio, readline"
+TERMUX_PKG_BREAKS="libdevmapper-dev"
+TERMUX_PKG_REPLACES="libdevmapper-dev"
+TERMUX_PKG_BUILD_IN_SRC=true
+
+termux_step_make() {
+	make -j"${TERMUX_MAKE_PROCESSES}" lib.device-mapper
+}
+
+termux_step_make_install() {
+	cd libdm
+	make install
+}
+

@@ -1,0 +1,14 @@
+## Try to carry bird without cage, then kill bird
+n
+seed 1071883378
+in
+take lamp
+rub lamp
+xyzzy
+on
+eat grate
+w
+w
+take bird
+# test intransitive attack on bird
+attack
