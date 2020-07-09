@@ -1,3 +1,5 @@
-function git_is_repo -d "Check if directory is a repository"
-  test -d .git; or command git rev-parse --git-dir >/dev/null 2> /dev/null
+function git_is_staged -d "Check if repo has staged changes"
+  git_is_repo; and begin
+    not command git diff --cached --no-ext-diff --quiet --exit-code
+  end
 end

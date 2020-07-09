@@ -1,5 +1,5 @@
-function git_is_staged -d "Check if repo has staged changes"
+function git_is_stashed -d "Check if repo has stashed contents"
   git_is_repo; and begin
-    not command git diff --cached --no-ext-diff --quiet --exit-code
+    command git rev-parse --verify --quiet refs/stash >/dev/null
   end
 end

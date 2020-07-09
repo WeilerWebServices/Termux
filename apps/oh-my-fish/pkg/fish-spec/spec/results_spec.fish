@@ -1,54 +1,39 @@
-function describe_assert_error_message
-  function before_each
-    set -g __current_spec_quiet
-  end
-
-  function after_each
-    set -e __current_spec_quiet
-  end
-
-  function it_has_no_output_when_the_test_succeeds
+function describe_results
+  function it_succeeds_when_single_assertion_succeeds
     assert 1 = 1
 
-    # Reset test status
-    set -e __current_spec_status
-
-    assert -z "$__current_spec_output"
+    assert success = "$__current_spec_status"
   end
 
-  function it_supports_unary_operators
-    assert -z "abc"
+  function it_succeeds_when_multiple_assertion_succeeds
+    assert 1 = 1
+    assert 2 = 2
 
-    # Reset test status
-    set -e __current_spec_status
-
-    assert 'Expected result to be empty but it was abc' = "$__current_spec_output"
+    assert success = "$__current_spec_status"
   end
 
-  function it_supports_binary_operators
+  function it_fails_when_single_assertion_fails
+    set -g __fish_spec_output "quiet"
+
     assert 1 = 2
+    set -l spec_status $__current_spec_status
 
-    # Reset test status
+    # Reset internals
     set -e __current_spec_status
 
-    assert 'Expected result to equals 1 but it was 2' = "$__current_spec_output"
+    assert error = "$spec_status"
   end
 
-  function it_supports_inversion_on_unary_operators
-    assert ! -z ""
+  function it_fails_when_one_of_the_assertions_fails
+    set -g __fish_spec_output "quiet"
 
-    # Reset test status
+    assert 1 = 2
+    assert 2 = 2
+    set -l spec_status $__current_spec_status
+
+    # Reset internals
     set -e __current_spec_status
 
-    assert 'Expected result to not be empty but it was ' = "$__current_spec_output"
-  end
-
-  function it_supports_inversion_on_binary_operators
-    assert ! 1 = 1
-
-    # Reset test status
-    set -e __current_spec_status
-
-    assert 'Expected result to not equals 1 but it was 1' = "$__current_spec_output"
+    assert error = "$spec_status"
   end
 end

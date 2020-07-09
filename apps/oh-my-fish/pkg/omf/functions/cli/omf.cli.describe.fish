@@ -1,14 +1,13 @@
-function omf.cli.channel
-  switch (count $argv)
-    case 0
-      omf.channel.get
+function omf.cli.describe -a package -d 'Show information about a package'
+  if set -l props (omf.index.stat $package description repository maintainer)
+    echo "Package: $package"
+    echo "Description: $props[1]"
+    echo "Repository: $props[2]"
+    echo "Maintainer: $props[3]"
 
-    case 1
-      omf.channel.set $argv
-
-    case '*'
-      echo (omf::err)"Invalid number of arguments"(omf::off) >&2
-      omf help channel
-      return $OMF_INVALID_ARG
+    return 0
   end
+
+  echo "Unable to locate package '$package'." >&2
+  return 1
 end

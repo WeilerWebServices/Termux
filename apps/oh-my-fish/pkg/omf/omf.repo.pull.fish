@@ -1,1 +1,1 @@
-functions/packages/omf.packages.name.fish
+functions/repo/omf.repo.pull.fish

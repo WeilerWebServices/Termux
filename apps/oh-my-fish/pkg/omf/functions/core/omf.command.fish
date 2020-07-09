@@ -1,11 +1,38 @@
-function omf.channel.set -a name
-  # If an argument is specified, set the update channel.
-  if begin; test -z "$name"; or not contains -- $name stable dev; end
-    echo (omf::err)"'$name' is not a valid channel."(omf::off) >&2
-    return 1
+function omf.command -d 'Lookup OMF command by name or alias' -a name
+  switch "$name"
+    case 'cd'
+      echo cd
+    case 'channel'
+      echo channel
+    case 'd' 'describe'
+      echo describe
+    case 'destroy'
+      echo destroy
+    case 'doctor'
+      echo doctor
+    case 'help'
+      echo help
+    case 'i' 'in' 'install' 'get'
+      echo install
+    case 'l' 'ls' 'list'
+      echo list
+    case 'n' 'new'
+      echo new
+    case 'reload'
+      echo reload
+    case 'r' 'rm' 'remove' 'uninstall'
+      echo remove
+    case 'repo' 'repositories'
+      echo repositories
+    case 's' 'search'
+      echo search
+    case 't' 'theme'
+      echo theme
+    case 'u' 'up' 'update'
+      echo update
+    case 'version'
+      echo version
+    case '*'
+      return $OMF_UNKNOWN_OPT
   end
-
-  echo $name > $OMF_CONFIG/channel
-  echo "Update channel set to "(omf::em)"$name"(omf::off)"."
-  echo "To switch to the latest $name version, run "(omf::em)"omf update"(omf::off)"."
 end

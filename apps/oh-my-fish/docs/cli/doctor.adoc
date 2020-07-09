@@ -1,4 +1,7 @@
-Uninstall Oh My Fish.
+Troubleshoot Oh My Fish.
 
 == USAGE
-  omf destroy
+  omf doctor
+
+== DESCRIPTION
+  Checks your environment and Oh My Fish install for any potential or common problems.

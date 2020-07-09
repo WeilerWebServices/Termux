@@ -1,1 +1,1 @@
-functions/packages/omf.packages.install.fish
+functions/packages/omf.packages.list.fish

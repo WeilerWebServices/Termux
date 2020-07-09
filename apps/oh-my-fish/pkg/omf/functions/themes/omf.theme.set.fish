@@ -1,63 +1,49 @@
-function omf.repo.pull
-
-  if test (count $argv) -eq 0
-    echo (omf::err)"omf.repo.pull takes a repository path as an argument."(omf::off) >&2
-    return $OMF_MISSING_ARG
+function omf.theme.set -a target_theme
+  if not test -d $OMF_PATH/themes/$target_theme
+    return $OMF_INVALID_ARG
   end
 
-  set -l repo_dir $argv[1]
-
-  function __omf.repo.git -V repo_dir
-    command git -C "$repo_dir" $argv
+  if test -f $OMF_CONFIG/theme
+    read current_theme < $OMF_CONFIG/theme
+    test "$target_theme" = "$current_theme"; and return 0
   end
 
-  set -l remote origin
-  if test (__omf.repo.git config --get remote.upstream.url)
-    set remote upstream
+  set -l prompt_filename "fish_prompt.fish"
+  set -l user_functions_path (omf.xdg.config_home)/fish/functions
+
+  mkdir -p "$user_functions_path"
+
+  if not omf.check.fish_prompt
+    echo (omf::err)"Conflicting prompt setting."(omf::off)
+    echo "Run "(omf::em)"omf doctor"(omf::off)" and fix issues before continuing."
+    return $OMF_INVALID_ARG
   end
 
-  set initial_branch (__omf.repo.git symbolic-ref -q --short HEAD);
-    or return 1
-  set initial_revision (__omf.repo.git rev-parse -q --verify HEAD);
-    or return 1
+  # Replace autoload paths of current theme with the target one
+  set -q current_theme
+    and autoload -e {$OMF_CONFIG,$OMF_PATH}/themes/$current_theme{,/functions}
+  set -l theme_path {$OMF_CONFIG,$OMF_PATH}/themes*/$target_theme{,/functions}
+  autoload $theme_path
 
-  # the refspec ensures that '$remote/master' gets updated
-  set -l refspec "refs/heads/master:refs/remotes/$remote/master"
-  __omf.repo.git fetch --quiet $remote $refspec;
-    or return 1
-
-  if test (__omf.repo.git rev-list --count master...FETCH_HEAD) -eq 0
-    return 2
+  # Find target theme's fish_prompt and link to user function path
+  for path in {$OMF_CONFIG,$OMF_PATH}/themes/$target_theme/$prompt_filename
+    if test -e $path
+      ln -sf $path $user_functions_path/$prompt_filename; and break
+    end
   end
 
-  if not __omf.repo.git diff --quiet
-    echo (omf::em)"Stashing your changes:"(omf::off)
-    __omf.repo.git status --short --untracked-files
-    __omf.repo.git stash save --include-untracked --quiet;
-      and set stashed
+  # Reload fish key bindings if reload is available and needed
+  functions -q __fish_reload_key_bindings
+    and test -e $OMF_CONFIG/key_bindings.fish -o -e $OMF_PATH/key_bindings.fish
+    and __fish_reload_key_bindings
+
+  # Load target theme's conf.d files
+  for conf in {$OMF_CONFIG,$OMF_PATH}/themes/$target_theme/conf.d/*.fish
+    source $conf
   end
 
-  if test "$initial_branch" != master
-    __omf.repo.git checkout master --quiet
-  end
-
-  if not __omf.repo.git merge --ff-only --quiet FETCH_HEAD
-    __omf.repo.git checkout $initial_branch
-    __omf.repo.git reset --hard $initial_revision
-    set -q stashed; and __omf.repo.git stash pop
-    return 1
-  end
-
-  if test "$initial_branch" != master
-    __omf.repo.git checkout $initial_branch --quiet
-  end
-
-  if set -q stashed
-    __omf.repo.git stash pop --quiet
-
-    echo (omf::em)"Restored your changes:"(omf::off)
-    __omf.repo.git status --short --untracked-files
-  end
+  # Persist the changes
+  echo "$target_theme" > "$OMF_CONFIG/theme"
 
   return 0
 end

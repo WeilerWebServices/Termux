@@ -1,1 +1,1 @@
-functions/packages/omf.packages.list.fish
+functions/packages/omf.packages.name.fish

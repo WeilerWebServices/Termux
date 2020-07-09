@@ -1,6 +1,3 @@
-function git_branch_name -d "Get current branch name"
-  git_is_repo; and begin
-    command git symbolic-ref --short HEAD 2> /dev/null;
-      or command git show-ref --head -s --abbrev | head -n1 2> /dev/null
-  end
+function git_is_dirty -d "Check if there are changes to tracked files"
+  git_is_repo; and not command git diff --no-ext-diff --quiet --exit-code
 end

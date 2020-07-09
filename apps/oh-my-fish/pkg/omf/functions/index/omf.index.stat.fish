@@ -1,94 +1,64 @@
-function omf.index.repositories -d 'Manage package repositories'
-  # List repositories by default.
-  if not set -q argv[1]
-    set argv[1] list
+function omf.index.stat -a name -d 'Get package properties'
+  if test -z "$name"
+    return 1
   end
 
-  switch $argv[1]
-    case help --help -h
-      omf help repositories
-      return
+  set -e argv[1]
+  set -l properties $argv
+  set -l package_file
 
-    case list ls
-      for file in {$OMF_PATH,$OMF_CONFIG}/repositories
-        if test -f $file
-          command cat $file
-        end
-      end
+  # Find the package definition file.
+  set -l package_files (omf.index.path)/*/packages/$name
 
-    case add
-      if set -q argv[2]
-        set repo_url $argv[2]
-      else
-        echo "URL not specified" >&2
-        return 1
-      end
-
-      if set -q argv[3]
-        set repo_branch $argv[3]
-      else
-        set repo_branch master
-      end
-
-      set -l repo "$repo_url $repo_branch"
-
-      # Check if we already have the repository.
-      if test -f $OMF_CONFIG/repositories
-        if command grep -q $repo $OMF_CONFIG/repositories
-          echo "The repository is already added." >&2
-          return 1
-        end
-      end
-
-      if command grep -q $repo $OMF_PATH/repositories
-        echo "The repository is already added." >&2
-        return 1
-      end
-
-      # Before we add, do a quick ls-remote to see if the URL is a valid repo.
-      if not command git ls-remote --exit-code $repo_url refs/heads/$repo_branch > /dev/null 2>&1
-        echo "The remote repository could not be found." >&2
-        return 1
-      end
-
-      echo "$repo" >> $OMF_CONFIG/repositories
-
-    case rm remove
-      if set -q argv[2]
-        set repo_url $argv[2]
-      else
-        echo "URL not specified" >&2
-        return 1
-      end
-
-      if set -q argv[3]
-        set repo_branch $argv[3]
-      else
-        set repo_branch master
-      end
-
-      set -l repo "$repo_url $repo_branch"
-
-      # Check to see if user has repositories and if the given URL is listed.
-      if test -f $OMF_CONFIG/repositories
-        if command grep -q $repo $OMF_CONFIG/repositories
-          command grep -v $repo $OMF_CONFIG/repositories > $OMF_CONFIG/repositories.swp
-          command mv $OMF_CONFIG/repositories.swp $OMF_CONFIG/repositories
-
-          return
-        end
-      end
-
-      # The given URL is not listed, check if it is a built-in repository they can't remove.
-      if command grep -q $repo $OMF_PATH/repositories
-        echo "The repository '$repo' is built-in and cannot be removed." >&2
-      else
-        echo "Could not find user repository '$repo'" >&2
-      end
-      return 1
-
-    case '*'
-      echo "Unknown command '$argv[1]'" >&2
-      return 1
+  if set -q package_files[1]
+    set package_file $package_files[1]
+  else
+    return 1
   end
+
+  # If no properties are specified, output all properties with names.
+  if not set -q properties[1]
+    command cat $package_file
+    return
+  end
+
+  # Find only the values of the properties requested.
+  command awk '
+    BEGIN {
+      FS = "[ \t]*=[ \t]*";
+
+      # Set default values for certain properties.
+      defaults["type"] = "plugin";
+
+      # Get the list of properties to display.
+      for (i = 2; i < ARGC; i++) {
+        properties[i - 1] = ARGV[i];
+        delete ARGV[i];
+        count++;
+      }
+    }
+
+    !/^#/ {
+      # Store the property value.
+      values[$1] = $2;
+    }
+
+    END {
+      # Print out each requested property.
+      for (i = 1; i <= count; i++) {
+        property = properties[i];
+
+        if (property in values) {
+          # If the property was set, print it out.
+          print values[property];
+        } else if (property in defaults) {
+          # If the property was not set and has a default value, print it out.
+          print defaults[property];
+        } else {
+          # Print a blank line if the property was not found.
+          print "";
+        }
+      }
+    }
+  ' - $properties < $package_file
 end

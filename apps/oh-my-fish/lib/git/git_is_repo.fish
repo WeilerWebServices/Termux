@@ -1,3 +1,3 @@
-function git_is_dirty -d "Check if there are changes to tracked files"
-  git_is_repo; and not command git diff --no-ext-diff --quiet --exit-code
+function git_is_repo -d "Check if directory is a repository"
+  test -d .git; or command git rev-parse --git-dir >/dev/null 2> /dev/null
 end

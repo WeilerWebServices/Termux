@@ -1,12 +1,7 @@
-function omf.cli.list
-  switch (count $argv)
-  case 0
-    echo (set_color -u)Plugins(set_color normal)
-    omf.packages.list --plugin | column
-    echo
-    echo (set_color -u)Themes(set_color normal)
-    omf.packages.list --theme | column
-  case '*'
-    omf.packages.list $argv | column
+function omf.cli.new
+  if test (count $argv) -ne 2
+    echo (omf::err)"Package type or name missing"(omf::off) >&2
+    return $OMF_MISSING_ARG
   end
+  omf.packages.new $argv
 end

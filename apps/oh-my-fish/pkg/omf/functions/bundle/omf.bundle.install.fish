@@ -1,19 +1,31 @@
-function omf.bundle.add -a type name_or_url
-  set -l bundle $OMF_CONFIG/bundle
-
-  if test -L $OMF_CONFIG/bundle
-    set bundle (readlink $OMF_CONFIG/bundle)
-  end
-
-  set -l record "$type $name_or_url"
+function omf.bundle.install
+  test -n "$argv";
+    and set bundle $argv
+    or set bundle $OMF_CONFIG/bundle
 
   if test -f $bundle
-    if not grep $record $bundle > /dev/null 2>&1
-      echo $record >> $bundle
+    set packages (omf.packages.list)
+    set bundle_contents (cat $bundle | sort -u)
+
+    for record in $bundle_contents
+      test -n "$record"; or continue
+
+      set type (echo $record | cut -s -d' ' -f1 | sed 's/ //g')
+      contains $type theme package; or continue
+
+      set name_or_url (echo $record | cut -s -d' ' -f2- | sed 's/ //g')
+      test -n "$name_or_url"; or continue
+
+      set name (omf.packages.name $name_or_url)
+
+      if not contains $name $packages
+        omf.packages.install $name_or_url;
+          or set error
+      end
     end
-  else
-    echo $record > $bundle
+
+    sort -u $bundle -o $bundle
   end
 
-  sort -u $bundle -o $bundle
+  not set -q error
 end

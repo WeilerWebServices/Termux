@@ -1,21 +1,43 @@
-The MIT License (MIT)
+<img src="https://cdn.rawgit.com/oh-my-fish/oh-my-fish/e4f1c2e0219a17e2c748b824004c8d0b38055c16/docs/logo.svg" align="left" width="144px" height="144px"/>
 
-Copyright (c) {{YEAR}} {{USER_NAME}}
+#### {{NAME}}
+> A theme for [Oh My Fish][omf-link].
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+[![MIT License](https://img.shields.io/badge/license-MIT-007EC7.svg?style=flat-square)](/LICENSE)
+[![Fish Shell Version](https://img.shields.io/badge/fish-v3.0.0-007EC7.svg?style=flat-square)](https://fishshell.com)
+[![Oh My Fish Framework](https://img.shields.io/badge/Oh%20My%20Fish-Framework-007EC7.svg?style=flat-square)](https://www.github.com/oh-my-fish/oh-my-fish)
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+<br/>
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+
+## Install
+
+```fish
+$ omf install {{NAME}}
+```
+
+
+## Features
+
+* Lorem ipsum dolor sit amet.
+* Consectetur adipisicing elit.
+
+
+## Screenshot
+
+<p align="center">
+<img src="{{SCREENSHOT_URL}}">
+</p>
+
+
+# License
+
+[MIT][mit] © [{{USER_NAME}}][author] et [al][contributors]
+
+
+[mit]:            https://opensource.org/licenses/MIT
+[author]:         https://github.com/{{GITHUB_USER}}
+[contributors]:   https://github.com/{{GITHUB_USER}}/theme-{{NAME}}/graphs/contributors
+[omf-link]:       https://www.github.com/oh-my-fish/oh-my-fish
+
+[license-badge]:  https://img.shields.io/badge/license-MIT-007EC7.svg?style=flat-square

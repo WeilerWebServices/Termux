@@ -1,39 +1,10 @@
-function describe_results
-  function it_succeeds_when_single_assertion_succeeds
-    assert 1 = 1
+#include <stdio.h>
+#include <sys/time.h>
 
-    assert success = "$__current_spec_status"
-  end
+int main(int argc, char** argv) {
+  struct timeval time_struct;
+  gettimeofday(&time_struct, 0);
+  printf("%lld", (time_struct.tv_sec * 1000ll) + (time_struct.tv_usec / 1000ll));
 
-  function it_succeeds_when_multiple_assertion_succeeds
-    assert 1 = 1
-    assert 2 = 2
-
-    assert success = "$__current_spec_status"
-  end
-
-  function it_fails_when_single_assertion_fails
-    set -g __fish_spec_output "quiet"
-
-    assert 1 = 2
-    set -l spec_status $__current_spec_status
-
-    # Reset internals
-    set -e __current_spec_status
-
-    assert error = "$spec_status"
-  end
-
-  function it_fails_when_one_of_the_assertions_fails
-    set -g __fish_spec_output "quiet"
-
-    assert 1 = 2
-    assert 2 = 2
-    set -l spec_status $__current_spec_status
-
-    # Reset internals
-    set -e __current_spec_status
-
-    assert error = "$spec_status"
-  end
-end
+  return 0;
+}

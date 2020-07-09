@@ -1,3 +1,3 @@
-function fish_prompt
-  # Customize fish prompt
+function fish_right_prompt
+  # Customize the right prompt
 end

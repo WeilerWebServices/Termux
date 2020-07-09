@@ -1,5 +1,5 @@
-function omf.xdg.config_home -d "Return the config directory based on XDG specs"
-  set -q XDG_CONFIG_HOME;
-    and echo "$XDG_CONFIG_HOME";
-    or echo "$HOME/.config"
+function omf.index.path -d 'Get the path to the local package index'
+  set -q XDG_CACHE_HOME
+    and echo "$XDG_CACHE_HOME/omf"
+    or echo "$HOME/.cache/omf"
 end

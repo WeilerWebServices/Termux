@@ -1,9 +1,14 @@
-Reload the current shell.
+Remove a package.
 
 == USAGE
-  omf reload
+  omf remove <package>
 
 == DESCRIPTION
-Reload Oh My Fish and all plugins by using `exec` to replace current shell process with a brand new process.
+Removes an installed package identified by <package>.
 
-This command tries to be as safe as possible, mitigating side-effects caused by exec and preventing the reload in case of background processes.
+== EXAMPLES
+  omf remove brew
+  omf remove l
+
+== ALIASES
+*omf r*, *omf rm*, *omf uninstall*

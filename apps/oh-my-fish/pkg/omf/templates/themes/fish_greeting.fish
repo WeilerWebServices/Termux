@@ -1,3 +1,3 @@
-function {{NAME}} -d "My package"
-  # Package entry-point
+function fish_greeting
+  # Customize fish greeting message
 end

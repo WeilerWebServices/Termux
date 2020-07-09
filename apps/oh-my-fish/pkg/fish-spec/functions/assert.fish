@@ -1,10 +1,9 @@
-function assert.expand_operator -a operator
-  switch $operator
-    case =
-      echo equals
-    case \-z
-      echo empty
-    case \*
-      echo $operator
+function assert --wraps test
+  if builtin test $argv
+    emit assertion_success
+  else
+    set -l assertion_status $status
+    emit assertion_error (assert.error_message $argv)
+    return $assertion_status
   end
 end

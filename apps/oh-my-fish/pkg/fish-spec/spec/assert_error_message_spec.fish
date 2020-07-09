@@ -1,67 +1,54 @@
-function fish-spec
-  set -g __fish_spec_dir (dirname (dirname (status -f)))
-
-  # Source formatter
-  source $__fish_spec_dir/basic_formatter.fish
-
-  # Reset internal variables
-  set -e __any_spec_failed
-
-  # Load each spec file
-  for spec_file in spec/*_spec.fish
-    source $spec_file
+function describe_assert_error_message
+  function before_each
+    set -g __current_spec_quiet
   end
 
-  # Load helper file
-  source spec/helper.fish 2> /dev/null
-
-  emit all_specs_init
-
-  # Run all specs
-  __fish-spec.run_all_specs
-
-  emit all_specs_finished
-
-  not set -q __any_spec_failed
-end
-
-function __fish-spec.run_all_specs
-  for suite in (functions -n | grep describe_)
-    __fish-spec.run_suite $suite
-    functions -e $suite
-  end
-end
-
-function __fish-spec.run_suite -a suite_name
-  # This gets the list of specs that were defined on the test suite by
-  # comparing the functions names before and after the evaluation of the test suite.
-  set -l specs (begin
-    functions -n | grep it_
-    eval $suite_name >/dev/null
-    functions -n | grep it_
-  end | sort | uniq -u)
-
-  functions -q before_all; and before_all
-
-  for spec in $specs
-    emit spec_init $spec
-    functions -q before_each; and before_each
-    eval $spec
-    functions -q after_each; and after_each
-    emit spec_finished $spec
+  function after_each
+    set -e __current_spec_quiet
   end
 
-  functions -q after_all; and after_all
+  function it_has_no_output_when_the_test_succeeds
+    assert 1 = 1
 
-  functions -e before_all before_each after_each after_all
-end
+    # Reset test status
+    set -e __current_spec_status
 
-function __fish-spec.current_time
-  if test (uname) = 'Darwin'
-    set filename 'epoch.osx'
-  else
-    set filename 'epoch.linux'
+    assert -z "$__current_spec_output"
   end
 
-  eval $__fish_spec_dir/utils/$filename
+  function it_supports_unary_operators
+    assert -z "abc"
+
+    # Reset test status
+    set -e __current_spec_status
+
+    assert 'Expected result to be empty but it was abc' = "$__current_spec_output"
+  end
+
+  function it_supports_binary_operators
+    assert 1 = 2
+
+    # Reset test status
+    set -e __current_spec_status
+
+    assert 'Expected result to equals 1 but it was 2' = "$__current_spec_output"
+  end
+
+  function it_supports_inversion_on_unary_operators
+    assert ! -z ""
+
+    # Reset test status
+    set -e __current_spec_status
+
+    assert 'Expected result to not be empty but it was ' = "$__current_spec_output"
+  end
+
+  function it_supports_inversion_on_binary_operators
+    assert ! 1 = 1
+
+    # Reset test status
+    set -e __current_spec_status
+
+    assert 'Expected result to not equals 1 but it was 1' = "$__current_spec_output"
+  end
 end

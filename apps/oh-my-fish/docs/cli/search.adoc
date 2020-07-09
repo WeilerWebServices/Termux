@@ -1,29 +1,22 @@
-Manage user-installed package repositories.
+Search for a plugin or theme.
 
 == USAGE
-  omf repositories [list | ls]
-  omf repositories add <url> [<branch>]
-  omf repositories (rm | remove) <url> [<branch>]
+  omf search [options] <pattern>
 
 == DESCRIPTION
-Provides commands for viewing and managing package repositories for the current user.
+  Search all installed package repositories for plugins and themes whose name or description matches the regular expression <pattern>. Patterns use the POSIX ERE syntax.
 
-Package repositories are where named packages come from used by commands like `omf install`. By default the official repository is always installed and available.
+== OPTIONS
+-p, --plugin::
+  Limit results to plugins.
 
-== SUBCOMMANDS
-list, ls::
-  List installed repositories.
-
-add::
-  Add a package repository located at <url>. If <branch> is not specified, the default branch of `master` is assumed.
-
-remove, rm::
-  Remove a package repository.
+-t, --theme::
+  Limit results to themes.
 
 == EXAMPLES
-  omf repositories
-  omf repositories add https://github.com/vendor/fish-packages
-  omf repositories rm https://github.com/vendor/fish-packages master
+  omf search -p nvm
+  omf search -t bobthefish
+  omf search '^gi.*$'
 
 == ALIASES
-*omf repo*
+*omf s*

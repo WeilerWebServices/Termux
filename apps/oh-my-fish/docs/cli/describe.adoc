@@ -1,16 +1,22 @@
-Get or change the update channel.
+Show information about a package.
 
 == USAGE
-  omf channel         Print the currently selected update channel
-  omf channel <name>  Switch to the given update channel
+  omf describe <name>
 
 == DESCRIPTION
-Two channels are available by default: the _stable_ channel provides stable
-updates with the latest tagged version of Oh My Fish, and _dev_ which provides
-the latest changes under development. The update channel currently set
-determines what version *omf update* will upgrade to.
+Looks up a package whose name matches <name>.
 
 == EXAMPLES
-  omf channel
-  omf channel stable
-  omf channel dev
+Show information about the *brew* package:
+
+  omf describe brew
+
+We get the following output:
+
+  Package: brew
+  Description: Oh My Fish plugin to integrate Homebrew paths into shell.
+  Repository: https://github.com/oh-my-fish/plugin-brew
+  Maintainer:
+
+== ALIASES
+*omf d*

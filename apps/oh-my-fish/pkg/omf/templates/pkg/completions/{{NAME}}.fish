@@ -1,4 +1,7 @@
-# {{NAME}} uninstall hook
+# Always provide completions for command line utilities.
 #
-# You can use this file to do custom cleanup when the package is uninstalled.
-# You can use the variable $path to access the package path.
+# Check Fish documentation about completions:
+# http://fishshell.com/docs/current/commands.html#complete
+#
+# If your package doesn't provide any command line utility,
+# feel free to remove completions directory from the project.

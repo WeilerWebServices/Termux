@@ -1,101 +1,94 @@
-function omf.index.query -d 'Query packages in the index'
-  set -l q_type any
-  set -l q_name ''
-  set -l q_text ''
+function omf.index.repositories -d 'Manage package repositories'
+  # List repositories by default.
+  if not set -q argv[1]
+    set argv[1] list
+  end
 
-  # Parse search terms.
-  for arg in $argv
-    switch "$arg"
-      case '--type=any'
-        set q_type any
-      case '--type=plugin'
-        set q_type plugin
-      case '--type=theme'
-        set q_type theme
-      case '--name=*'
-        set -l IFS '='
-        echo "$arg" | read dummy q_name
-      case '--text=*'
-        set -l IFS '='
-        echo "$arg" | read dummy q_text
-      case '*'
-        echo "Invalid search term: '$arg'" >&2
+  switch $argv[1]
+    case help --help -h
+      omf help repositories
+      return
+
+    case list ls
+      for file in {$OMF_PATH,$OMF_CONFIG}/repositories
+        if test -f $file
+          command cat $file
+        end
+      end
+
+    case add
+      if set -q argv[2]
+        set repo_url $argv[2]
+      else
+        echo "URL not specified" >&2
         return 1
-    end
+      end
+
+      if set -q argv[3]
+        set repo_branch $argv[3]
+      else
+        set repo_branch master
+      end
+
+      set -l repo "$repo_url $repo_branch"
+
+      # Check if we already have the repository.
+      if test -f $OMF_CONFIG/repositories
+        if command grep -q $repo $OMF_CONFIG/repositories
+          echo "The repository is already added." >&2
+          return 1
+        end
+      end
+
+      if command grep -q $repo $OMF_PATH/repositories
+        echo "The repository is already added." >&2
+        return 1
+      end
+
+      # Before we add, do a quick ls-remote to see if the URL is a valid repo.
+      if not command git ls-remote --exit-code $repo_url refs/heads/$repo_branch > /dev/null 2>&1
+        echo "The remote repository could not be found." >&2
+        return 1
+      end
+
+      echo "$repo" >> $OMF_CONFIG/repositories
+
+    case rm remove
+      if set -q argv[2]
+        set repo_url $argv[2]
+      else
+        echo "URL not specified" >&2
+        return 1
+      end
+
+      if set -q argv[3]
+        set repo_branch $argv[3]
+      else
+        set repo_branch master
+      end
+
+      set -l repo "$repo_url $repo_branch"
+
+      # Check to see if user has repositories and if the given URL is listed.
+      if test -f $OMF_CONFIG/repositories
+        if command grep -q $repo $OMF_CONFIG/repositories
+          command grep -v $repo $OMF_CONFIG/repositories > $OMF_CONFIG/repositories.swp
+          command mv $OMF_CONFIG/repositories.swp $OMF_CONFIG/repositories
+
+          return
+        end
+      end
+
+      # The given URL is not listed, check if it is a built-in repository they can't remove.
+      if command grep -q $repo $OMF_PATH/repositories
+        echo "The repository '$repo' is built-in and cannot be removed." >&2
+      else
+        echo "Could not find user repository '$repo'" >&2
+      end
+      return 1
+
+    case '*'
+      echo "Unknown command '$argv[1]'" >&2
+      return 1
   end
-
-  # Put all packages into a list.
-  set -l packages (omf.index.path)/*/packages/*
-
-  # If there are no packages, there is nothing to search.
-  if not set -q packages[1]
-    return 1
-  end
-
-  # Perform a text search if any filters were given.
-  if set -q argv[1]
-    set results (command awk -v "q_type=$q_type" -v "q_name=$q_name" -v "q_text=$q_text" '
-      function flush() {
-        if (package && type_matches && name_matches && text_matches) {
-          print package;
-        }
-      }
-
-      BEGIN {
-        FS = "[ \t]*=[ \t]*";
-        q_name = tolower(q_name);
-        q_text = tolower(q_text);
-      }
-
-      FNR == 1 {
-        flush();
-
-        if (q_type == "any") {
-          type_matches = 1;
-        } else {
-          type_matches = 0;
-        }
-        name_matches = 0;
-        text_matches = 0;
-
-        package = parts[split(FILENAME, parts, "/")];
-
-        if (match(package, q_name)) {
-          name_matches = 1;
-        }
-
-        if (match(package, q_text)) {
-          text_matches = 1;
-        }
-      }
-
-      !type_matches && !/^#/ && $1 == "type" && $2 == q_type {
-        type_matches = 1;
-      }
-
-      !text_matches && !/^#/ && $1 == "description" {
-        if (match(tolower($2), q_text)) {
-          text_matches = 1;
-        }
-      }
-
-      END {
-        flush();
-      }
-    ' $packages)
-  else
-    # No filters, just list all package names.
-    set results (for package in $packages
-      command basename $package
-    end)
-  end
-
-  if not set -q results[1]
-    return 1
-  end
-
-  # Sort results alphabetically.
-  for result in $results
-    echo $result
-  end | command sort -d
 end

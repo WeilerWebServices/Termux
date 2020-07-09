@@ -1,64 +1,62 @@
-function omf.index.stat -a name -d 'Get package properties'
-  if test -z "$name"
-    return 1
+function omf.index.update -d 'Update package indexes'
+  # Only update if the index is missing.
+  if contains -- --if-missing $argv
+    set -l paths (omf.index.path)/*
+
+    if set -q paths[1]
+      return 0
+    end
   end
 
-  set -e argv[1]
-  set -l properties $argv
-  set -l package_file
-
-  # Find the package definition file.
-  set -l package_files (omf.index.path)/*/packages/$name
-
-  if set -q package_files[1]
-    set package_file $package_files[1]
-  else
-    return 1
+  # Find repository lists.
+  for list in {$OMF_PATH,$OMF_CONFIG}/repositories
+    test -f $list
+      and set lists $lists $list
   end
 
-  # If no properties are specified, output all properties with names.
-  if not set -q properties[1]
-    command cat $package_file
-    return
-  end
-
-  # Find only the values of the properties requested.
-  command awk '
-    BEGIN {
-      FS = "[ \t]*=[ \t]*";
-
-      # Set default values for certain properties.
-      defaults["type"] = "plugin";
-
-      # Get the list of properties to display.
-      for (i = 2; i < ARGC; i++) {
-        properties[i - 1] = ARGV[i];
-        delete ARGV[i];
-        count++;
-      }
-    }
-
-    !/^#/ {
-      # Store the property value.
-      values[$1] = $2;
-    }
-
-    END {
-      # Print out each requested property.
-      for (i = 1; i <= count; i++) {
-        property = properties[i];
-
-        if (property in values) {
-          # If the property was set, print it out.
-          print values[property];
-        } else if (property in defaults) {
-          # If the property was not set and has a default value, print it out.
-          print defaults[property];
-        } else {
-          # Print a blank line if the property was not found.
-          print "";
+  # Read the configured repositories from the lists.
+  if set -q lists[1]
+    set repositories (command awk '
+      {
+        dir = $1 "_" $2;
+        gsub(/[ \/:@]/, "_", dir);
+        if (!visited[dir]++) {
+          print $1 "\n" $2 "\n" dir;
         }
       }
-    }
-  ' - $properties < $package_file
+    ' $lists)
+  end
+
+  # Update repositories.
+  while set -q repositories[1]
+    set -l url $repositories[1]
+    set -l branch $repositories[2]
+    set -l path (omf.index.path)/$repositories[3]
+    set valid_paths $valid_paths $path
+
+    echo -n "Updating $url $branch... "
+    if begin
+        if not test -d $path
+          command git clone --quiet --depth 1 --branch $branch $url $path
+        else
+          command git -C $path pull --quiet
+        end
+      end
+      echo "Done!"
+    else
+      echo "Error"
+      return 1
+    end
+
+    set -e repositories[1..3]
+  end
+
+  # Remove repositories not in the lists.
+  for path in (omf.index.path)/*
+    if not contains -- $path $valid_paths
+      command rm -rf $path
+    end
+  end
+
+  return 0
 end

@@ -1,3 +1,22 @@
-function omf.check.version -a min_version -a current_version
-  test (echo "$min_version"\n"$current_version" | tr '.' ' ' | sort -n | head -n1) = (echo "$min_version" | tr '.' ' ')
+function describe_basic_tests
+  function before_all
+    set -gx CI WORKAROUND
+  end
+
+  function it_has_a_help_command
+    set -l output (omf help)
+    assert 0 = $status
+  end
+
+  function it_has_a_doctor_command
+    set -l output (omf doctor)
+    assert 0 = $status
+  end
+
+  function it_install_packages
+    set -l remove_output  (omf remove apt 2> /dev/null)
+    set -l install_output (omf install apt)
+
+    assert 0 = $status
+  end
 end

@@ -1,57 +1,88 @@
-<img src="https://cdn.rawgit.com/oh-my-fish/oh-my-fish/e4f1c2e0219a17e2c748b824004c8d0b38055c16/docs/logo.svg" align="left" width="128px" height="128px"/>
-<img align="left" width="0" height="128px"/>
+function require
+  set packages $argv
 
-# Core Library
+  if test -z "$packages"
+    echo 'usage: require <name>...'
+    echo '       require --path <path>...'
+    echo '       require --no-bundle --path <path>...'
+    return 1
+  end
 
-> Oh My Fish Documentation
+  # If bundle should be
+  if set index (contains -i -- --no-bundle $packages)
+    set -e packages[$index]
+    set ignore_bundle
+  end
 
-<br>
+  # Requiring absolute paths
+  if set index (contains -i -- --path $packages)
+    set -e packages[$index]
+    set package_path $packages
 
-#### `require` _`[--no-bundle] <name>...`_
-#### `require` _`[--no-bundle] --path <path>...`_
+  # Requiring specific packages from default paths
+  else
+    set package_path {$OMF_PATH,$OMF_CONFIG}/pkg*/$packages
 
-Does initialization of Oh My Fish compatible packages:
+    # Exit with error if no package paths were generated
+    test -z "$package_path"
+      and return 1
+  end
 
-* Autoload function and completion paths
-* Source key bindings
-* Require dependencies from `bundle`
-* Source `init.fish` file
+  set function_path $package_path/functions*
+  set complete_path $package_path/completions*
+  set init_path $package_path/init.fish*
+  set conf_path $package_path/conf.d/*.fish
 
-`require` support packages in the following directory structure:
+  # Autoload functions
+  test -n "$function_path"
+    and set fish_function_path $fish_function_path[1] \
+                               $function_path \
+                               $fish_function_path[2..-1]
 
-```
-functions/
-completions/
-bundle
-init.fish
-key_bindings.fish
-```
+  # Autoload completions
+  test -n "$complete_path"
+    and set fish_complete_path $fish_complete_path[1] \
+                               $complete_path \
+                               $fish_complete_path[2..-1]
 
-When using the form `require <name>...`, the search path for packages is
-`$OMF_CONFIG` and `$OMF_PATH`. It's also possible to require directories
-using `--path` switch. To ignore dependency loading you can also use
-`--no-bundle` switch
+  for init in $init_path
+    emit perf:timer:start $init
+    set -l IFS '/'
+    echo $init | read -la components
 
-This function is the base of Oh My Fish framework, being responsible for
-the major part of framework's own startup code.
+    set path (printf '/%s' $components[1..-2])
 
-#### `autoload` _`[-e] <path>...`_
+    contains $path $omf_init_path
+      and continue
 
-Manipulate [autoloading] path components.
+    set package $components[-2]
 
-All paths ending with `completions` are correctly added to or erased from
-`$fish_complete_path`.
+    if not set -q ignore_bundle
+      set bundle $path/bundle
+      set dependencies
 
-To add paths to autoload:
+      if test -f $bundle
+        set -l IFS ' '
+        while read -l type dependency
+          test "$type" != package
+            and continue
+          require "$dependency"
+          set dependencies $dependencies $dependency
+        end < $bundle
+      end
+    end
 
-```fish
-autoload $mypath $mypath/completions
-```
+    source $init $path
 
-To erase paths from autoload:
+    emit init_$package $path
 
-```fish
-autoload -e $mypath $mypath/completions
-```
+    set -g omf_init_path $omf_init_path $path
+    emit perf:timer:finish $init
+  end
 
-[autoloading]: http://fishshell.com/docs/current/index.html#syntax-function-autoloading
+  for conf in $conf_path
+    source $conf
+  end
+
+  return 0
+end

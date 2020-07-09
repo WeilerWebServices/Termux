@@ -1,14 +1,14 @@
-List installed packages.
+Create a new package from a template.
 
 == USAGE
-  omf list [options]
+  omf new (_plugin_ | _theme_) <name>
 
-== OPTIONS
--p, --plugin::
-  Only list plugins.
+== DESCRIPTION
+Creates a new package skeleton under `$OMF_CONFIG` named <name>. The type of package is determined by the first argument.
 
--t, --theme::
-  Only list themes.
+== EXAMPLES
+  omf new plugin myplugin
+  omf new theme mytheme
 
 == ALIASES
-*omf l*, *omf ls*
+*omf n*

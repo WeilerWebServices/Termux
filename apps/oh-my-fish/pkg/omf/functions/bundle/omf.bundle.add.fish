@@ -1,51 +1,19 @@
-function omf -d "Oh My Fish"
-  # Parse any options before the command name.
-  while set -q argv[1]
-    switch $argv[1]
-      case '-h' '--help'
-        set command help
+function omf.bundle.add -a type name_or_url
+  set -l bundle $OMF_CONFIG/bundle
 
-      case '-v' '--version'
-        set command version
+  if test -L $OMF_CONFIG/bundle
+    set bundle (readlink $OMF_CONFIG/bundle)
+  end
 
-      case '-*'
-        echo (omf::err)"Unknown option: $argv[1]"(omf::off) >&2
-        return $OMF_UNKNOWN_OPT
+  set -l record "$type $name_or_url"
 
-      case '*'
-        break
+  if test -f $bundle
+    if not grep $record $bundle > /dev/null 2>&1
+      echo $record >> $bundle
     end
-
-    set -e argv[1]
+  else
+    echo $record > $bundle
   end
 
-  # Also extract a help flag from the last argument.
-  switch "$argv[-1]"
-    case '-h' '--help'
-      set command help
-      set -e argv[-1]
-  end
-
-  # Extract the command name from the remaining arguments.
-  if not set -q command
-    if set -q argv[1]
-      set command $argv[1]
-      set -e argv[1]
-    else
-      set command help
-    end
-  end
-
-  # Lookup the function for the requested command.
-  if not set command_name (omf.command $command)
-    echo (omf::err)"Unknown command: $command"(omf::off) >&2
-    return $OMF_UNKNOWN_OPT
-  end
-
-  # Execute the command.
-  echo "function __omf_last_command --no-scope-shadowing
-    omf.cli.$command_name \$argv
-  end" | source
-
-  __omf_last_command $argv
+  sort -u $bundle -o $bundle
 end

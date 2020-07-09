@@ -1,3 +1,3 @@
-function omf.cli.destroy
-  omf.destroy
+function omf.cli.doctor
+  omf.doctor
 end

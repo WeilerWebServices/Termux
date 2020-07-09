@@ -1,3 +1,3 @@
-function fish_greeting
-  # Customize fish greeting message
+function fish_prompt
+  # Customize fish prompt
 end
