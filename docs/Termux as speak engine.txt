@@ -1,16 +1,13 @@
-echo -e "\#\# Move to sdcard Apps folder \#\#
-mkdir /sdcard/Apps
-cd /sdcard/Apps  this command used for changing the dirctory to sdcard";
-
-echo Clone Termux-speak
-
-git clone https://github.com/TechnicalMujeeb/Termux-speak
+echo -e "\#\# Move to sdcard \#\#
+.cd /sdcard  this command used for changing the dirctory to sdcard";
+echo -e "git clone https://github.com/TechnicalMujeeb/Termux-speak
 cd Termux-speak
-chmod +x install.sh
-bash install.sh
+chmod +x *
+sh install.sh
 
-echo  usage
-python3 t-speak.py
+
+\# usage \#
+python2 t-speak.py
 
 \# select option 2 \#
 \# Enter Your Text to speak. \#
