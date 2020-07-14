@@ -1,15 +1,10 @@
-
 # Termux-Games
-# Coded by: Khansaad1275 (You dont become a coder by just changing the credits)
-# Github: https://github.com/khansaad1275/Termux-Games
 
+mkdir -p /sdcard/apps/games
 
-
-echo -e "\e[032m" "Please Don't copy the Code And Give creadits If you are using this project"
-
+cd /sdcard/apps/games
 
 clear
-
 
 echo "play Games in Termux by-LearnTermux.tech"
 
