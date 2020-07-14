@@ -1,5 +1,13 @@
-apt update && apt upgrade -y
+# CMSmap
+
 cd /sdcard/apps/
+
 git clone https://github.com/Dionach/CMSmap
+
 cd CMSmap
-chmod +x * python3 cmsmap.py -h
+
+rm -rf .gitignore DISCLAIMER.txt LICENSE.txt .github/ .git/
+
+chmod +x cmsmap.py
+
+python3 cmsmap.py -h

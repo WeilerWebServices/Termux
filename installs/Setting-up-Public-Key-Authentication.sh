@@ -1,4 +1,4 @@
-#!/system/bin/sh
+# Setting up Public Key Authentication
 
 echo Setting up public key authentication
 
@@ -17,12 +17,15 @@ echo Important note: 2048 bit is the minimal key length that is considered safe.
 echo 2. Copy key to the remote machine (Termux). Password authentication has to be enabled in order to install pubkey on remote machine. Now do:
 
 ssh-copy-id -p 8022 -i id_rsa IP_ADDRESS
+
 echo Do not forget to replace `IP_ADDRESS` with the actual LAN IP address of your device. It can be determined by using command ifconfig.
 
 echo Now try logging into the machine, with:   "ssh -p '8022' '192.168.1.4'"
+
 echo and check to make sure that only the key(s) you wanted were added.
 
 echo 3. From this point password authentication can be disabled. Edit file $PREFIX/etc/ssh/sshd_config and replace line beginning with "PasswordAuthentication" by
 
 PasswordAuthentication no
+
 echo Then execute command pkill sshd; sshd in order to restart server with updated configuration file.

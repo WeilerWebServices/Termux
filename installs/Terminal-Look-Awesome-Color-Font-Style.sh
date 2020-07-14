@@ -1,13 +1,13 @@
-#!/system/bin/sh
-echo Make Termux terminal look Awesome
+# Make Termux terminal look Awesome
 
 echo Color, Font, Style
 
 echo Requirements-  curl tool
 
-apt update -y && apt upgrade -y
 clear
+
 apt install curl -
+
 sh -c "$(curl -fsSL https://github.com/Cabbagec/termux-ohmyzsh/raw/master/install.sh)"
 
 echo wait for complete install and choose any option according to you.

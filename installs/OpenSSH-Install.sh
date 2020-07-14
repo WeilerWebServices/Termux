@@ -1,6 +1,7 @@
-#!/system/bin/sh
+# OpenSSH
 
-pkg upgrade
 pkg install openssh
+
 apt update && apt upgrade
+
 passwd

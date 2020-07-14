@@ -1,9 +1,6 @@
-#!/system/bin/sh
 # Dropbear
 
-echo Dropbear is a software package written by Matt Johnston that provides a Secure Shell-compatible server and client. It is designed as a replacement for standard OpenSSH for environments with low memory and processor resources, such as embedded systems.
-
-echo Important note: Dropbear does not provide SFTP server.
+echo Dropbear does not provide SFTP server.
 
 echo Starting and stopping Dropbear server
 
@@ -33,8 +30,9 @@ echo Everything you have to do, is:
 
 echo 1. Make sure that everything is up to date and dropbear is installed:
 
-pkg upgrade
-pkg install dropbear
+apt update && apt upgrade -y
+
+pkg update && pkg upgrade -y pkg install dropbear
 
 echo 2. Set password by executing command passwd.
 
@@ -55,9 +53,11 @@ dropbearkey -f id_rsa -y
 echo 3. Dropbear and OpenSSH uses a different key formats. To use a Dropbear's key in OpenSSH, you will have to convert it:
 
 dropbearconvert dropbear openssh ./id_rsa ./id_rsa_openssh
+
 echo This procedure can be done vice versa to obtain a key in Dropbear's format:
 
 dropbearconvert openssh dropbear ./id_rsa_openssh ./id_rsa_dropbear
+
 echo Using the SFTP
 
 echo Package OpenSSH provides a tool for accessing remote hosts over SFTP. This will allow you to work with files in same way as via FTP but with better security.

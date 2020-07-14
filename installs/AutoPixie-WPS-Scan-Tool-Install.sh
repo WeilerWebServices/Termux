@@ -1,11 +1,17 @@
 # AutoPixie WPS Scan Tool
 
-apt update && apt updrade -u
-apt install git
-apt install python
+cd /sdcard/apps
+
 pip3 install requests
+
 echo How to use AutoPixie Wps Scan Tool in Termux
+
 git clone https://github.com/nxxxu/AutoPixieWps.git
-AutoPixieWps
-chmod +x*
+
+cd AutoPixieWps
+
+rm -rf .git/
+
+chmod +x autopixie.py
+
 python3 autopixie.py

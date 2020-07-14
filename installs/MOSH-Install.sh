@@ -1,4 +1,3 @@
-#!/system/bin/sh
 # MOSH
 
 echo Mosh is a remote terminal application that allows roaming, supports intermittent connectivity, and provides intelligent local echo and line editing of user keystrokes.
@@ -14,7 +13,9 @@ echo mosh user@ssh.example.com
 echo Connecting to Termux (sshd listening on port 8022):
 
 mosh --ssh="ssh -p 8022" 192.168.1.25
+
 Rsync
+
 echo Rsync is a tool for synchronizing files with remote hosts or local directories (or drives). For better experience of using rsync, make sure that package `openssh` (or `dropbear`) is installed.
 
 echo Usage example

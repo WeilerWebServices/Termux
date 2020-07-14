@@ -1,4 +1,6 @@
-apt install git
+# Termux sudo
+
+cd /sdcard/apps
 
 git clone https://gitlab.com/st42/termux-sudo
 
