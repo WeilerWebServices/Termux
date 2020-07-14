@@ -34,41 +34,79 @@ source ~/aliases
 
 rm -rf .bashrc
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/AutoPixie-WPS-Scan-Tool-Install.sh -y
+cd /sdcard/installs
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Heroku-Install.sh -y
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/AutoPixie-WPS-Scan-Tool-Install.sh
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/CMSmap-Install.sh -y
+sh AutoPixie-WPS-Scan-Tool-Install.sh -y
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Games-Install.sh -y
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Heroku-Install.sh -y
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Dropbear-Install.sh -y
+sh Heroku-Install.sh
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/FTP-Install.sh -y
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/CMSmap-Install.sh -y
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/FZF-Install.sh -y
+sh CMSmap-Install.sh
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/MOSH-Install.sh -y
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Games-Install.sh -y
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Terminal-Look-Awesome-Color-Font-Style.sh -y
+sh Games-Install.sh
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Metasploit-Install.sh -y
+wget  https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Dropbear-Install.sh -y
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Oh-My-Termux-Install.sh -y
+sh Dropbear-Install.sh
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/OpenSSH-Install.sh -y
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/FTP-Install.sh -y
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Setting-up-HTTP-Server.sh -y
+sh FTP-Install.sh
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Setting-up-Public-Key-Authentication.sh -y
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/FZF-Install.sh -y
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Setup-Pointless-Repo.sh -y
+sh FZF-Install.sh
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Termux-API-Install.sh -y
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/MOSH-Install.sh -y
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Termux-Install-p10k-Font.sh -y
+sh MOSH-Install.sh
 
-sh https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Termux-Speak-Engine-Install.sh -y
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Terminal-Look-Awesome-Color-Font-Style.sh -y
+
+sh Terminal-Look-Awesome-Color-Font-Style.sh
+
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Metasploit-Install.sh -y
+
+sh Metasploit-Install.sh
+
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Oh-My-Termux-Install.sh -y
+
+sh Oh-My-Termux-Install.sh
+
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/OpenSSH-Install.sh -y
+
+sh OpenSSH-Install.sh
+
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Setting-up-HTTP-Server.sh -y
+
+sh Setting-up-HTTP-Server.sh
+
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Setting-up-Public-Key-Authentication.sh -y
+
+sh Setting-up-Public-Key-Authentication.sh
+
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Setup-Pointless-Repo.sh -y
+
+sh Setup-Pointless-Repo.sh
+
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Termux-API-Install.sh -y
+
+sh Termux-API-Install.sh
+
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Termux-Install-p10k-Font.sh -y
+
+sh Termux-Install-p10k-Font.sh
+
+wget https://raw.githubusercontent.com/WeilerWebServices/Termux/master/installs/Termux-Speak-Engine-Install.sh -y
+
+sh Termux-Speak-Engine-Install.sh
 
 apt update && apt upgrade -y
 
