@@ -1,3 +1,0 @@
-#!/bin/sh
-# Turn a non-oldstyle checkfile on stdin into an equivalent log on stdout.
-sed -n -e '/> /s///p'
