@@ -8,7 +8,7 @@ wget http://cli-assets.heroku.com/heroku-linux-arm.tar.gz -O heroku.tar.gz
 
 tar -xvzf heroku.tar.gz -C heroku
 
-mkdir /data/data/com.termux/files/usr/lib/heroku
+mkdir -p /data/data/com.termux/files/usr/lib/heroku
 
 mv -v heroku/heroku-cli-linux-x64.tar.gz/* /data/data/com.termux/files/usr/lib/heroku
 
@@ -24,15 +24,19 @@ echo #!/usr/bin/env bash
 
 echo Change this line to:
 
+echo
+
 echo #!/data/data/com.termux/files/usr/bin/env bash
 
 sleep 2
 
 echo Now Heroku is not yet working, one more fix and we’ll be done.
 
-echo As gibb points out in their tutorial, the tarball file does contain a necessary node.js binary but it does not work in Termux. Therefore we’ll have to install it with the Linux environment and point Heroku to its path.
+echo The tarball file does contain a necessary node.js binary but it does not work in Termux. you will have to install it with the Linux environment and point Heroku to its path.
 
 touch heroku
+
+sleep 2
 
 nano heroku
 

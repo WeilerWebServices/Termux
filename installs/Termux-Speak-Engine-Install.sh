@@ -12,14 +12,6 @@ chmod +x *
 
 bash install.sh
 
-echo usage
+echo Done
 
-python3 t-speak.py
-
-\# select option 2 \#
-\# Enter Your Text to speak. \#
-\# Enter pitch number \#
-\# Enter rate number \#
-\# Then it will speak those texts… \#
-\# that’s it… \#
-";
+clear

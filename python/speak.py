@@ -1,4 +1,4 @@
-"""Speak user generated text."""
+# Speak User Generated Text
 
 import androidhelper
 

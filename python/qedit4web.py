@@ -1,11 +1,7 @@
 # -*-coding:utf-8-*-
-#qpy:webapp:QPython Web Editor
-#qpy://127.0.0.1:10000/hello
-
-"""
-QPython Editor sourcecode
-@Author sciooga
-"""
+# qpy:webapp:QPython Web Editor
+# qpy://127.0.0.1:10000/hello
+# QPython Editor sourcecode
 
 from bottle import Bottle, ServerAdapter, static_file, view, request, response
 # from bottle import run, debug, route, error, redirect, response
