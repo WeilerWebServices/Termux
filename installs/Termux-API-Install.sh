@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # termux-api
 
 pkg install termux-api

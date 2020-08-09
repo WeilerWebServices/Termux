@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # OpenSSH
 
 pkg install openssh

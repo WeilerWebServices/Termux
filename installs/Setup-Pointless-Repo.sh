@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # Setup Pointless Repo
 
 apt-get --assume-yes upgrade

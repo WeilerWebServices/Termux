@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # Setting up Public Key Authentication
 
 echo Setting up public key authentication

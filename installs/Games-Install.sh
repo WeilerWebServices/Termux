@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # Termux-Games
 
 mkdir -p /sdcard/apps/games

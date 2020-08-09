@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # Dropbear
 
 echo Dropbear does not provide SFTP server.

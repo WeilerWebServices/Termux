@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # CMSmap
 
 cd /sdcard/apps/

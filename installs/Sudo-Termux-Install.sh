@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # Termux sudo
 
 cd /sdcard/apps

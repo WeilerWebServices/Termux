@@ -1,4 +1,6 @@
-#  Termux Speak
+#!/system/bin/sh
+
+# Termux Speak
 
 echo Move to sdcard
 

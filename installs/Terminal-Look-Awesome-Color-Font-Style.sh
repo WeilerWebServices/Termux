@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # Make Termux terminal look Awesome
 
 echo Color, Font, Style

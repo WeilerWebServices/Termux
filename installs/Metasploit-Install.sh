@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # Metasploit
 
 echo  Remove  Old Folder if exist 

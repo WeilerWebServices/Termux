@@ -1,4 +1,6 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/system/bin/sh
+
+# Oh-My-Termux
 
 pkg install -y git zsh curl wget
 

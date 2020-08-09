@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # FTP
 
 source $PREFIX/profile.d/start-services

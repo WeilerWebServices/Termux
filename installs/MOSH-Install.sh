@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # MOSH
 
 echo Mosh is a remote terminal application that allows roaming, supports intermittent connectivity, and provides intelligent local echo and line editing of user keystrokes.

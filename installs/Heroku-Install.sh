@@ -1,4 +1,6 @@
-# heroku
+#!/system/bin/sh
+
+# Heroku
 
 apt-get install wget nano tar gzip nodejs -y
 

@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # AutoPixie WPS Scan Tool
 
 cd /sdcard/apps

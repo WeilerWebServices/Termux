@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 # Fresh Install
 
 termux-setup-storage
