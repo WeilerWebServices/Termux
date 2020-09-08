@@ -1,4 +1,0 @@
-dnspython
-netaddr
-lxml
-flake8

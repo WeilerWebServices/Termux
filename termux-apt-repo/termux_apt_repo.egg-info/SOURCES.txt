@@ -1,0 +1,7 @@
+README.rst
+setup.py
+termux-apt-repo
+termux_apt_repo.egg-info/PKG-INFO
+termux_apt_repo.egg-info/SOURCES.txt
+termux_apt_repo.egg-info/dependency_links.txt
+termux_apt_repo.egg-info/top_level.txt
