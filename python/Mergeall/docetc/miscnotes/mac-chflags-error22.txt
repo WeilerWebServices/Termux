@@ -1,0 +1,213 @@
+Mac's chflags() seems to throw error 22=Invalid Argument, when trying to 
+copy a file's flags from a Mac HFS+ drive to a non-Mac (exFAT) drive.
+
+The flags were added by TextEdit; they record encoding type, and cause
+every file edited in TextEdit to trigger an error message in mergeall,
+even though they copy correctly in both content and timestamps.  This
+fails on an uncaught exception in the very last step of shutil.copystat(),
+(used by cpall.py) after all else has been copied correctly.
+
+Solution: redefine os.chflags() to try original, catch and ignore 
+errno.EINVAL on Macs only, and allow all others to pass.  Could
+delete os.chflags() completely, but may be useful when TO is a 
+Mac drive.  Could also verify that times were copied over 
+correctly and reraise if not, but this seems too much work.
+
+Update: Mac extended attributes can also arise in other contexts, 
+so this is a general concern; another example from PyEdit:
+
+  $ ls -l@ Whitepaper.html 
+  -rwxrwxrwx@ 1 blue  wheel  90072 May 30 18:46 Whitepaper.html
+          com.apple.quarantine	   29 
+  $ xattr Whitepaper.html 
+  com.apple.quarantine
+  $ xattr -p com.apple.quarantine Whitepaper.html 
+  0002;5928a690;Microsoft Word;
+
+------------------------------------------------------------------------------- 
+After this mergeall error was reported: 
+------------------------------------------------------------------------------- 
+
+# force difference...
+$ rm /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt  
+
+# mergeall report...
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+**Error copying FROM file: skipped /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+<class 'OSError'> [Errno 22] Invalid argument: '/Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt'
+Phase runtime: 0.9569850449915975
+
+------------------------------------------------------------------------------- 
+Files same in content and modtimes, but extended flags differ
+------------------------------------------------------------------------------- 
+
+$ ls -l /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+-rwxrwxrwx@ 1 blue  wheel  5295 Dec  5 11:36 /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+-rwxrwxrwx  1 blue  staff  5295 Dec  5 11:36 /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+$ 
+$ diff /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+$
+
+$ xattr /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+com.apple.TextEncoding
+$ xattr /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+$ 
+$ xattr -p com.apple.TextEncoding /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+utf-8;134217984
+$ xattr -p com.apple.TextEncoding /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+xattr: /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt: No such xattr: com.apple.TextEncoding
+$
+$ ls -lO@ /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+-rwxrwxrwx@ 1 blue  wheel  - 5295 Dec  5 11:36 /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+	com.apple.TextEncoding	  15 
+l$ ls -lO@ /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+-rwxrwxrwx  1 blue  staff  - 5295 Dec  5 11:36 /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+$
+
+------------------------------------------------------------------------------- 
+Fails in the shell too, with same error -- BUT seems to copy flags anyhow...
+------------------------------------------------------------------------------- 
+
+$ cp -p /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+cp: fchflags: /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt: Invalid argument
+$ 
+$ xattr /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+com.apple.TextEncoding
+$ xattr /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+com.apple.TextEncoding
+$
+$ xattr -p com.apple.TextEncoding /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+utf-8;134217984
+$ xattr -p com.apple.TextEncoding /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+utf-8;134217984
+$ 
+
+------------------------------------------------------------------------------- 
+What Python shutil.copystat() fails on: does not catch errorno 22 = EINVAL
+------------------------------------------------------------------------------- 
+
+$ py3
+Python 3.5.2 (v3.5.2:4def2a2901a5, Jun 26 2016, 10:47:25) 
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import os, stat
+>>> st = os.stat('/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt')
+>>> os.chflags('/Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt', st.st_flags)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+OSError: [Errno 22] Invalid argument: '/Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt'
+>>> 
+>>> os.chflags('/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt', st.st_flags)  # but Mac drive works
+>>> ^D
+$ 
+$ xattr -p com.apple.TextEncoding /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+utf-8;134217984
+$ xattr -p com.apple.TextEncoding /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+utf-8;134217984
+
+------------------------------------------------------------------------------
+The error code in Python
+------------------------------------------------------------------------------
+
+>>> import errno
+>>> dir(errno)
+['E2BIG', 'EACCES', 'EADDRINUSE', 'EADDRNOTAVAIL', 'EAFNOSUPPORT', 'EAGAIN', 'EALREADY', 'EAUTH', 'EBADARCH', 'EBADEXEC', 'EBADF', 'EBADMACHO', 'EBADMSG', 'EBADRPC', 'EBUSY', 'ECANCELED', 'ECHILD', 'ECONNABORTED', 'ECONNREFUSED', 'ECONNRESET', 'EDEADLK', 'EDESTADDRREQ', 'EDEVERR', 'EDOM', 'EDQUOT', 'EEXIST', 'EFAULT', 'EFBIG', 'EFTYPE', 'EHOSTDOWN', 'EHOSTUNREACH', 'EIDRM', 'EILSEQ', 'EINPROGRESS', 'EINTR', 'EINVAL', 'EIO', 'EISCONN', 'EISDIR', 'ELOOP', 'EMFILE', 'EMLINK', 'EMSGSIZE', 'EMULTIHOP', 'ENAMETOOLONG', 'ENEEDAUTH', 'ENETDOWN', 'ENETRESET', 'ENETUNREACH', 'ENFILE', 'ENOATTR', 'ENOBUFS', 'ENODATA', 'ENODEV', 'ENOENT', 'ENOEXEC', 'ENOLCK', 'ENOLINK', 'ENOMEM', 'ENOMSG', 'ENOPOLICY', 'ENOPROTOOPT', 'ENOSPC', 'ENOSR', 'ENOSTR', 'ENOSYS', 'ENOTBLK', 'ENOTCONN', 'ENOTDIR', 'ENOTEMPTY', 'ENOTSOCK', 'ENOTSUP', 'ENOTTY', 'ENXIO', 'EOPNOTSUPP', 'EOVERFLOW', 'EPERM', 'EPFNOSUPPORT', 'EPIPE', 'EPROCLIM', 'EPROCUNAVAIL', 'EPROGMISMATCH', 'EPROGUNAVAIL', 'EPROTO', 'EPROTONOSUPPORT', 'EPROTOTYPE', 'EPWROFF', 'ERANGE', 'EREMOTE', 'EROFS', 'ERPCMISMATCH', 'ESHLIBVERS', 'ESHUTDOWN', 'ESOCKTNOSUPPORT', 'ESPIPE', 'ESRCH', 'ESTALE', 'ETIME', 'ETIMEDOUT', 'ETOOMANYREFS', 'ETXTBSY', 'EUSERS', 'EWOULDBLOCK', 'EXDEV', '__doc__', '__loader__', '__name__', '__package__', '__spec__', 'errorcode']
+>>> errno.errorcode[22]
+'EINVAL'
+>>> errno.EINVAL
+22
+
+------------------------------------------------------------------------------
+A fuller example: WITHOUT (BEFORE CPALL.PY FIX)
+------------------------------------------------------------------------------
+
+$ rm /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+
+# rerun mergeall via its GUI, same error as above: files+times same, flags NOT copied
+
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+**Error copying FROM file: skipped /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+<class 'OSError'> [Errno 22] Invalid argument: '/Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt'
+
+$ ls -lO@ /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+-rwxrwxrwx@ 1 blue  wheel  - 5295 Dec  5 11:36 /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+	com.apple.TextEncoding	  15 
+$ ls -lO@ /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+-rwxrwxrwx  1 blue  staff  - 5295 Dec  5 11:36 /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+ 
+# recreate error interctively: same results
+
+$ py3
+Python 3.5.2 (v3.5.2:4def2a2901a5, Jun 26 2016, 10:47:25) 
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import os, stat
+>>> st = os.stat('/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt')
+>>> os.chflags('/Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt', st.st_flags)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+OSError: [Errno 22] Invalid argument: '/Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt'
+>>> ^D
+$ ls -lO@ /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+-rwxrwxrwx@ 1 blue  wheel  - 5295 Dec  5 11:36 /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+	com.apple.TextEncoding	  15 
+$ ls -lO@ /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+-rwxrwxrwx  1 blue  staff  - 5295 Dec  5 11:36 /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+$
+$ xattr -p com.apple.TextEncoding /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+utf-8;134217984
+$ xattr -p com.apple.TextEncoding /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+xattr: /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt: No such xattr: com.apple.TextEncoding
+$ 
+
+# same error at shell: BUT flags seem to be copied over anyhow (unlike Python)
+
+$ cp -p /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+cp: fchflags: /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt: Invalid argument
+$
+$ ls -lO@ /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+-rwxrwxrwx@ 1 blue  wheel  - 5295 Dec  5 11:36 /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+	com.apple.TextEncoding	  15 
+$ ls -lO@ /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+-rwxrwxrwx@ 1 blue  staff  - 5295 Dec  5 11:36 /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+	com.apple.TextEncoding	  15 
+$ xattr -p com.apple.TextEncoding /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+utf-8;134217984
+$ xattr -p com.apple.TextEncoding /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+utf-8;134217984
+$ 
+
+------------------------------------------------------------------------------
+POST CPALL.PY FIX
+------------------------------------------------------------------------------
+
+$ rm /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+copied new FROM file, /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+Phase runtime: 0.015111149987205863
+
+$ ls -l /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+-rwxrwxrwx@ 1 blue  wheel  5295 Dec  5 11:36 /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+-rwxrwxrwx  1 blue  staff  5295 Dec  5 11:36 /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+$ 
+$ diff /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+$ 
+$ ls -lO@ /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+-rwxrwxrwx@ 1 blue  wheel  - 5295 Dec  5 11:36 /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+	com.apple.TextEncoding	  15 
+$ ls -lO@ /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+-rwxrwxrwx  1 blue  staff  - 5295 Dec  5 11:36 /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+$ 
+$ xattr -p com.apple.TextEncoding /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+utf-8;134217984
+$ xattr -p com.apple.TextEncoding /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+xattr: /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt: No such xattr: com.apple.TextEncoding
+$ 
+$ xattr /MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt 
+com.apple.TextEncoding
+$ xattr /Volumes/SAVAGEX256G/MY-STUFF/__more__/Gadgets/mac/CHEAT-SHEET.txt
+$

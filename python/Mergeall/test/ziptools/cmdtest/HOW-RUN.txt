@@ -1,0 +1,55 @@
+How the tests here were run
+  - use 'py -3' and backslashes on Windows (if required: usually isn't)
+  - 'py3' was aliased to python3 on Unix
+  - use 'del' and 'copy' on windows, not 'rm' and 'cp'
+
+See also: ../moretests/test-simple-files/ for a simpler example that zips 
+basic files instead of folders (with and without Unix-shell "*" expansion).
+
+
+# Starting in mergeall/test/ziptools
+
+rm -rf cmdtest/start cmdtest/test1 cmdtest/test2 cmdtest/unpack     
+  # or move to prior platform's folder, or 'del dir dir' on Windows
+
+
+# Extract test folders from .. (mergeall's test folders)
+
+cp ../test-1-2.zip cmdtest/start.zip
+cd cmdtest
+py3 ../zip-extract.py start.zip start
+
+
+# Zip and unzip test1/test2: WITH cruft
+
+cd start
+py3 ../../zip-create.py ../cmdtest.zip test1 test2
+cd ..
+py3 ../zip-list.py cmdtest.zip
+py3 ../zip-extract.py cmdtest.zip .
+cd ..
+py3 ../../mergeall.py cmdtest cmdtest/start -report
+
+
+# Zip and unzip test1/test2: WITHOUT cruft
+
+cd cmdtest
+py3 ../zip-create.py -skipcruft cmdtest.zip start/test1 start/test2   # or start/* on Unix
+py3 ../zip-list.py cmdtest.zip 
+py3 ../zip-extract.py cmdtest.zip unpack
+py3 ../../../mergeall.py start unpack/start -report
+py3 ../../../mergeall.py start unpack/start -skipcruft -report
+
+
+# Zip test1/test without cruft again, but using a different, deeper relative path
+
+cd ..
+py3 zip-create.py -skipcruft cmdtest/cmdtest.zip cmdtest/start/test1 cmdtest/start/test2
+py3 zip-list.py cmdtest/cmdtest.zip 
+
+
+# Cleanup
+
+rm -rf MacOSX-files-here-saved/    # and similar on Windows
+mkdir MacOSX-files-here-saved/
+mv cmdtest.zip start start.zip test1 test2 unpack/ MacOSX-files-here-saved

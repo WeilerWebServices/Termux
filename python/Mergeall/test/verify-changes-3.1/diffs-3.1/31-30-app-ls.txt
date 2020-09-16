@@ -1,0 +1,60 @@
+# Reflects changes in build script: manual resource copies
+
+
+# 3.1
+
+/MY-STUFF/Code/mergeall/build/build-app-exe/macosx$ ls -l Mergeall.app/Contents/Resources
+total 3112
+-rwxrwxrwx   1 blue  wheel    14619 Dec  6 07:46 README.txt
+-rwxrwxrwx   1 blue  wheel   139253 Dec  7 17:03 UserGuide.html
+-rw-r--r--   1 blue  wheel     2126 Dec  8 12:44 __boot__.py
+-rwxr-xr-x   1 blue  wheel      559 Aug 22  2010 __error__.sh
+drwxr-xr-x   3 blue  wheel      102 Dec  8 12:44 __pycache__
+-rwxrwxrwx   1 blue  wheel     2497 Dec  8 12:43 __sloc__.py
+-rwxrwxrwx   1 blue  wheel    26365 Dec  8 12:15 cpall.py
+-rwxrwxrwx   1 blue  wheel    17477 Dec  5 16:25 diffall.py
+drwxrwxrwx  10 blue  wheel      340 Jun 12 08:16 docetc
+-rwxrwxrwx   1 blue  wheel     5681 Dec  8 12:31 fix-fat-dst-modtimes.py
+drwxr-xr-x   5 blue  wheel      170 May 18  2017 icons
+drwxr-xr-x   3 blue  wheel      102 Dec  8 12:44 include
+-rwxrwxrwx   1 blue  wheel    17155 Dec  5 18:14 launch-mergeall-Console.py
+-rwxrwxrwx   1 blue  wheel    61344 Dec  5 18:13 launch-mergeall-GUI.pyw
+drwxr-xr-x   4 blue  wheel      136 Dec  8 12:44 lib
+-rw-r--r--   1 blue  wheel  1063018 Dec  8 12:44 mergeall.icns
+-rwxrwxrwx   1 blue  wheel    84219 Dec  7 16:52 mergeall.py
+-rwxrwxrwx   1 blue  wheel    20577 Jun  1  2017 mergeall_configs.py
+-rwxrwxrwx   1 blue  wheel    31213 Mar 20  2017 nuke-cruft-files.py
+-rwxrwxrwx   1 blue  wheel     7382 May 19  2017 rollback.py
+-rw-r--r--   1 blue  wheel     2671 Dec  8 12:44 site.pyc
+drwxrwxrwx  14 blue  wheel      476 Dec  7 17:18 test
+-rwxr-xr-x   1 blue  wheel    65128 Dec  8 12:44 zlib.cpython-35m-darwin.so
+
+
+# 3.0
+
+/MY-STUFF/Code/mergeall/build/build-app-exe/macosx$ ls -l ~/Desktop/mergeall-31/Mergeall.app/Contents/Resources
+total 3096
+-rwxrwxrwx   1 blue  staff    14021 Jun 15 17:10 README.txt
+-rwxrwxrwx   1 blue  staff   137667 Jun 15 17:10 UserGuide.html
+-rw-r--r--   1 blue  staff     2126 Jun 15 17:10 __boot__.py
+-rwxr-xr-x   1 blue  staff      559 Aug 22  2010 __error__.sh
+drwxr-xr-x   3 blue  staff      102 Jun 15 17:10 __pycache__
+-rwxrwxrwx   1 blue  staff    23872 Jun 15 17:10 cpall.py
+-rwxrwxrwx   1 blue  staff    16409 Jun 15 17:10 diffall.py
+drwxr-xr-x  10 blue  staff      340 Jun 15 17:10 docetc
+-rwxrwxrwx   1 blue  staff     5368 Jun 15 17:10 fix-fat-dst-modtimes.py
+drwxr-xr-x   5 blue  staff      170 Jun 15 17:10 icons
+drwxr-xr-x   3 blue  staff      102 Jun 15 17:10 include
+-rwxrwxrwx   1 blue  staff    17155 Jun 15 17:10 launch-mergeall-Console.py
+-rwxrwxrwx   1 blue  staff    61252 Jun 12 11:11 launch-mergeall-GUI.pyw
+drwxr-xr-x   4 blue  staff      136 Jun 15 17:10 lib
+-rw-r--r--   1 blue  staff  1063018 Jun 15 17:10 mergeall.icns
+-rwxrwxrwx   1 blue  staff    82220 Jun 15 17:10 mergeall.py
+-rwxrwxrwx   1 blue  staff    20577 Jun 15 17:10 mergeall_configs.py
+-rwxrwxrwx   1 blue  staff    31213 Jun 15 17:10 nuke-cruft-files.py
+-rwxrwxrwx   1 blue  staff     7382 Jun 15 17:10 rollback.py
+-rw-r--r--   1 blue  staff     2671 Jun 15 17:10 site.pyc
+drwxr-xr-x  13 blue  staff      442 Jun 15 17:10 test
+-rwxr-xr-x   1 blue  staff    65128 Jun 15 17:10 zlib.cpython-35m-darwin.so
+/MY-STUFF/Code/mergeall/build/build-app-exe/macosx$ 
+

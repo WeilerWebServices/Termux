@@ -1,0 +1,26 @@
+Apr 1, 2015
+mergeall 2.1: automatic restores from automatic backups
+
+mergeall is a directory tree synchronization system designed to offer a 
+manual alternative to cloud storage.  Its latest release (yes, after just 
+two weeks) builds on 2.0's automatic backup of changes, to add full rollback
+of a prior run's modifications on demand.  This is a failsafe, meant to be 
+used if you accidentally corrupt an archive copy so badly that piecemeal
+restores won't help (unlikely, but bad things happen).  Details:
+
+Main doc file:
+    http://learning-python.com/mergeall/docs/Usage-Overview.html
+
+Latest changes:
+    http://learning-python.com/mergeall/Readme.html#version21
+
+Download mergeall.zip here:
+    http://learning-python.com/downloads
+
+Unzipped content:
+    http://learning-python.com/mergeall
+
+Screenshot:
+    http://learning-python.com/mergeall/examples/Screenshots/main-quit-help.png
+
+--M. Lutz (http://www.rmi.net/~lutz | http://learning-python.com)

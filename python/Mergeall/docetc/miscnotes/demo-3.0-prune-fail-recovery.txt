@@ -1,0 +1,108 @@
+# Demo 3.0 fix to continue pruning if any prunee fails (a rare use case indeed)
+
+
+
+# reduce #backups in configs, lock a file in middle of backups to be deleted
+
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+....pruning /MY-STUFF/Code/mergeall/test/test2/__bkp__/date150325-time115541
+....pruning /MY-STUFF/Code/mergeall/test/test2/__bkp__/date150325-time115452
+....pruning /MY-STUFF/Code/mergeall/test/test2/__bkp__/date150325-time115417
+....this prunee failed, but pruning continued
+....<class 'PermissionError'> [Errno 1] Operation not permitted: '/MY-STUFF/Code/mergeall/test/test2/__bkp__/date150325-time115417/__added__.txt'
+....pruning /MY-STUFF/Code/mergeall/test/test2/__bkp__/date150325-time115355
+....pruning /MY-STUFF/Code/mergeall/test/test2/__bkp__/date150325-time115317
+....pruning /MY-STUFF/Code/mergeall/test/test2/__bkp__/date150325-time115227
+....prune failed, but backups and mergeall continued
+....<class 'AssertionError'> Some prunes had errors
+....backing up all items to /MY-STUFF/Code/mergeall/test/test2/__bkp__/date170106-time115000
+replaced same file, using FROM /MY-STUFF/Code/mergeall/test/test1/d3/.htaccess
+replaced same file, using FROM /MY-STUFF/Code/mergeall/test/test1/d3/f3.txt
+replaced same file, using FROM /MY-STUFF/Code/mergeall/test/test1/f3.txt
+replaced same file, using FROM /MY-STUFF/Code/mergeall/test/test1/f6.txt
+removed old TO dir, /MY-STUFF/Code/mergeall/test/test2/d2
+removed old TO file, /MY-STUFF/Code/mergeall/test/test2/f2.txt
+removed old TO file, /MY-STUFF/Code/mergeall/test/test2/d3/f5.txt
+copied new FROM dir, /MY-STUFF/Code/mergeall/test/test1/d1
+copied new FROM file, /MY-STUFF/Code/mergeall/test/test1/f1.txt
+copied new FROM file, /MY-STUFF/Code/mergeall/test/test1/d3/f4.txt
+replaced dir with file, using FROM /MY-STUFF/Code/mergeall/test/test1/m1
+replaced file with dir, using FROM /MY-STUFF/Code/mergeall/test/test1/m2
+Phase runtime: 0.010531523963436484
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 6, folders: 2
+Differences => samefile: 4, uniqueto: 3, uniquefrom: 3, mixedmode: 2
+Changed:
+files   => created: 2, deleted: 2, replaced: 5
+folders => created: 1, deleted: 1, replaced: 1
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+# later runs: failer is always oldest = at end of prunes list 
+
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+....pruning /MY-STUFF/Code/mergeall/test/test2/__bkp__/date150325-time115549
+....pruning /MY-STUFF/Code/mergeall/test/test2/__bkp__/date150325-time115417
+....this prunee failed, but pruning continued
+....<class 'PermissionError'> [Errno 1] Operation not permitted: '/MY-STUFF/Code/mergeall/test/test2/__bkp__/date150325-time115417/__added__.txt'
+....prune failed, but note-add and mergeall continued
+....<class 'AssertionError'> Some prunes had errors
+copied new FROM file, /MY-STUFF/Code/mergeall/test/test1/f1.txt
+Phase runtime: 0.0009037849958986044
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 10, folders: 4
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 1, mixedmode: 0
+Changed:
+files   => created: 1, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+# after unlocking file: failed folder pruned now
+
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+....pruning /MY-STUFF/Code/mergeall/test/test2/__bkp__/date150325-time115557
+....pruning /MY-STUFF/Code/mergeall/test/test2/__bkp__/date150325-time115417
+....backing up all items to /MY-STUFF/Code/mergeall/test/test2/__bkp__/date170106-time115412
+replaced same file, using FROM /MY-STUFF/Code/mergeall/test/test1/f6.txt
+Phase runtime: 0.0019478159956634045
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 11, folders: 4
+Differences => samefile: 1, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 1
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+# later runs back to business as usual...
+
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+....pruning /MY-STUFF/Code/mergeall/test/test2/__bkp__/date150325-time115607
+copied new FROM file, /MY-STUFF/Code/mergeall/test/test1/f3.txt
+Phase runtime: 0.0011497170198708773
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 10, folders: 4
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 1, mixedmode: 0
+Changed:
+files   => created: 1, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+

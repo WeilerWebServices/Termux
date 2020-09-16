@@ -1,0 +1,1520 @@
+<HTML>
+<style>
+
+h1 {
+    background-color: #96CDCD;
+}
+
+h2 {
+    margin-top: 60px;                              /* extra whitespace above, below */
+    margin-bottom: 30px;
+    background-color: navy;                        /* bg + fg=text colors */
+    color: white;      
+}
+
+body {                                               
+    font-family: Arial, Helvetica, sans-serif;     /* precedence list (or Verdana, Tahoma) */
+}   
+
+.command {
+    background-color: lightgrey;                   /* shaded */
+    font-weight: bold;                             /* bold */
+    font-size: 115%;                               /* bigger than normal */
+}
+
+.prompt {
+    font-weight: normal;                           /* non-bold */
+}
+
+</style>
+<BODY>
+
+
+
+<H1>Basic tests command sequence &mdash; Linux version</H1>
+
+<P>
+This test runs mergeall, diffall, and rollbacks from the 
+command line, using the following steps in sequence:
+
+<UL>
+<LI>Initial test, do not ignore cruft
+<OL>
+<LI><A HREF="#s1">Reset test folders</A>
+<LI><A HREF="#s2">Save original test2 for later verification</A>
+<LI><A HREF="#s3">Synch test2 to be same as test1, with cruft and backups</A>
+<LI><A HREF="#s4">Verify test2=test1 by mergeall: structure and modtimes</A>
+<LI><A HREF="#s5">Verify test2=test1 by diffall: content, byte by byte</A>
+<LI><A HREF="#s6">Rollback prior synch</A>
+<LI><A HREF="#s7">Verify test2 same as original again</A>
+</OL>
+
+<BR>
+<LI>Rerun tests with -skipcruft
+<OL start=8>
+<LI><A HREF="#s8">Reset test folders</A>
+<LI><A HREF="#s9">Sync test2 to be same as test1, skipping cruft in both</A>
+<LI><A HREF="#s10">Verify by mergeall, with and without cruft</A>
+<LI><A HREF="#s11">Verify by diffall, with and without cruft</A>
+<LI><A HREF="#s12">Rollback prior sync: cruft irrelevant</A>
+<LI><A HREF="#s13">Verify test2 same as original again</A>
+</OL>
+</UL>
+
+<P>
+Command lines are highlighted along the way, with user inputs in bold.  mergeall commands
+can also be run with the <A HREF="../../UserGuide.html#gui">GUI</A> and 
+<A HREF="../../UserGuide.html#console">console</A> launchers.
+</P>
+
+
+
+
+<H2><a name="s1">Reset test folders</a></H2>
+
+<PRE>
+<span class=command><span class=prompt>name@name-VPCF136FM:/Code/mergeall$</span> export PS1='\w$ '      <I># use cwd for prompt</I></span>
+
+<span class=command><span class=prompt>/Code/mergeall$</span> alias py3=python3                          <I># shorten py command</I></span>
+
+<span class=command><span class=prompt>/Code/mergeall$</span> cd test</span>
+
+<span class=command><span class=prompt>/Code/mergeall/test$</span> py3 test-1-2-do-unzip.py</span>
+About to UNZIP: confirm with 'y'? y
+Removing test1
+Removing test2
+Unzipping from test-1-2.zip to .
+Extracted test1/
+		=> test1
+Extracted test1/.DS_Store
+		=> test1/.DS_Store
+Extracted test1/._.TemporaryItems
+		=> test1/._.TemporaryItems
+Extracted test1/f0.txt
+		=> test1/f0.txt
+Extracted test1/f1.txt
+		=> test1/f1.txt
+Extracted test1/f3.txt
+		=> test1/f3.txt
+Extracted test1/f6.txt
+		=> test1/f6.txt
+Extracted test1/m1
+		=> test1/m1
+Extracted test1/d1/
+		=> test1/d1
+Extracted test1/d1/._.DS_Store
+		=> test1/d1/._.DS_Store
+Extracted test1/d1/._someimage.png
+		=> test1/d1/._someimage.png
+Extracted test1/d1/fa1.txt
+		=> test1/d1/fa1.txt
+Extracted test1/d3/
+		=> test1/d3
+Extracted test1/d3/.DS_Store
+		=> test1/d3/.DS_Store
+Extracted test1/d3/.htaccess
+		=> test1/d3/.htaccess
+Extracted test1/d3/.Trashes
+		=> test1/d3/.Trashes
+Extracted test1/d3/f2.txt
+		=> test1/d3/f2.txt
+Extracted test1/d3/f3.txt
+		=> test1/d3/f3.txt
+Extracted test1/d3/f4.txt
+		=> test1/d3/f4.txt
+Extracted test1/d3/.fseventsd/
+		=> test1/d3/.fseventsd
+Extracted test1/d3/.fseventsd/no_log
+		=> test1/d3/.fseventsd/no_log
+Extracted test1/m2/
+		=> test1/m2
+Extracted test1/m2/.DS_Store
+		=> test1/m2/.DS_Store
+Extracted test1/m2/.htaccess
+		=> test1/m2/.htaccess
+Extracted test2/
+		=> test2
+Extracted test2/Desktop.ini
+		=> test2/Desktop.ini
+Extracted test2/f0.txt
+		=> test2/f0.txt
+Extracted test2/f2.txt
+		=> test2/f2.txt
+Extracted test2/f3.txt
+		=> test2/f3.txt
+Extracted test2/f6.txt
+		=> test2/f6.txt
+Extracted test2/m2
+		=> test2/m2
+Extracted test2/$RECYCLE.BIN/
+		=> test2/$RECYCLE.BIN
+Extracted test2/.Trash-1000/
+		=> test2/.Trash-1000
+Extracted test2/d2/
+		=> test2/d2
+Extracted test2/d3/
+		=> test2/d3
+Extracted test2/d3/.htaccess
+		=> test2/d3/.htaccess
+Extracted test2/d3/desktop.ini
+		=> test2/d3/desktop.ini
+Extracted test2/d3/f2.txt
+		=> test2/d3/f2.txt
+Extracted test2/d3/f3.txt
+		=> test2/d3/f3.txt
+Extracted test2/d3/f5.txt
+		=> test2/d3/f5.txt
+Extracted test2/d3/Thumbs.db
+		=> test2/d3/Thumbs.db
+Extracted test2/m1/
+		=> test2/m1
+Extracted test2/__bkp__/
+		=> test2/__bkp__
+Extracted test2/__bkp__/README.txt
+		=> test2/__bkp__/README.txt
+Extracted test2/__bkp__/date150325-time115227/
+		=> test2/__bkp__/date150325-time115227
+Extracted test2/__bkp__/date150325-time115227/f2.txt
+		=> test2/__bkp__/date150325-time115227/f2.txt
+Extracted test2/__bkp__/date150325-time115227/f3.txt
+		=> test2/__bkp__/date150325-time115227/f3.txt
+Extracted test2/__bkp__/date150325-time115227/m2
+		=> test2/__bkp__/date150325-time115227/m2
+Extracted test2/__bkp__/date150325-time115227/__added__.txt
+		=> test2/__bkp__/date150325-time115227/__added__.txt
+Extracted test2/__bkp__/date150325-time115227/d2/
+		=> test2/__bkp__/date150325-time115227/d2
+Extracted test2/__bkp__/date150325-time115227/d3/
+		=> test2/__bkp__/date150325-time115227/d3
+Extracted test2/__bkp__/date150325-time115227/d3/f3.txt
+		=> test2/__bkp__/date150325-time115227/d3/f3.txt
+Extracted test2/__bkp__/date150325-time115227/d3/f5.txt
+		=> test2/__bkp__/date150325-time115227/d3/f5.txt
+Extracted test2/__bkp__/date150325-time115227/m1/
+		=> test2/__bkp__/date150325-time115227/m1
+Extracted test2/__bkp__/date150325-time115317/
+		=> test2/__bkp__/date150325-time115317
+Extracted test2/__bkp__/date150325-time115317/spam.txt
+		=> test2/__bkp__/date150325-time115317/spam.txt
+Extracted test2/__bkp__/date150325-time115355/
+		=> test2/__bkp__/date150325-time115355
+Extracted test2/__bkp__/date150325-time115355/__added__.txt
+		=> test2/__bkp__/date150325-time115355/__added__.txt
+Extracted test2/__bkp__/date150325-time115417/
+		=> test2/__bkp__/date150325-time115417
+Extracted test2/__bkp__/date150325-time115417/__added__.txt
+		=> test2/__bkp__/date150325-time115417/__added__.txt
+Extracted test2/__bkp__/date150325-time115452/
+		=> test2/__bkp__/date150325-time115452
+Extracted test2/__bkp__/date150325-time115452/spam2.txt
+		=> test2/__bkp__/date150325-time115452/spam2.txt
+Extracted test2/__bkp__/date150325-time115452/__added__.txt
+		=> test2/__bkp__/date150325-time115452/__added__.txt
+Extracted test2/__bkp__/date150325-time115541/
+		=> test2/__bkp__/date150325-time115541
+Extracted test2/__bkp__/date150325-time115541/f0.txt
+		=> test2/__bkp__/date150325-time115541/f0.txt
+Extracted test2/__bkp__/date150325-time115549/
+		=> test2/__bkp__/date150325-time115549
+Extracted test2/__bkp__/date150325-time115549/f0.txt
+		=> test2/__bkp__/date150325-time115549/f0.txt
+Extracted test2/__bkp__/date150325-time115557/
+		=> test2/__bkp__/date150325-time115557
+Extracted test2/__bkp__/date150325-time115557/f0.txt
+		=> test2/__bkp__/date150325-time115557/f0.txt
+Extracted test2/__bkp__/date150325-time115607/
+		=> test2/__bkp__/date150325-time115607
+Extracted test2/__bkp__/date150325-time115607/f0.txt
+		=> test2/__bkp__/date150325-time115607/f0.txt
+Extracted test2/__bkp__/date150325-time115737/
+		=> test2/__bkp__/date150325-time115737
+Extracted test2/__bkp__/date150325-time115737/f0.txt
+		=> test2/__bkp__/date150325-time115737/f0.txt
+Extracted test2/__bkp__/date150325-time115737/__added__.txt
+		=> test2/__bkp__/date150325-time115737/__added__.txt
+
+
+<span class=command><span class=prompt>/Code/mergeall/test$</span> cd ..</span>
+</PRE>
+
+
+
+<H2><a name="s2">Save original test2 for later verification</a></H2>
+
+<PRE>
+<span class=command><span class=prompt>/Code/mergeall$</span> rm -rf _original_               <I># remove if already exists</I></span> 
+
+<span class=command><span class=prompt>/Code/mergeall$</span> cp -prv test/test2 _original_</span>
+'test/test2' -> '_original_'
+'test/test2/Desktop.ini' -> '_original_/Desktop.ini'
+'test/test2/f0.txt' -> '_original_/f0.txt'
+'test/test2/f2.txt' -> '_original_/f2.txt'
+'test/test2/f3.txt' -> '_original_/f3.txt'
+'test/test2/f6.txt' -> '_original_/f6.txt'
+'test/test2/m2' -> '_original_/m2'
+'test/test2/$RECYCLE.BIN' -> '_original_/$RECYCLE.BIN'
+'test/test2/.Trash-1000' -> '_original_/.Trash-1000'
+'test/test2/d2' -> '_original_/d2'
+'test/test2/d3' -> '_original_/d3'
+'test/test2/d3/.htaccess' -> '_original_/d3/.htaccess'
+'test/test2/d3/desktop.ini' -> '_original_/d3/desktop.ini'
+'test/test2/d3/f2.txt' -> '_original_/d3/f2.txt'
+'test/test2/d3/f3.txt' -> '_original_/d3/f3.txt'
+'test/test2/d3/f5.txt' -> '_original_/d3/f5.txt'
+'test/test2/d3/Thumbs.db' -> '_original_/d3/Thumbs.db'
+'test/test2/m1' -> '_original_/m1'
+'test/test2/__bkp__' -> '_original_/__bkp__'
+'test/test2/__bkp__/README.txt' -> '_original_/__bkp__/README.txt'
+'test/test2/__bkp__/date150325-time115227' -> '_original_/__bkp__/date150325-time115227'
+'test/test2/__bkp__/date150325-time115227/f2.txt' -> '_original_/__bkp__/date150325-time115227/f2.txt'
+'test/test2/__bkp__/date150325-time115227/f3.txt' -> '_original_/__bkp__/date150325-time115227/f3.txt'
+'test/test2/__bkp__/date150325-time115227/m2' -> '_original_/__bkp__/date150325-time115227/m2'
+'test/test2/__bkp__/date150325-time115227/__added__.txt' -> '_original_/__bkp__/date150325-time115227/__added__.txt'
+'test/test2/__bkp__/date150325-time115227/d2' -> '_original_/__bkp__/date150325-time115227/d2'
+'test/test2/__bkp__/date150325-time115227/d3' -> '_original_/__bkp__/date150325-time115227/d3'
+'test/test2/__bkp__/date150325-time115227/d3/f3.txt' -> '_original_/__bkp__/date150325-time115227/d3/f3.txt'
+'test/test2/__bkp__/date150325-time115227/d3/f5.txt' -> '_original_/__bkp__/date150325-time115227/d3/f5.txt'
+'test/test2/__bkp__/date150325-time115227/m1' -> '_original_/__bkp__/date150325-time115227/m1'
+'test/test2/__bkp__/date150325-time115317' -> '_original_/__bkp__/date150325-time115317'
+'test/test2/__bkp__/date150325-time115317/spam.txt' -> '_original_/__bkp__/date150325-time115317/spam.txt'
+'test/test2/__bkp__/date150325-time115355' -> '_original_/__bkp__/date150325-time115355'
+'test/test2/__bkp__/date150325-time115355/__added__.txt' -> '_original_/__bkp__/date150325-time115355/__added__.txt'
+'test/test2/__bkp__/date150325-time115417' -> '_original_/__bkp__/date150325-time115417'
+'test/test2/__bkp__/date150325-time115417/__added__.txt' -> '_original_/__bkp__/date150325-time115417/__added__.txt'
+'test/test2/__bkp__/date150325-time115452' -> '_original_/__bkp__/date150325-time115452'
+'test/test2/__bkp__/date150325-time115452/spam2.txt' -> '_original_/__bkp__/date150325-time115452/spam2.txt'
+'test/test2/__bkp__/date150325-time115452/__added__.txt' -> '_original_/__bkp__/date150325-time115452/__added__.txt'
+'test/test2/__bkp__/date150325-time115541' -> '_original_/__bkp__/date150325-time115541'
+'test/test2/__bkp__/date150325-time115541/f0.txt' -> '_original_/__bkp__/date150325-time115541/f0.txt'
+'test/test2/__bkp__/date150325-time115549' -> '_original_/__bkp__/date150325-time115549'
+'test/test2/__bkp__/date150325-time115549/f0.txt' -> '_original_/__bkp__/date150325-time115549/f0.txt'
+'test/test2/__bkp__/date150325-time115557' -> '_original_/__bkp__/date150325-time115557'
+'test/test2/__bkp__/date150325-time115557/f0.txt' -> '_original_/__bkp__/date150325-time115557/f0.txt'
+'test/test2/__bkp__/date150325-time115607' -> '_original_/__bkp__/date150325-time115607'
+'test/test2/__bkp__/date150325-time115607/f0.txt' -> '_original_/__bkp__/date150325-time115607/f0.txt'
+'test/test2/__bkp__/date150325-time115737' -> '_original_/__bkp__/date150325-time115737'
+'test/test2/__bkp__/date150325-time115737/f0.txt' -> '_original_/__bkp__/date150325-time115737/f0.txt'
+'test/test2/__bkp__/date150325-time115737/__added__.txt' -> '_original_/__bkp__/date150325-time115737/__added__.txt'
+</PRE>
+
+
+
+<H2><a name="s3">Synch test2 to be same as test1, with cruft and backups</a></H2>
+
+<PRE>
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 mergeall.py test/test1 test/test2 -auto -backup</span>
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [test/test1] [test/test2]
+excluding test/test2/__bkp__
+comparing [test/test1/d3] [test/test2/d3]
+Phase runtime: 0.00039104500001485576
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('f3.txt', 'test/test1', 'test/test2', 'modtime'),
+ ('f6.txt', 'test/test1', 'test/test2', 'filesize'),
+ ('f3.txt', 'test/test1/d3', 'test/test2/d3', 'modtime'),
+ ('.htaccess', 'test/test1/d3', 'test/test2/d3', 'modtime')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['Desktop.ini', 'f2.txt', '$RECYCLE.BIN', '.Trash-1000', 'd2'],
+  'test/test1',
+  'test/test2'),
+ (['desktop.ini', 'f5.txt', 'Thumbs.db'], 'test/test1/d3', 'test/test2/d3')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['f1.txt', 'd1', '.DS_Store', '._.TemporaryItems'],
+  'test/test1',
+  'test/test2'),
+ (['.Trashes', 'f4.txt', '.DS_Store', '.fseventsd'],
+  'test/test1/d3',
+  'test/test2/d3')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[('m2', 'test/test1', 'test/test2'), ('m1', 'test/test1', 'test/test2')]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+....backing up f3.txt to test/test2/__bkp__/date161015-time145250/f3.txt
+replaced same file, using FROM test/test1/f3.txt
+....backing up f6.txt to test/test2/__bkp__/date161015-time145250/f6.txt
+replaced same file, using FROM test/test1/f6.txt
+....backing up f3.txt to test/test2/__bkp__/date161015-time145250/d3/f3.txt
+replaced same file, using FROM test/test1/d3/f3.txt
+....backing up .htaccess to test/test2/__bkp__/date161015-time145250/d3/.htaccess
+replaced same file, using FROM test/test1/d3/.htaccess
+....backing up Desktop.ini to test/test2/__bkp__/date161015-time145250/Desktop.ini
+removed old TO file, test/test2/Desktop.ini
+....backing up f2.txt to test/test2/__bkp__/date161015-time145250/f2.txt
+removed old TO file, test/test2/f2.txt
+....backing up $RECYCLE.BIN to test/test2/__bkp__/date161015-time145250/$RECYCLE.BIN
+removed old TO dir, test/test2/$RECYCLE.BIN
+....backing up .Trash-1000 to test/test2/__bkp__/date161015-time145250/.Trash-1000
+removed old TO dir, test/test2/.Trash-1000
+....backing up d2 to test/test2/__bkp__/date161015-time145250/d2
+removed old TO dir, test/test2/d2
+....backing up desktop.ini to test/test2/__bkp__/date161015-time145250/d3/desktop.ini
+removed old TO file, test/test2/d3/desktop.ini
+....backing up f5.txt to test/test2/__bkp__/date161015-time145250/d3/f5.txt
+removed old TO file, test/test2/d3/f5.txt
+....backing up Thumbs.db to test/test2/__bkp__/date161015-time145250/d3/Thumbs.db
+removed old TO file, test/test2/d3/Thumbs.db
+copied new FROM file, test/test1/f1.txt
+copied new FROM dir, test/test1/d1
+copied new FROM file, test/test1/.DS_Store
+copied new FROM file, test/test1/._.TemporaryItems
+copied new FROM file, test/test1/d3/.Trashes
+copied new FROM file, test/test1/d3/f4.txt
+copied new FROM file, test/test1/d3/.DS_Store
+copied new FROM dir, test/test1/d3/.fseventsd
+....backing up m2 to test/test2/__bkp__/date161015-time145250/m2
+replaced file with dir, using FROM test/test1/m2
+....backing up m1 to test/test2/__bkp__/date161015-time145250/m1
+replaced dir with file, using FROM test/test1/m1
+Phase runtime: 0.005904331999772694
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 6, folders: 2
+Differences => samefile: 4, uniqueto: 8, uniquefrom: 8, mixedmode: 2
+Changed:
+files   => created: 6, deleted: 5, replaced: 5
+folders => created: 2, deleted: 3, replaced: 1
+-------------------------------------------------------------------------------
+Finished.
+</PRE>
+
+
+
+<H2><a name="s4">Verify test2=test1 by mergeall: structure and modtimes</a></H2>
+
+<PRE>
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 mergeall.py test/test1 test/test2 -report</span>
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [test/test1] [test/test2]
+excluding test/test2/__bkp__
+comparing [test/test1/d1] [test/test2/d1]
+comparing [test/test1/m2] [test/test2/m2]
+comparing [test/test1/d3] [test/test2/d3]
+comparing [test/test1/d3/.fseventsd] [test/test2/d3/.fseventsd]
+Phase runtime: 0.0007112600001164537
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 19, folders: 5
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+</PRE>
+
+
+
+<H2><a name="s5">Verify test2=test1 by diffall: content, byte by byte </a></H2>
+
+<PRE>
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 diffall.py test/test1 test/test2</span>
+--------------------
+Comparing test/test1 to test/test2
+*UNIQUE items in test/test2:
+... __bkp__
+Comparing contents
+f3.txt matches
+f1.txt matches
+f6.txt matches
+.DS_Store matches
+f0.txt matches
+._.TemporaryItems matches
+m1 matches
+--------------------
+Comparing test/test1/d1 to test/test2/d1
+Directory lists are identical
+Comparing contents
+._someimage.png matches
+._.DS_Store matches
+fa1.txt matches
+--------------------
+Comparing test/test1/m2 to test/test2/m2
+Directory lists are identical
+Comparing contents
+.htaccess matches
+.DS_Store matches
+--------------------
+Comparing test/test1/d3 to test/test2/d3
+Directory lists are identical
+Comparing contents
+f3.txt matches
+f2.txt matches
+.Trashes matches
+f4.txt matches
+.htaccess matches
+.DS_Store matches
+--------------------
+Comparing test/test1/d3/.fseventsd to test/test2/d3/.fseventsd
+Directory lists are identical
+Comparing contents
+no_log matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 5, Files checked: 19, Files skipped: 0
+Diffs found: 1
+- items UNIQUE at [test/test1] - [test/test2]
+End of report.
+</PRE>
+
+
+
+<H2><a name="s6">Rollback prior synch</a></H2>
+
+<PRE>
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 rollback.py test/test2</span>
+**Warning**
+
+This script builds and runs a command to automatically restore the tree,
+whose root path is given on the command line or interactively, to its
+state prior to its most recent mergeall synch.  It assumes that the tree
+has not been changed since this synch, and further assumes that the latest
+synch was run with backups enabled.  This rollback cannot be undone
+automatically.
+
+Are you sure you want to do this (y=yes)? y
+Running rollback command:
+.... /usr/bin/python3 /Code/mergeall/mergeall.py test/test2/__bkp__/date161015-time145250 test/test2 -auto -restore
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [test/test2/__bkp__/date161015-time145250] [test/test2]
+excluding test/test2/__bkp__
+comparing [test/test2/__bkp__/date161015-time145250/d3] [test/test2/d3]
+Phase runtime: 0.00037880700028836145
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('f3.txt',
+  'test/test2/__bkp__/date161015-time145250',
+  'test/test2',
+  'modtime'),
+ ('f6.txt',
+  'test/test2/__bkp__/date161015-time145250',
+  'test/test2',
+  'filesize'),
+ ('f3.txt',
+  'test/test2/__bkp__/date161015-time145250/d3',
+  'test/test2/d3',
+  'modtime'),
+ ('.htaccess',
+  'test/test2/__bkp__/date161015-time145250/d3',
+  'test/test2/d3',
+  'modtime')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['f1.txt', 'd1', '.DS_Store', 'f0.txt', '._.TemporaryItems'],
+  'test/test2/__bkp__/date161015-time145250',
+  'test/test2'),
+ (['f2.txt', '.Trashes', 'f4.txt', '.DS_Store', '.fseventsd'],
+  'test/test2/__bkp__/date161015-time145250/d3',
+  'test/test2/d3')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['Desktop.ini',
+   'f2.txt',
+   '$RECYCLE.BIN',
+   '.Trash-1000',
+   'd2',
+   '__added__.txt'],
+  'test/test2/__bkp__/date161015-time145250',
+  'test/test2'),
+ (['desktop.ini', 'f5.txt', 'Thumbs.db'],
+  'test/test2/__bkp__/date161015-time145250/d3',
+  'test/test2/d3')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[('m2', 'test/test2/__bkp__/date161015-time145250', 'test/test2'),
+ ('m1', 'test/test2/__bkp__/date161015-time145250', 'test/test2')]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+....removed added file: test/test2/f1.txt
+....removed added dir: test/test2/d1
+....removed added file: test/test2/.DS_Store
+....removed added file: test/test2/._.TemporaryItems
+....removed added file: test/test2/d3/.Trashes
+....removed added file: test/test2/d3/f4.txt
+....removed added file: test/test2/d3/.DS_Store
+....removed added dir: test/test2/d3/.fseventsd
+....prior file/dir additions removed: 6/2
+replaced same file, using FROM test/test2/__bkp__/date161015-time145250/f3.txt
+replaced same file, using FROM test/test2/__bkp__/date161015-time145250/f6.txt
+replaced same file, using FROM test/test2/__bkp__/date161015-time145250/d3/f3.txt
+replaced same file, using FROM test/test2/__bkp__/date161015-time145250/d3/.htaccess
+....retained unique item in TO tree: [test/test2/f1.txt]
+....retained unique item in TO tree: [test/test2/d1]
+....retained unique item in TO tree: [test/test2/.DS_Store]
+....retained unique item in TO tree: [test/test2/f0.txt]
+....retained unique item in TO tree: [test/test2/._.TemporaryItems]
+....retained unique item in TO tree: [test/test2/d3/f2.txt]
+....retained unique item in TO tree: [test/test2/d3/.Trashes]
+....retained unique item in TO tree: [test/test2/d3/f4.txt]
+....retained unique item in TO tree: [test/test2/d3/.DS_Store]
+....retained unique item in TO tree: [test/test2/d3/.fseventsd]
+copied new FROM file, test/test2/__bkp__/date161015-time145250/Desktop.ini
+copied new FROM file, test/test2/__bkp__/date161015-time145250/f2.txt
+copied new FROM dir, test/test2/__bkp__/date161015-time145250/$RECYCLE.BIN
+copied new FROM dir, test/test2/__bkp__/date161015-time145250/.Trash-1000
+copied new FROM dir, test/test2/__bkp__/date161015-time145250/d2
+copied new FROM file, test/test2/__bkp__/date161015-time145250/__added__.txt
+copied new FROM file, test/test2/__bkp__/date161015-time145250/d3/desktop.ini
+copied new FROM file, test/test2/__bkp__/date161015-time145250/d3/f5.txt
+copied new FROM file, test/test2/__bkp__/date161015-time145250/d3/Thumbs.db
+replaced dir with file, using FROM test/test2/__bkp__/date161015-time145250/m2
+replaced file with dir, using FROM test/test2/__bkp__/date161015-time145250/m1
+....removed __added__.txt file from TO tree root
+Phase runtime: 0.0036134460001449042
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 4, folders: 2
+Differences => samefile: 4, uniqueto: 10, uniquefrom: 9, mixedmode: 2
+Changed:
+files   => created: 5, deleted: 6, replaced: 5
+folders => created: 3, deleted: 2, replaced: 1
+-------------------------------------------------------------------------------
+Finished.
+Press Enter to exit. 
+</PRE>
+
+
+
+<H2><a name="s7">Verify test2 same as original again</a></H2>
+
+<PRE>
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 mergeall.py test/test2 _original_ -report</span>
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [test/test2] [_original_]
+excluding test/test2/__bkp__
+excluding _original_/__bkp__
+comparing [test/test2/$RECYCLE.BIN] [_original_/$RECYCLE.BIN]
+comparing [test/test2/.Trash-1000] [_original_/.Trash-1000]
+comparing [test/test2/m1] [_original_/m1]
+comparing [test/test2/d3] [_original_/d3]
+comparing [test/test2/d2] [_original_/d2]
+Phase runtime: 0.0005764580000686692
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 12, folders: 6
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 diffall.py test/test2 _original_</span>
+--------------------
+Comparing test/test2 to _original_
+Directory lists are identical
+Comparing contents
+Desktop.ini matches
+f3.txt matches
+f2.txt matches
+f6.txt matches
+f0.txt matches
+m2 matches
+--------------------
+Comparing test/test2/__bkp__ to _original_/__bkp__
+*UNIQUE items in test/test2/__bkp__:
+... date161015-time145250
+Comparing contents
+README.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115557 to _original_/__bkp__/date150325-time115557
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115317 to _original_/__bkp__/date150325-time115317
+Directory lists are identical
+Comparing contents
+spam.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115452 to _original_/__bkp__/date150325-time115452
+Directory lists are identical
+Comparing contents
+spam2.txt matches
+__added__.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115541 to _original_/__bkp__/date150325-time115541
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115417 to _original_/__bkp__/date150325-time115417
+Directory lists are identical
+Comparing contents
+__added__.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115355 to _original_/__bkp__/date150325-time115355
+Directory lists are identical
+Comparing contents
+__added__.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115607 to _original_/__bkp__/date150325-time115607
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115737 to _original_/__bkp__/date150325-time115737
+Directory lists are identical
+Comparing contents
+f0.txt matches
+__added__.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115227 to _original_/__bkp__/date150325-time115227
+Directory lists are identical
+Comparing contents
+f3.txt matches
+f2.txt matches
+m2 matches
+__added__.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115227/m1 to _original_/__bkp__/date150325-time115227/m1
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing test/test2/__bkp__/date150325-time115227/d3 to _original_/__bkp__/date150325-time115227/d3
+Directory lists are identical
+Comparing contents
+f3.txt matches
+f5.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115227/d2 to _original_/__bkp__/date150325-time115227/d2
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing test/test2/__bkp__/date150325-time115549 to _original_/__bkp__/date150325-time115549
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing test/test2/$RECYCLE.BIN to _original_/$RECYCLE.BIN
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing test/test2/.Trash-1000 to _original_/.Trash-1000
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing test/test2/m1 to _original_/m1
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing test/test2/d3 to _original_/d3
+Directory lists are identical
+Comparing contents
+f3.txt matches
+f2.txt matches
+.htaccess matches
+desktop.ini matches
+f5.txt matches
+Thumbs.db matches
+--------------------
+Comparing test/test2/d2 to _original_/d2
+Directory lists are identical
+Comparing contents
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 20, Files checked: 30, Files skipped: 0
+Diffs found: 1
+- items UNIQUE at [test/test2/__bkp__] - [_original_/__bkp__]
+End of report.
+</PRE>
+
+
+
+
+<BR>
+<BR>
+<BR>
+<H1>Rerun tests with -skipcruft</H1>
+
+
+
+<H2><a name="s8">Reset test folders</a></H2>
+
+<PRE>
+<span class=command><span class=prompt>/Code/mergeall$</span> cd test</span>
+
+<span class=command><span class=prompt>/Code/mergeall/test$</span> py3 test-1-2-do-unzip.py</span>
+About to UNZIP: confirm with 'y'? y
+Removing test1
+Removing test2
+Unzipping from test-1-2.zip to .
+Extracted test1/
+		=> test1
+Extracted test1/.DS_Store
+		=> test1/.DS_Store
+Extracted test1/._.TemporaryItems
+		=> test1/._.TemporaryItems
+Extracted test1/f0.txt
+		=> test1/f0.txt
+Extracted test1/f1.txt
+		=> test1/f1.txt
+Extracted test1/f3.txt
+		=> test1/f3.txt
+Extracted test1/f6.txt
+		=> test1/f6.txt
+Extracted test1/m1
+		=> test1/m1
+Extracted test1/d1/
+		=> test1/d1
+Extracted test1/d1/._.DS_Store
+		=> test1/d1/._.DS_Store
+Extracted test1/d1/._someimage.png
+		=> test1/d1/._someimage.png
+Extracted test1/d1/fa1.txt
+		=> test1/d1/fa1.txt
+Extracted test1/d3/
+		=> test1/d3
+Extracted test1/d3/.DS_Store
+		=> test1/d3/.DS_Store
+Extracted test1/d3/.htaccess
+		=> test1/d3/.htaccess
+Extracted test1/d3/.Trashes
+		=> test1/d3/.Trashes
+Extracted test1/d3/f2.txt
+		=> test1/d3/f2.txt
+Extracted test1/d3/f3.txt
+		=> test1/d3/f3.txt
+Extracted test1/d3/f4.txt
+		=> test1/d3/f4.txt
+Extracted test1/d3/.fseventsd/
+		=> test1/d3/.fseventsd
+Extracted test1/d3/.fseventsd/no_log
+		=> test1/d3/.fseventsd/no_log
+Extracted test1/m2/
+		=> test1/m2
+Extracted test1/m2/.DS_Store
+		=> test1/m2/.DS_Store
+Extracted test1/m2/.htaccess
+		=> test1/m2/.htaccess
+Extracted test2/
+		=> test2
+Extracted test2/Desktop.ini
+		=> test2/Desktop.ini
+Extracted test2/f0.txt
+		=> test2/f0.txt
+Extracted test2/f2.txt
+		=> test2/f2.txt
+Extracted test2/f3.txt
+		=> test2/f3.txt
+Extracted test2/f6.txt
+		=> test2/f6.txt
+Extracted test2/m2
+		=> test2/m2
+Extracted test2/$RECYCLE.BIN/
+		=> test2/$RECYCLE.BIN
+Extracted test2/.Trash-1000/
+		=> test2/.Trash-1000
+Extracted test2/d2/
+		=> test2/d2
+Extracted test2/d3/
+		=> test2/d3
+Extracted test2/d3/.htaccess
+		=> test2/d3/.htaccess
+Extracted test2/d3/desktop.ini
+		=> test2/d3/desktop.ini
+Extracted test2/d3/f2.txt
+		=> test2/d3/f2.txt
+Extracted test2/d3/f3.txt
+		=> test2/d3/f3.txt
+Extracted test2/d3/f5.txt
+		=> test2/d3/f5.txt
+Extracted test2/d3/Thumbs.db
+		=> test2/d3/Thumbs.db
+Extracted test2/m1/
+		=> test2/m1
+Extracted test2/__bkp__/
+		=> test2/__bkp__
+Extracted test2/__bkp__/README.txt
+		=> test2/__bkp__/README.txt
+Extracted test2/__bkp__/date150325-time115227/
+		=> test2/__bkp__/date150325-time115227
+Extracted test2/__bkp__/date150325-time115227/f2.txt
+		=> test2/__bkp__/date150325-time115227/f2.txt
+Extracted test2/__bkp__/date150325-time115227/f3.txt
+		=> test2/__bkp__/date150325-time115227/f3.txt
+Extracted test2/__bkp__/date150325-time115227/m2
+		=> test2/__bkp__/date150325-time115227/m2
+Extracted test2/__bkp__/date150325-time115227/__added__.txt
+		=> test2/__bkp__/date150325-time115227/__added__.txt
+Extracted test2/__bkp__/date150325-time115227/d2/
+		=> test2/__bkp__/date150325-time115227/d2
+Extracted test2/__bkp__/date150325-time115227/d3/
+		=> test2/__bkp__/date150325-time115227/d3
+Extracted test2/__bkp__/date150325-time115227/d3/f3.txt
+		=> test2/__bkp__/date150325-time115227/d3/f3.txt
+Extracted test2/__bkp__/date150325-time115227/d3/f5.txt
+		=> test2/__bkp__/date150325-time115227/d3/f5.txt
+Extracted test2/__bkp__/date150325-time115227/m1/
+		=> test2/__bkp__/date150325-time115227/m1
+Extracted test2/__bkp__/date150325-time115317/
+		=> test2/__bkp__/date150325-time115317
+Extracted test2/__bkp__/date150325-time115317/spam.txt
+		=> test2/__bkp__/date150325-time115317/spam.txt
+Extracted test2/__bkp__/date150325-time115355/
+		=> test2/__bkp__/date150325-time115355
+Extracted test2/__bkp__/date150325-time115355/__added__.txt
+		=> test2/__bkp__/date150325-time115355/__added__.txt
+Extracted test2/__bkp__/date150325-time115417/
+		=> test2/__bkp__/date150325-time115417
+Extracted test2/__bkp__/date150325-time115417/__added__.txt
+		=> test2/__bkp__/date150325-time115417/__added__.txt
+Extracted test2/__bkp__/date150325-time115452/
+		=> test2/__bkp__/date150325-time115452
+Extracted test2/__bkp__/date150325-time115452/spam2.txt
+		=> test2/__bkp__/date150325-time115452/spam2.txt
+Extracted test2/__bkp__/date150325-time115452/__added__.txt
+		=> test2/__bkp__/date150325-time115452/__added__.txt
+Extracted test2/__bkp__/date150325-time115541/
+		=> test2/__bkp__/date150325-time115541
+Extracted test2/__bkp__/date150325-time115541/f0.txt
+		=> test2/__bkp__/date150325-time115541/f0.txt
+Extracted test2/__bkp__/date150325-time115549/
+		=> test2/__bkp__/date150325-time115549
+Extracted test2/__bkp__/date150325-time115549/f0.txt
+		=> test2/__bkp__/date150325-time115549/f0.txt
+Extracted test2/__bkp__/date150325-time115557/
+		=> test2/__bkp__/date150325-time115557
+Extracted test2/__bkp__/date150325-time115557/f0.txt
+		=> test2/__bkp__/date150325-time115557/f0.txt
+Extracted test2/__bkp__/date150325-time115607/
+		=> test2/__bkp__/date150325-time115607
+Extracted test2/__bkp__/date150325-time115607/f0.txt
+		=> test2/__bkp__/date150325-time115607/f0.txt
+Extracted test2/__bkp__/date150325-time115737/
+		=> test2/__bkp__/date150325-time115737
+Extracted test2/__bkp__/date150325-time115737/f0.txt
+		=> test2/__bkp__/date150325-time115737/f0.txt
+Extracted test2/__bkp__/date150325-time115737/__added__.txt
+		=> test2/__bkp__/date150325-time115737/__added__.txt
+
+
+<span class=command><span class=prompt>/Code/mergeall/test$</span> cd ..</span>
+</PRE>
+
+
+
+<H2><a name="s9">Sync test2 to be same as test1, skipping cruft in both</a></H2>
+
+<PRE>
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 mergeall.py test/test1 test/test2 -auto -backup -quiet -skipcruft</span>
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test/test1] [test/test2]
+excluding test/test2/__bkp__
+comparing [test/test1/d3] [test/test2/d3]
+Phase runtime: 0.004491450999921653
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('f3.txt', 'test/test1', 'test/test2', 'modtime'),
+ ('f6.txt', 'test/test1', 'test/test2', 'filesize'),
+ ('f3.txt', 'test/test1/d3', 'test/test2/d3', 'modtime'),
+ ('.htaccess', 'test/test1/d3', 'test/test2/d3', 'modtime')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['f2.txt', 'd2'], 'test/test1', 'test/test2'),
+ (['f5.txt'], 'test/test1/d3', 'test/test2/d3')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['f1.txt', 'd1'], 'test/test1', 'test/test2'),
+ (['f4.txt'], 'test/test1/d3', 'test/test2/d3')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[('m2', 'test/test1', 'test/test2'), ('m1', 'test/test1', 'test/test2')]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+....backing up all items to test/test2/__bkp__/date161015-time145808
+replaced same file, using FROM test/test1/f3.txt
+replaced same file, using FROM test/test1/f6.txt
+replaced same file, using FROM test/test1/d3/f3.txt
+replaced same file, using FROM test/test1/d3/.htaccess
+removed old TO file, test/test2/f2.txt
+removed old TO dir, test/test2/d2
+removed old TO file, test/test2/d3/f5.txt
+copied new FROM file, test/test1/f1.txt
+copied new FROM dir, test/test1/d1
+copied new FROM file, test/test1/d3/f4.txt
+replaced file with dir, using FROM test/test1/m2
+replaced dir with file, using FROM test/test1/m1
+Phase runtime: 0.004786374000104843
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 6, folders: 2
+Differences => samefile: 4, uniqueto: 3, uniquefrom: 3, mixedmode: 2
+Changed:
+files   => created: 2, deleted: 2, replaced: 5
+folders => created: 1, deleted: 1, replaced: 1
+-------------------------------------------------------------------------------
+Finished.
+</PRE>
+
+
+
+<H2><a name="s10">Verify by mergeall, with and without cruft</a></H2>
+
+<PRE>
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 mergeall.py test/test1 test/test2 -report</span>
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [test/test1] [test/test2]
+excluding test/test2/__bkp__
+comparing [test/test1/d1] [test/test2/d1]
+comparing [test/test1/m2] [test/test2/m2]
+comparing [test/test1/d3] [test/test2/d3]
+Phase runtime: 0.0005880649996470311
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['Desktop.ini', '$RECYCLE.BIN', '.Trash-1000'], 'test/test1', 'test/test2'),
+ (['desktop.ini', 'Thumbs.db'], 'test/test1/d3', 'test/test2/d3')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['.DS_Store', '._.TemporaryItems'], 'test/test1', 'test/test2'),
+ (['._someimage.png', '._.DS_Store'], 'test/test1/d1', 'test/test2/d1'),
+ (['.DS_Store'], 'test/test1/m2', 'test/test2/m2'),
+ (['.Trashes', '.DS_Store', '.fseventsd'], 'test/test1/d3', 'test/test2/d3')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 11, folders: 4
+Differences => samefile: 0, uniqueto: 5, uniquefrom: 8, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 mergeall.py test/test1 test/test2 -report -skipcruft</span>
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test/test1] [test/test2]
+excluding test/test2/__bkp__
+comparing [test/test1/d1] [test/test2/d1]
+comparing [test/test1/m2] [test/test2/m2]
+comparing [test/test1/d3] [test/test2/d3]
+Phase runtime: 0.0037901890000284766
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 11, folders: 4
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+</PRE>
+
+
+
+<H2><a name="s11">Verify by diffall, with and without cruft</a></H2>
+
+<PRE>
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 diffall.py test/test1 test/test2</span>
+--------------------
+Comparing test/test1 to test/test2
+*UNIQUE items in test/test1:
+... .DS_Store
+... ._.TemporaryItems
+*UNIQUE items in test/test2:
+... Desktop.ini
+... __bkp__
+... $RECYCLE.BIN
+... .Trash-1000
+Comparing contents
+f3.txt matches
+f1.txt matches
+f6.txt matches
+f0.txt matches
+m1 matches
+--------------------
+Comparing test/test1/d1 to test/test2/d1
+*UNIQUE items in test/test1/d1:
+... ._someimage.png
+... ._.DS_Store
+Comparing contents
+fa1.txt matches
+--------------------
+Comparing test/test1/m2 to test/test2/m2
+*UNIQUE items in test/test1/m2:
+... .DS_Store
+Comparing contents
+.htaccess matches
+--------------------
+Comparing test/test1/d3 to test/test2/d3
+*UNIQUE items in test/test1/d3:
+... .Trashes
+... .DS_Store
+... .fseventsd
+*UNIQUE items in test/test2/d3:
+... desktop.ini
+... Thumbs.db
+Comparing contents
+f3.txt matches
+f2.txt matches
+f4.txt matches
+.htaccess matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 4, Files checked: 11, Files skipped: 0
+Diffs found: 4
+- items UNIQUE at [test/test1] - [test/test2]
+- items UNIQUE at [test/test1/d1] - [test/test2/d1]
+- items UNIQUE at [test/test1/m2] - [test/test2/m2]
+- items UNIQUE at [test/test1/d3] - [test/test2/d3]
+End of report.
+
+
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 diffall.py test/test1 test/test2 -skipcruft</span>
+--------------------
+Comparing test/test1 to test/test2
+*UNIQUE items in test/test2:
+... __bkp__
+Comparing contents
+f3.txt matches
+f1.txt matches
+f6.txt matches
+f0.txt matches
+m1 matches
+--------------------
+Comparing test/test1/d1 to test/test2/d1
+Directory lists are identical
+Comparing contents
+fa1.txt matches
+--------------------
+Comparing test/test1/m2 to test/test2/m2
+Directory lists are identical
+Comparing contents
+.htaccess matches
+--------------------
+Comparing test/test1/d3 to test/test2/d3
+Directory lists are identical
+Comparing contents
+f3.txt matches
+f2.txt matches
+f4.txt matches
+.htaccess matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 4, Files checked: 11, Files skipped: 0
+System metadata (cruft) files were skipped
+Diffs found: 1
+- items UNIQUE at [test/test1] - [test/test2]
+End of report.
+</PRE>
+
+
+
+<H2><a name="s12">Rollback prior sync: cruft irrelevant</a></H2>
+
+<PRE>
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 rollback.py test/test2</span>
+**Warning**
+
+This script builds and runs a command to automatically restore the tree,
+whose root path is given on the command line or interactively, to its
+state prior to its most recent mergeall synch.  It assumes that the tree
+has not been changed since this synch, and further assumes that the latest
+synch was run with backups enabled.  This rollback cannot be undone
+automatically.
+
+Are you sure you want to do this (y=yes)? y
+Running rollback command:
+.... /usr/bin/python3 /Code/mergeall/mergeall.py test/test2/__bkp__/date161015-time145808 test/test2 -auto -restore
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [test/test2/__bkp__/date161015-time145808] [test/test2]
+excluding test/test2/__bkp__
+comparing [test/test2/__bkp__/date161015-time145808/d3] [test/test2/d3]
+Phase runtime: 0.0003565970000636298
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('f3.txt',
+  'test/test2/__bkp__/date161015-time145808',
+  'test/test2',
+  'modtime'),
+ ('f6.txt',
+  'test/test2/__bkp__/date161015-time145808',
+  'test/test2',
+  'filesize'),
+ ('f3.txt',
+  'test/test2/__bkp__/date161015-time145808/d3',
+  'test/test2/d3',
+  'modtime'),
+ ('.htaccess',
+  'test/test2/__bkp__/date161015-time145808/d3',
+  'test/test2/d3',
+  'modtime')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['Desktop.ini', 'f1.txt', '$RECYCLE.BIN', 'd1', '.Trash-1000', 'f0.txt'],
+  'test/test2/__bkp__/date161015-time145808',
+  'test/test2'),
+ (['f2.txt', 'f4.txt', 'desktop.ini', 'Thumbs.db'],
+  'test/test2/__bkp__/date161015-time145808/d3',
+  'test/test2/d3')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['f2.txt', 'd2', '__added__.txt'],
+  'test/test2/__bkp__/date161015-time145808',
+  'test/test2'),
+ (['f5.txt'], 'test/test2/__bkp__/date161015-time145808/d3', 'test/test2/d3')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[('m2', 'test/test2/__bkp__/date161015-time145808', 'test/test2'),
+ ('m1', 'test/test2/__bkp__/date161015-time145808', 'test/test2')]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+....removed added file: test/test2/f1.txt
+....removed added dir: test/test2/d1
+....removed added file: test/test2/d3/f4.txt
+....prior file/dir additions removed: 2/1
+replaced same file, using FROM test/test2/__bkp__/date161015-time145808/f3.txt
+replaced same file, using FROM test/test2/__bkp__/date161015-time145808/f6.txt
+replaced same file, using FROM test/test2/__bkp__/date161015-time145808/d3/f3.txt
+replaced same file, using FROM test/test2/__bkp__/date161015-time145808/d3/.htaccess
+....retained unique item in TO tree: [test/test2/Desktop.ini]
+....retained unique item in TO tree: [test/test2/f1.txt]
+....retained unique item in TO tree: [test/test2/$RECYCLE.BIN]
+....retained unique item in TO tree: [test/test2/d1]
+....retained unique item in TO tree: [test/test2/.Trash-1000]
+....retained unique item in TO tree: [test/test2/f0.txt]
+....retained unique item in TO tree: [test/test2/d3/f2.txt]
+....retained unique item in TO tree: [test/test2/d3/f4.txt]
+....retained unique item in TO tree: [test/test2/d3/desktop.ini]
+....retained unique item in TO tree: [test/test2/d3/Thumbs.db]
+copied new FROM file, test/test2/__bkp__/date161015-time145808/f2.txt
+copied new FROM dir, test/test2/__bkp__/date161015-time145808/d2
+copied new FROM file, test/test2/__bkp__/date161015-time145808/__added__.txt
+copied new FROM file, test/test2/__bkp__/date161015-time145808/d3/f5.txt
+replaced dir with file, using FROM test/test2/__bkp__/date161015-time145808/m2
+replaced file with dir, using FROM test/test2/__bkp__/date161015-time145808/m1
+....removed __added__.txt file from TO tree root
+Phase runtime: 0.002422849999675236
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 4, folders: 2
+Differences => samefile: 4, uniqueto: 10, uniquefrom: 4, mixedmode: 2
+Changed:
+files   => created: 2, deleted: 2, replaced: 5
+folders => created: 1, deleted: 1, replaced: 1
+-------------------------------------------------------------------------------
+Finished.
+Press Enter to exit. 
+</PRE>
+
+
+
+<H2><a name="s13">Verify test2 same as original again</a></H2>
+
+<PRE>
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 mergeall.py test/test2 _original_ -report</span>
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [test/test2] [_original_]
+excluding test/test2/__bkp__
+excluding _original_/__bkp__
+comparing [test/test2/$RECYCLE.BIN] [_original_/$RECYCLE.BIN]
+comparing [test/test2/.Trash-1000] [_original_/.Trash-1000]
+comparing [test/test2/m1] [_original_/m1]
+comparing [test/test2/d3] [_original_/d3]
+comparing [test/test2/d2] [_original_/d2]
+Phase runtime: 0.0006955580001886119
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 12, folders: 6
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+<span class=command><span class=prompt>/Code/mergeall$</span> py3 diffall.py test/test2 _original_</span>
+--------------------
+Comparing test/test2 to _original_
+Directory lists are identical
+Comparing contents
+Desktop.ini matches
+f3.txt matches
+f2.txt matches
+f6.txt matches
+f0.txt matches
+m2 matches
+--------------------
+Comparing test/test2/__bkp__ to _original_/__bkp__
+*UNIQUE items in test/test2/__bkp__:
+... date161015-time145808
+Comparing contents
+README.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115557 to _original_/__bkp__/date150325-time115557
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115317 to _original_/__bkp__/date150325-time115317
+Directory lists are identical
+Comparing contents
+spam.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115452 to _original_/__bkp__/date150325-time115452
+Directory lists are identical
+Comparing contents
+spam2.txt matches
+__added__.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115541 to _original_/__bkp__/date150325-time115541
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115417 to _original_/__bkp__/date150325-time115417
+Directory lists are identical
+Comparing contents
+__added__.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115355 to _original_/__bkp__/date150325-time115355
+Directory lists are identical
+Comparing contents
+__added__.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115607 to _original_/__bkp__/date150325-time115607
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115737 to _original_/__bkp__/date150325-time115737
+Directory lists are identical
+Comparing contents
+f0.txt matches
+__added__.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115227 to _original_/__bkp__/date150325-time115227
+Directory lists are identical
+Comparing contents
+f3.txt matches
+f2.txt matches
+m2 matches
+__added__.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115227/m1 to _original_/__bkp__/date150325-time115227/m1
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing test/test2/__bkp__/date150325-time115227/d3 to _original_/__bkp__/date150325-time115227/d3
+Directory lists are identical
+Comparing contents
+f3.txt matches
+f5.txt matches
+--------------------
+Comparing test/test2/__bkp__/date150325-time115227/d2 to _original_/__bkp__/date150325-time115227/d2
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing test/test2/__bkp__/date150325-time115549 to _original_/__bkp__/date150325-time115549
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing test/test2/$RECYCLE.BIN to _original_/$RECYCLE.BIN
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing test/test2/.Trash-1000 to _original_/.Trash-1000
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing test/test2/m1 to _original_/m1
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing test/test2/d3 to _original_/d3
+Directory lists are identical
+Comparing contents
+f3.txt matches
+f2.txt matches
+.htaccess matches
+desktop.ini matches
+f5.txt matches
+Thumbs.db matches
+--------------------
+Comparing test/test2/d2 to _original_/d2
+Directory lists are identical
+Comparing contents
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.01
+Dirs checked 20, Files checked: 30, Files skipped: 0
+Diffs found: 1
+- items UNIQUE at [test/test2/__bkp__] - [_original_/__bkp__]
+End of report.
+
+
+<span class=command><span class=prompt>/Code/mergeall$</span> </span>
+<PRE>
+
+</BODY></HTML>
+

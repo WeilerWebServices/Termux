@@ -1,0 +1,471 @@
+
+
+**** CREATING ****
+
+Zipping ['../test1', '../test2'] to selftest/MacOSX/skipcruft/ziptest.zip
+Cruft patterns: {'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]'], 'keep': ['.htaccess']}
+Adding folder ../test1
+--Skipped cruft file ../test1/._.TemporaryItems
+--Skipped cruft file ../test1/.DS_Store
+Adding folder ../test1/d1
+--Skipped cruft file ../test1/d1/._.DS_Store
+--Skipped cruft file ../test1/d1/._someimage.png
+Adding  file  ../test1/d1/fa1.txt
+Adding folder ../test1/d3
+--Skipped cruft file ../test1/d3/.DS_Store
+--Skipped cruft dir ../test1/d3/.fseventsd
+Adding  file  ../test1/d3/.htaccess
+--Skipped cruft file ../test1/d3/.Trashes
+Adding  file  ../test1/d3/f2.txt
+Adding  file  ../test1/d3/f3.txt
+Adding  file  ../test1/d3/f4.txt
+Adding  file  ../test1/f0.txt
+Adding  file  ../test1/f1.txt
+Adding  file  ../test1/f3.txt
+Adding  file  ../test1/f6.txt
+Adding  file  ../test1/m1
+Adding folder ../test1/m2
+--Skipped cruft file ../test1/m2/.DS_Store
+Adding  file  ../test1/m2/.htaccess
+Adding folder ../test2
+--Skipped cruft dir ../test2/$RECYCLE.BIN
+--Skipped cruft dir ../test2/.Trash-1000
+Adding folder ../test2/__bkp__
+Adding folder ../test2/__bkp__/date150325-time115227
+Adding  file  ../test2/__bkp__/date150325-time115227/__added__.txt
+Adding folder ../test2/__bkp__/date150325-time115227/d2
+Adding folder ../test2/__bkp__/date150325-time115227/d3
+Adding  file  ../test2/__bkp__/date150325-time115227/d3/f3.txt
+Adding  file  ../test2/__bkp__/date150325-time115227/d3/f5.txt
+Adding  file  ../test2/__bkp__/date150325-time115227/f2.txt
+Adding  file  ../test2/__bkp__/date150325-time115227/f3.txt
+Adding folder ../test2/__bkp__/date150325-time115227/m1
+Adding  file  ../test2/__bkp__/date150325-time115227/m2
+Adding folder ../test2/__bkp__/date150325-time115317
+Adding  file  ../test2/__bkp__/date150325-time115317/spam.txt
+Adding folder ../test2/__bkp__/date150325-time115355
+Adding  file  ../test2/__bkp__/date150325-time115355/__added__.txt
+Adding folder ../test2/__bkp__/date150325-time115417
+Adding  file  ../test2/__bkp__/date150325-time115417/__added__.txt
+Adding folder ../test2/__bkp__/date150325-time115452
+Adding  file  ../test2/__bkp__/date150325-time115452/__added__.txt
+Adding  file  ../test2/__bkp__/date150325-time115452/spam2.txt
+Adding folder ../test2/__bkp__/date150325-time115541
+Adding  file  ../test2/__bkp__/date150325-time115541/f0.txt
+Adding folder ../test2/__bkp__/date150325-time115549
+Adding  file  ../test2/__bkp__/date150325-time115549/f0.txt
+Adding folder ../test2/__bkp__/date150325-time115557
+Adding  file  ../test2/__bkp__/date150325-time115557/f0.txt
+Adding folder ../test2/__bkp__/date150325-time115607
+Adding  file  ../test2/__bkp__/date150325-time115607/f0.txt
+Adding folder ../test2/__bkp__/date150325-time115737
+Adding  file  ../test2/__bkp__/date150325-time115737/__added__.txt
+Adding  file  ../test2/__bkp__/date150325-time115737/f0.txt
+Adding  file  ../test2/__bkp__/README.txt
+Adding folder ../test2/d2
+Adding folder ../test2/d3
+Adding  file  ../test2/d3/.htaccess
+--Skipped cruft file ../test2/d3/desktop.ini
+Adding  file  ../test2/d3/f2.txt
+Adding  file  ../test2/d3/f3.txt
+Adding  file  ../test2/d3/f5.txt
+--Skipped cruft file ../test2/d3/Thumbs.db
+--Skipped cruft file ../test2/Desktop.ini
+Adding  file  ../test2/f0.txt
+Adding  file  ../test2/f2.txt
+Adding  file  ../test2/f3.txt
+Adding  file  ../test2/f6.txt
+Adding folder ../test2/m1
+Adding  file  ../test2/m2
+
+
+**** EXTRACTING ****
+
+Removing selftest/MacOSX/skipcruft/test1
+Removing selftest/MacOSX/skipcruft/test2
+Unzipping from selftest/MacOSX/skipcruft/ziptest.zip to selftest/MacOSX/skipcruft
+Extracted ../test1/
+		=> selftest/MacOSX/skipcruft/test1
+Extracted ../test1/d1/
+		=> selftest/MacOSX/skipcruft/test1/d1
+Extracted ../test1/d1/fa1.txt
+		=> selftest/MacOSX/skipcruft/test1/d1/fa1.txt
+Extracted ../test1/d3/
+		=> selftest/MacOSX/skipcruft/test1/d3
+Extracted ../test1/d3/.htaccess
+		=> selftest/MacOSX/skipcruft/test1/d3/.htaccess
+Extracted ../test1/d3/f2.txt
+		=> selftest/MacOSX/skipcruft/test1/d3/f2.txt
+Extracted ../test1/d3/f3.txt
+		=> selftest/MacOSX/skipcruft/test1/d3/f3.txt
+Extracted ../test1/d3/f4.txt
+		=> selftest/MacOSX/skipcruft/test1/d3/f4.txt
+Extracted ../test1/f0.txt
+		=> selftest/MacOSX/skipcruft/test1/f0.txt
+Extracted ../test1/f1.txt
+		=> selftest/MacOSX/skipcruft/test1/f1.txt
+Extracted ../test1/f3.txt
+		=> selftest/MacOSX/skipcruft/test1/f3.txt
+Extracted ../test1/f6.txt
+		=> selftest/MacOSX/skipcruft/test1/f6.txt
+Extracted ../test1/m1
+		=> selftest/MacOSX/skipcruft/test1/m1
+Extracted ../test1/m2/
+		=> selftest/MacOSX/skipcruft/test1/m2
+Extracted ../test1/m2/.htaccess
+		=> selftest/MacOSX/skipcruft/test1/m2/.htaccess
+Extracted ../test2/
+		=> selftest/MacOSX/skipcruft/test2
+Extracted ../test2/__bkp__/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__
+Extracted ../test2/__bkp__/date150325-time115227/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227
+Extracted ../test2/__bkp__/date150325-time115227/__added__.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227/__added__.txt
+Extracted ../test2/__bkp__/date150325-time115227/d2/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227/d2
+Extracted ../test2/__bkp__/date150325-time115227/d3/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227/d3
+Extracted ../test2/__bkp__/date150325-time115227/d3/f3.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227/d3/f3.txt
+Extracted ../test2/__bkp__/date150325-time115227/d3/f5.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227/d3/f5.txt
+Extracted ../test2/__bkp__/date150325-time115227/f2.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227/f2.txt
+Extracted ../test2/__bkp__/date150325-time115227/f3.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227/f3.txt
+Extracted ../test2/__bkp__/date150325-time115227/m1/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227/m1
+Extracted ../test2/__bkp__/date150325-time115227/m2
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227/m2
+Extracted ../test2/__bkp__/date150325-time115317/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115317
+Extracted ../test2/__bkp__/date150325-time115317/spam.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115317/spam.txt
+Extracted ../test2/__bkp__/date150325-time115355/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115355
+Extracted ../test2/__bkp__/date150325-time115355/__added__.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115355/__added__.txt
+Extracted ../test2/__bkp__/date150325-time115417/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115417
+Extracted ../test2/__bkp__/date150325-time115417/__added__.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115417/__added__.txt
+Extracted ../test2/__bkp__/date150325-time115452/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115452
+Extracted ../test2/__bkp__/date150325-time115452/__added__.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115452/__added__.txt
+Extracted ../test2/__bkp__/date150325-time115452/spam2.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115452/spam2.txt
+Extracted ../test2/__bkp__/date150325-time115541/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115541
+Extracted ../test2/__bkp__/date150325-time115541/f0.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115541/f0.txt
+Extracted ../test2/__bkp__/date150325-time115549/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115549
+Extracted ../test2/__bkp__/date150325-time115549/f0.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115549/f0.txt
+Extracted ../test2/__bkp__/date150325-time115557/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115557
+Extracted ../test2/__bkp__/date150325-time115557/f0.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115557/f0.txt
+Extracted ../test2/__bkp__/date150325-time115607/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115607
+Extracted ../test2/__bkp__/date150325-time115607/f0.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115607/f0.txt
+Extracted ../test2/__bkp__/date150325-time115737/
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115737
+Extracted ../test2/__bkp__/date150325-time115737/__added__.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115737/__added__.txt
+Extracted ../test2/__bkp__/date150325-time115737/f0.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115737/f0.txt
+Extracted ../test2/__bkp__/README.txt
+		=> selftest/MacOSX/skipcruft/test2/__bkp__/README.txt
+Extracted ../test2/d2/
+		=> selftest/MacOSX/skipcruft/test2/d2
+Extracted ../test2/d3/
+		=> selftest/MacOSX/skipcruft/test2/d3
+Extracted ../test2/d3/.htaccess
+		=> selftest/MacOSX/skipcruft/test2/d3/.htaccess
+Extracted ../test2/d3/f2.txt
+		=> selftest/MacOSX/skipcruft/test2/d3/f2.txt
+Extracted ../test2/d3/f3.txt
+		=> selftest/MacOSX/skipcruft/test2/d3/f3.txt
+Extracted ../test2/d3/f5.txt
+		=> selftest/MacOSX/skipcruft/test2/d3/f5.txt
+Extracted ../test2/f0.txt
+		=> selftest/MacOSX/skipcruft/test2/f0.txt
+Extracted ../test2/f2.txt
+		=> selftest/MacOSX/skipcruft/test2/f2.txt
+Extracted ../test2/f3.txt
+		=> selftest/MacOSX/skipcruft/test2/f3.txt
+Extracted ../test2/f6.txt
+		=> selftest/MacOSX/skipcruft/test2/f6.txt
+Extracted ../test2/m1/
+		=> selftest/MacOSX/skipcruft/test2/m1
+Extracted ../test2/m2
+		=> selftest/MacOSX/skipcruft/test2/m2
+
+
+**** COMPARING MODTIMES: test1 ****
+
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [../test1] [selftest/MacOSX/skipcruft/test1]
+comparing [../test1/d1] [selftest/MacOSX/skipcruft/test1/d1]
+comparing [../test1/d3] [selftest/MacOSX/skipcruft/test1/d3]
+comparing [../test1/m2] [selftest/MacOSX/skipcruft/test1/m2]
+Phase runtime: 0.0003483860054984689
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['._.TemporaryItems', '.DS_Store'],
+  '../test1',
+  'selftest/MacOSX/skipcruft/test1'),
+ (['._.DS_Store', '._someimage.png'],
+  '../test1/d1',
+  'selftest/MacOSX/skipcruft/test1/d1'),
+ (['.DS_Store', '.fseventsd', '.Trashes'],
+  '../test1/d3',
+  'selftest/MacOSX/skipcruft/test1/d3'),
+ (['.DS_Store'], '../test1/m2', 'selftest/MacOSX/skipcruft/test1/m2')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 11, folders: 4
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 8, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+**** COMPARING MODTIMES: test2 ****
+
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [../test2] [selftest/MacOSX/skipcruft/test2]
+excluding ../test2/__bkp__
+excluding selftest/MacOSX/skipcruft/test2/__bkp__
+comparing [../test2/d2] [selftest/MacOSX/skipcruft/test2/d2]
+comparing [../test2/d3] [selftest/MacOSX/skipcruft/test2/d3]
+comparing [../test2/m1] [selftest/MacOSX/skipcruft/test2/m1]
+Phase runtime: 0.0003811880014836788
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['$RECYCLE.BIN', '.Trash-1000', 'Desktop.ini'],
+  '../test2',
+  'selftest/MacOSX/skipcruft/test2'),
+ (['desktop.ini', 'Thumbs.db'],
+  '../test2/d3',
+  'selftest/MacOSX/skipcruft/test2/d3')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 9, folders: 4
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 5, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+**** COMPARING CONTENT: test1 ****
+
+--------------------
+Comparing ../test1 to selftest/MacOSX/skipcruft/test1
+*UNIQUE items in ../test1:
+... ._.TemporaryItems
+... .DS_Store
+Comparing contents
+f0.txt matches
+f1.txt matches
+f3.txt matches
+f6.txt matches
+m1 matches
+--------------------
+Comparing ../test1/d1 to selftest/MacOSX/skipcruft/test1/d1
+*UNIQUE items in ../test1/d1:
+... ._.DS_Store
+... ._someimage.png
+Comparing contents
+fa1.txt matches
+--------------------
+Comparing ../test1/d3 to selftest/MacOSX/skipcruft/test1/d3
+*UNIQUE items in ../test1/d3:
+... .DS_Store
+... .fseventsd
+... .Trashes
+Comparing contents
+.htaccess matches
+f2.txt matches
+f3.txt matches
+f4.txt matches
+--------------------
+Comparing ../test1/m2 to selftest/MacOSX/skipcruft/test1/m2
+*UNIQUE items in ../test1/m2:
+... .DS_Store
+Comparing contents
+.htaccess matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 4, Files checked: 11, Files skipped: 0
+Diffs found: 4
+- items UNIQUE at [../test1] - [selftest/MacOSX/skipcruft/test1]
+- items UNIQUE at [../test1/d1] - [selftest/MacOSX/skipcruft/test1/d1]
+- items UNIQUE at [../test1/d3] - [selftest/MacOSX/skipcruft/test1/d3]
+- items UNIQUE at [../test1/m2] - [selftest/MacOSX/skipcruft/test1/m2]
+End of report.
+
+
+**** COMPARING CONTENT: test2 ****
+
+--------------------
+Comparing ../test2 to selftest/MacOSX/skipcruft/test2
+*UNIQUE items in ../test2:
+... $RECYCLE.BIN
+... .Trash-1000
+... Desktop.ini
+Comparing contents
+f0.txt matches
+f2.txt matches
+f3.txt matches
+f6.txt matches
+m2 matches
+--------------------
+Comparing ../test2/__bkp__ to selftest/MacOSX/skipcruft/test2/__bkp__
+Directory lists are identical
+Comparing contents
+README.txt matches
+--------------------
+Comparing ../test2/__bkp__/date150325-time115227 to selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227
+Directory lists are identical
+Comparing contents
+__added__.txt matches
+f2.txt matches
+f3.txt matches
+m2 matches
+--------------------
+Comparing ../test2/__bkp__/date150325-time115227/d2 to selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227/d2
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing ../test2/__bkp__/date150325-time115227/d3 to selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227/d3
+Directory lists are identical
+Comparing contents
+f3.txt matches
+f5.txt matches
+--------------------
+Comparing ../test2/__bkp__/date150325-time115227/m1 to selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115227/m1
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing ../test2/__bkp__/date150325-time115317 to selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115317
+Directory lists are identical
+Comparing contents
+spam.txt matches
+--------------------
+Comparing ../test2/__bkp__/date150325-time115355 to selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115355
+Directory lists are identical
+Comparing contents
+__added__.txt matches
+--------------------
+Comparing ../test2/__bkp__/date150325-time115417 to selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115417
+Directory lists are identical
+Comparing contents
+__added__.txt matches
+--------------------
+Comparing ../test2/__bkp__/date150325-time115452 to selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115452
+Directory lists are identical
+Comparing contents
+__added__.txt matches
+spam2.txt matches
+--------------------
+Comparing ../test2/__bkp__/date150325-time115541 to selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115541
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing ../test2/__bkp__/date150325-time115549 to selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115549
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing ../test2/__bkp__/date150325-time115557 to selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115557
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing ../test2/__bkp__/date150325-time115607 to selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115607
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing ../test2/__bkp__/date150325-time115737 to selftest/MacOSX/skipcruft/test2/__bkp__/date150325-time115737
+Directory lists are identical
+Comparing contents
+__added__.txt matches
+f0.txt matches
+--------------------
+Comparing ../test2/d2 to selftest/MacOSX/skipcruft/test2/d2
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing ../test2/d3 to selftest/MacOSX/skipcruft/test2/d3
+*UNIQUE items in ../test2/d3:
+... desktop.ini
+... Thumbs.db
+Comparing contents
+.htaccess matches
+f2.txt matches
+f3.txt matches
+f5.txt matches
+--------------------
+Comparing ../test2/m1 to selftest/MacOSX/skipcruft/test2/m1
+Directory lists are identical
+Comparing contents
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 18, Files checked: 27, Files skipped: 0
+Diffs found: 2
+- items UNIQUE at [../test2] - [selftest/MacOSX/skipcruft/test2]
+- items UNIQUE at [../test2/d3] - [selftest/MacOSX/skipcruft/test2/d3]
+End of report.

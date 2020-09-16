@@ -1,0 +1,69 @@
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [/home/name/Desktop/mergeall-3.0-beta/test/test1] [/home/name/Desktop/mergeall-3.0-beta/test/test2]
+excluding /home/name/Desktop/mergeall-3.0-beta/test/test2/__bkp__
+comparing [/home/name/Desktop/mergeall-3.0-beta/test/test1/d3] [/home/name/Desktop/mergeall-3.0-beta/test/test2/d3]
+Phase runtime: 0.0003553049999709401
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('f3.txt',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2',
+  'modtime'),
+ ('f6.txt',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2',
+  'filesize'),
+ ('f3.txt',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1/d3',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2/d3',
+  'modtime'),
+ ('.htaccess',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1/d3',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2/d3',
+  'modtime')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['Desktop.ini', 'f2.txt', '$RECYCLE.BIN', '.Trash-1000', 'd2'],
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2'),
+ (['desktop.ini', 'f5.txt', 'Thumbs.db'],
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1/d3',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2/d3')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['f1.txt', 'd1', '.DS_Store', '._.TemporaryItems'],
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2'),
+ (['.Trashes', 'f4.txt', '.DS_Store', '.fseventsd'],
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1/d3',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2/d3')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[('m2',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2'),
+ ('m1',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2')]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 6, folders: 2
+Differences => samefile: 4, uniqueto: 8, uniquefrom: 8, mixedmode: 2
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.

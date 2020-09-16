@@ -1,0 +1,7 @@
+# [edited] an apache web server folder-specific config file
+# gen index, show (not run) py, manual headers for ga js, html insert for readme
+Options +Indexes
+RemoveHandler cgi-script .py .pyw
+IndexOptions +SuppressHTMLPreamble
+HeaderName HEADER.html
+ReadmeName README.html

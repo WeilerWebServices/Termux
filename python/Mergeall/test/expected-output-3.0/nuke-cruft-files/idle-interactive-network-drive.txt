@@ -1,0 +1,179 @@
+>>> ================================ RESTART ================================
+>>> 
+Data set (archive) tree root path? Y:\
+List matching cruft files only? y
+Match all "._*" files too (more aggressive)? y
+Match all ".*" files too (most aggressive)? y
+About to run in LIST ONLY mode
+	On root "Y:\"
+	Finding [
+		'.DS_Store',
+		'._.DS_Store',
+		'.localized',
+		'.TemporaryItems',
+		'[dD]esktop.ini',
+		'Thumbs.db',
+		'._*',
+		'.*'
+		]
+	Keeping ['.htaccess', '.login', '.bash*']
+	Pruning ['*\ziptools*selftest', '*\mergeall*\test[12]', '*\mac\DRIVE-METADATA']
+Continue? y
+Walking root tree...
+Cruft folder => Y:\.Trash-1000
+Cruft folder => Y:\.TemporaryItems
+Cruft folder => Y:\.fseventsd
+Cruft file =>   Y:\.DS_Store
+Cruft file =>   Y:\._.DS_Store
+Cruft file =>   Y:\._.TemporaryItems
+Cruft file =>   Y:\.metadata_never_index
+Cruft file =>   Y:\.Trashes
+Cruft file =>   Y:\TransferMe\.DS_Store
+Cruft file =>   Y:\TransferMe\._.DS_Store
+Cruft file =>   Y:\TransferMe\beta\.DS_Store
+Cruft file =>   Y:\TransferMe\beta\._.DS_Store
+(Pruned folder) Y:\TransferMe\beta\mergeall-3.0-beta\test\test1
+(Pruned folder) Y:\TransferMe\beta\mergeall-3.0-beta\test\test2
+(Pruned folder) Y:\TransferMe\beta\mergeall-3.0-beta\test\ziptools\selftest
+(Pruned folder) Y:\TransferMe\beta\mergeall-3.0-beta\test\ziptools\cmdtest\target\selftest
+Cruft file =>   Y:\TransferMe\shots\._macosx2.tiff
+Cruft file =>   Y:\TransferMe\shots\._mergeall-doc-image-macosx.png
+(Pruned folder) Y:\TransferMe\mac\DRIVE-METADATA
+(Pruned folder) Y:\TransferMe\old-betas\mergeall-2.5-beta\test\test1
+(Pruned folder) Y:\TransferMe\old-betas\mergeall-2.5-beta\test\test2
+Cruft folder => Y:\Sharedfiles\oldstick\.ReadyDLNA
+Cruft file =>   Y:\Sharedfiles\oldstick\MyBookData\archive\desktop.ini
+Cruft file =>   Y:\Sharedfiles\oldstick\ReferenceGuides\ReferenceGuides\Thumbs.db
+Cruft file =>   Y:\Sharedfiles\oldstick\tablet_specs_dontdelete\Downloads\desktop.ini
+Cruft file =>   Y:\Sharedfiles\oldstick\tablet_specs_dontdelete\Downloads\Thumbs.db
+Cruft file =>   Y:\Sharedfiles\oldstick\vera\New folder\Autodesk\SketchBook Pro\5.0\BrushPresetIcons\Thumbs.db
+Cruft file =>   Y:\Sharedfiles\Goals\._Goals.xlsm
+----------------------------------------
+Done: 21 cruft items found.
+Number items removed=0, failed=0
+Cruft item counts by name:
+  0003 => ".DS_Store"
+  0001 => ".ReadyDLNA"
+  0001 => ".TemporaryItems"
+  0001 => ".Trash-1000"
+  0001 => ".Trashes"
+  0003 => "._.DS_Store"
+  0001 => "._.TemporaryItems"
+  0001 => "._Goals.xlsm"
+  0001 => "._macosx2.tiff"
+  0001 => "._mergeall-doc-image-macosx.png"
+  0001 => ".fseventsd"
+  0001 => ".metadata_never_index"
+  0003 => "Thumbs.db"
+  0002 => "desktop.ini"
+Press Enter to exit.
+
+
+
+>>> ================================ RESTART ================================
+>>> 
+Data set (archive) tree root path? Y:\
+List matching cruft files only? n
+Match all "._*" files too (more aggressive)? y
+Match all ".*" files too (most aggressive)? y
+About to run in REMOVE FILES mode
+	On root "Y:\"
+	Finding [
+		'.DS_Store',
+		'._.DS_Store',
+		'.localized',
+		'.TemporaryItems',
+		'[dD]esktop.ini',
+		'Thumbs.db',
+		'._*',
+		'.*'
+		]
+	Keeping ['.htaccess', '.login', '.bash*']
+	Pruning ['*\ziptools*selftest', '*\mergeall*\test[12]', '*\mac\DRIVE-METADATA']
+Continue? y
+Walking root tree...
+Cruft folder => Y:\.Trash-1000
+Cruft folder => Y:\.TemporaryItems
+Cruft folder => Y:\.fseventsd
+Cruft file =>   Y:\.DS_Store
+Cruft file =>   Y:\._.DS_Store
+Cruft file =>   Y:\._.TemporaryItems
+Cruft file =>   Y:\.metadata_never_index
+Cruft file =>   Y:\.Trashes
+Cruft file =>   Y:\TransferMe\.DS_Store
+Cruft file =>   Y:\TransferMe\._.DS_Store
+Cruft file =>   Y:\TransferMe\beta\.DS_Store
+Cruft file =>   Y:\TransferMe\beta\._.DS_Store
+(Pruned folder) Y:\TransferMe\beta\mergeall-3.0-beta\test\test1
+(Pruned folder) Y:\TransferMe\beta\mergeall-3.0-beta\test\test2
+(Pruned folder) Y:\TransferMe\beta\mergeall-3.0-beta\test\ziptools\selftest
+(Pruned folder) Y:\TransferMe\beta\mergeall-3.0-beta\test\ziptools\cmdtest\target\selftest
+Cruft file =>   Y:\TransferMe\shots\._macosx2.tiff
+Cruft file =>   Y:\TransferMe\shots\._mergeall-doc-image-macosx.png
+(Pruned folder) Y:\TransferMe\mac\DRIVE-METADATA
+(Pruned folder) Y:\TransferMe\old-betas\mergeall-2.5-beta\test\test1
+(Pruned folder) Y:\TransferMe\old-betas\mergeall-2.5-beta\test\test2
+Cruft folder => Y:\Sharedfiles\oldstick\.ReadyDLNA
+Cruft file =>   Y:\Sharedfiles\oldstick\MyBookData\archive\desktop.ini
+Cruft file =>   Y:\Sharedfiles\oldstick\ReferenceGuides\ReferenceGuides\Thumbs.db
+Cruft file =>   Y:\Sharedfiles\oldstick\tablet_specs_dontdelete\Downloads\desktop.ini
+Cruft file =>   Y:\Sharedfiles\oldstick\tablet_specs_dontdelete\Downloads\Thumbs.db
+Cruft file =>   Y:\Sharedfiles\oldstick\vera\New folder\Autodesk\SketchBook Pro\5.0\BrushPresetIcons\Thumbs.db
+Cruft file =>   Y:\Sharedfiles\Goals\._Goals.xlsm
+----------------------------------------
+Done: 21 cruft items removed.
+Number items removed=21, failed=0
+Cruft item counts by name:
+  0003 => ".DS_Store"
+  0001 => ".ReadyDLNA"
+  0001 => ".TemporaryItems"
+  0001 => ".Trash-1000"
+  0001 => ".Trashes"
+  0003 => "._.DS_Store"
+  0001 => "._.TemporaryItems"
+  0001 => "._Goals.xlsm"
+  0001 => "._macosx2.tiff"
+  0001 => "._mergeall-doc-image-macosx.png"
+  0001 => ".fseventsd"
+  0001 => ".metadata_never_index"
+  0003 => "Thumbs.db"
+  0002 => "desktop.ini"
+Press Enter to exit.
+
+
+
+>>> ================================ RESTART ================================
+>>> 
+Data set (archive) tree root path? Y:\
+List matching cruft files only? y
+Match all "._*" files too (more aggressive)? y
+Match all ".*" files too (most aggressive)? y
+About to run in LIST ONLY mode
+	On root "Y:\"
+	Finding [
+		'.DS_Store',
+		'._.DS_Store',
+		'.localized',
+		'.TemporaryItems',
+		'[dD]esktop.ini',
+		'Thumbs.db',
+		'._*',
+		'.*'
+		]
+	Keeping ['.htaccess', '.login', '.bash*']
+	Pruning ['*\ziptools*selftest', '*\mergeall*\test[12]', '*\mac\DRIVE-METADATA']
+Continue? y
+Walking root tree...
+(Pruned folder) Y:\TransferMe\beta\mergeall-3.0-beta\test\test1
+(Pruned folder) Y:\TransferMe\beta\mergeall-3.0-beta\test\test2
+(Pruned folder) Y:\TransferMe\beta\mergeall-3.0-beta\test\ziptools\selftest
+(Pruned folder) Y:\TransferMe\beta\mergeall-3.0-beta\test\ziptools\cmdtest\target\selftest
+(Pruned folder) Y:\TransferMe\mac\DRIVE-METADATA
+(Pruned folder) Y:\TransferMe\old-betas\mergeall-2.5-beta\test\test1
+(Pruned folder) Y:\TransferMe\old-betas\mergeall-2.5-beta\test\test2
+----------------------------------------
+Done: 0 cruft items found.
+Number items removed=0, failed=0
+Cruft item counts by name:
+Press Enter to exit.
+>>> 

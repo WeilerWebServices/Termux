@@ -1,0 +1,55 @@
+
+ABSOLUTE PATHS ************************************************************
+root prefix len=33
+
+MAKE DIRS
+ os.mkdir failed at len=248 chars
+	adding len=248 249 250 251 252 253 254 255 256 257 258 259 260 261 262 
+ACCESS DIRS
+ _isdir failed at len=260 chars
+ listdir failed at len=256 chars
+ lstat failed at len=260 chars
+ACCESS DIRS WITH PREFIX
+ _isdir failed at len=263 chars
+ listdir failed at len=263 chars
+ lstat failed at len=263 chars
+
+MAKE FILES
+ open failed at len=260 chars
+	adding len=260 261 262 263 264 265 266 267 268 269 270 271 272 273 274 
+ACCESS FILES
+ open failed at len=260 chars
+ isfile failed at len=260 chars
+ lstat failed at len=260 chars
+ACCESS FILES WITH PREFIX
+ open failed at len=275 chars
+ isfile failed at len=275 chars
+ lstat failed at len=275 chars
+
+RELATIVE PATHS ************************************************************
+cwd len=21 (22 with \)
+root prefix len=11
+
+MAKE DIRS
+ os.mkdir failed at len=226 chars
+	adding len=226 227 228 229 230 231 232 233 234 235 236 237 238 239 240 
+ACCESS DIRS
+ _isdir failed at len=238 chars
+ listdir failed at len=234 chars
+ lstat failed at len=238 chars
+ACCESS DIRS WITH PREFIX
+ _isdir failed at len=241 chars
+ listdir failed at len=241 chars
+ lstat failed at len=241 chars
+
+MAKE FILES
+ open failed at len=238 chars
+	adding len=238 239 240 241 242 243 244 245 246 247 248 249 250 251 252 
+ACCESS FILES
+ open failed at len=238 chars
+ isfile failed at len=238 chars
+ lstat failed at len=238 chars
+ACCESS FILES WITH PREFIX
+ open failed at len=253 chars
+ isfile failed at len=253 chars
+ lstat failed at len=253 chars

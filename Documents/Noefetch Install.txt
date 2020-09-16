@@ -1,0 +1,38 @@
+#!/system/bin/sh
+# Neofetch Install
+
+print Neofetch Termux Install
+
+print Neofetch is in Termux's default repos.
+
+# Update repositories
+pkg update
+
+# Install the package
+pkg install neofetch
+
+# Git clone the repo.
+#git clone https://github.com/dylanaraps/neofetch
+
+#print Change working directory to neofetch.
+
+#cd neofetch
+
+#print Install neofetch using the Makefile.
+
+#print Install neofetch using the Makefile.
+#make install
+
+# El Capitan: make PREFIX=/usr/local install
+
+# Haiku: make PREFIX=/boot/home/config/non-packaged install
+
+# OpenIndiana: gmake install
+
+# MinGW/MSys: make -i install
+
+#print NOTE: You may have to run this as root.
+
+#print NOTE: Neofetch can be uninstalled easily using make uninstall. This removes all of files from your system.
+
+#print NOTE: You can run neofetch from any folder on your system, all the makefile does is move the files to a "sane" location. The Makefile is optional.

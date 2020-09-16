@@ -1,0 +1,524 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="EN"><head>
+<title>JavE - Java ASCII Editor Documentation</title>
+  <style type="text/css">
+  <!--pre { font-family: Courier New, Courier; font-size: 10pt; margin: 0px; }-->
+  </style>
+  <meta name="ROBOTS" content="index,nofollow">
+  <meta name="author" content="Markus Gebhard">
+  <meta name="publisher" content="Markus Gebhard">
+  <meta name="copyright" content="Markus Gebhard">
+  <meta name="Content-Language" content="EN">
+</head>
+
+
+
+
+
+
+<body background="../paper.gif">
+
+ <a href="../index.html">[docs]</a>&nbsp;
+
+<center>
+<h1>Tutorial: The Grayscale Girl</h1>
+by Joris Bellenger <a href="mailto:svzanten@xs4all.nl">svzanten@xs4all.nl</a>
+</center>
+
+<hr>
+<p>This a little tutorial about how my -grayscale girl- was made.
+Just though that some of you might be interested.
+<p>Drawing grayscale ascii art is very time consuming but I could save
+a few hours work using Jave.
+<hr>
+
+<h2>1.</h2>
+I first made a gif-to-ascii convertion with Jave.
+The quality didn't really matter because I was about to change every
+single character later anyway.
+
+<p>The idea behind this was to set the overall shape of the drawing.
+
+<p>This is the raw convertion.
+<center>
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>                             _aOs_.__.
+                          _f~.yJ'`._an.
+                      _a__t.`.._____/u/3D_.
+                      ._J:_..__dMgmQ/7GZMmS,
+                       J~(:`:%z_7A{`7`.(JQ;`
+                      /u_P___.`:``0. /` .Ml
+                      (JZ%.___.   .` ._&gt;_/Q;
+                     _JNm`.._./,    /%u_``Rq,
+                     _]\q,_^d: (    =`(!&gt; Q4:
+                      ((u!       _(|      kP
+                      .j_,..      `     .J2%
+                        `(_.  _._Jzz_._..r.
+      _.                  _[,  .x{..J: _%~
+..7x. (%                   `qu. .7=&gt;`_J=`
+ ([:no((. _.               `d `_...__+r`                   ..
+  (/vD6~;.+r               .r   `(:((()                 .{ /~(`
+   j/G=:(4DJ,         ``  __%     ```J`                 /(__%: .
+    `~.`&gt;:__?&amp;..    .__/'`           ]7&gt;__.         _:` ((:r&gt;(~`
+       `~.  ^_: `_:`                _`     `:=_    .:{._&gt;/J(=:
+          :  .; _:      `  ` .        ._```    %`._%`=~...&gt;(`
+          .   ; r               .._`           _~J~((^`../^`
+          _   (.)                              _(C``._^`
+          ~   (/    .,                      .  __|` {
+         .`   _,     (          .`         .:  _J``()
+         _     %     /`         ``        ._}  .]  (;
+         :     _    (:`/~_               ~:~/:`J   (;
+         .     .~  /(. `:`                ``_:_:    |
+         ~     _  ` .S,```  _.      ...  .._: ;     |
+         .    .%.`   _;`:```         .`^^:(3~ :     &gt;
+          ~   _|     _;                   J`v.:     &gt;
+           {_/`       :                  .] .=|    .:
+                      (                  J    %    /
+                      _.        .       .%     %_`/
+                      .`        ~       _~       `
+                     .:        .}        _&gt;
+                    .:         .c         .:
+                   .`                      /.
+                   `                        :
+                  .`                        _,
+                  /                          (
+                  ~                           ~
+                 _`                   .`      .
+                 ;       `.   _(_`  _^        .,
+                .:          `_J[{_(^          .:
+                ..            (.`_`           _`
+                 :             ` ;            ,
+                 .              ~`           .`
+                 ..             J            ~
+                  (             _           _`
+                   :            _           `
+                   _.           .          .`
+                    (           .         .`
+                     :                    ~`
+                     ..         _        .`
+                      ;         /        _`
+                      (         (        (
+                      _~        r        `
+                       )       .x.       ;
+                       ;       _3.      .;
+                       ~ .   . 2 % ~..`. :
+                      .~ :``(:_% .} `..` .
+                      _  ~((: c   (  `.  .~
+                      ;      /}   :       (
+                     .`       o   ;       (
+                     _        (  .:       _`
+                     (        (  .`       _`
+                     `        ;  _~       (
+                     .       .`  .;`     .;
+                      :      ;    v      _`
+                      ~     .`    _;     r
+                      _     .      v`   .:
+                      ..   .`      (.   _`
+                       ,   (       .:   (
+                      .:  .]        )   ;
+                      /.  .;       .:   &gt;
+                      /`  8         :   r
+                     .`   )`        (   (
+                    _`   .;        .:   ._
+                   .`     )        _     (
+                   _=/__` )        { ...__
+                   .(c?!3/         (:(&gt;`~w.
+                       ``           `:``(:</pre>
+</td></tr></table>
+</center>
+
+
+<h2>2.</h2>
+I saved the document and opened it in a text editor for hand made
+diddling where I worked on the top-half of the girl, keeping the
+legs for later.
+
+<p>The diddling could have been made in Jave but I'm just used to my
+text editor.
+
+
+<center>
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>.--                       .&amp;dkl`,ivne._
+|                         sRfkgvc+rsnmGBND.
+|                       aHBNLbni+.irumLGNMms
+|                       NRIr`'+dLKNMFb`'iNQr
+|                      `ANWM7    `+lM0.  `'^Kl
+|                      iNWL*_;=e.     Y._,_ ON
+|                      aRNm   _.l,    j^ _` Bq,
+|                      eNL:,l=N0`.   ls`N0&gt; ibK
+|                      XHZu!       _(c      kPBN
+|                       'CD   .     `      tK7KX
+|                         'f     _&amp;zrc_.  .Y
+|    ,                      v,   `ta.=&#34;  ,V
+|   7q. 6%                   ^l     =   .r
+|   f'noib. +                `d+   .._a7                     t
+|   k+RD6 L.dr                h'  `*+iPb                  .f adI`
+|   dj+Ggr 4NJb            .,dT     `'KJc                 _ir+4b .
+|     `cl^ ._ tk.   .,&amp;;:rf&#34;t&amp;;       'yIKbr;.         dp` luhrZti
+|        `~.  ^_T `ysf'      &#34; n,     7     *lkr,.   i7k._m.JKiV&#34;
+|           J  .H dY   `&#34;-              ._``    &#34;VK,4=   . Kdj`
+|           K   K B               -s&amp;.            eJ+  .ys7^`
+|           T   lLj                               (C' .4
+|           P   'y    .,                      .   +j  7
+|          ,y   b,     l          .`         ,t   Y`  Y
+|          4`    i     J`         g,         ti  .l   k
+|          Y     G    p&#34;  -                -  &#34;i`J    p
+|          L     .~  74. `W`              '`W  9+y    b.
+|          N       .Y 6s,     _.      ..      ;T;     gl
+|          A       y   *Yf+:'`        `^*:pfjVK+i     tb
+|           Y.   j&#34;     K                  .J`X.f     ly
+|            Tj V       T.                 il .Vj    .j'
+|             +'        fi                 J`   L.   y
+|                       'y        -       .Y     Yz,V
+|                       .7        .       'A       +
+|                      .V        ,i        Tj
+|                     xY         fG         ki
+|                    tl                      K.
+|                    K                        Jb
+|                   ,I                        zH
+|                   T                          I
+|                   K                           N
+|                  iU                   .`      P.
+|                  V       `.   _7_`  _^        Rg
+|                 .B          `dJNMHb^          dl
+|                 rG            'YKB`           d'
+|                 ls             `T;            f
+'--                r              '`           il
+                   ..             J            ~
+                    (             _           _`
+                     :            _           `
+                     _.           .          .`
+                      (           .         .`
+                       :                    ~`
+                       ..         _        .`
+                        ;         /        _`
+                        (         (        (
+                        _~        r        `
+                         )       .x.       ;
+                         ;       _3.      .;
+                         ~ .   . 2 % ~..`. :
+                        .~ :``(:_% .} `..` .
+                        _  ~((: c   (  `.  .~
+                        ;      /}   :       (
+                       .`       o   ;       (
+                       _        (  .:       _`
+                       (        (  .`       _`
+                       `        ;  _~       (
+                       .       .`  .;`     .;
+                        :      ;    v      _`
+                        ~     .`    _;     r
+                        _     .      v`   .:
+                        ..   .`      (.   _`
+                         ,   (       .:   (
+                        .:  .]        )   ;
+                        /.  .;       .:   &gt;
+                        /`  8         :   r
+                       .`   )`        (   (
+                      _`   .;        .:   ._
+                     .`     )        _     (
+                     _=/__` )        { ...__
+                     .(c?!3/         (:(&gt;`~w.
+                         ``           `:``(:</pre>
+</td></tr></table>
+</center>
+
+<h2>3.</h2>
+I made a copy of the legs and pasted them in Jave
+
+<center>
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>..             J            ~
+ (             _           _`
+  :            _           `
+  _.           .          .`
+   (           .         .`
+    :                    ~`
+    ..         _        .`
+     ;         /        _`
+     (         (        (
+     _~        r        `
+      )       .x.       ;
+      ;       _3.      .;
+      ~ .   . 2 % ~..`. :
+     .~ :``(:_% .} `..` .
+     _  ~((: c   (  `.  .~
+     ;      /}   :       (
+    .`       o   ;       (
+    _        (  .:       _`
+    (        (  .`       _`
+    `        ;  _~       (
+    .       .`  .;`     .;
+     :      ;    v      _`
+     ~     .`    _;     r
+     _     .      v`   .:
+     ..   .`      (.   _`
+      ,   (       .:   (
+     .:  .]        )   ;
+     /.  .;       .:   &gt;
+     /`  8         :   r
+    .`   )`        (   (
+   _`   .;        .:   ._
+  .`     )        _     (
+  _=/__` )        { ...__
+  .(c?!3/         (:(&gt;`~w.
+      ``           `:``(:</pre>
+</td></tr></table>
+</center>
+
+<p>The idea was to use the gradient tool to fill the legs. To
+obtain a nice shading effect I had to fill them separately.
+So I erased one leg, closed the gaps and erased the shadows around
+the knees and toes.
+
+
+<center>
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre> ..:'''''''''':
+(             '
+ :            '
+ _.           .
+  (           .
+   :          :
+   ..         :
+    ;         :
+    (         (
+    _~        r
+     )       .x.
+     ;       _3
+     ~       2
+    .~      _%
+    _       c
+    ;       }
+   .`       o
+   _        (
+   (        (
+   `        ;
+   .       .`
+    :      ;
+    ~     .`
+    _     .
+    ..   .`
+     ,   (
+    .:  .]
+    /.  .;
+    /`  8
+   .`   )`
+  _`   .;
+ .`     )
+ _      )
+ .(c?!3/
+     ``
+</pre>
+</td></tr></table>
+</center>
+
+<p>The next step was to make a custom gradient in the Fill Options panel:
+<ul>
+<pre>MNBtir+iB</pre>
+</ul>
+
+<p>I entered the following settings in the Fill Options panel:
+
+<ul>
+<li>Linear
+<li>dither: enabeld
+<li>Any character + diagonal
+</ul>
+... and filled the edges of the legs
+
+
+<center>
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre> MMMMMMMMMMMMMM
+M             N
+ M            M
+ MN           N
+  M           N
+   N          B
+   NN         N
+    B         t
+    N         B
+    BB        t
+     B       tBt
+     B       ti
+     t       t
+    it      it
+    t       t
+    i       i
+   it       i
+   i        r
+   i        i
+   i        r
+   r       rr
+    +      r
+    r     r+
+    +     +
+    r+   ++
+     +   +
+    +i  +i
+    i+  ii
+    +i  i
+   iB   Bi
+  ii   Bi
+ iB     B
+ B      B
+ BBBBBBB
+     BB</pre>
+</td></tr></table>
+</center>
+
+<p>Then I changed the last setting to:
+<ul>
+<li>Equal character
+</ul>
+<p>... and filled the inside of the leg.
+
+<center>
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre> MMMMMMMMMMMMMM
+MMMMNNBBttiirrN
+ MMNNBBtBitiirM
+ MNNBBtBitrirrN
+  MNNBBttiirr+N
+   NBBttiirr++B
+   NNtBttiirr+N
+    BBitiirr++t
+    Nttiirr+riB
+    BBiirr++i+t
+     Btiirr++tBt
+     Biirr++iti
+     tiri+r++t
+    itrr+ri+it
+    tiirr++it
+    iirr++iii
+   itrirr++ii
+   iri+r++iir
+   iirr++iiBi
+   irr++iiBBr
+   rirr++iirr
+    +r++iiBr
+    r++i+Br+
+    ++iiBi+
+    r++ii++
+     +iiB+
+    +i+i+i
+    i+Biii
+    +iiBi
+   iBiBBBi
+  ii+iiBi
+ iB+iiBBB
+ B+iiBBBB
+ BBBBBBB
+     BB</pre>
+</td></tr></table>
+</center>
+
+<p>The left leg was made the same way.
+
+<h2>4.</h2>
+I opened the diddled drawing (step 2) in Jave and carefuly pasted the
+two legs
+in place.
+The setting I used in the Selection Options panel was:
+<ul>
+<li>Foreground
+</ul>
+
+<h2>5.</h2>
+I saved and closed the document and opened it in my text editor where
+the legs shading and edges were hand diddled.
+
+<p>Tadaaaa...
+<center>
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>                      .&amp;dkl`,ivne._
+                      sRfkgvc+rsnmGBND.
+                    aHBNLbni+.irumLGNMms
+                    NRIr`'+dLKNMFb`'iNQr
+                   `ANWM7    `+lM0.  `'^Kl
+                   iNWL*_;=e.     Y._,_ ON
+                   aRNm   _.l,    j^ _` Bq,
+                   eNL:,l=N0`.   ls`N0&gt; ibK
+                   XHZu!       _(c      kPBN
+                    'CD   .     `      tK7KX
+                      'f     _&amp;zrc_.  .Y
+ ,                      v,   `ta.=&#34;  ,V
+7q. 6%                   ^l     =   .r
+f'noib. +                `d+   .._a7                     t
+k+RD6 L.dr                h'  `*+iPb                  .f adI`
+dj+Ggr 4NJb            .,dT     `'KJc                 _ir+4b .
+  `cl^ ._ tk.   .,&amp;;:rf&#34;t&amp;;       'yIKbr;.         dp` luhrZti
+     `~.  ^_T `ysf'      &#34; n,     7     *lkr,.   i7k._m.JKiV&#34;
+        J  .H dY   `&#34;-              ._``    &#34;VK,4=   . Kdj`
+        K   K B               -s&amp;.            eJ+  .ys7^`
+        T   lLj                               (C' .4
+        P   'y    .,                      .   +j  7
+       ,y   b,     l          .`         ,t   Y`  Y
+       4`    i     J`         g,         ti  .l   k
+       Y     G    p&#34;  -                -  &#34;i`J    p
+       L     .~  74. `W`              '`W  9+y    b.
+       N       .Y 6s,     _.      ..      ;T;     gl
+       A       y   *Yf+:'`        `^*:pfjVK+i     tb
+        Y.   j&#34;     K                  .J`X.f     ly
+         Tj V       T.                 il .Vj    .j'
+          +'        fi                 J`   L.   y
+                    'y        -       .Y     Yz,V
+                    .7        .       'A       +
+                   .V        ,i        Tj
+                  xY         fG         ki
+                 tl                      K.
+                 K                        Jb
+                ,I                        zH
+                T                          I
+                K                           N
+               iU                   .`      P.
+               V       `.   _7_`  _^        Rg
+              .B          `dJNMHb^          dl
+              rG            'YKB`           d'
+              ls             `T;            f
+              'MWMNBKbri++    Y            il
+               VMWNRKtirdJNMWNZ   _.++ttKRNNs
+                VBKkrze+rdRBNMNkr++iittKKBNN
+                `VRttii++rrddNMNBKii++ddZZYe
+                 Yttii+;rrddZBNNNttiirrddZl
+                  Kttii;+rrddNMNKKii++ddZV'
+                  `Vii+;rrddZBNNNttiirrddf
+                   ltii+;rrddNWNKKii++ddZ
+                   'ii++;iddZBNNNttiirrd'
+                    tii+;;rddNMNKKii++dV
+                    'i++r;ddZBNNNttiirrj
+                     ii++irddNMNKKii++dl
+                     i+:irddBNKNNtti+rri
+                     ii+,:rddN NKKb+,;dd
+                    ,i+.;iddMV VMNBb.ird
+                    li,;xdRMB   XMBkrddZ.
+                   .ii+zBRMKX   HSMBbrrd,
+                   ili+inGBKJ   XKbm++ddZ
+                   rii++irdRZ  ,GKtiirrdd.
+                   ltii++rzkd  lKKii++ddZi
+                   tii++rrddZ  BHttiirrdf'
+                   ttii++rxd'  KRbii++dd7
+                   tri:+rrdf   'Nbtii+rdl
+                   'Yi;++rB'    KKii++dd
+                    Bt:+rrf     'Rbii+rd
+                    'ii++H`      Kbi++dl
+                     V+irf       &#34;KiirP
+                    ,Zli7        `Yi+rd
+                     Z;bK         tk;rl
+                    tii+K         Xli+i
+                   si;+it         AkirY.
+                  etritkl        ;ffi+ds
+                 fltiielf         Kbzrire
+                 HKltfdN'         NBKlfBH
+         b'ger   NMBblB7          VMNKblKl
+                 dBMN9             VKBNM7
+                                      '`</pre>
+</td></tr></table>
+</center>
+
+<p>That's it.<br>
+:)
+<hr>
+<a href="../index.html">[docs]</a>&nbsp;
+</body></html>

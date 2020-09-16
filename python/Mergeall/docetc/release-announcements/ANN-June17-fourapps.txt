@@ -1,0 +1,44 @@
+Subject - Blockbuster updates to four free desktop apps
+----
+
+Announcing colossal new releases of four desktop programs:
+
+* PyEdit - Edit Text. Run Code. Have Fun.
+
+    A Python/Tk text-editor and code-launcher GUI, that can
+    be used as both standalone program and library component.
+
+* Frigcal - Personal Calendar GUI; No Login Required
+
+    A Python/Tk calendar GUI, which stores your calendar entries
+    in portable ICS files that work across all platforms. 
+
+* Mergeall - Backup and Mirror Your Stuff Your Way
+
+    A Python/Tk GUI+script program that does both incremental 
+    backups, and manual but private content propagation. 
+
+* PyMailGUI - Email Without the Evil
+
+    A Python/Tk email client GUI, for accessing email both 
+    online at email accounts, and offline in save files.
+
+All four now run on Mac OS X, Windows, and Linux; are now 
+available as Mac app, Windows and Linux executable, and 
+full source-code packages; and come with privacy baked in.
+
+If you used any of these programs in the past, you may also 
+be interested in recent upgrades.  Among the highlights:
+
+- PyEdit has a new Run Code, auto-saves, and menu accelerators
+- Frigcal features a new GUI launcher and calendar-search tool
+- Mergeall does symlinks, cruft skips, and Windows long paths 
+- PyMailGUI sports a new GUI launcher and unsaved-changes tests 
+
+For all the details, and to grab copies of your own, visit
+programs central here:
+
+    http://learning-python.com/programs.html
+
+Enjoy,
+--M. Lutz, http://learning-python.com

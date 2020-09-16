@@ -1,0 +1,453 @@
+Summary=> Demo AppleDouble ._* resource-fork files under Python's POSIX toolset.
+          In all cases, these files appear for data files stored on non-Mac 
+          filesystems only; the Mac's own filesystems store resources natively.
+          
+          Finder automatically creates resource-fork files on non-Mac drives, 
+          and binds them to the data file logically - operations on a data file 
+          are applied to the resource fork too (e.g., deletes, moves).
+
+          Python's POSIX-based toolset is more mixed: open() does not silently add
+          a resource fork for new data files, and os.remove() for a resource file 
+          doesn't delete the data file.  When run on the Mac, these behaviors are 
+          crucial for mergeall's -skipcruft (which copies data files only), and 
+          the nuke-cruft-files script (which deletes resource files only).  
+
+          On the other hand, Python's os.remove() and os.rename() for a data file 
+          on a non-Mac drive are automatically applied by the Mac's system libraries
+          to the resource fork file too (just like Finder).  This can potentially
+          lead to errors in some programs that process a folder's files individually.
+
+          For more background:
+              https://en.wikipedia.org/wiki/AppleSingle_and_AppleDouble_formats
+	      https://en.wikipedia.org/wiki/Resource_fork
+
+
+
+#-------------------------------------------------------------------------------------
+# Preliminaries (assumed by all tests ahead)
+#-------------------------------------------------------------------------------------
+
+# Copy file off Mac drive - via main data fork filename
+>>> f = open('/MY-STUFF/Sheets/cashflow.xlsb', 'rb')
+>>> b = f.read()
+>>> f.close()
+
+# There is no resource fork file on this Mac drive
+>>> [x for x in os.listdir('/MY-STUFF/Sheets') if 'cashflow.xlsb' in x]
+['cashflow.xlsb']
+>>> import glob
+>>> glob.glob('/MY-STUFF/Sheets/*cashflow.*')
+['/MY-STUFF/Sheets/cashflow.xlsb', '/MY-STUFF/Sheets/endyr02-cashflow.XLS']
+>>> glob.glob('/MY-STUFF/Sheets/.*cashflow.*')  # see glob note ahead
+[]
+
+
+#-------------------------------------------------------------------------------------
+# MAC DRIVE (HFS+)
+#------------------------------------------------------------------------------------- 
+
+Summary=> On native Mac filesystem drives, no ._* AppleDouble files are 
+          created or special-cased (these pertain to non-Mac drives only).
+
+
+>>> os.listdir('/Users/blue/Desktop/temp/test')
+['.DS_Store'] 
+>>> f = open('/Users/blue/Desktop/temp/test/cashflow.xlsb', 'wb')
+>>> f.write(b)
+397387
+>>> f.close()
+
+  # Python POSIX write creates data file only on Mac HFS+ drive
+
+>>> os.listdir('/Users/blue/Desktop/temp/test')
+['.DS_Store', 'cashflow.xlsb']
+>>> os.path.getmtime('/Users/blue/Desktop/temp/test/cashflow.xlsb')
+1480791888.0
+ 
+  # Open to view only: creates Excel temp, but no ._* resource fork on HFS
+
+>>> os.listdir('/Users/blue/Desktop/temp/test')
+['.DS_Store', 'cashflow.xlsb', '~$cashflow.xlsb']
+>>> os.path.getmtime('/Users/blue/Desktop/temp/test/cashflow.xlsb')
+1480791888.0
+
+  # Close, don't save: removes Excel temp 
+
+>>> os.listdir('/Users/blue/Desktop/temp/test')
+['.DS_Store', 'cashflow.xlsb']
+>>> os.path.getmtime('/Users/blue/Desktop/temp/test/cashflow.xlsb')
+1480791888.0
+
+  # Open and save: still no distinct resource fork file on HFS+ 
+
+>>> os.listdir('/Users/blue/Desktop/temp/test')
+['.DS_Store', 'cashflow.xlsb']
+>>> os.path.getmtime('/Users/blue/Desktop/temp/test/cashflow.xlsb')
+1480792056.0
+ 
+  # Delete .xlsb file: just a single file here
+
+>>> os.listdir('/Users/blue/Desktop/temp/test')
+['.DS_Store']
+
+
+#-------------------------------------------------------------------------------------
+# WINDOWS DRIVE (FAT32)
+#-------------------------------------------------------------------------------------
+
+Summary=> AppleDouble ._* files are silently created on non-Mac drives 
+          when used by Mac apps, even if not copied over from Mac sources.
+
+
+  # Create data file only, from Python 
+
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+[]
+>>> f = open('/Volumes/KINGSTONFAT/test/cashflow.xlsb', 'wb')
+>>> f.write(b)
+397387
+>>> f.close()
+
+  # Python POSIX write creates data-fork file only on FAT.
+  # *EXAMPLE*: This is what happens for mergeall's -skipcruft.
+
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+['cashflow.xlsb']
+>>> os.path.getmtime('/Volumes/KINGSTONFAT/test/cashflow.xlsb')
+1480791672.0
+ 
+  # Open to view in Excel: suffices to create a ._* resource fork on FAT (!).
+  # The 1 file has become 4: data + temp, and ._* AppleDoubles of each.
+
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+['cashflow.xlsb', '~$cashflow.xlsb', '._~$cashflow.xlsb', '._cashflow.xlsb']
+>>> os.path.getmtime('/Volumes/KINGSTONFAT/test/cashflow.xlsb')
+1480791672.0
+
+  # Close, don't save: removes Excel ~* temp and its double, but not ._* resource fork.
+  # Note that Finder never shows the ._* AppleDouble resource fork files (despite a
+  # defaults setting to enable this), but they are always returned by os.listdir().
+
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+['cashflow.xlsb', '._cashflow.xlsb']
+>>> os.path.getmtime('/Volumes/KINGSTONFAT/test/cashflow.xlsb')
+1480791672.0
+
+  # Open and save: but a write is not needed to create the resource ._* (!)
+
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+['cashflow.xlsb', '._cashflow.xlsb']
+>>> os.path.getmtime('/Volumes/KINGSTONFAT/test/cashflow.xlsb')
+1480791788.0
+
+  # Delete .xlsb file in Finder: automatically removes the truly-hidden ._* too (!)
+
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+[]
+
+
+#-------------------------------------------------------------------------------------
+# WARNING: glob() doesn't return .*, but os.listdir() does
+#-------------------------------------------------------------------------------------
+
+Summary=> Be cautious with glob() results on Unix; they differ from os.listdir().
+
+# After write file, open in Excel
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+['cashflow.xlsb', '._cashflow.xlsb']
+>>> 
+>>> import glob
+>>> glob.glob('/Volumes/KINGSTONFAT/test/*')
+['/Volumes/KINGSTONFAT/test/cashflow.xlsb']
+>>>
+>>> glob.glob('/Volumes/KINGSTONFAT/test/*cashflow.*')
+['/Volumes/KINGSTONFAT/test/cashflow.xlsb']
+>>>
+>>> glob.glob('/Volumes/KINGSTONFAT/test/.*cashflow.*')
+['/Volumes/KINGSTONFAT/test/._cashflow.xlsb']
+>>> 
+>>> [x for x in os.listdir('/Volumes/KINGSTONFAT/test') if 'cashflow.xlsb' in x]
+['cashflow.xlsb', '._cashflow.xlsb']
+
+
+#-------------------------------------------------------------------------------------
+# WINDOWS DRIVE: what happens when files are deleted from Python instead of Finder?#-------------------------------------------------------------------------------------
+
+Summary=> Mac POSIX libs auto-delete ._* files with data file just like Finder,
+          but not vice-versa.  This may cause some programs failures.
+
+
+  # Create and remove data file only: normal
+
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+[]
+>>> f = open('/Volumes/KINGSTONFAT/test/cashflow.xlsb', 'wb')
+>>> f.write(b)
+397387
+>>> f.close()
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+['cashflow.xlsb']
+>>> os.remove('/Volumes/KINGSTONFAT/test/cashflow.xlsb')
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+[]
+
+
+  # Delete *data file* after resource fork created by opening in Excel
+
+>>> f = open('/Volumes/KINGSTONFAT/test/cashflow.xlsb', 'wb')
+>>> f.write(b)
+397387
+>>> f.close()
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+['cashflow.xlsb']
+
+# open in Excel, close but don't save file
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+['cashflow.xlsb', '._cashflow.xlsb']
+
+# automatically removes reource fork too (!)
+>>> os.remove('/Volumes/KINGSTONFAT/test/cashflow.xlsb')
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+[]
+
+
+  # Delete *resource file* after it is created by Excel open
+ 
+>>> f = open('/Volumes/KINGSTONFAT/test/cashflow.xlsb', 'wb')
+>>> f.write(b)
+397387
+>>> f.close() 
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+['cashflow.xlsb']
+
+# open and close in Excel (save or not)
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+['cashflow.xlsb', '._cashflow.xlsb']
+
+# does not remove data file if resource file removed (!)  
+# *EXAMPLE*: This is what happens in nuke-cruft-files.py
+
+>>> os.remove('/Volumes/KINGSTONFAT/test/._cashflow.xlsb')
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+['cashflow.xlsb']
+
+# clean up data file: the ._* special-casing seems too implicit and error-prone
+>>> os.remove('/Volumes/KINGSTONFAT/test/cashflow.xlsb')
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+[]
+
+
+[Why it can matter: if a script runs through an os.listdir() result 
+to delete files on a non-Mac filesystem drive, some ._*  resource 
+fork files may no longer be present when reached - and will fail.]
+
+
+
+#-------------------------------------------------------------------------------------
+# WINDOWS DRIVE: renames (moves) bring the ._* along too (and even rename them!)
+#-------------------------------------------------------------------------------------
+
+Summary=> Mac POSIX libs auto-move ._* files with data file just like Finder.
+          This is true even if the data file's name is changed in the process.
+
+
+  # Moves bring along AppleDouble automatically
+
+>>> f = open('/Volumes/KINGSTONFAT/test/cashflow.xlsb', 'wb')
+>>> f.write(b)
+397387
+>>> f.close()
+>>> os.listdir('/Volumes/KINGSTONFAT/test')      # after initial Python write
+['cashflow.xlsb']
+>>> os.listdir('/Volumes/KINGSTONFAT/test')      # after open in Excel
+['cashflow.xlsb', '._cashflow.xlsb']
+>>> os.listdir('/Volumes/KINGSTONFAT/test2')     # target dir is empty
+[]
+
+>>> os.rename('/Volumes/KINGSTONFAT/test/cashflow.xlsb', 
+              '/Volumes/KINGSTONFAT/test2/cashflow.xlsb')
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+[]
+>>> os.listdir('/Volumes/KINGSTONFAT/test2')     # brings AppleDouble along...
+['cashflow.xlsb', '._cashflow.xlsb']
+
+
+  # Ditto, even if moving to a new name (!)
+ 
+>>> f = open('/Volumes/KINGSTONFAT/test/cashflow.xlsb', 'wb')
+>>> f.write(b)
+397387
+>>> f.close()
+>>> os.listdir('/Volumes/KINGSTONFAT/test')      # post Python write
+['cashflow.xlsb'] 
+>>> os.listdir('/Volumes/KINGSTONFAT/test')      # post Excel open
+['cashflow.xlsb', '._cashflow.xlsb']
+>>> os.listdir('/Volumes/KINGSTONFAT/test2')
+[]
+
+>>> os.rename('/Volumes/KINGSTONFAT/test/cashflow.xlsb', 
+              '/Volumes/KINGSTONFAT/test2/SPAM.xlsb')
+>>> os.listdir('/Volumes/KINGSTONFAT/test')
+[]
+>>> os.listdir('/Volumes/KINGSTONFAT/test2')     # buy one, get one free?
+['SPAM.xlsb', '._SPAM.xlsb']
+
+
+
+#-------------------------------------------------------------------------------------
+# AND Windows and Linux may or may not handle ._* file the same way... (test me)
+#-------------------------------------------------------------------------------------
+
+
+
+#-------------------------------------------------------------------------------------
+# RESOURCE FORKS ROUND-TRIPPED to non-Mac drives (use dot_clean if not merged auto)
+#-------------------------------------------------------------------------------------
+
+Summary=> Some programs may copy AppleDouble resource-fork files to Mac drives,
+          but not merge them to the main data fork file (including mergeall).
+          If this happens, Mac's dot_clean can merge the two in an entire tree.
+          Note that mergeall doesn't make "._*" files: this is only possible if 
+          they have been added to an archive by Mac apps/Finder in other ways
+          (e.g., merging from a non-Mac drive used as mergeall's FROM).
+
+>>> macdrive = '/Users/blue/Desktop/temp/test/'      # HFS+ (Mac Extended)
+>>> fatdrive = '/Volumes/KINGSTONFAT/test/'          # FAT32 (flashdrive)
+
+  # Copy a file to a macdrive folder (and open in excel there or not)
+
+>>> f = open('/MY-STUFF/Sheets/cashflow.xlsb', 'rb')
+>>> b = f.read()
+>>> f.close()
+>>> 
+>>> f = open(macdrive + 'cf.xlsb', 'wb')
+>>> f.write(b)
+397387
+>>> f.close()
+>>> 
+>>> os.listdir(macdrive)
+['.DS_Store', 'cf.xlsb']
+>>> os.listdir(fatdrive)
+[]
+
+  # Copy from macdrive to fatdrive in Finder
+
+>>> os.listdir(fatdrive)
+['cf.xlsb']
+ 
+  # Open/view on fatdrive in Excel: makes AppleDouble resource fork 
+
+>>> os.listdir(fatdrive)
+['cf.xlsb', '._cf.xlsb']
+
+  # Remove from fatdrive in Finder or Python: both files gone! (see above) 
+
+>>> os.remove(fatdrive + 'cf.xlsb')
+>>> os.listdir(fatdrive)
+[]
+ 
+  # Copy from macdrive to fatdrive in python
+ 
+>>> os.listdir(macdrive)
+['.DS_Store', 'cf.xlsb']
+>>> os.listdir(fatdrive)
+[]
+>>> f = open(macdrive + 'cf.xlsb', 'rb')
+>>> b = f.read()
+>>> f.close()
+>>> 
+>>> f = open(fatdrive + 'cf.xlsb', 'wb')
+>>> f.write(b)
+397387
+>>> f.close()
+>>> 
+>>> os.listdir(fatdrive)
+['cf.xlsb']
+>>> os.listdir(macdrive)
+['.DS_Store', 'cf.xlsb']
+
+  # Open on fatdrive in Excel: makes "._*"
+ 
+>>> os.listdir(fatdrive)
+['cf.xlsb', '._cf.xlsb']
+>>> os.listdir(macdrive)
+['.DS_Store', 'cf.xlsb']
+ 
+  # Delete from macdrive in Finder: one file only
+ 
+>>> os.listdir(fatdrive)
+['cf.xlsb', '._cf.xlsb']
+>>> os.listdir(macdrive)
+['.DS_Store']
+ 
+  # Copy from fatdrive to macdrive in Finder
+ 
+>>> os.listdir(fatdrive)
+['cf.xlsb', '._cf.xlsb']
+>>> os.listdir(macdrive)        # copies resource too (presumably!)
+['.DS_Store', 'cf.xlsb']
+
+  # Delete from macdrive in Python: one file only
+
+>>> os.remove(macdrive + 'cf.xlsb')
+>>> os.listdir(fatdrive)
+['cf.xlsb', '._cf.xlsb']
+>>> os.listdir(macdrive)
+['.DS_Store']
+
+  # Copy to macdrive in python (EXAMPLE: what mergeall does)
+
+>>> for file in os.listdir(fatdrive):
+...     f = open(macdrive + file, 'wb')
+...     f.write(open(fatdrive + file, 'rb').read())
+...     f.close()
+...     print(file)
+... 
+397387
+cf.xlsb
+4096
+._cf.xlsb
+>>>
+>>> os.listdir(fatdrive)       # <= BOTH files copied over, not merged!
+['cf.xlsb', '._cf.xlsb']
+>>> os.listdir(macdrive)
+['._cf.xlsb', '.DS_Store', 'cf.xlsb'] 
+>>> ^D
+
+  # Merge from the Terminal shell via Mac's dot_merge
+
+~$ ls -a /Volumes/KINGSTONFAT/test
+.		..		._cf.xlsb	cf.xlsb
+~$ ls -a /Users/blue/Desktop/temp/test
+.		..		.DS_Store	._cf.xlsb	cf.xlsb
+
+~$ dot_clean -m /Users/blue/Desktop/temp/test
+
+  # Still split on fatdrive, but merged on macdrive
+
+~$ ls -a /Volumes/KINGSTONFAT/test
+.		..		._cf.xlsb	cf.xlsb
+~$ ls -a /Users/blue/Desktop/temp/test
+.		..		.DS_Store	cf.xlsb
+
+  # CAUTION: will run on fatdrive too, but resource is silently dropped
+ 
+~$ dot_clean -m /Volumes/KINGSTONFAT/test         # <= Don't do this
+~$ ls -a /Volumes/KINGSTONFAT/test
+.	..	cf.xlsb
+~$ ls -a /Users/blue/Desktop/temp/test
+.		..		.DS_Store	cf.xlsb
+
+
+#
+# Bonus: how to inspect a resource fork from the shell..
+#
+~$ ls -l /MY-STUFF/Sheets/cashflow.xlsb
+-rw-r--r--@ 1 blue  staff  397387 Dec  2 10:02 /MY-STUFF/Sheets/cashflow.xlsb
+~$ ls -l /MY-STUFF/Sheets/cashflow.xlsb/..namedfork/rsrc
+-rw-r--r--  1 blue  staff  0 Dec  2 10:02 /MY-STUFF/Sheets/cashflow.xlsb/..namedfork/rsrc
+~$ cat /MY-STUFF/Sheets/cashflow.xlsb/..namedfork/rsrc
+~$
+
+[end]
+

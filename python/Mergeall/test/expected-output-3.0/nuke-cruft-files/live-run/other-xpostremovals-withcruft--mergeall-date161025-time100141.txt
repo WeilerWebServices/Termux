@@ -1,0 +1,135 @@
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [C:/MY-OTHER-STUFF] [D:/MY-OTHER-STUFF]
+excluding D:/MY-OTHER-STUFF\__bkp__
+comparing [C:/MY-OTHER-STUFF\Books-old] [D:/MY-OTHER-STUFF\Books-old]
+comparing [C:/MY-OTHER-STUFF\Books-old\toshiba] [D:/MY-OTHER-STUFF\Books-old\toshiba]
+comparing [C:/MY-OTHER-STUFF\Books-old\toshiba\admin] [D:/MY-OTHER-STUFF\Books-old\toshiba\admin]
+comparing [C:/MY-OTHER-STUFF\Books-old\toshiba\admin\contracts] [D:/MY-OTHER-STUFF\Books-old\toshiba\admin\contracts]
+comparing [C:/MY-OTHER-STUFF\Books-old\toshiba\admin\ORM_author_docs] [D:/MY-OTHER-STUFF\Books-old\toshiba\admin\ORM_author_docs]comparing [C:/MY-OTHER-STUFF\Books-old\toshiba\admin\ORM_author_docs\AU_docs_0408] [D:/MY-OTHER-STUFF\Books-old\toshiba\admin\ORM_author_docs\AU_docs_0408]
+
+...etc...
+
+comparing [C:/MY-OTHER-STUFF\Misc-old\vaioz-to-mar1514\WhoUsesPython-Apr11\Technologist - GETCO - Job Board_files] [D:/MY-OTHER-STUFF\Misc-old\vaioz-to-mar1514\WhoUsesPython-Apr11\Technologist - GETCO - Job Board_files]
+comparing [C:/MY-OTHER-STUFF\Misc-old\vaioz-to-mar1514\WhoUsesPython-Apr11\“Why is Python Installed on my Computer ” FAQ — Python v2.7.1 documentation_files] [D:/MY-OTHER-STUFF\Misc-old\vaioz-to-mar1514\WhoUsesPython-Apr11\“Why is Python Installed on my Computer ” FAQ — Python v2.7.1 documentation_files]
+comparing [C:/MY-OTHER-STUFF\Misc-old\vaioz-to-mar1514\__pycache__] [D:/MY-OTHER-STUFF\Misc-old\vaioz-to-mar1514\__pycache__]
+Phase runtime: 1.630754712093955
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['~$income08-est.xlsx', '~$support-diffs.xlsx'],
+  'C:/MY-OTHER-STUFF\\Books-old\\toshiba\\jun-28-09-move\\sheets',
+  'D:/MY-OTHER-STUFF\\Books-old\\toshiba\\jun-28-09-move\\sheets'),
+ (['desktop.ini', '~$28-new-decorators.docx', '~$32-new-attributes.docx'],
+  'C:/MY-OTHER-STUFF\\Books-old\\toshiba\\LP4E\\dev',
+  'D:/MY-OTHER-STUFF\\Books-old\\toshiba\\LP4E\\dev'),
+ (['~$hedule_pypockref[1].docx'],
+  'C:/MY-OTHER-STUFF\\Books-old\\toshiba\\PREF4E',
+  'D:/MY-OTHER-STUFF\\Books-old\\toshiba\\PREF4E'),
+ (['~$ch01.doc'],
+  'C:/MY-OTHER-STUFF\\Books-old\\toshiba\\PREF4E\\dev',
+  'D:/MY-OTHER-STUFF\\Books-old\\toshiba\\PREF4E\\dev'),
+ (['~$05-was04.doc'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\3E\\LP3E\\submits\\LP3E-final-draft-july19\\Final-draft',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\3E\\LP3E\\submits\\LP3E-final-draft-july19\\Final-draft'),
+ (['~$ch27.doc'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\LP4E\\copyedit\\lp4e-batch2-16-30',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\LP4E\\copyedit\\lp4e-batch2-16-30'),
+ (['desktop.ini', '~$28-new-decorators.docx', '~$32-new-attributes.docx'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\LP4E\\dev',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\LP4E\\dev'),
+ (['~$ch05.doc'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\LP4E\\dev\\done',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\LP4E\\dev\\done'),
+ (['~$ml-python programming  Books--sep2010-page1.htm'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\LP4E\\marketing',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\LP4E\\marketing'),
+ (['~$ch00.doc', '~$ORA.dot'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\dev',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\dev'),
+ (['Thumbs.db'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\dev-etc\\Extras\\public_html\\PossiblyUnused',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\dev-etc\\Extras\\public_html\\PossiblyUnused'),
+ (['desktop.ini'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\dev-etc\\Extras\\Website-Training\\PossiblyUnused',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\dev-etc\\Extras\\Website-Training\\PossiblyUnused'),
+ (['~$ch12.doc',
+   '~$part1.doc',
+   '~$part2.doc',
+   '~$part3.doc',
+   '~$part4.doc',
+   '~$part5.doc',
+   '~$part6.doc',
+   '~$part7.doc'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\dev-etc\\originals\\Unpacked',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\dev-etc\\originals\\Unpacked'),
+ (['~$ 1026 L Python Development I 03-20-09.doc', '~WRL1460.tmp'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\examples-official\\1.1\\workingcopy-py31\\PP4E-Examples-1.1\\Examples\\PP4E\\Internet\\Email\\PyMailGui\\altconfigs\\TempParts',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\examples-official\\1.1\\workingcopy-py31\\PP4E-Examples-1.1\\Examples\\PP4E\\Internet\\Email\\PyMailGui\\altconfigs\\TempParts'),
+ (['~$ORA.dot'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\submits\\pp4e-email-checkpoint-1\\dev',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\submits\\pp4e-email-checkpoint-1\\dev'),
+ (['~$ORA.dot'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\submits\\pp4e-email-checkpoint-2\\dev',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\submits\\pp4e-email-checkpoint-2\\dev'),
+ (['~$ORA.dot'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\submits\\pp4e-fulldraft-review',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\submits\\pp4e-fulldraft-review'),
+ (['~$ORA.dot'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\submits\\pp4e-half1-submit\\dev',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\submits\\pp4e-half1-submit\\dev'),
+ (['~$ORA.dot'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\submits\\pp4e-half1-submit-0\\dev',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PP4E\\submits\\pp4e-half1-submit-0\\dev'),
+ (['~$ch01.doc'],
+  'C:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PREF4E\\dev',
+  'D:/MY-OTHER-STUFF\\Books-old\\vaiop\\4E\\PREF4E\\dev'),
+ (['desktop.ini'],
+  'C:/MY-OTHER-STUFF\\Misc-old\\vaiop\\Itunes-Cut-Feb11\\Birgit',
+  'D:/MY-OTHER-STUFF\\Misc-old\\vaiop\\Itunes-Cut-Feb11\\Birgit'),
+ (['desktop.ini'],
+  'C:/MY-OTHER-STUFF\\Misc-old\\vaiop\\Itunes-Cut-Feb11\\Birgit\\Unknown '
+  'Album',
+  'D:/MY-OTHER-STUFF\\Misc-old\\vaiop\\Itunes-Cut-Feb11\\Birgit\\Unknown '
+  'Album'),
+ (['desktop.ini'],
+  'C:/MY-OTHER-STUFF\\Misc-old\\vaiop\\Itunes-Cut-Feb11\\Rammstein',
+  'D:/MY-OTHER-STUFF\\Misc-old\\vaiop\\Itunes-Cut-Feb11\\Rammstein'),
+ (['desktop.ini'],
+  'C:/MY-OTHER-STUFF\\Misc-old\\vaiop\\Itunes-Cut-Feb11\\Rammstein\\Mutter',
+  'D:/MY-OTHER-STUFF\\Misc-old\\vaiop\\Itunes-Cut-Feb11\\Rammstein\\Mutter'),
+ (['desktop.ini'],
+  'C:/MY-OTHER-STUFF\\Misc-old\\vaiop\\Itunes-Cut-Feb11\\Reise Reise',
+  'D:/MY-OTHER-STUFF\\Misc-old\\vaiop\\Itunes-Cut-Feb11\\Reise Reise'),
+ (['~$-2012--U-0363-01_P.doc'],
+  'C:/MY-OTHER-STUFF\\Misc-old\\vaioz-to-mar1514\\address-labels-2010-2012',
+  'D:/MY-OTHER-STUFF\\Misc-old\\vaioz-to-mar1514\\address-labels-2010-2012')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 39502, folders: 3987
+Differences => samefile: 0, uniqueto: 40, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.

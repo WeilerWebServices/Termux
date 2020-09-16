@@ -1,0 +1,24 @@
+	##############
+	# NateWeiler #
+	##############
+https://github.com/NateWeiler/CSET
+https://github.com/NateWeiler/Google-Drive.git
+https://github.com/NateWeiler/Projects.git
+https://github.com:NateWeiler/nateweiler.github.io.git
+https://github.com/NateWeiler/Clones
+https://github.com/NateWeiler/Python_Videos.git
+https://github.com/NateWeiler/Microsoft_Videos.git
+https://github.com/NateWeiler/CSET-Done.git
+
+	#####################
+	# WeilerWebServices #
+	#####################   
+https://github.com:WeilerWebServices/Development.git
+https://github.com/WeilerWebServices/Books.git
+https://github.com:WeilerWebServices/Database.git
+https://github.com:WeilerWebServices/WeilerWebServices.github.io.git
+
+	###########################
+	# WhatsHappeningLancaster #
+	########################### 	   
+https://github.com:WhatsHappeningLancaster/Database.git

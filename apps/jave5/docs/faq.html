@@ -1,0 +1,472 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="EN"><head>
+<title>JavE - FAQ</title>
+  <meta name="ROBOTS" content="index,nofollow">
+  <meta name="author" content="Markus Gebhard">
+  <meta name="publisher" content="Markus Gebhard">
+  <meta name="copyright" content="Markus Gebhard">
+  <meta name="Content-Language" content="EN">
+  <style type="text/css">
+  <!--pre { font-family: Courier New, Courier; font-size: 10pt; margin: 0px; }-->
+  </style>
+</head>
+<body background="paper.gif">
+
+<!-- LINK BAR  -->
+<center>
+ <!-- <a href="index.html">[home]</a>&nbsp; -->
+ <a href="http://www.jave.de">[JavE Homepage]</a>&nbsp;
+ <a href="index.html">[docs]</a>&nbsp;
+ <a href="http://www.jave.de#screenshots">[screenshots]</a>&nbsp;
+ <a href="http://www.jave.de/disclaimer.html">[download]</a>&nbsp;
+</center>
+<!-- END OF LINK BAR  -->
+
+<center>
+<h1>JavE - Frequently asked questions</h1>
+</center>
+
+
+<hr>
+<!--  -->
+
+
+<h2>1. Running the program, crashs, problems</h2>
+<ul>
+ <li><a href="#1.1">1.1 Where is the EXE?</a>
+ <li><a href="#1.1">1.1 JavE won't start</a>
+ <li><a href="#1.1">1.1 I have double clicked on the javeXXX.jar file but nothing happens.</a>
+ <li><a href="#1.2">1.2 ... instead of JavE another application like winrar or freezip jumps up.</a>
+ <li><a href="#1.3">1.3 The keyboard shortcuts use weired combinations such as Ctrl-Numpad-3!</a>
+ <li><a href="#1.4">1.4 Starting JavE causes my system to hang!</a>
+ <li><a href="#1.5">1.5 Starting JavE I get an error message somewhat like this: ...</a>
+ <li><a href="#1.6">1.6 JavE starts, but it does not show any icons on the buttons!</a>
+ <li><a href="#1.7">1.7 I have found a bug. What can I do?</a>
+</ul>
+
+<h2>2. Other questions about JavE</h2>
+<ul>
+ <li><a href="#2.1">2.1 How do you spell "JavE"?</a>
+ <li><a href="#2.2">2.2 Are there other fonts supported than "Courier New"?</a>
+ <li><a href="#2.3">2.3 Will there be colored ASCII supported in JavE?</a>
+ <li><a href="#2.4">2.4 Is JavE open source?</a>
+ <li><a href="#2.5">2.5 How can I help?</a>
+ <li><a href="#2.6">2.6 What is the difference between generic (green) and algorithmic (blue) tools?</a>
+ <li><a href="#2.7">2.7 Where can I find out more about how to use JavE?</a>
+ <li><a href="#2.8">2.8 I have an idea for an improvement. What can I do?</a>
+</ul>
+
+<h2>3. Questions about Ascii-Art</h2>
+<ul>
+ <li><a href="#3.1">3.1 Where can I find out more about Ascii-Art?</a>
+</ul>
+
+<hr>
+
+<!--  -->
+<h2>1. Running the program, crashs, problems</h2>
+
+
+<a name="1.1"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q1.1:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>Where is the EXE?</b></big>
+or:
+<big><b>JavE won't start.</b></big>
+or:
+<big><b>I have double clicked on the javeXXX.jar file but nothing happens.</b></big>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+JavE is a Java application. This means it will run on a variety of systems,
+but it <b>can not run without a Java Runtime Environment (JRE) installed.</b><br>
+You can <b>get the JRE for free from
+<a href="http://java.sun.com/j2se/1.3/jre/">http://java.sun.com/j2se/1.3/jre/</a></b><br>
+After installation of the JRE you should be able to start JavE
+(or any other java application) by <b>double clicking on the javeXXX.jar-file</b>.
+For a more detailed description for different operating systems <b>have a look at
+the <a href="index.html#installation">JavE documentation</a></b>.
+<p>
+On some systems JavE will not start when there is a space character in
+the program path. E.g. <code>C:\Program Files\jave\</code> will not work.
+Please use a folder without spaces, e.g. <code>C:\programs\jave\</code>
+<p>
+If all that does not help, open a Dos box and navigate to the JavE folder. Type
+<code>java -jar jave3.jar</code> and see what happens.
+  </td>
+ </tr>
+</table><br>
+
+
+<a name="1.2"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q1.2:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>I have double clicked on the javeXXX.jar file but instead of JavE another application
+like winrar or freezip jumps up.</b></big>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+See Answer to <a href="1.1">Q1.1</a>.
+In addition: Try to configure other applications not to be associated with *.jar-files.
+  </td>
+ </tr>
+</table><br>
+
+
+<a name="1.3"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q1.3:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>The keyboard shortcuts use weired combinations such as Ctrl-Numpad-3!</b></big>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+This bug has been fixed with version 5.0 of JavE.
+  </td>
+ </tr>
+</table><br>
+
+<a name="1.4"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q1.4:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>Starting JavE causes my system to hang!</b></big>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+This is a long known bug (<a href="http://developer.java.sun.com/developer/bugParade/bugs/4482430.html">Bug-Id: 4482430</a>)
+in the Java Runtime Environment. The developers from sun were not
+yet able to find it, because it does only randomly occure. However you can help making them notice
+the importance to fix it by <a href="http://developer.java.sun.com/developer/bugParade/bugs/4482430.html">voting for it</a>
+in the Java Developer Connection.
+<p>
+When the system hangs you can kill the JRE by holding down Ctrl-Alt-Delete for about 10 seconds.
+You have then to restart Windows, for otherwise when starting JavE you will not see any images and icons.
+
+  </td>
+ </tr>
+</table><br>
+
+
+
+
+
+<a name="1.5"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q1.5:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>Starting JavE I get an error message somewhat like this:</b></big>
+
+<pre>An unexpected exception has been detected in native code outside the VM.
+Unexpected Signal : EXCEPTION_ACCESS_VIOLATION occurred at PC=0x6D1E2AFB
+Function=[Unknown.]
+Library=(xxxxx)
+
+NOTE: We are unable to locate the function name symbol for the error
+      just occurred. Please refer to release documentation for possible
+      reason and solutions.
+
+Current Java thread:
+at sun.awt.font.NativeFontWrapper.registerFonts(Native Method)
+- locked <0698FDC8> (a java.lang.Class)
+at sun.java2d.SunGraphicsEnvironment.addPathFonts
+(SunGraphicsEnvironment.java:575)</pre>
+
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+See answer for <a href="#1.4">question 1.4</a>.
+  </td>
+ </tr>
+</table><br>
+
+
+
+<a name="1.6"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q1.6:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>JavE starts, but it does not show any icons on the buttons!</b></big>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+See answer for <a href="#1.4">question 1.4</a>.
+  </td>
+ </tr>
+</table><br>
+
+
+<a name="1.7"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q1.7:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>I have found a bug. What can I do?</b></big>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+Write to <a href="mailto:markus@jave.de">markus@jave.de</a> and don't
+forget to tell me what operating system and Java Runtime Environment you are using.
+<p>
+I try to fix all bugs, but I need your help to find out where there are any.
+  </td>
+ </tr>
+</table><br>
+
+
+
+
+
+
+
+<h2>2. Other questions about JavE</h2>
+
+
+<a name="2.1"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q2.1:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>How do you spell "JavE"?</b></big>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+Try to speek it like a mixture of the words "jam" and "wave": <img src="spelling.gif" alt="spelling" width="41" height="13" align="middle">
+  </td>
+ </tr>
+</table><br>
+
+
+<a name="2.2"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q2.2:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>Are there other fonts supported than "Courier New"?</b></big>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+Yes, but please do not expect it to work on all systems out there. Java font support is not very
+good.<br>
+There is an item "font" in the menu "view". You can select a font there. However this will only
+work with a limited subset of all installed fonts on your system. Also JavE will forget the setting
+after restart. I will extend this option in future releases.<br>
+If you want to use the fixedsys font from windows, you have to download and install the true type font (TTF)
+version from my homepage:
+<ul>
+<a href="http://www.jave.de/download/fixedsysttf4.zip">fixedsysttf4.zip</a>
+</ul>
+This font is not perfect and will not look good on some systems! Well, at least it is better than nothing...
+  </td>
+ </tr>
+</table><br>
+
+
+<a name="2.3"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q2.3:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>Will there be colored ASCII supported in JavE?</b></big>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+No. I have done this decision a long time ago:<br>
+  I will not add color to JavE. I have played around with individual
+colored characters when I was working on the image2ascii converter. At
+the first sight the result was cool, but then again no. It is the same
+thing as with black/white and color photography: The effect on a
+spectator of a color picture comes more from the color than from the
+shape, shades, etc. It is easy to impress people with colorful images
+but it is much more art with black and white. This is my personal
+opinion. Also I should add that I did a lot of black/white photography
+in former years.<br>
+So I will not add color to JavE - but as the jmov player is open source
+anyone can try to enhancing it by adding a color option.
+<br>
+One more thing about colors: By not supporting colors in JavE there is
+an empty space where any other software developer can still do a lot of
+interesting things.<br>
+Maybe I already have repelled (or demotivated) others with the overkill
+of features in JavE. Actually I don't like such monopolistic software
+and so I want to restrict myself (although it is not easy ;-)).
+<br>
+As long as I make the rules for what new features will be added,
+there never will be color support in JavE.
+  </td>
+ </tr>
+</table><br>
+
+
+<a name="2.4"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q2.4:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>Is JavE open source?</b></big>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+No, it is closed source - but it is (and will always be) freeware.<br>
+In case one day I stop working on JavE, I will consider
+releasing it as open source.
+  </td>
+ </tr>
+</table><br>
+
+
+<a name="2.5"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q2.5:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>How can I help?</b></big>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+Most of all I need your bug reports and your opinion about what does not work the way
+you want it to.<br>
+Furthermore if you have developed cool algorithms or know about features that would
+fit into my project, just let me know.<br>
+What about writing a tutorial or some piece of documentation?
+<p>
+Write to <a href="mailto:markus@jave.de">markus@jave.de</a>.
+</td>
+ </tr>
+</table><br>
+
+
+
+
+<a name="2.6"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q2.6:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>What is the difference between generic (green) and algorithmic (blue) tools?</b></big>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+The generic tools (green) all use the same algorithm to create Ascii art. This algorithm is quite
+stupid and does not distinguish the shapes you are drawing. However the results are quite good and
+there are various options for the Ascii art style: Line-Art, Felt Pen, ...<br>
+BTW: You can take a look behind the scenes by holding down the CTRL-key while drawing.
+<p>
+The Algorithmic tools (blue) have been developed independetly. For example there is a very complex
+algorithm for creating lines. It is capable of doing almost the same line style as done by famous
+ASCII-Artists. The rectangle tool will produce perfect rectangles created out of a certain set
+of characters. It is intended for more scientific drawings and tables, etc.
+<p>
+Another difference is the resolution: With most algorithmic tools you are limited to start and end
+the shape on a character - so the resolution is very low and you are limited for example when
+choosing the size of an ellipsis. Generic tools provide a higher resolution:
+Every character is divided into a grid of 3x4 points where you can start or end the shape.
+<p>
+I recommend playing around with the tools and options to get a better idea.
+  </td>
+ </tr>
+</table><br>
+
+
+<a name="2.7"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q2.7:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>Where can I find out more about how to use JavE?</b></big>
+  </td>
+ </tr>
+ <tr>
+ <td bgcolor="#EEEEFC">
+ Read the tutorials:
+ <ul>
+   <li><a href="./tutorial1/tutorial.html">JavE - Balls</a>
+   <li><a href="./tutorial2/index.html">Grayscale Girl</a>
+ </ul>
+  </td>
+ </tr>
+</table><br>
+
+
+
+
+<a name="2.8"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q2.8:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>I have an idea for an improvement. What can I do?</b></big>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#EEEEFC">
+Do not hesitate to write to <a href="mailto:markus@jave.de">markus@jave.de</a>. Cool ideas are always welcome,
+as well as suggestions about how to make using JavE easier.
+  </td>
+ </tr>
+</table><br>
+
+
+<h2>3. Questions about Ascii-Art</h2>
+
+
+
+<a name="3.1"></a>
+<table border=0 cellpadding="5" cellspacing="0">
+ <tr valign="top">
+ <td rowspan="2"><big><b>Q3.1:</b></big></td>
+  <td bgcolor="#CCC7DB">
+<big><b>Where can I find out more about Ascii-Art?</b></big>
+  </td>
+ </tr>
+ <tr>
+ <td bgcolor="#EEEEFC">
+I suggest reading the documents in the
+ <a href="http://www.sci.fi/~iltzu/ascii/ada/">ASCII-Art Documents Archive</a>.
+<!-- You can also go directly to the <a>Ascii-Art FAQ</a>. -->
+  </td>
+ </tr>
+</table><br>
+
+
+
+<!-- LINK BAR  -->
+<center>
+ <!-- <a href="index.html">[home]</a>&nbsp; -->
+ <a href="http://www.jave.de">[JavE Homepage]</a>&nbsp;
+ <a href="index.html">[docs]</a>&nbsp;
+ <a href="http://www.jave.de#screenshots">[screenshots]</a>&nbsp;
+ <a href="http://www.jave.de/disclaimer.html">[download]</a>&nbsp;
+</center>
+<!-- END OF LINK BAR  -->
+
+<hr>
+
+<address>
+Copyright &copy; Markus Gebhard, 2002<br>
+last modified: 15th April 2002
+</address>
+
+</body>
+</html>

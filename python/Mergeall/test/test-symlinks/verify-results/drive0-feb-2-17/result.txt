@@ -1,0 +1,20 @@
+/Admin-Mergeall/kingston-savagex256g/feb-2-17$ diff noopt1--mergeall-date170202-time091326.txt noopt2--mergeall-date170202-time092123.txt 
+4053c4053
+< Phase runtime: 5.286043012980372
+---
+> Phase runtime: 4.762424256943632
+
+/Admin-Mergeall/kingston-savagex256g/feb-2-17$ diff opt1--mergeall-date170202-time091416.txt opt2--mergeall-date170202-time092217.txt 
+4054c4054
+< Phase runtime: 9.438326446979772
+---
+> Phase runtime: 10.12333482701797
+
+/Admin-Mergeall/kingston-savagex256g/feb-2-17$ diff noopt1--mergeall-date170202-time091326.txt opt2--mergeall-date170202-time092217.txt 
+0a1
+> Using Python 3.5+ os.scandir() optimized variant.
+4053c4054
+< Phase runtime: 5.286043012980372
+---
+> Phase runtime: 10.12333482701797
+

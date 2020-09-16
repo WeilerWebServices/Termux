@@ -1,0 +1,51 @@
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [xfer-symlinks-winpaths] [copied-by-mergeall]
+excluding xfer-symlinks-winpaths\__bkp__
+excluding copied-by-mergeall\__bkp__
+comparing [xfer-symlinks-winpaths\mergeall-logs] [copied-by-mergeall\mergeall-logs]
+comparing [xfer-symlinks-winpaths\symlinks] [copied-by-mergeall\symlinks]
+comparing [xfer-symlinks-winpaths\symlinks\dir] [copied-by-mergeall\symlinks\dir]
+comparing [xfer-symlinks-winpaths\winpaths] [copied-by-mergeall\winpaths]
+comparing [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll] [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll]
+comparing [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo] [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo]
+comparing [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn] [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn]
+comparing [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg] [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg]
+comparing [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp] [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp]
+comparing [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa] [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]
+comparing [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\tttttttttttttttttttttttttttttttttttttttttttttttttt] [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\tttttttttttttttttttttttttttttttttttttttttttttttttt]
+comparing [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\tttttttttttttttttttttttttttttttttttttttttttttttttt\hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh] [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\tttttttttttttttttttttttttttttttttttttttttttttttttt\hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh]
+Phase runtime: 0.006929039655043494
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 6, folders: 13
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.

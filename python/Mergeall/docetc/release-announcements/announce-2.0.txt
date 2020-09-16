@@ -1,0 +1,28 @@
+Mar 23, 2015
+Updated: mergeall - Folder Synchronization for Manual "Clouds"
+
+A new major release of mergeall has been posted.  This version's main 
+upgrade is automatic backup of items replaced or deleted by the merge, 
+so that changes can be backed out from any target device if needed.  
+It also adds a more dynamic GUI, summary reports, a script workaround 
+for FAT DST rollovers, and a new unzipped content copy on the web.
+
+Screenshot:
+    http://learning-python.com/mergeall/examples/Screenshots/main-quit-help.png
+
+Main doc file:
+    http://learning-python.com/mergeall/docs/Usage-Overview.html
+
+Download here:
+    http://learning-python.com/downloads/mergeall.zip
+
+Unzipped content:
+    http://learning-python.com/mergeall
+
+Latest changes:
+    http://learning-python.com/mergeall/Readme.html#version20
+
+There's also a new package index at http://learning-python.com/downloads.
+
+Cheers,
+--M. Lutz (http://www.rmi.net/~lutz | http://learning-python.com)

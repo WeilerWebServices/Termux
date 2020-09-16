@@ -1,0 +1,333 @@
+------------------------------------------------------------------------------------
+Demo Unix symlinks on Mac OS X: py2app Mac app bundles are full of them.
+Handling symlinks properly requires algorithmic changes:  
+  -mergeall: copy, don't follow (else multiple copies of linked data!)
+  -cpall:    ditto for items nested in a tree being copied as a whole
+This assumes links are relative, not absolute (else not transportable).
+See demo-3.0-windows-symlinks.txt for a demo of the same behavior on Windows.
+------------------------------------------------------------------------------------
+
+# The test folder
+
+/.../PyEdit.app/Contents/Frameworks/Python.framework$ ls -l 
+total 16
+lrwxr-xr-x  1 blue  staff   23 Jan 23 20:36 Python -> Versions/Current/Python
+lrwxr-xr-x  1 blue  staff   26 Jan 23 20:36 Resources -> Versions/Current/Resources
+drwxr-xr-x  4 blue  staff  136 Jan 23 20:36 Versions
+
+/.../PyEdit.app/Contents/Frameworks/Python.framework$ ls -l Versions/Current
+lrwxr-xr-x  1 blue  staff  3 Jan 23 20:36 Versions/Current -> 3.5
+
+/.../PyEdit.app/Contents/Frameworks/Python.framework$ ls -l Versions/Current/
+total 9856
+-rwxr-xr-x  1 blue  staff  5043488 Jan 23 20:36 Python
+drwxr-xr-x  3 blue  staff      102 Jan 23 20:36 Resources
+drwxr-xr-x  3 blue  staff      102 Jan 23 20:36 include
+drwxr-xr-x  3 blue  staff      102 Jan 23 20:36 lib
+
+/.../PyEdit.app/Contents/Frameworks/Python.framework$ ls -l Versions/3.5
+total 9856
+-rwxr-xr-x  1 blue  staff  5043488 Jan 23 20:36 Python
+drwxr-xr-x  3 blue  staff      102 Jan 23 20:36 Resources
+drwxr-xr-x  3 blue  staff      102 Jan 23 20:36 include
+drwxr-xr-x  3 blue  staff      102 Jan 23 20:36 lib
+
+
+-----------------------------------------------------------------------------------------
+# Identifying links with os.path.*(): isfile+islink (file), isdir+islink (dir)
+
+/.../PyEdit.app/Contents/Frameworks/Python.framework$ py3
+>>> import os
+
+
+>>> os.path.isfile('Python')
+True
+>>> os.path.isdir('Python')
+False
+>>> os.path.islink('Python')
+True
+>>> os.path.isfile('Versions/Current/Python')
+True
+
+
+>>> os.path.isfile('Resources')
+False
+>>> os.path.isdir('Resources')
+True
+>>> os.path.islink('Resources')
+True
+>>> os.readlink('Resources')
+'Versions/Current/Resources'
+>>> os.path.isdir('Versions/Current/Resources')
+True
+
+
+>>> os.path.islink('Versions/Current'), os.path.isdir('Versions/Current')
+(True, True)
+>>> os.readlink('Versions/Current')
+'3.5'
+>>> os.listdir('Versions/Current')
+['include', 'lib', 'Python', 'Resources']
+>>> os.listdir('Versions/3.5')
+['include', 'lib', 'Python', 'Resources']
+
+
+-----------------------------------------------------------------------------------------
+# Alternative: lstat() [or stat(follow_symlinks=False in 3.3+]
+# Neither returns True for file or dir if it's a symlink
+
+# follow_symlinks is available in py 3.3+ only, where lstat is equivalent to
+# os.stat(path, follow_symlinks=False), but lstat() is available in earlier pys;
+# lstat() is an alias for stat() on platforms without symlinks;
+
+
+# stat: item referenced (only - != os.path)
+
+>>> for item in ('Resources', 'Python', 'Versions', 'pyconfig.h'):                                  
+...     s = os.stat(item)                                                                           
+...     print('%-10s' % item, stat.S_ISREG(s.st_mode), stat.S_ISDIR(s.st_mode), stat.S_ISLNK(s.st_mode))
+... 
+Resources  False True False
+Python     True False False
+Versions   False True False
+pyconfig.h True False False
+
+
+# lstat: link itself (in all Py)
+
+>>> for item in ('Resources', 'Python', 'Versions', 'pyconfig.h'):                                  
+...     s = os.lstat(item)                                                                          
+...     print('%-10s' % item, stat.S_ISREG(s.st_mode), stat.S_ISDIR(s.st_mode), stat.S_ISLNK(s.st_mode))
+... 
+Resources  False False True
+Python     False False True
+Versions   False True False
+pyconfig.h True False False
+
+
+# stat(follow): link itself (where available)
+
+>>> for item in ('Resources', 'Python', 'Versions', 'pyconfig.h'):                                  
+...     s = os.stat(item, follow_symlinks=False)                                                   
+...     print('%-10s' % item, stat.S_ISREG(s.st_mode), stat.S_ISDIR(s.st_mode), stat.S_ISLNK(s.st_mode))
+... 
+Resources  False False True
+Python     False False True
+Versions   False True False
+pyconfig.h True False False
+
+
+-----------------------------------------------------------------------------------------
+# Alternative: os.scandir()/DirEntry objects, available in py 3.5+ only
+# With follow_symlinks=False, doesn't return True for file or dir if it's a symlink
+# Without follow_symlinks, same as os.path.*()
+
+>>> os.listdir('.')
+['newfifo', 'newlink1', 'newlink2', 'newlink3', 'pyconfig.h', 'Python', 'Resources', 'Versions']
+
+
+# same as os.path
+
+>>> ds = os.scandir('.')
+>>> for d in ds:
+...     if d.name[0] != 'n': 
+...         print('%-10s' % d.name, 
+...             d.is_file(), d.is_dir(), d.is_symlink())
+... 
+pyconfig.h True False False
+Python     True False True
+Resources  False True True
+Versions   False True False
+
+
+# same as os.lstat
+
+>>> ds = os.scandir('.')
+>>> for d in ds:
+...     if d.name[0] != 'n':
+...         print('%-10s' % d.name, 
+...             d.is_file(follow_symlinks=False), d.is_dir(follow_symlinks=False), d.is_symlink()) 
+... 
+pyconfig.h True False False
+Python     False False True
+Resources  False False True
+Versions   False True False
+
+
+-----------------------------------------------------------------------------------------
+# Copying links - same whether symlink links to file or dir
+
+
+>>> os.symlink(os.readlink('Python'), 'newlink1')
+>>> os.path.isfile('newlink1')
+True
+>>> os.path.isdir('newlink1')
+False 
+>>> os.path.islink('newlink1')
+True
+>>> os.readlink('newlink1')
+'Versions/Current/Python'
+
+  
+>>> os.symlink(os.readlink('Resources'), 'newlink2')
+>>> os.path.isfile('newlink2')
+False
+>>> os.path.isdir('newlink2')
+True
+>>> os.path.islink('newlink2')
+True 
+>>> os.readlink('newlink2')
+'Versions/Current/Resources'
+
+
+-----------------------------------------------------------------------------------------
+# The folder contents with new links
+
+/.../PyEdit.app/Contents/Frameworks/Python.framework$ ls -l
+total 32
+lrwxr-xr-x  1 blue  staff   23 Jan 23 20:36 Python -> Versions/Current/Python
+lrwxr-xr-x  1 blue  staff   26 Jan 23 20:36 Resources -> Versions/Current/Resources
+drwxr-xr-x  4 blue  staff  136 Jan 23 20:36 Versions
+prw-r--r--  1 blue  staff    0 Jan 25 14:10 newfifo
+lrwxr-xr-x  1 blue  staff   23 Jan 25 14:13 newlink1 -> Versions/Current/Python
+lrwxr-xr-x  1 blue  staff   26 Jan 25 14:14 newlink2 -> Versions/Current/Resources
+
+
+-----------------------------------------------------------------------------------------
+# Why you may care: 
+# isfile() links will open the referenced file, not link (redundant copies?)
+
+>>> os.path.isfile('Python')
+True
+>>> os.path.islink('Python')
+True
+
+>>> f = open('Python', 'rb')
+>>> b = f.read()
+>>> len(b)
+5043488
+>>>
+>>> b[:70]
+b'\xca\xfe\xba\xbe\x00\x00\x00\x02\x00\x00\x00\x07\x00\x00\x00\x03\x00\x00\x10\x00\x00#\xfc\xd4\x00...
+>>> b[-70:]
+b'\x00_wcsxfrm\x00_wmemcmp\x00_write\x00_writev\x00dyld_stub_binder\x00radr://5614542\x00\x00\x00\x00\x00'
+>>>
+>>> os.readlink('Python')
+'Versions/Current/Python'
+>>> os.path.getsize('Versions/Current/Python')
+5043488
+
+
+-----------------------------------------------------------------------------------------
+# Why you may care: 
+# isdir() links will yield listings of the referenced dir (redunant walks and copies?)
+ 
+>>> os.path.isdir('Resources')
+True
+>>> os.path.islink('Resources')
+True
+>>> os.listdir('Resources')
+['Info.plist']
+
+>>> os.readlink('Resources')
+'Versions/Current/Resources' 
+>>> os.listdir('Versions/Current/Resources')
+['Info.plist']
+
+
+-----------------------------------------------------------------------------------------
+# Ditto for links to links
+
+>>> os.path.islink('Versions/Current'), os.path.isdir('Versions/Current')
+(True, True)
+>>> os.readlink('Versions/Current')
+'3.5'
+>>> os.listdir('Versions/Current')
+['include', 'lib', 'Python', 'Resources']
+>>> os.listdir('Versions/3.5')
+['include', 'lib', 'Python', 'Resources']
+
+
+-----------------------------------------------------------------------------------------
+# Ditto for newly-created links - this is what the copies will look like 
+
+>>> os.path.getsize('newlink1')
+5043488
+>>> os.listdir('newlink2')
+['Info.plist']
+
+
+-----------------------------------------------------------------------------------------
+# And fifos are not file, dir, or link in any (plus others? - mount points,... pass)
+
+>>> os.mkfifo('newfifo')
+
+>>> os.path.isfile('newfifo')
+False
+>>> os.path.isdir('newfifo')
+False
+>>> os.path.islink('newfifo')
+False
+
+>>> s = os.lstat('newfifo')
+>>> print(stat.S_ISREG(s.st_mode), stat.S_ISDIR(s.st_mode), stat.S_ISLNK(s.st_mode))
+False False False
+
+>>> ds = os.scandir('.')
+>>> for d in ds:
+...     print('%-10s' % d.name, d.is_file(follow_symlinks=False), d.is_dir(follow_symlinks=False), d.is_symlink()) 
+... 
+newfifo    False False False
+etc...
+
+
+-----------------------------------------------------------------------------------------
+# BUT symbolic links are not portable between Windows and Unix (if "/" or "\" in paths)
+# See demo-3.0-windows-symlinks.txt for the Windows side of this story ("/" fails there)
+
+>>> os.listdir('..')
+['Python.framework', 'Tcl.framework', 'Tk.framework']
+
+
+# Folder link
+
+>>> os.symlink('../Tk.framework', 'uplink')        # Unix -> Unix okay
+>>> os.readlink('uplink')
+'../Tk.framework'
+>>> 
+>>> os.listdir('uplink')
+['libtkstub8.5.a', 'PrivateHeaders', 'Resources', 'Tk', 'tkConfig.sh', 'Versions']
+
+>>> os.symlink('../Tk.framework', 'uplink')
+FileExistsError: [Errno 17] File exists: '../Tk.framework' -> 'uplink'
+>>> 
+>>> os.remove('uplink')
+>>> os.symlink(r'..\Tk.framework', 'uplink')       # Windows -> Unix fails
+>>> os.readlink('uplink')
+'..\\Tk.framework'
+>>> 
+>>> os.listdir('uplink')
+FileNotFoundError: [Errno 2] No such file or directory: 'uplink'
+>>>
+>>> os.open('uplink')
+TypeError: Required argument 'flags' (pos 2) not found
+ 
+
+# File link
+
+>>> open('../temp.txt', 'w').write('spam\n')
+5
+>>> os.remove('uplink')
+>>> os.symlink(r'../temp.txt', 'uplink')           # Unix -> Unix okay
+>>> os.readlink('uplink')
+'../temp.txt'
+>>> open('uplink').read()
+'spam\n'
+>>> 
+>>> os.remove('uplink')
+>>> os.symlink(r'..\temp.txt', 'uplink')           # Windows -> Unix fails
+>>> os.readlink('uplink')
+'..\\temp.txt'
+>>> open('uplink').read()
+FileNotFoundError: [Errno 2] No such file or directory: 'uplink'
+

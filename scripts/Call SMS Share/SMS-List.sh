@@ -1,0 +1,50 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -u
+
+PARAM_LIMIT=10
+PARAM_OFFSET=0
+PARAM_TYPE=inbox
+PARAMS=""
+
+SCRIPTNAME=termux-sms-list
+
+SUPPORTED_TYPES="all|inbox|sent|draft|outbox"
+show_usage () {
+    echo "Usage: $SCRIPTNAME [-d] [-l limit] [-n] [-o offset] [-t type]"
+    echo "List SMS messages."
+    echo "  -d         show dates when messages were created"
+    echo "  -l limit   offset in sms list (default: $PARAM_LIMIT)"
+    echo "  -n         show phone numbers"
+    echo "  -o offset  offset in sms list (default: $PARAM_OFFSET)"
+    echo "  -t type    the type of messages to list (default: $PARAM_TYPE):"
+    echo "             $SUPPORTED_TYPES"
+    exit 0
+}
+
+while getopts :hdl:t:no: option
+do
+    case "$option" in
+        h) show_usage;;
+        d) PARAMS="$PARAMS --ez show-dates true";;
+        l) PARAM_LIMIT=$OPTARG;;
+        n) PARAMS="$PARAMS --ez show-phone-numbers true";;
+        o) PARAM_OFFSET=$OPTARG;;
+        t) PARAM_TYPE=$OPTARG;;
+        ?) echo "$SCRIPTNAME: illegal option -$OPTARG"; exit 1;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ $# != 0 ]; then echo "$SCRIPTNAME: too many arguments"; exit 1; fi
+
+case "$PARAM_TYPE" in
+	all) PARAM_TYPE=0 ;;
+	inbox) PARAM_TYPE=1 ;;
+	sent) PARAM_TYPE=2 ;;
+	draft) PARAM_TYPE=3 ;;
+	outbox) PARAM_TYPE=4 ;;
+	*) echo "$SCRIPTNAME: Unsupported type '$PARAM_TYPE'. Use one of: $SUPPORTED_TYPES"; exit 1 ;;
+esac
+
+PARAMS="$PARAMS --ei offset $PARAM_OFFSET --ei limit $PARAM_LIMIT --ei type $PARAM_TYPE"
+/data/data/com.termux/files/usr/libexec/termux-api SmsInbox $PARAMS

@@ -1,0 +1,43 @@
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [/home/name/Desktop/mergeall-3.0-beta/test/test2] [/home/name/Desktop/mergeall-3.0-beta/test/test1]
+excluding /home/name/Desktop/mergeall-3.0-beta/test/test2/__bkp__
+excluding /home/name/Desktop/mergeall-3.0-beta/test/test1/__bkp__
+comparing [/home/name/Desktop/mergeall-3.0-beta/test/test2/m1] [/home/name/Desktop/mergeall-3.0-beta/test/test1/m1]
+comparing [/home/name/Desktop/mergeall-3.0-beta/test/test2/d3] [/home/name/Desktop/mergeall-3.0-beta/test/test1/d3]
+comparing [/home/name/Desktop/mergeall-3.0-beta/test/test2/d2] [/home/name/Desktop/mergeall-3.0-beta/test/test1/d2]
+Phase runtime: 0.004158088999702159
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 9, folders: 4
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.

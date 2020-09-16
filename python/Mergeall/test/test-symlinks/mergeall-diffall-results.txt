@@ -1,0 +1,1090 @@
+#==========================================================================================
+# Test/demo mergeall and diffall 3.0 symlinks support:
+#
+# -Run on Mac OS X 10.11, Python 3.5 (python.org), mergeall 3.0;
+# 
+# -Later tests also add a fifo file (not shown by Finder) to verify it is skipped
+# 
+# -Results are also the same for mergeall's 3.5+ optimized comparison variant,
+#  though only comparison phase differs (resolution phase code is identical) 
+#==========================================================================================
+
+
+
+
+#******************************************************************************************
+# 1) Main tests: AFTER deleting test1+test2 and unzipping them from the save file here
+#******************************************************************************************
+
+
+
+#
+# INITIAL test-folders state
+#
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../mergeall.py test1 test2 -report -skipcruft
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test1] [test2]
+comparing [test1/dir] [test2/dir]
+Phase runtime: 0.0016189650050364435
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('dirlink', 'test1', 'test2', 'linkpaths')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['extralink'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['filelink'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 2, folders: 2
+Differences => samefile: 1, uniqueto: 1, uniquefrom: 1, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../diffall.py test1 test2 -skipcruft
+--------------------
+Comparing test1 to test2
+*UNIQUE items in test1:
+... filelink
+*UNIQUE items in test2:
+... extralink
+Comparing contents
+*DIFFER: dirlink
+file matches
+nestedfilelink matches
+--------------------
+Comparing test1/dir to test2/dir
+Directory lists are identical
+Comparing contents
+nestedfile matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 2, Files checked: 4, Files skipped: 0
+System metadata (cruft) files were skipped
+Diffs found: 2
+- items UNIQUE at [test1] - [test2]
+- links DIFFER at [test1/dirlink] - [test2/dirlink]
+End of report.
+
+
+
+#
+# MIRROR test1 to test2, links and all (except cruft)
+#
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../mergeall.py test1 test2 -auto -backup -skipcruft
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test1] [test2]
+comparing [test1/dir] [test2/dir]
+Phase runtime: 0.001686704985331744
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('dirlink', 'test1', 'test2', 'linkpaths')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['extralink'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['filelink'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+....backing up dirlink to test2/__bkp__/date170203-time122457/dirlink
+propagating symlink test2/dirlink
+propagating symlink test1/dirlink
+replaced same file, using FROM test1/dirlink
+....backing up extralink to test2/__bkp__/date170203-time122457/extralink
+propagating symlink test2/extralink
+removed old TO file, test2/extralink
+propagating symlink test1/filelink
+copied new FROM file, test1/filelink
+Phase runtime: 0.0016694979858584702
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 2, folders: 2
+Differences => samefile: 1, uniqueto: 1, uniquefrom: 1, mixedmode: 0
+Changed:
+files   => created: 1, deleted: 1, replaced: 1
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+#
+# VERIFY results: test1 == test2
+#
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../mergeall.py test1 test2 -report -skipcruft
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test1] [test2]
+comparing [test1/dir] [test2/dir]
+Phase runtime: 0.001792532973922789
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 2, folders: 2
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../diffall.py test1 test2 -skipcruft
+--------------------
+Comparing test1 to test2
+*UNIQUE items in test2:
+... __bkp__
+Comparing contents
+dirlink matches
+file matches
+filelink matches
+nestedfilelink matches
+--------------------
+Comparing test1/dir to test2/dir
+Directory lists are identical
+Comparing contents
+nestedfile matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 2, Files checked: 5, Files skipped: 0
+System metadata (cruft) files were skipped
+Diffs found: 1
+- items UNIQUE at [test1] - [test2]
+End of report.
+
+
+
+#
+# ROLLBACK prior mergeall run to restore test2
+#
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../rollback.py test2 
+**Warning**
+
+This script builds and runs a command to automatically restore the tree,
+whose root path is given on the command line or interactively, to its
+state prior to its most recent mergeall synch.  It assumes that the tree
+has not been changed since this synch, and further assumes that the latest
+synch was run with backups enabled.  This rollback cannot be undone
+automatically.
+
+Are you sure you want to do this (y=yes)? y
+Running rollback command:
+.... /Library/Frameworks/Python.framework/Versions/3.5/bin/python3 /MY-STUFF/Code/mergeall/mergeall.py test2/__bkp__/date170307-time154207 test2 -auto -restore
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [test2/__bkp__/date170307-time154207] [test2]
+excluding test2/__bkp__
+Phase runtime: 0.00016733695520088077
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('dirlink', 'test2/__bkp__/date170307-time154207', 'test2', 'linkpaths')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['.DS_Store', 'dir', 'file', 'filelink', 'nestedfilelink'],
+  'test2/__bkp__/date170307-time154207',
+  'test2')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['__added__.txt', 'extralink'],
+  'test2/__bkp__/date170307-time154207',
+  'test2')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+....removed added file: test2/filelink
+....prior file/dir additions removed: 1/0
+propagating symlink test2/__bkp__/date170307-time154207/dirlink
+replaced same file, using FROM test2/__bkp__/date170307-time154207/dirlink
+....retained unique item in TO tree: [test2/.DS_Store]
+....retained unique item in TO tree: [test2/dir]
+....retained unique item in TO tree: [test2/file]
+....retained unique item in TO tree: [test2/filelink]
+....retained unique item in TO tree: [test2/nestedfilelink]
+copied new FROM file, test2/__bkp__/date170307-time154207/__added__.txt
+propagating symlink test2/__bkp__/date170307-time154207/extralink
+copied new FROM file, test2/__bkp__/date170307-time154207/extralink
+....removed __added__.txt file from TO tree root
+Phase runtime: 0.0020472289761528373
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 0, folders: 1
+Differences => samefile: 1, uniqueto: 5, uniquefrom: 2, mixedmode: 0
+Changed:
+files   => created: 1, deleted: 1, replaced: 1
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+Press Enter to exit. 
+
+
+
+#
+# VERIFY test2 same as original in unzipped save folder again
+#
+
+ 
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../mergeall.py test2 save-test1-test2/test2 -report -skipcruft
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test2] [save-test1-test2/test2]
+excluding test2/__bkp__
+comparing [test2/dir] [save-test1-test2/test2/dir]
+Phase runtime: 0.002943596977274865
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 2, folders: 2
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../diffall.py test2 save-test1-test2/test2 -skipcruft
+--------------------
+Comparing test2 to save-test1-test2/test2
+*UNIQUE items in test2:
+... __bkp__
+Comparing contents
+dirlink matches
+extralink matches
+file matches
+nestedfilelink matches
+--------------------
+Comparing test2/dir to save-test1-test2/test2/dir
+Directory lists are identical
+Comparing contents
+nestedfile matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 2, Files checked: 5, Files skipped: 0
+System metadata (cruft) files were skipped
+Diffs found: 1
+- items UNIQUE at [test2] - [save-test1-test2/test2]
+End of report.
+
+
+
+
+
+
+#******************************************************************************************
+# 2) More tests: AFTER delete+unzip test1/test2 to reset
+#******************************************************************************************
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3
+>>> import os
+
+# unique from
+>>> os.mkfifo('test1/fifo')
+
+# unique from
+>>> os.readlink('test1/filelink')
+'file'
+>>> os.readlink('test2/filelink')
+FileNotFoundError: [Errno 2] No such file or directory: 'test2/filelink'
+
+# unique to
+>>> os.readlink('test2/extralink')
+'file'
+>>> os.readlink('test1/extralink')
+FileNotFoundError: [Errno 2] No such file or directory: 'test1/extralink'
+
+# differs
+>>> os.readlink('test1/dirlink')
+'dir'
+>>> os.readlink('test2/dirlink')
+'file'
+
+# same
+>>> os.readlink('test1/nestedfilelink')
+'dir/nestedfile'
+>>> os.readlink('test2/nestedfilelink')
+'dir/nestedfile'
+>>> ^D
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../mergeall.py test1 test2 -report -skipcruft
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test1] [test2]
+comparing [test1/dir] [test2/dir]
+Phase runtime: 0.003340727009344846
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('dirlink', 'test1', 'test2', 'linkpaths')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['extralink'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['fifo', 'filelink'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 2, folders: 2
+Differences => samefile: 1, uniqueto: 1, uniquefrom: 2, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../diffall.py test1 test2 -skipcruft
+--------------------
+Comparing test1 to test2
+*UNIQUE items in test1:
+... fifo
+... filelink
+*UNIQUE items in test2:
+... extralink
+Comparing contents
+*DIFFER: dirlink
+file matches
+nestedfilelink matches
+--------------------
+Comparing test1/dir to test2/dir
+Directory lists are identical
+Comparing contents
+nestedfile matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 2, Files checked: 4, Files skipped: 0
+System metadata (cruft) files were skipped
+Diffs found: 2
+- items UNIQUE at [test1] - [test2]
+- links DIFFER at [test1/dirlink] - [test2/dirlink]
+End of report.
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../mergeall.py test1 test2 -auto -backup -skipcruft
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test1] [test2]
+comparing [test1/dir] [test2/dir]
+Phase runtime: 0.0017882630345411599
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('dirlink', 'test1', 'test2', 'linkpaths')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['extralink'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['fifo', 'filelink'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+....backing up dirlink to test2/__bkp__/date170202-time110027/dirlink
+propagating symlink test2/dirlink
+propagating symlink test1/dirlink
+replaced same file, using FROM test1/dirlink
+....backing up extralink to test2/__bkp__/date170202-time110027/extralink
+propagating symlink test2/extralink
+removed old TO file, test2/extralink
+ignored unknown type, FROM: test1/fifo
+propagating symlink test1/filelink
+copied new FROM file, test1/filelink
+Phase runtime: 0.002961701015010476
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 2, folders: 2
+Differences => samefile: 1, uniqueto: 1, uniquefrom: 2, mixedmode: 0
+Changed:
+files   => created: 1, deleted: 1, replaced: 1
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../mergeall.py test1 test2 -report -skipcruft
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test1] [test2]
+excluding test2/__bkp__
+comparing [test1/dir] [test2/dir]
+Phase runtime: 0.0019892219570465386
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['fifo'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 2, folders: 2
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 1, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../diffall.py test1 test2 -skipcruft
+--------------------
+Comparing test1 to test2
+*UNIQUE items in test1:
+... fifo
+*UNIQUE items in test2:
+... __bkp__
+Comparing contents
+dirlink matches
+file matches
+filelink matches
+nestedfilelink matches
+--------------------
+Comparing test1/dir to test2/dir
+Directory lists are identical
+Comparing contents
+nestedfile matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.01
+Dirs checked 2, Files checked: 5, Files skipped: 0
+System metadata (cruft) files were skipped
+Diffs found: 1
+- items UNIQUE at [test1] - [test2]
+End of report.
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3
+>>> import os
+
+# copied new
+>>> os.readlink('test1/filelink')
+'file'
+>>> os.readlink('test2/filelink')
+'file'
+
+# replaced
+>>> os.readlink('test1/dirlink')
+'dir'
+>>> os.readlink('test2/dirlink')
+'dir'
+
+# backed up
+>>> os.readlink('test2/__bkp__/date170202-time110027/dirlink')
+'file'
+
+# removed
+>>> os.readlink('test2/extralink')
+FileNotFoundError: [Errno 2] No such file or directory: 'test2/extralink'
+
+# backed up
+>>> os.readlink('test2/__bkp__/date170202-time110027/extralink')
+'file'
+
+# fifo igored
+>>> os.listdir('test1')
+['.DS_Store', 'dir', 'dirlink', 'fifo', 'file', 'filelink', 'nestedfilelink']
+>>> os.listdir('test2')
+['.DS_Store', '__bkp__', 'dir', 'dirlink', 'file', 'filelink', 'nestedfilelink']
+
+
+
+# leaves fifo unresolved
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../mergeall.py test1 test2 -auto -backup -skipcruft
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test1] [test2]
+excluding test2/__bkp__
+comparing [test1/dir] [test2/dir]
+Phase runtime: 0.0018067510100081563
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['fifo'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+ignored unknown type, FROM: test1/fifo
+Phase runtime: 8.372199954465032e-05
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 2, folders: 2
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 1, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+
+
+
+#******************************************************************************************
+# 3) More FIFO cases - test folders NOT changed
+#******************************************************************************************
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3
+>>> import os
+>>>                               # in FROM but not TO (test1/fifo created above)
+>>> os.mkfifo('test2/fifo2')      # in TO but not FROM
+>>> os.mkfifo('test1/fifo3')      # in BOTH
+>>> os.mkfifo('test2/fifo3')
+>>> 
+>>> os.listdir('test1')
+['.DS_Store', 'dir', 'dirlink', 'fifo', 'fifo3', 'file', 'filelink', 'nestedfilelink']
+>>> os.listdir('test2')
+['.DS_Store', '__bkp__', 'dir', 'dirlink', 'fifo2', 'fifo3', 'file', 'filelink', 'nestedfilelink']
+>>> ^D
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../mergeall.py test1 test2 -auto -backup -skipcruft
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test1] [test2]
+excluding test2/__bkp__
+comparing [test1/dir] [test2/dir]
+Phase runtime: 0.0023478370276279747
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['fifo2'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['fifo'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[('fifo3', 'test1', 'test2')]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+ignored unknown type, TO: test2/fifo2
+ignored unknown type, FROM: test1/fifo
+ignored unknown types, FROM: test1/fifo3 TO: test2/fifo3
+Phase runtime: 0.00014492403715848923
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 2, folders: 2
+Differences => samefile: 0, uniqueto: 1, uniquefrom: 1, mixedmode: 1
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../diffall.py test1 test2 -skipcruft
+--------------------
+Comparing test1 to test2
+*UNIQUE items in test1:
+... fifo
+*UNIQUE items in test2:
+... __bkp__
+... fifo2
+Comparing contents
+dirlink matches
+file matches
+filelink matches
+nestedfilelink matches
+*MISSED: fifo3
+--------------------
+Comparing test1/dir to test2/dir
+Directory lists are identical
+Comparing contents
+nestedfile matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 2, Files checked: 5, Files skipped: 0
+System metadata (cruft) files were skipped
+Diffs found: 2
+- items UNIQUE at [test1] - [test2]
+- items MISSED at [test1] - [test2]: [fifo3]
+End of report.
+
+
+
+
+
+
+#******************************************************************************************
+# 4) More FIFO cases - mixed with links (only) -- harsher, but reasonable and rare
+#******************************************************************************************
+
+# continue without changing test folders
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3
+>>> import os
+>>> os.remove('test1/fifo3')
+>>> os.remove('test2/fifo3')
+>>> 
+>>> os.mkfifo('test1/fifo3')             # FROM=fifo, TO=link
+>>> os.symlink('file', 'test2/fifo3')
+>>> ^D
+
+
+
+# error reported in other+link code: TO link backed up and removed but not replaced
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../mergeall.py test1 test2 -auto -backup -skipcruft
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test1] [test2]
+excluding test2/__bkp__
+comparing [test1/dir] [test2/dir]
+Phase runtime: 0.001887249993160367
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['fifo2'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['fifo'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[('fifo3', 'test1', 'test2')]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+ignored unknown type, TO: test2/fifo2
+ignored unknown type, FROM: test1/fifo
+....backing up fifo3 to test2/__bkp__/date170203-time155439/fifo3
+propagating symlink test2/fifo3
+**Error replacing item with FROM item: skipped test1/fifo3
+<class 'OSError'> Unknown FROM not copied
+Phase runtime: 0.0014321600319817662
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 2, folders: 2
+Differences => samefile: 0, uniqueto: 1, uniquefrom: 1, mixedmode: 1
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+**There are error messages in the log file above: see "**Error"
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3
+>>> import os
+>>> os.remove('test1/fifo3')
+>>> os.remove('test2/fifo3')
+FileNotFoundError: [Errno 2] No such file or directory: 'test2/fifo3'
+
+# but link backed up before removed
+>>> os.readlink('test2/__bkp__/date170203-time155439/fifo3')
+'file'
+ 
+>>> os.mkfifo('test2/fifo3')
+>>> os.symlink('file', 'test1/fifo3')    # FROM=link, TO=fifo
+>>> ^D
+
+
+
+# rule out in link+other code (doesn't reach FIFO backup code)
+# same net effect as fifo+fifo case above, but different code 
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../mergeall.py test1 test2 -auto -backup -skipcruft
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test1] [test2]
+excluding test2/__bkp__
+comparing [test1/dir] [test2/dir]
+Phase runtime: 0.001885197008959949
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['fifo2'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['fifo'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[('fifo3', 'test1', 'test2')]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+ignored unknown type, TO: test2/fifo2
+ignored unknown type, FROM: test1/fifo
+ignored unknown types, FROM: test1/fifo3 TO: test2/fifo3
+Phase runtime: 0.00022685900330543518
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 2, folders: 2
+Differences => samefile: 0, uniqueto: 1, uniquefrom: 1, mixedmode: 1
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../diffall.py test1 test2 -skipcruft
+--------------------
+Comparing test1 to test2
+*UNIQUE items in test1:
+... fifo
+*UNIQUE items in test2:
+... __bkp__
+... fifo2
+Comparing contents
+dirlink matches
+*MISSED: fifo3
+file matches
+filelink matches
+nestedfilelink matches
+--------------------
+Comparing test1/dir to test2/dir
+Directory lists are identical
+Comparing contents
+nestedfile matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 2, Files checked: 5, Files skipped: 0
+System metadata (cruft) files were skipped
+Diffs found: 2
+- items UNIQUE at [test1] - [test2]
+- items MISSED at [test1] - [test2]: [fifo3]
+End of report.
+
+
+
+
+
+
+#******************************************************************************************
+# 5) More FIFO cases - mixed with simple file or dir (original cases code)
+#******************************************************************************************
+
+# continue without changing test folders
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3
+>>> import os
+>>> os.remove('test1/fifo3')
+>>> os.remove('test2/fifo3')
+
+>>> open('test1/fifo3', 'w').write('spam')     # FROM=fifo, TO=file
+4
+>>> os.mkfifo('test2/fifo3')
+
+>>> open('test2/fifo4', 'w').write('spam')     # FROM=file, TO=fifo
+4
+>>> os.mkfifo('test1/fifo4')
+>>> ^D
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../mergeall.py test1 test2 -auto -backup -skipcruft
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [test1] [test2]
+excluding test2/__bkp__
+comparing [test1/dir] [test2/dir]
+Phase runtime: 0.0018778110388666391
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['fifo2'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['fifo'], 'test1', 'test2')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[('fifo3', 'test1', 'test2'), ('fifo4', 'test1', 'test2')]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+ignored unknown type, TO: test2/fifo2
+ignored unknown type, FROM: test1/fifo
+ignored unknown types, FROM: test1/fifo3 TO: test2/fifo3
+ignored unknown types, FROM: test1/fifo4 TO: test2/fifo4
+Phase runtime: 0.00023341801716014743
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 2, folders: 2
+Differences => samefile: 0, uniqueto: 1, uniquefrom: 1, mixedmode: 2
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+
+/MY-STUFF/Code/mergeall/test/test-symlinks$ py3 ../../diffall.py test1 test2 -skipcruft
+--------------------
+Comparing test1 to test2
+*UNIQUE items in test1:
+... fifo
+*UNIQUE items in test2:
+... __bkp__
+... fifo2
+Comparing contents
+dirlink matches
+file matches
+filelink matches
+nestedfilelink matches
+*MISSED: fifo3
+*MISSED: fifo4
+--------------------
+Comparing test1/dir to test2/dir
+Directory lists are identical
+Comparing contents
+nestedfile matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 2, Files checked: 5, Files skipped: 0
+System metadata (cruft) files were skipped
+Diffs found: 3
+- items UNIQUE at [test1] - [test2]
+- items MISSED at [test1] - [test2]: [fifo3]
+- items MISSED at [test1] - [test2]: [fifo4]
+End of report.
+

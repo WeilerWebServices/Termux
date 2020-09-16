@@ -1,0 +1,19 @@
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [/MY-STUFF] [/Volumes/HYPERX128G/MY-STUFF]
+excluding /MY-STUFF/__bkp__
+excluding /Volumes/HYPERX128G/MY-STUFF/__bkp__
+comparing [/MY-STUFF/__more__] [/Volumes/HYPERX128G/MY-STUFF/__more__]
+...
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 59635, folders: 4003
+Differences => samefile: 170, uniqueto: 33, uniquefrom: 48, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.

@@ -1,0 +1,8 @@
+/Admin-Mergeall/kingston-hyperx128g/feb-2-17$ diff nonopt--mergeall-date170202-time101730.txt opt--mergeall-date170202-time101622.txt 
+0a1
+> Using Python 3.5+ os.scandir() optimized variant.
+4010c4011
+< Phase runtime: 4.898339804960415
+---
+> Phase runtime: 9.972998326993547
+

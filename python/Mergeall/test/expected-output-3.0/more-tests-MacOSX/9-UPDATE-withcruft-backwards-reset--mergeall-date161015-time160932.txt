@@ -1,0 +1,94 @@
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [/Users/blue/Desktop/mergeall-3.0-beta/test/test2] [/Users/blue/Desktop/mergeall-3.0-beta/test/test1]
+excluding /Users/blue/Desktop/mergeall-3.0-beta/test/test2/__bkp__
+comparing [/Users/blue/Desktop/mergeall-3.0-beta/test/test2/d3] [/Users/blue/Desktop/mergeall-3.0-beta/test/test1/d3]
+Phase runtime: 0.00039179199666250497
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('.htaccess',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test2/d3',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test1/d3',
+  'modtime'),
+ ('f3.txt',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test2/d3',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test1/d3',
+  'modtime'),
+ ('f3.txt',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test2',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test1',
+  'modtime'),
+ ('f6.txt',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test2',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test1',
+  'filesize')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['._.TemporaryItems', '.DS_Store', 'd1', 'f1.txt'],
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test2',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test1'),
+ (['.DS_Store', '.fseventsd', '.Trashes', 'f4.txt'],
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test2/d3',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test1/d3')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['$RECYCLE.BIN', '.Trash-1000', 'd2', 'Desktop.ini', 'f2.txt'],
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test2',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test1'),
+ (['desktop.ini', 'f5.txt', 'Thumbs.db'],
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test2/d3',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test1/d3')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[('m1',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test2',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test1'),
+ ('m2',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test2',
+  '/Users/blue/Desktop/mergeall-3.0-beta/test/test1')]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+....backing up all items to /Users/blue/Desktop/mergeall-3.0-beta/test/test1/__bkp__/date161015-time160934
+replaced same file, using FROM /Users/blue/Desktop/mergeall-3.0-beta/test/test2/d3/.htaccess
+replaced same file, using FROM /Users/blue/Desktop/mergeall-3.0-beta/test/test2/d3/f3.txt
+replaced same file, using FROM /Users/blue/Desktop/mergeall-3.0-beta/test/test2/f3.txt
+replaced same file, using FROM /Users/blue/Desktop/mergeall-3.0-beta/test/test2/f6.txt
+removed old TO file, /Users/blue/Desktop/mergeall-3.0-beta/test/test1/._.TemporaryItems
+removed old TO file, /Users/blue/Desktop/mergeall-3.0-beta/test/test1/.DS_Store
+removed old TO dir, /Users/blue/Desktop/mergeall-3.0-beta/test/test1/d1
+removed old TO file, /Users/blue/Desktop/mergeall-3.0-beta/test/test1/f1.txt
+removed old TO file, /Users/blue/Desktop/mergeall-3.0-beta/test/test1/d3/.DS_Store
+removed old TO dir, /Users/blue/Desktop/mergeall-3.0-beta/test/test1/d3/.fseventsd
+removed old TO file, /Users/blue/Desktop/mergeall-3.0-beta/test/test1/d3/.Trashes
+removed old TO file, /Users/blue/Desktop/mergeall-3.0-beta/test/test1/d3/f4.txt
+copied new FROM dir, /Users/blue/Desktop/mergeall-3.0-beta/test/test2/$RECYCLE.BIN
+copied new FROM dir, /Users/blue/Desktop/mergeall-3.0-beta/test/test2/.Trash-1000
+copied new FROM dir, /Users/blue/Desktop/mergeall-3.0-beta/test/test2/d2
+copied new FROM file, /Users/blue/Desktop/mergeall-3.0-beta/test/test2/Desktop.ini
+copied new FROM file, /Users/blue/Desktop/mergeall-3.0-beta/test/test2/f2.txt
+copied new FROM file, /Users/blue/Desktop/mergeall-3.0-beta/test/test2/d3/desktop.ini
+copied new FROM file, /Users/blue/Desktop/mergeall-3.0-beta/test/test2/d3/f5.txt
+copied new FROM file, /Users/blue/Desktop/mergeall-3.0-beta/test/test2/d3/Thumbs.db
+replaced file with dir, using FROM /Users/blue/Desktop/mergeall-3.0-beta/test/test2/m1
+replaced dir with file, using FROM /Users/blue/Desktop/mergeall-3.0-beta/test/test2/m2
+Phase runtime: 0.008655279001686722
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 6, folders: 2
+Differences => samefile: 4, uniqueto: 8, uniquefrom: 8, mixedmode: 2
+Changed:
+files   => created: 5, deleted: 6, replaced: 5
+folders => created: 3, deleted: 2, replaced: 1
+-------------------------------------------------------------------------------
+Finished.

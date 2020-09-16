@@ -1,0 +1,114 @@
+# Same results on Windows (see the Unix version for more).
+# Note: must run Command Prompt as Administator (via right-click),
+# to gain permission to create symlinks on Windows; also required
+# for running mergeall when symlinks nested in archive (this is
+# a rare and discouraged use case: archives are for data/content).
+
+------------------------------------------------------------------------------------------
+# Creating symlinks
+
+c:\...\testlinks> py -3
+>>> import os, stat
+>>> os.listdir()
+['cpall.py', 'docetc']
+>>>
+>>> os.symlink('cpall.py', 'filelink')
+>>> os.symlink('docetc', 'dirlink')
+>>>
+>>> os.listdir()
+['cpall.py', 'dirlink', 'docetc', 'filelink']
+
+------------------------------------------------------------------------------------------
+# The os.path results
+
+>>> os.path.isfile('cpall.py'), os.path.isdir('cpall.py'), os.path.islink('cpall.py')
+(True, False, False)
+>>> os.path.isfile('docetc'), os.path.isdir('docetc'), os.path.islink('docetc')
+(False, True, False)
+>>>
+>>> os.path.isfile('filelink'), os.path.isdir('filelink'), os.path.islink('filelink')
+(True, False, True)
+>>> os.path.isfile('dirlink'), os.path.isdir('dirlink'), os.path.islink('dirlink')
+(False, True, True)
+
+------------------------------------------------------------------------------------------
+# The stat/lstat alternative 
+
+>>> for item in os.listdir('.'):
+...    s = os.stat(item)
+...    print('%-10s' % item, stat.S_ISREG(s.st_mode), stat.S_ISDIR(s.st_mode), stat.S_ISLNK(s.st_mode))
+...
+cpall.py   True False False
+dirlink    False True False
+docetc     False True False
+filelink   True False False
+>>>
+>>> for item in os.listdir('.'):
+...    s = os.lstat(item)
+...    print('%-10s' % item, stat.S_ISREG(s.st_mode), stat.S_ISDIR(s.st_mode), stat.S_ISLNK(s.st_mode))
+...
+cpall.py   True False False
+dirlink    False False True
+docetc     False True False
+filelink   False False True
+
+------------------------------------------------------------------------------------------
+# The os.scandir alternative
+
+>>> ds = os.scandir('.')
+>>> for d in ds:
+...    print('%-10s' % d.name,
+...       d.is_file(), d.is_dir(), d.is_symlink())
+...
+cpall.py   True False False
+dirlink    False True True
+docetc     False True False
+filelink   True False True
+
+>>> ds = os.scandir('.')
+>>> for d in ds:
+...    print('%-10s' % d.name,
+...       d.is_file(follow_symlinks=False), d.is_dir(follow_symlinks=False), d.is_symlink())
+...
+cpall.py   True False False
+dirlink    False False True
+docetc     False True False
+filelink   False False True
+>>>
+
+------------------------------------------------------------------------------------------
+# The resulting dir
+
+c:\...\testlinks> dir
+ Volume in drive C has no label.
+ Volume Serial Number is D093-D1F7
+
+ Directory of c:\Users\me\temp\testlinks
+
+01/26/2017  10:30 AM    <DIR>          .
+01/26/2017  10:30 AM    <DIR>          ..
+12/05/2016  03:32 PM            10,974 cpall.py
+01/26/2017  10:30 AM    <SYMLINKD>     dirlink [docetc]
+01/26/2017  10:29 AM    <DIR>          docetc
+01/26/2017  10:30 AM    <SYMLINK>      filelink [cpall.py]
+               2 File(s)         10,974 bytes
+               4 Dir(s)  21,367,664,640 bytes free
+
+
+------------------------------------------------------------------------------------------
+# symlinks are not portable between Windows and Unix (if "/" or "\" in path text)
+
+>>> os.symlink('..\\temp.py', 'temp.py')     # Windows -> Windows okay
+>>>
+>>> os.readlink('temp.py')
+'..\\temp.py'
+>>>
+>>> open('temp.py').read()
+"...file context here..."
+
+>>> os.remove('temp.py')
+>>> os.symlink('../temp.py', 'temp.py')      # Unix -> Windows fails
+>>> os.readlink('temp.py')
+'../temp.py'
+>>> open('temp.py').read()
+OSError: [Errno 22] Invalid argument: 'temp.py'

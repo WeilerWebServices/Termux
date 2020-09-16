@@ -1,0 +1,176 @@
+------------------------------------------------------------------------------------
+# what does os.walk yield when links are present?
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l test1
+drwxr-xr-x  3 blue  wheel  102 Jan 28 17:40 dir
+lrwxr-xr-x  1 blue  wheel    3 Feb  9 06:43 dirlink -> dir
+-rw-r--r--  1 blue  wheel    5 Jan 28 17:32 file
+lrwxr-xr-x  1 blue  wheel    4 Feb  9 06:43 filelink -> file
+lrwxr-xr-x  1 blue  wheel   14 Feb  9 06:43 nestedfilelink -> dir/nestedfile
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3
+>>> import os
+
+
+# NOFOLLOW
+>>> for (dir, subs, files) in os.walk('test1', followlinks=False):
+...     print(*(repr(x) for x in (dir, subs, files)))
+...     print('%r => %r\n' % (dir, os.path.realpath(dir)))
+... 
+'test1' ['dir', 'dirlink'] ['file', 'filelink', 'nestedfilelink']
+'test1' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1'
+
+'test1/dir' [] ['nestedfile']
+'test1/dir' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/dir'
+
+
+# FOLLOW
+>>> for (dir, subs, files) in os.walk('test1', followlinks=True):
+...     print(*(repr(x) for x in (dir, subs, files)))
+...     print('%r => %r\n' % (dir, os.path.realpath(dir)))
+... 
+'test1' ['dir', 'dirlink'] ['file', 'filelink', 'nestedfilelink']
+'test1' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1'
+
+'test1/dir' [] ['nestedfile']
+'test1/dir' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/dir'
+
+'test1/dirlink' [] ['nestedfile']
+'test1/dirlink' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/dir'
+
+
+-----------------------------------------------------------------------------------
+# when recursive links are present?
+
+
+# RECURSIVE
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l temp
+drwxr-xr-x  3 blue  wheel  102 Feb  9 11:38 sub
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l temp/sub
+drwxr-xr-x  3 blue  wheel  102 Feb  9 11:40 subsub
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l temp/sub/subsub
+lrwxr-xr-x  1 blue  wheel  9 Feb  9 11:40 recur -> ../../sub
+
+
+# NOFOLLOW
+>>> for (dir, subs, files) in os.walk('temp', followlinks=False):
+...     print(*(repr(x) for x in (dir, subs, files)))
+...     print('%r => %r\n' % (dir, os.path.realpath(dir)))
+... 
+'temp' ['sub'] []
+'temp' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp'
+
+'temp/sub' ['subsub'] []
+'temp/sub' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp/sub'
+
+'temp/sub/subsub' ['recur'] []
+'temp/sub/subsub' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp/sub/subsub'
+
+
+# FOLLOW
+>>> level = 0
+>>> for (dir, subs, files) in os.walk('temp', followlinks=True):
+...     print(*(repr(x) for x in (dir, subs, files)))
+...     print('%r => %r\n' % (dir, os.path.realpath(dir)))
+...     if level > 10: break
+...     level += 1
+... 
+'temp' ['sub'] []
+'temp' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp'
+
+'temp/sub' ['subsub'] []
+'temp/sub' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp/sub'
+
+'temp/sub/subsub' ['recur'] []
+'temp/sub/subsub' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp/sub/subsub'
+
+'temp/sub/subsub/recur' ['subsub'] []
+'temp/sub/subsub/recur' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp/sub'
+
+'temp/sub/subsub/recur/subsub' ['recur'] []
+'temp/sub/subsub/recur/subsub' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp/sub/subsub'
+
+'temp/sub/subsub/recur/subsub/recur' ['subsub'] []
+'temp/sub/subsub/recur/subsub/recur' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp/sub'
+
+'temp/sub/subsub/recur/subsub/recur/subsub' ['recur'] []
+'temp/sub/subsub/recur/subsub/recur/subsub' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp/sub/subsub'
+
+'temp/sub/subsub/recur/subsub/recur/subsub/recur' ['subsub'] []
+'temp/sub/subsub/recur/subsub/recur/subsub/recur' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp/sub'
+
+'temp/sub/subsub/recur/subsub/recur/subsub/recur/subsub' ['recur'] []
+'temp/sub/subsub/recur/subsub/recur/subsub/recur/subsub' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp/sub/subsub'
+
+'temp/sub/subsub/recur/subsub/recur/subsub/recur/subsub/recur' ['subsub'] []
+'temp/sub/subsub/recur/subsub/recur/subsub/recur/subsub/recur' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp/sub'
+
+'temp/sub/subsub/recur/subsub/recur/subsub/recur/subsub/recur/subsub' ['recur'] []
+'temp/sub/subsub/recur/subsub/recur/subsub/recur/subsub/recur/subsub' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp/sub/subsub'
+
+'temp/sub/subsub/recur/subsub/recur/subsub/recur/subsub/recur/subsub/recur' ['subsub'] []
+'temp/sub/subsub/recur/subsub/recur/subsub/recur/subsub/recur/subsub/recur' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp/sub'
+
+
+
+# NONRECURSIVE BUT REPEATED
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l temp2
+total 0
+drwxr-xr-x  3 blue  wheel  102 Feb  9 12:09 dir1
+drwxr-xr-x  3 blue  wheel  102 Feb  9 11:54 dir2
+drwxr-xr-x  3 blue  wheel  102 Feb  9 11:54 dir3
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l temp2/dir1
+-rw-r--r--  1 blue  wheel  5 Feb  9 12:09 file
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l temp2/dir2
+lrwxr-xr-x  1 blue  wheel  7 Feb  9 11:54 dir1_A -> ../dir1
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l temp2/dir3
+lrwxr-xr-x  1 blue  wheel  7 Feb  9 11:54 dir1_B -> ../dir1
+
+
+# NOFOLLOW
+>>> for (dir, subs, files) in os.walk('temp2', followlinks=False):
+...     print(*(repr(x) for x in (dir, subs, files)))
+...     print('%r => %r\n' % (dir, os.path.realpath(dir)))
+... 
+'temp2' ['dir1', 'dir2', 'dir3'] []
+'temp2' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2'
+
+'temp2/dir1' [] ['file']
+'temp2/dir1' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2/dir1'
+
+'temp2/dir2' ['dir1_A'] []
+'temp2/dir2' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2/dir2'
+
+'temp2/dir3' ['dir1_B'] []
+'temp2/dir3' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2/dir3'
+
+
+# FOLLOW
+>>> for (dir, subs, files) in os.walk('temp2', followlinks=True):
+...     print(*(repr(x) for x in (dir, subs, files)))
+...     print('%r => %r\n' % (dir, os.path.realpath(dir)))
+... 
+'temp2' ['dir1', 'dir2', 'dir3'] []
+'temp2' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2'
+
+'temp2/dir1' [] ['file']
+'temp2/dir1' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2/dir1'
+
+'temp2/dir2' ['dir1_A'] []
+'temp2/dir2' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2/dir2'
+
+'temp2/dir2/dir1_A' [] ['file']
+'temp2/dir2/dir1_A' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2/dir1'
+
+'temp2/dir3' ['dir1_B'] []
+'temp2/dir3' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2/dir3'
+
+'temp2/dir3/dir1_B' [] ['file']
+'temp2/dir3/dir1_B' => '/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2/dir1'

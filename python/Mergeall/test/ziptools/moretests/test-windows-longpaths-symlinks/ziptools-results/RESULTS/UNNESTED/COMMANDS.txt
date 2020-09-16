@@ -1,0 +1,18 @@
+This is a version of the test run in the parent folder, which avoids folder
+by extracting to ".".  See the parent's COMMANDS.txt for more details.  
+
+Commands run here, in a temp copy of the parent:
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-list.py xfer-symlinks-winpaths.zip > RESULTS\1-list.txt
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-extract.py xfer-symlinks-winpaths.zip . -skipcruft > RESULTS\2-extract.txt
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-create.py rezipped1.zip xfer-symlinks-winpaths > RESULTS\3-create.txt
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-list.py rezipped1.zip > RESULTS\4-list.txt
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-extract.py rezipped1.zip . -skipcruft > RESULTS\5-extract.txt
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-create.py rezipped2.zip xfer-symlinks-winpaths > RESULTS\6-create.txt
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-create.py TEST-FOLDERS xfer-symlinks-winpaths rezipped1.zip rezipped2.zip > RESULTS\7-create-test-folders.txt

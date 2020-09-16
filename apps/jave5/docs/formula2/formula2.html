@@ -1,0 +1,499 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="EN"><head>
+<title>JavE - Java ASCII Editor Documentation</title>
+  <style type="text/css">
+  <!--pre { font-family: Courier New, Courier; font-size: 10pt; margin: 0px; }-->
+  </style>
+  <meta name="author" content="Markus Gebhard">
+  <meta name="publisher" content="Markus Gebhard">
+  <meta name="copyright" content="Markus Gebhard">
+  <meta name="Content-Language" content="EN">
+</head>
+<body background="../paper.gif">
+ <a href="../index.html">[docs]</a>&nbsp;
+
+<center>
+<h1>JavE - Mathematical Expressions Editor</h1>
+</center>
+
+This editor is a new feature of JavE. It is by no means finished: There are some bugs and
+the syntax is not complete.
+<p>
+However I decided to add it to JavE 2.0 for testing.
+<p>
+For questions, bug reports and any kind of comments feel free to post
+to <a href="mailto:markus@jave.de">markus@jave.de</a>
+
+<h2>Syntax</h2>
+
+<center>
+
+<table border=1 bgcolor="#D7D7E9">
+
+<tr>
+ <th bgcolor="#B5ADCA">Operation</th>
+ <th bgcolor="#B5ADCA">Syntax</th>
+ <th bgcolor="#B5ADCA" colspan="2">Example</th>
+</tr>
+
+<tr>
+ <td>addition</td>
+ <th>a+b</th>
+ <td align=center>a+b</td>
+ <td><pre>a + b</pre></td>
+</tr>
+
+<tr>
+ <td>subtraction</td>
+ <th>a-b</th>
+ <td align=center>a-b</td>
+ <td><pre>a - b</pre></td>
+</tr>
+
+<tr>
+ <td>multiplication</td>
+ <th>a*b</th>
+ <td align=center>a*b</td>
+ <td><pre>a * b</pre></td>
+</tr>
+
+<tr>
+ <td>division</td>
+ <th>a/b</th>
+ <td align=center>x/{x+1}</td>
+ <td><pre>  x
+-----
+x + 1</pre></td>
+</tr>
+
+<tr>
+ <td>&nbsp;</td>
+ <th>a!</th>
+ <td align=center>3! =2</td>
+ <td><pre>3! = 2</pre></td>
+</tr>
+
+<tr>
+ <td>&nbsp;</td>
+ <th>a^b</th>
+ <td align=center>x^2</td>
+ <td><pre> 2
+x</pre></td>
+</tr>
+
+<tr>
+ <td>&nbsp;</td>
+ <th>a_b</th>
+ <td align=center>x_i</td>
+ <td><pre>x
+ i</pre></td>
+</tr>
+
+
+
+<tr>
+ <td colspan="4" bgcolor="#B5AdCA">
+ </td>
+</tr>
+
+<!-- Brackets -->
+
+
+<tr>
+ <td>invisible brackets</td>
+ <th>{a}</th>
+ <td align=center>x/{x+1}</td>
+ <td><pre>  x
+-----
+x + 1</pre></td>
+</tr>
+
+<tr>
+ <td>round brackets</td>
+ <th>(a)</th>
+ <td align=center>3*(x+y)</td>
+ <td><pre>3 * (x + y)</pre></td>
+</tr>
+
+
+
+
+
+<tr>
+ <td>pointed brackets</td>
+ <th>&lt;a&gt;</th>
+ <td align=center>&lt;x+y&gt;</td>
+ <td><pre>&lt;x + y&gt;</pre></td>
+</tr>
+
+
+
+
+<tr>
+ <td>ceil</td>
+ <th>ceil(a)</th>
+ <td align=center>ceil(x*pi)</td>
+ <td><pre> _        _
+|      __  |
+|  x * ||  |</pre></td>
+</tr>
+
+
+
+<tr>
+ <td>floor</td>
+ <th>floor(a)</th>
+ <td align=center>floor(x*pi)</td>
+ <td><pre>|      __  |
+|_ x * || _|</pre></td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr>
+ <td colspan="4" bgcolor="#B5AdCA">
+ </td>
+</tr>
+
+
+
+<!-- Konstanten -->
+
+<tr>
+ <td>pi</td>
+ <th>pi</th>
+ <td align=center>4*pi*r^2</td>
+ <td><pre>    __    2
+4 * || * r </pre></td>
+</tr>
+
+<tr>
+ <td>infinity</td>
+ <th>INFINITY</th>
+ <td align=center>n->INFINITY</td>
+ <td><pre>n->oo</pre></td>
+</tr>
+
+
+<tr>
+ <td colspan="4" bgcolor="#B5AdCA">
+ </td>
+</tr>
+
+<!-- Funktionen -->
+
+
+
+<tr>
+ <td>binomial</td>
+ <th>binomial(a;b)</th>
+ <td align=center>binomial(49;6)</td>
+ <td><pre> / 49 \
+|      |
+ \ 6  /</pre></td>
+</tr>
+
+
+
+<tr>
+ <td rowspan="2">(square) root</td>
+ <th>sqrt(a)</th>
+ <td align=center>sqrt(pi)</td>
+ <td><pre>   ____
+_ | __
+ \| ||</pre></td>
+</tr>
+
+<tr>
+ <th>sqrt(b;a)</th>
+ <td align=center>sqrt(3;pi)</td>
+ <td><pre>   ____
+_3| __
+ \| ||</pre></td>
+</tr>
+
+
+
+
+
+<tr>
+ <td rowspan=3>sum</td>
+ <th>sum(a)</th>
+ <td align=center>sum(x_i)</td>
+ <td><pre>---
+\
+ &gt;  x
+/    i
+---</pre></td>
+</tr>
+
+
+<tr>
+ <th>sum(b;a)</th>
+ <td align=center>sum(i;x_i)</td>
+ <td><pre>---
+\
+ &gt;  x
+/    i
+---
+ i</pre></td>
+</tr>
+
+<tr>
+ <th>sum(b=c..d;a)</th>
+ <td align=center>sum(i=2..y;x_i)</td>
+ <td><pre>  y
+ ---
+ \
+  &gt;   x
+ /     i
+ ---
+i = 2</pre></td>
+</tr>
+
+
+
+
+<tr>
+ <td rowspan=3>product</td>
+ <th>prod(a)</th>
+ <td align=center>prod(x_i)</td>
+ <td><pre>_____
+ | |
+ | |  x
+ | |   i
+</pre></td>
+</tr>
+
+
+
+<tr>
+ <th>prod(a)</th>
+ <td align=center>prod(i;x_i)</td>
+ <td><pre>_____
+ | |
+ | |  x
+ | |   i
+  i</pre></td>
+</tr>
+
+<tr>
+ <th>prod(a)</th>
+ <td align=center>prod(i=0..y;x_i)</td>
+ <td><pre>  y
+_____
+ | |
+ | |  x
+ | |   i
+i = 0</pre></td>
+</tr>
+
+
+
+
+
+
+
+
+<tr>
+ <td>logarithm</td>
+ <th>log(b;a)</th>
+ <td align=center>log(3;x)</td>
+ <td><pre>log x
+   3</pre></td>
+</tr>
+
+
+
+<tr>
+ <td colspan="4" bgcolor="#B5AdCA">
+ </td>
+</tr>
+
+<!-- Pfeile, Unterstreichungen, etc. -->
+
+
+
+<tr>
+ <td>vector/arrow</td>
+ <th>vec(a)</th>
+ <td align=center>vec(x)</td>
+ <td><pre>-&gt;
+x</pre></td>
+</tr>
+
+<tr>
+ <td>overline</td>
+ <th>overline(a)</th>
+ <td align=center>overline(x)</td>
+ <td><pre>_
+x</pre></td>
+</tr>
+
+<tr>
+ <td>underline</td>
+ <th>underline(a)</th>
+ <td align=center>underline(x)</td>
+ <td><pre>x
+-</pre></td>
+</tr>
+
+
+
+
+
+
+
+<tr>
+ <td colspan="4" bgcolor="#B5AdCA">
+ </td>
+</tr>
+
+<!-- text not converted -->
+
+
+<tr>
+ <td>text</td>
+ <th>&quot;text&quot;</th>
+ <td align=center>&quot;pi is not INFINITY!&quot;</td>
+ <td><pre>pi is not INFINITY!</pre></td>
+</tr>
+
+
+<tr>
+ <td colspan="4" bgcolor="#B5AdCA">
+ </td>
+</tr>
+
+
+<!-- Griechische Buchstaben -->
+
+<tr>
+ <td rowspan=3>greek letters</td>
+ <th rowspan=3>alpha | Alpha | beta | ... | Omega</th>
+
+ <td align=center>alpha</td>
+ <td><pre> _ _
+(_/_</pre></td>
+</tr>
+<tr>
+ <td align=center>Sigma</td>
+ <td><pre>___
+\
+ &gt;
+/__</pre></td>
+</tr>
+<tr>
+ <td align=center>varrho</td>
+ <td><pre> _
+(_)
+ `-</pre></td>
+</tr>
+
+
+
+
+
+</table>
+
+</center>
+
+
+
+
+
+
+
+
+
+<ul>
+<li>Equations, implications:
+=
+&gt;
+&lt;
+&lt;=
+&gt;=
+&lt;&gt; or &gt;&lt; or !=
+=&gt;
+-&gt;
+
+<li>Brackets:
+
+[a]
+|a|
+
+
+<li>Complex operators:
+
+<!-- int() -->
+lim(n->0;x)
+matrix(rows,cols, x;y;...)
+
+
+
+
+</ul>
+
+
+<!--                                       -->
+<!--         Komplexere Beispiele          -->
+<!--                                       -->
+<!--                                       -->
+
+
+<h2>More Complex Examples</h2>
+
+
+<center>
+
+<table border=1 bgcolor="#D7D7E9">
+
+
+<tr>
+ <td colspan="2" bgcolor="#B5AdCA">
+ </td>
+</tr>
+
+
+<tr>
+ <td align=center>f_{1,2,3}(PI)=binomial(1,2,3;4)/PI
+</td>
+ <td><pre>                    / 1,2,3 \
+                   |         |
+        / __ \      \   4   /
+f      |  ||  | = -------------
+ 1,2,3  \    /         __
+                       ||
+
+</pre></td>
+</tr>
+
+
+<tr>
+ <td colspan="2" bgcolor="#B5AdCA">
+ </td>
+</tr>
+
+
+
+
+</table>
+
+</center>
+
+
+<hr>
+ <a href="../index.html">[docs]</a>&nbsp;
+
+</body>
+</html>

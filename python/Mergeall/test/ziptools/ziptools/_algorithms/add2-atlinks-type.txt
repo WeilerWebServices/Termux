@@ -1,0 +1,26 @@
+if atlinks
+    if islink
+        if isfile
+            add file
+        if isdir
+            if isrecursivelink
+               add link
+            else
+               recur
+        else
+            add link
+    if isfile
+        add file
+    if isdir
+        recur
+    else
+        unknown
+else
+    if islink
+        add link
+    if isfile
+        add file
+    if isdir
+        recur
+    else
+        unkown

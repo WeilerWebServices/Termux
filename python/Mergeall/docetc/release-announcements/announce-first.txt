@@ -1,0 +1,68 @@
+Sep 28, 2014
+A pair of desktop utilities: calendar, folder merge
+
+A pair of basic tkinter desktop utility programs that others 
+may find useful:
+
+1) frigcal  -- a "refrigerator" style calendar desktop GUI
+2) mergeall -- do-it-yourself "cloud" storage, script + GUI
+
+Both were coded in part as supplements for book readers, but 
+have grown useful enough to merit a wider post and broader
+user testing.  Feedback welcome; details follow.
+
+------------------------------------------------------------------------
+
+1) frigcal -- a "refrigerator" style calendar desktop GUI
+
+Documentation:  
+    http://learning-python.com/README-frigcal.html
+Download: 
+    http://learning-python.com/frigcal.zip
+Screenshots: 
+    http://learning-python.com/screenshots/01-win7-main-window.png        
+    http://learning-python.com/screenshots/02-win7-clones-and-images.png
+    http://learning-python.com/screenshots/
+
+A Python 3.X program that implements a basic personal calendar GUI.  
+It uses portable iCalendar files for event storage, and sports Python
+coded configuration, persistent events, event colorization, multiple
+calendar files, multiple month windows, and automatic calendar backups.  
+
+This program is not an Outlook replacement: it does not implement tools
+such as task scheduling, journaling, alarms, invitations, or recurring
+or multiday events.  In exchange for its limited utility, though, this
+program minimizes code and GUI complexity; reduces the risk of data loss;
+and yields a calendar sufficient for most personal needs, that requires 
+neither a subscription nor an account log-in.
+
+------------------------------------------------------------------------
+
+2) mergeall -- do-it-yourself "cloud" storage, script + GUI
+
+Documentation:  
+    http://www.rmi.net/~lutz/mergeall.html
+Download: 
+    http://www.rmi.net/~lutz/mergeall.zip
+Screenshots: 
+    http://www.rmi.net/~lutz/launch-mergeall-GUI-screenshot-main.png
+    http://www.rmi.net/~lutz/mergeall-desktop-screenshot-tablet.png
+    http://www.rmi.net/~lutz/mergeall-desktop-screenshot-linux.png
+
+A Python 3.X/2.X script and GUI useful for managing backups and changes
+in multiple copies of large directory trees (folders).  Designed to 
+quickly synchronize changes in content mirrored across multiple devices
+such as laptops, tablets, and USB flashdrives, this program in some 
+contexts can provide a manual alternative to cloud-based storage.  
+
+Directory tree synchronization isn't the same as a "cloud," of course; 
+but together with fast local storage devices, this program might just
+help you avoid paying to store your personal data at sites that may 
+share it with, or sell it to, both advertisers and government agencies
+(who, shockingly, may not have your best interest at heart).
+
+------------------------------------------------------------------------
+
+Cheers,
+--Mark Lutz  (http://learning-python.com, http://www.rmi.net/~lutz)
+

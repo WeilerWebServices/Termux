@@ -1,0 +1,35 @@
+--------------------
+Comparing test1 to test2
+*UNIQUE items in test2:
+... __bkp__
+Comparing contents
+f3.txt matches
+f1.txt matches
+f6.txt matches
+f0.txt matches
+m1 matches
+--------------------
+Comparing test1/d1 to test2/d1
+Directory lists are identical
+Comparing contents
+fa1.txt matches
+--------------------
+Comparing test1/m2 to test2/m2
+Directory lists are identical
+Comparing contents
+.htaccess matches
+--------------------
+Comparing test1/d3 to test2/d3
+Directory lists are identical
+Comparing contents
+f3.txt matches
+f2.txt matches
+f4.txt matches
+.htaccess matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.01
+Dirs checked 4, Files checked: 11, Files skipped: 0
+System metadata (cruft) files were skipped
+Diffs found: 1
+- items UNIQUE at [test1] - [test2]
+End of report.

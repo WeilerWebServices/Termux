@@ -1,0 +1,8 @@
+
+[:platform_system == "Darwin"]
+pyobjc>=2.4
+
+[:platform_system == "Windows"]
+comtypes
+pypiwin32
+pywin32

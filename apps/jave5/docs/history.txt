@@ -1,0 +1,893 @@
+[14th June 2002]: Version 5.0 released
+
+* Increased minimum system requirements: needs JRE1.3.0 (or JRE1.2.2?)
+  or greater
+
+* Improvements:
+  - preview (when painting with generic tools for example)
+    will now show the correct when usind mix-mode.
+
+  - Replace illegal characters
+    - Added a few new characters
+    - moved the configuration into the text file replace_illegal.txt
+      for easier upgrades.
+    - When mark illegal characters is activated in JavE and you hover the
+      mouse cursor over an illegal character you will see the character code
+      in the status line. When you know an illegal character and a good
+      substitute just let me know and I will add it to the configuration file.
+
+* Cosmetic changes:
+
+  - improved user interface with generic tools. Should now
+    be much more intuitive.
+
+  - Created an icon for help->debug->crash now that does fit 
+    much better ;-)
+
+* Image2Ascii:
+
+  - Brand new image2ascii algorithm (JavE Algorithm 4/1). Can be 
+    adjusted to many different fonts and will produce much
+    better results when converting to large ascii images
+
+  - new option for image2ascii algorithm "B/W": 3by2
+    This is a higher resolution black and white converter
+    using 6 pixels from the original image to create a
+    character. This is in most cases slightly better than
+    the old 2by2 algorithm.
+
+* New features:
+  
+  - Brightness dialog (menu modify -> brigthness)
+    You can change the brightness of an ascii art image.
+    Will work best with greyscale style and
+    could be useful for movie editing (fading scenes).
+
+  - Invert image (menu modify -> invert b/w)
+    new algorithm for inverting simple black/white style images:
+
+                                8888888888888888888888888888
+     _,ooooooo_       dodoo     8888"P""""""""8888888'"'""88
+   ,888PP"""Y88o      88888'    88P   ,,___.  "888888     d8
+   `P'        Y8b     8888F     88b,d88888888. `88888    ,88
+             ,88[    ]8888      888888888888P  ]8888[    888
+      _,oooo88P'     d888       88888"P""""  ,d88888'   8888
+    d888PP"""        d88'       888'   ,,___88888888'  d8888
+   d8P'              88P    ->  88' ,d88888888888888  ,88888
+   ]88_      __     d88'        88[  "888888""88888'  d88888
+    `88ooooo888     d8P         888b  """""   88888' ,888888
+      `YPPPP"        "          88888b.,,,,_88888888_8888888
+                                8888888888888888888888888888
+        ,oL       ,88L          8888888P"`8888888P  `8888888
+        YPP       Y88P          8888888.,,8888888.  ,8888888
+                                8888888888888888888888888888
+
+  - 45(11f9 4nd 00n45(11f9 (asciify and unasciify)
+    In menu modify. Similar to the one on bug's web site:
+      http://www.404bug.prv.pl/
+
+  - Pasting a table containing tab-characters (to separate the
+    table cells) will result in a formatted table.
+    This should also work when pasting data from Excel or other
+    spreadsheet applications.
+     
+
+* Movie editor:
+   - Saving 'making of' will store information about how long
+     each keystroke etc. took. So during playback you will
+     also see when there where pauses etc.
+     By default playback will be about twice as fast as editing
+     and pauses are limited to about 1 second.
+     Thanks to Hakim (Chickenman rulez!) for the idea.
+   - moved all buttons to context menus (right mouse click
+     on current frame)
+   - added list with all frames. All frames are given titles.
+     By default the title is "frame 1", "frame 2",...
+     If the movie is a making-of, the title is the tool the
+     frame has been created with. I think I will leave it that way
+     that the tool-entry "T:..." for each frame in the movie is
+     also the title-entry.
+     At the moment one can not edit this frame title. Also
+     some items in the context menu for multiple frames in
+     the list will not work (move left/right).
+   - Reverting frame order available in context menu for selected frames
+     in the list. It will revert all frames from the first
+     one selected to the last selected frame. I will fix this maybe
+     to reverse all groups of subsequently selected frames.
+   - changing color (foreground/background) now works using the
+     Java Swing colorchooser dialog. It is very slow and ugly 
+     - I don't like it and will try to write my own (like always).
+   - selecting frames now works in the list only, but it will also
+     be visible in the thumbnails. At the moment clicking on a
+     thumbnail will make the clicked frame the current frame.
+     Maybe I will change this to perform selection instead.
+     Input about that is very welcome.
+   - Thumbnail images for frames are cached - so scrolling should be
+     quicker.
+
+* Fixed bugs:
+  - Keyboard shortcuts messed up in JRE 1.4
+  - free shape selection forgetting its shape when copied to
+    clipboard (caused by JRE1.1-compatibility reasons)
+  - feltpen tool freehand generic does not remove
+    pencil cursor when releasing mouse button
+  - Making selection with right mouse button produced rectangle
+
+* Misc:
+  - Ascii steganograms in image2ascii converter:
+    the encoder was already included in earlier versions (you may
+    have seen the option "steganogram, text" in the 1-pixel
+    image2ascii algorithm) but it did not work (in some versions
+    of JavE) and there was no decoder yet. Now it works:
+
+    encode:
+      use image2ascii algorithm "gradient" and convert
+      an image to ascii. Specify a text for the steganogram.
+    decode:
+      load a text file with a converted ascii image (or paste it as
+      new selection). Choose menu special, decode steganogram.
+      Enter the gradient with which the image was converted.
+      You will see the text from the steganogram in the other
+      textfield, when the gradient (=key) is correct.
+
+    About security of this method:
+      Now that the way it works is documented here, it should not be
+      a big problem to decode steganograms even when you do not
+      know the key. The key is the gradient and it could be guessed
+      from looking at the converted image (at least when it is not a
+      very complicated one). 
+      You can increase security by making the gradient as complex as
+      possible, for example by using some of the characters more often
+      than once. " .:.::oOoo@o@@" is propably better than " .:oO@"
+      Note that for the decoding gradient every second character from
+      the gradient does not matter, i.e.:
+      " .:oO@" is the same as " #:#O#"
+
+[19th March 2002]: Version 4.0 released
+
+************ IMPORTANT NOTE for Java1.1 users: *********************
+* JavE4.0 will be the very last version that supports Java1.1.     *
+*                                                                  *
+*   With the release of the Java runtime environment and SDK 1.4.0 *
+*   I decided to concentrate on 1.3 and 1.4 instead of writing     *
+*   workarounds for the old 1.1 platform.                          *
+*   JavE 5.0 will then introduce some improved user interface      *
+*   components from the Java Swing library (e.g. a better menu bar *
+*   that also works with 1.4).                                     *
+*   JavE will then no longer support Java 1.1                      *
+********************************************************************
+
+* Changed the license
+    - You may now freely distribute JavE, as long as there are no
+      files from the package removed or modified.
+
+* New user interface for tools (hope you like it)
+    - the tools are arranged in two columns now
+      By this I can add more tools and JavE should also be
+      better to use on smaller displays.
+
+    - the options for grid, pure ascii, etc. went from the
+      bottom to the tool bar. There are now icons to make it
+      easier to see what the options are for.
+
+* Selection Tool:
+    - Dropped limitation to rectangular selections:
+        - New selection tool: Freehand selection.
+        - add/remove parts of the selection by holding down
+          shift/control key when marking a selection region
+          (this is the way most people are used to do it from other
+          graphics editors)
+    - Bugfix: Cropping to selection now switches to Text tool as
+              expected
+
+* Image2Ascii-dialog:
+    reduced size by distributing the options to different panels
+    on a tabbed pane. Now it should fit ordinary screens :-)
+    The only drawback is that you have to switch between the tabs
+    to get access to all of the options...
+
+* Scrolling keys page up, page down, pos1 and end
+  should now work as expected
+  (scrollbar animations should now also work in JavE)
+
+* New feltpen styles O and X for generic tools
+
+* Animated GIFs (exported from jmov or image2ascii batch conversion)
+  will now loop infinitly
+
+* Scrollbar animation export:
+   - new option for keeping the timing of the original file
+     (by writing frames with long duration more often then once)
+
+* Changed default position and size of editor and options dialog
+  again to hopefully fit the needs of all operating systems. Now
+  JavE should also look ok on a 800x600 pixels screen size
+  Mac computer for example.
+
+* Added a button for the movie editor in the top toolbar
+
+* Added email/name fields to the editor options.
+  They will be automatically added to jmov animations.
+
+* Show/hide watermark and auxiliary lines now works independently
+
+* Export: I have removed the annoying text
+  "This diagram has been created using..."
+  This will save time, because you will not have to remove it
+  by hand :-)
+
+* Generic Tools:
+   - Improved result for line art style
+     I don't think it is possible to write better generic algorithms
+     than the ones used here: There are now two levels of processing,
+     where based on a complex set of rules the mouse movements
+     (or shapes like circles etc.) are converted to ascii line art.
+
+* New image2ascii-algorithms
+   - "Edge Tracing" and "Edge Detect"
+     
+* Text Tool:
+    - Speedup: Cursor movement much faster
+    - Bugfix: Ctrl-Tab for switching between documents will no longer
+      move the cursor
+
+* image2ascii batch conversion/jmov export:
+    - multiple files are now numberd with leading 0s, so it will be
+      much easier to sort them afterwards: 000, 001, 002,...
+
+* JavE editor File-Open:
+    - GIF/JPG/BMP files are automaticalle opened in the
+      image2ascii-dialog
+
+* Movie Editor:
+    - added scrollbar to quickly jump to frames anywhere in the movie
+    - added a "title" to the jmov file format. Can be adjusted
+      using menu movie->information and will be used for example
+      for the title of the html page when exporting as javascript.
+    - fixed a few bugs
+
+* Fixed a few bugs:
+    - text cursor should work a little bit better (and faster)
+    - title of jmov will be converted to html wehn exporting to
+      JavaScript animation
+    - removed ghost selection boxes when scrolling with text
+      tool active.
+    - ...
+
+* Command line interface to use JavE's image2ascii
+  algorithms w/o having to start the gui.
+
+  You will find a detailed description in the documentation.
+  (either online or in the download package)
+
+
+[8th December 2001]: Version 3.0 released
+
+ * Compress/expand:
+    - resize ascii art image from 1x1 pixel to double size
+      Some images (depending on art style) do not scale well - but I think
+      most often it still is a good state to start with if you want to
+      change the size of an image.
+      This feature could also be a good effect for Ascii animations (jmovs).
+ 
+ * Camelizer:
+    - Use a BMP/GIF/JPG image to apply a shape for your text
+    - here is an example (the content of this text is not up to date):
+   
+                            The
+      Camel            izer is a t
+ool that take        s any kind of t
+ ext and forms       it into a given
+    shape. Th    e shape is tak en fr
+  om a GIF/BM  P/JPG image and   it onl
+  y takes li  ttle e    ffort to create
+  Ascii imag es like      this one. I di
+  d not have a good        id ea     for a
+   name  for this to  ol, so I d    ecided
+   to cal  l  it "Ca mel  izer". This is bec
+     ause p ropably the most famous exam ple
+        for this effect is a nice Perl p rog
+             ram formed int o the   shap e
+             of a   camel.  Have    fun  w
+             ith t  he cam  eliz    er -
+              it   is not    ava     ila
+             ble   ye t     , bu     t w
+             ill     be     p        art
+              of       t  he          v
+             er        y n           ex
+            t          releas        e
+            o        f JavE.        Sta
+        y tune                     d!
+ 
+ * Function plotter (menu "Special"):
+    - plots simple functions like sin(), cos(), tan(), abs(), sqrt(), x^2, +-*/
+    - sometimes has problems with pole points and does not make annotations on axis
+        (you have to see it as a proof of concept)
+    - example:
+
+
+                                   |
+ 3 * sin(x) + 2 * x                |
+                                   |
+                                   |              ____
+                                   |           ,-'    ''-.._         ,
+                                   |         ,'             `-.....-'
+                                   |        '
+                                   |      ,'
+                                   |     /
+                                   |    /
+                                   |   /
+                                   |  /
+                                   | /
+                                   |/
+                                   ,'
+'''''''''''''''''''''''''''''''''','''''''''''''''''''''''''''''''''''
+                                 .'|
+                                 / |
+                                '  |
+                               '   |
+                              '    |
+                             '     |
+                           ,'      |
+                          /        |
+   _____                _'         |
+,-'     '`-._         _-           |
+             '--....-'             |
+                                   |
+                                   |
+                                   |
+        
+ * TextTool: 
+    - combined with selection tool - there is no need to switch
+    - use SHIFT+Cursor-keys to select text
+    - use CTRL+Cursor-keys to move around selection
+    - insert-mode: END will move cursor behind the last character
+      in the current line. If it's already there it will be put at the end
+      of the line.        
+    - mix is disabled for insert mode.
+
+ * Selection tool:
+    - switches to text tool automatically when dropping selection
+    - Ctrl-CursorUp/CursorDown will move the selection (if any)
+    - Alt+CursorUp/CursorDown will change layer mode
+    - use double click to select a region with connected characters
+    - use single click to switch to text tool
+    - Hitting a key will delete the selection and the typed character
+      will be written to the selection origin.
+
+ * Freehand tool generic:
+    - new styles: felt pen with different characters
+    - the mouse cursor somewhat shows the pencil size when drawing
+   
+ * New submenu "Transform" in menu "Modify"
+    - contains flip/mirror/rotate [static]
+
+ * FIGlet font export assistant:
+    - will no longer overwrite existing files w/o warning
+    - fixed bug of mask only appearing when starting the dialog first time
+    - improved layout and help button to open documentation
+      (will not work on some systems)
+ 
+ * JMOV-Editor:
+    - current frame is displayed in the main editor window and can be
+      edited w/o switching between editor and jmov-editor.
+    - Strip non-movie information to get rid of selections, cursors etc.
+      This is useful for reducing the file size of movies that are no
+      "making of"s.
+ 
+ * JMOV-Export:
+    - added compressed JavaScript (many thanks to Joaquim for porting
+      the JMOV-packer)
+      Should work much better than the uncompressed option.
+      However I have left the uncompressed option in for compatibility 
+      if there are problems.
+    - added animated GIF export
+      will not work with large animations and I recommend using
+      a graphics program afterwards to achieve better compression.
+    - better preview for GIF/animated GIF export  
+
+ * Auxiliary lines:
+    - useful tool for perspective images. Works like a watermark.
+    - add lines using the mouse (draw mode)
+      and move around the lines or points (edit mode)
+    - I will add a color option in a future release
+
+ * Ascii2GIF:
+    - Font and size can be adjusted
+    - supports pixel view
+ 
+ * Pixel View  
+    - improved to also draw round rectangles
+ 
+ * Recent-File-list in menu "File"
+  
+ * jave.ini-file: 
+    - Paths and (most of the) configuration are kept and will be the same
+      after restarting the program.
+    - There is now a simple options dialog with program options
+      (menu -> view -> options).
+      There will be more options in future releases!
+
+ * Freehand algorithmic and ellipses algorithmic:
+    - improved performance
+
+ * Clone-Tool:
+    - intuitive use, preview
+
+ * Algorithmic lines:
+    - 3 new line styles for algorithmic lines:
+      CeeJay (normal):
+                             1/2  |   |   |  1/2
+                      1/1     |   |   |   |   |     1/1
+                  3/2   \     `.  `.  |  ,'  ,'     /    3/2
+             2/1   \     \     |   |  |  |   |     /     /   2/1
+               .    `.    \    `.  |  |  |  ,'    /    ,'    ,
+         3/1    `.    \    \    |  `. | ,'  |    /    /    ,"    3/1
+           .      `.   `.   \   `.  | | |  ,'   /   ,'   ,"      ,
+     4/1    `-.     `.   \   \   |  | | |  |   /   /   ,"     ,-"    4/1
+        -._    `-.    `.  `.  \  `. `.|,' ,'  /  ,'  ,"    ,-"    _.-
+   5/1     `-._   `-.   `.  \  \  |  |||  |  /  /  ,"   ,-"   _.-"    
+      `--._    `-._  `-.  `. `. \ `. ||| ,' / ,' ,"  ,-"  _.-"    _.--"
+  6/1.__   `--._   `-._ `-. `. \             / ," ,-" _.-"   _.--"  
+        `--.__  `--._  `-._`        _____        "_.-"  _.--"  __.--"
+ 7/1 `--..__  `--.__ `--._       .-'     `-.       _.--" __.--"  __..--"
+    --..__  `--..__ `--.__     ,'           `.     __.--" __..--" 
+ 8/1      ``--..__ `--..__    /    _     _    \    __..--" __..--'"     
+                  ``--..__   ;    (_)   (_)    :   __..--'"
+  -----------------------    |                 |  
+  
+   CeeJay (alternative):
+  
+  
+                  ..--''""   :    |       |    ;   ""``--..
+ 8/1      ..--''"" .--''""    \    `.___.'    /    ""``--. ""``--..     
+    --''""  .--''"" .--'""     `.           ,'     ""`--. ""``--. 
+ 7/1 .--''""  .--'""  ,--'       `-._____.-' CJ    ``--. ""`--.  ""``--.
+        .--'""   ,--'" _,-".                     . `-._ ``--.  ""`--.
+  6/1'""    ,--'"  _,-" .-' ,' /             \ `. `-.  `-._  ``--.  
+       ,--'"   _,-"  .-'  ,' .' / .' ||| `. \ `. `.  `-.   `-._   ``--.
+   5/1"    _,-"   .-'   ,'  /  /  |  |||  |  \  \  `.   `-.    `-._   
+        ,-"    .-'    ,'  .'  /  .' .'|`. `.  \  `.  `.    `-.     `-.
+     4/1    .-'     ,'   /   /   |  | | |  |   \   \   `.     `-.    
+           '      ,'   .'   /   .'  | | |  `.   \   `.   `.      `
+        3/1     ,'    /    /    |  .' | `.  |    \    \    `.     3/1
+               '    .'    /    .'  |  |  |  `.    \    `.    `
+             2/1   /     /     |   |  |  |   |     \     \    2/1
+                 3/2    /     .'  .'  |  `.  `.     \    3/2
+                      1/1     |   |   |   |   |     1/1
+                            1/2   |   |   |   1/2
+                                 1/3  |  1/3
+
+     bug:                              
+                    -2/1  -3/1      3/1   2/1
+                       ;    ;    :   :    :
+               -1/1    :    |    :   |    ;   1/1
+                   \    ;   :    :   ;   :   /
+           -1/2     \   :    ;   :  :    ;  /     1/2
+                `.   \   ;   |   :  |   :  /    .'
+                  `.  \  :   :   :  ;   ; /   .'
+       -1/3         `.                      .'        1/3
+             `-.                                  .-'
+    -1/4        `-.                            .-'
+         "*-.                                      .-*" 1/4
+             "*-.                              .-*"
+  -1/5 `*-._                                       _.-*' 1/5
+            `*-._                             _.-*'
+
+      `"*-._                                       _.-*"' 1/6
+ -1/6       `"*-._                           _.-*"'
+
+ -1/7 `"*=-._                                     _.-=*"' 1/7
+             `"*=-._                       _.-=*"'
+         
+       
+ * File paths:
+    - JavE can now be started from any directory, as long as the jar file
+      is on the classpath.
+      All configuration files and FIGlet fonts will be found in JavEs
+      subfolders
+
+ * FIGlet Tool:
+    -  Alt+Cursor-up / Alt+Cursor-down scrolls through the fonts in the
+       current front category.
+       This makes it much easier to find a good font.
+
+ * Gradients (Fill tool, Image2Ascii, 3D Renderer):
+    - Reversed character order from 'dark to bright' to 'bright to dark'
+      Also added a white space character as the brightest character
+      (did I remove it in the last release??)
+  
+ * Program Icon:
+    - there is a new icon.ico file for the program icon
+      (see JavE program folder).
+      It has been improved (for higher resolution) by Joey - Many thanks!
+  
+ * Asc-Tris:
+    - Improved look - thanks to Rob Gerber.
+
+ * Image2Ascii:
+    - New Conversion algorithm "felt pen" - thanks to CeeJay for the idea
+    - Fixed bug: Rotating 90 degrees right/left did mirror the image
+
+ * Clipart library:
+    - New cliparts from MJP, VK, lbm and Joey
+    - Entering a valid name for new categories now works
+
+ * Crash Recovery:
+    - Hitting cancel in crash recovery dialog will now close the program.
+
+ * Fixed bugs:
+    - "redo null" in menu edit fixed.
+    - Image2Ascii with watermark: size was sometimes not
+      identical after conversion
+    - rotate 180 degrees [static]
+      (rotate 90 degrees is not yet fixed and will produce wrong
+      results sometimes!)
+
+===============================================================================
+
+[14th October 2001]: Version 2.0 released
+
+  * Text-Tool:
+    - As requested by many people (me included) insert/overwrite now
+      works as in any other text editor.
+    - The text tool has been somewhat combined with the selection tool.
+      Using the mouse or shift-cursor keys with the text tool
+      will automatically switch to the selection tool/mode (as expected).
+      In selection mode you can use the cursor keys to move the selection
+      and hit escape oder enter to drop it and return to the text tool.
+
+  * Font support on most  operating systems (see Menu "View" -> "Font")
+      - This option is not available on Java 1.1 JREs
+      - To support Fixedsys on windows platforms you have to download the
+        true type version form the JavE homepage 
+      
+  * Image2Ascii:
+     * After conversion you can set the converted image as watermark
+       (e.g. to do refinments by hand)
+    
+     * 4pixel algorithm improved:
+       - option to consider line distances in conversion:
+         This  will result in smoother diagonal lines
+       - character '-' is no longer used
+          
+  * Watermark:
+    - pressing Shift key when resizing => proportions like in the original image
+    - Menu "Special" -> "Set content as Watermark"
+      (e.g. for resizing Ascii images by hand...)
+    
+  * New tool: Clone Tool
+      Use Shift+Mouse button to select clone origin
+        
+  * Compress horizontal/vertical/both  (Menu -> "Modify" -> "Compress")
+      Can be used to create a "lake effect" (in combination with shake lines)
+      (Many thanks to CeeJay and bug :-) )
+      
+  * Brush/Eraser (/Clone Tool):
+      No longer leaving gaps when dragging the mouse cursor to fast
+
+  * Misc:
+      Dialogs can be handled by keybaord as expected (Shortcuts/Cursor/Enter)
+      (Does not work on some operating systems)
+      
+  * Rectangle/Ellipse Generic:
+      Fill as option (not yet available for algorithmic tools)
+  
+
+  * 3D Rendering Tool: Gradients can be changed in shading mode
+ 
+  * JMOV-Editor and Batch conversion in image2ascii:
+      Export to: 
+        * "Scrollbar Animation"
+        * GIF-Files
+        * JavaScript-Animation
+  
+  * FIGlet export assistant (Mnnu Tools)
+      You have created a complete set of FIGlet characters but do not
+      know how to create a FIGlet font? No problem: This Assistant will
+      help.
+  
+  * New option in Menu File: "Revert"
+  
+  * Replace Character:
+     - Moved  to menu "edit"
+     - Dialog stays open
+                  
+  * Fill Gradient:
+      Using right mouse button reverts the gradient:
+      e.g. ".:oO8" instead of "8Oo:. "
+      
+  * Menu Modify "Rotate": added 90 degrees rotation left/right
+      (does not work well due to the proportions of characters)
+             
+  * Moved menu 'Color' to menu 'View' 
+  
+  * Document size in statusbar (now always correct values), click there to change
+  
+  * Selection:
+     - New 'Layer' "difference": Only characters different from the ones below
+       are displayed. This is useful to find the differences  of two documents
+   
+  * Character set (for "mark illegal characters") can be configured
+    (Menu "View" -> "Character Set")
+      
+  * Asc-Tris, Lots of minor improvements
+     - fading out finished lines
+     - rotating blocks even when at the border
+     - pause
+     - ... 
+      
+  * AND MANY MANY MORE...
+
+===============================================================================
+
+[15th July 2001]: bugfix Version 1.1a released
+
+Main reason for this release is to fix a bug in Jave 1.1:
+The image2ascii converter did not work with that release for there were some files
+missing in the download package.
+
+What's new:
+ * Fixed bug of image2ascii converter not working in Jave 1.1
+ * new Menu "Tools" contains image2ascii converter, figlet, textbox and clipart editor.
+   Until now those tools were only available through buttons
+ * 3d renderer:
+   - speedup: now about 16 times faster.
+   - new style: shaded
+
+===============================================================================
+
+[12th July 2001]: Version 1.1 released
+
+It was hard work, but now it is done: The Jave Movie Player is integrated
+into Jave. JMOV-animations can now be edited/viewed/created in Jave.
+But that's not the only thing new. Although I have concentrated on fixing bugs and
+increasing usability, there are many new features to have fun with.
+Here is a list of what's new:
+
+ * Movie Editor for JMOV-Files (Jave Movie Files)
+   You can now load/play/create/edit JMOV files
+ * Thumbnail Browser
+   - now a little faster
+   - can also display thumbnails for JMOV-Files
+   - can now be accessed from a button in Jave
+ * Edit Menu:
+   - paste as new document/paste as new selection
+ * Color schemes: 
+  - now black on white is standard at startup
+  - Every document can now have its own color scheme (black on white/white on black/black on gray)
+ * Ascii2Gif:
+   Size can now be adjusted in a wider range (not only thumbnail size like in Jave1.0beta)
+ * Menu - Modify - Rotate:
+   Rotates document/selection 180degrees
+ * Menu Special (Well, I was playing around a bit...):
+   - Small tool for creating fractals (mandelbrot set)
+   - Ascii 3d renderer can create simple 3d scenes or animations (rotates the scene 360 degrees)
+   - Two surprises - I am not going to tell you what it is, you have to look at it yourself
+   - Something like a screensaver...
+   
+ * Mouse movement:
+   Most actions with mouse can now also end outside the current documents area.
+   This is often good for drawing shapes or moving selections (although the document is not yet being
+   scrolled when you move the selection out of the visible area)
+ * Generic Tools (the green ones):
+   -adjusting the options (style/mix) for one of those tools will affect all of them
+   -new style: dot  
+    .'''..                  ..    :                     :
+   :      '.             ..'      '.                   .'
+   :       :          ..'          :                   :
+   :        :       :'              '.               .'
+    '        '....''                  '.           .'
+                                     '''.....'''    
+ * Thousands of bugfixes and smaller improvements
+
+BTW: I have removed 'beta' from the version number, because I have not received bug
+reports for a long time now. I still know about some bugs in Jave, but is there nobody
+who wants them to be fixed? So if you find a bug or something you don't like the way it
+works (or not) please post a few words to markus@jave.de. I will try to fix it.
+Also I would like to know what you think about the new features and what other ideas you have.
+
+What comes next?
+  - documentation (hopefully)
+  - bug fixes
+
+[8th June 2001]: Version 1.0beta released
+
+Ok, it has taken some time, but finally here it is. Containing megatons of changes:
+
+ * Increased performance (should be enormous on some machines)
+
+ * Improved look and feel
+
+ * Improved font scaling
+
+ * Crash recovery: 
+   If you restart Jave after a crash it will try to recover the last
+   state of your documents along with most of the undo-history
+   (you should not lose more than one or two steps of editing)
+ 
+ * Jave-Movie:
+   You can save your document along with the history of each step of editing
+   as Jave-Movie.
+   It will become clear what this feature is for as soon as I have
+   released the JavePlayer (Open source project) within the next few days.
+   Stay tuned.
+
+ * New Algorithms for better shape tools:
+   The Tools Freehand, Rectangle, Line, etc. are divided into two
+   different sets:
+   The old ones are called "algorithmic" (colored blue) and
+   there are now new ones called "generic" (colored green), that work a different way.
+   For the generic tools you can always chose one out of 3 styles:
+
+                           XXXXXXXXXXXXX    character
+                       XXXX             XXXX                    ,o.
+     thick3         XXX         __,..       XX                 ,88
+d888oooo_         XX     _,.--''                       thick2 ,88
+`YP8888888bo.   XX  _,--'           _______                  d8P
+      'YYY8888o__,-'         _,oo8PPPYYYYYPP8ooo_          ,d8P
+           `Y888b.        ,o8PY'          ,.  'YY8o.     _d8P'
+          _,'XY888o_    o8P'            ,888'     `Y8o.,d88'
+    line,-  X   Y888o.d8P             ,d888'        _d888'
+      /'   X      Y8888oo._     __,od888P'      _,o888PY8b
+    /'    X        d8Y888888888888888PP'  __,oo888PY'    Yb thick1
+          X       d8'  ``YYPPPPPPYY'    d8888PP''         Yb
+                  Y'                     ''                Y
+
+ * Ascii File Browser:
+     Go to menu->file->browse and browse the ascii files on your system.
+
+ * Brush tool:
+      Finally there is a tool available where you can chose your own brush:
+         +++++-----------+              ++-----------+
+      +++|||||B+-+-----------+        ++|| Brush :-) |
+   +++|||+++++-|-+++-----------+   +++||++-----------+
+  +|||+++------+-|||+-----------+ +|||++-----------+
+ +|+++-----------+++|+----------++|+++-----------+
+ |++-----------+    +|++-----+++||+-----------+
+ ++-----------+      +|++++--|||++-----------+
+ +-----------+        +||||BB+++-----------+
+ +-----------+         ++++--+-----------+
+     Edit the characters of the brush (Shift-Space will create a Delete-Character) or
+     use selection tool to select whatever you want to use as brush
+     and chose menu->selection->use as brush.
+
+ * Mix-Mode
+   With (almost) every tool you can now chose if you want it to work
+   either in mixed or in overwrite mode.
+   In mix mode characters will be merged, e.g.: - and | will become +
+   In combination with the brush tool you can draw lines like that:
+   __
+  d88b
+  Y88P Brush
+              _____
+           __d88888b__
+         _d88888888888b        __
+  ______d888888P Y88888b      d88b  result when drawing
+ d88888888888P     Y8888b   _d8888
+ Y888888888P        Y8888b_d88888P
+                     Y8888888888P
+                      Y8888888P
+
+ * Rectangle tool/Textbox tool:
+   use whatever characters you want:
+            ______                A.......B
++-------+  |      |    .------.   f       g
+|       |  |      |    |      |   f       g
++-------+  |______|    `------'   C"""""""D  etc.
+
+
+ * Selection tool:
+   * Most functions have been moved to menus and are now also available
+   when there is no selection
+   * Improved 3d-look for background/foreground (can be disabled)
+   * Dropping a selection will resize the plate if neccessary
+
+ * Text tool:
+   Notepad-mode (well, something like an option to switch overwrite/insert)
+
+ * Eraser tool:
+   increased performance, different shapes and sizes
+
+ * FIGlet:
+   * Added a simple tool for inserting FIGlet text without using the dialog
+   * FIGlet fonts are now in an extra downloadable package (containing 195fonts)
+   * Increased font compatibility - no more incompatibilities known
+   * Fonts are now divided into categories: styles (Banner, Outline,...), number of lines, year of creation
+   * New Font "benjamin":  |3[-|\|.]/-\|\/|||\|
+
+ * Misc:
+   * Ascii2GIF (menu->file->ascii2gif)
+   * Show/hide watermark using shortcut (Ctrl-P)
+   * Show/hide grid using shortcut (Ctrl-G)
+   * Rot13, uppercase, lowercase
+   * Center, center by the line, align left, align right
+   * Shake lines
+   * Try to repair Ascii Art with shaked lines
+   * In most algorithms the configurable parts have been moved to text files
+     (This makes updates easier)
+   * Holding down SHIFT key when drawing ellipses and rectangles will make them quadratic
+
+ * Included: readme.txt, history.txt, license.txt
+
+ * Most important Bugs removed since last release:
+    * Removed non ascii characters from cliparts
+    * Tool options dialog should now be visible on any machine 
+
+ * Many more...
+
+===============================================================================
+
+[18th April 2001]: Version 0.91beta released
+
+ * Tons of bug fixes
+ * (almost) unlimited undo/redo
+ * Fill tool: Dithering for gradient fill
+ * Three color schemes: black on white, white on black, normal
+ * Load image as watermark for the plasticbag technique (move, resize, lighten/darken)
+ * Gradients are now in a file "./gradients/gradients.txt"
+ * Many more...
+
+===============================================================================
+
+[13th April 2001]: Version 0.9beta released
+  
+ * Tons of bug fixes
+ * Fill tool: 3 different matching modes, extendable pattern library, sunburst/radial gradient
+ * Seperated ellipse/rectangle tool.
+ * Preview for freehand, ellipse, rectangle
+ * Image2Ascii: improved BMP support: 90% of the BMP file formats can be loaded.
+ * Many more...
+  
+===============================================================================
+
+[6th April 2001]: Version 0.8beta released
+  
+ * Tons of bug fixes
+ * Fill tool: Fill pattern or gradient
+ * Text tool: Track following (moves cursor along freehand lines etc.)
+ * Renamed makro to clipart. A new file format for cliparts (an incompatible change from version 0.7beta).
+ * Many more...
+  
+===============================================================================
+
+[3rd April 2001]: Version 0.7beta released
+  
+ * line styles: 3 professional Ascii Art line styles: Veronica, Glory, Segerman JFL
+ * Mulitple documents (Page-up/down or Ctrl-Tab to switch)
+ * Improvements in mirror/flip
+ * (experimental file browser)
+ * Bug fixes (and of course: lots of new bugs)
+  
+===============================================================================
+
+[18th March 2001]: Version 0.6beta released
+  
+ * 4 styles for lines in freehand/line painting
+ * Selection now has 3 levels for pasting: foreground, normal, background
+ * Dialog for replacing characters
+ * Animated selection, blinking cursor
+ * Menu bar
+ * Bug fixes
+
+===============================================================================
+  
+[9th March 2001]: Version 0.5beta released (0.4 was a non official release)
+  
+ * Better freehand painting
+ * Better ellipses
+ * Image2Ascii improvements: 3 Algorithms, conversion to Braille, ...
+ * Textbox resizing keeps content
+ * Bug fixes
+
+===============================================================================
+  
+[2nd February 2001]: Version 0.3beta released, new Homepage
+
+===============================================================================
+
+[18th January 2001]: Version 0.2beta released.
+
+===============================================================================
+
+[1st November 2000]: Version 0.1beta released.

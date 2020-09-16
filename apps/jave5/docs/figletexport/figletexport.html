@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="EN"><head>
+<title>JavE - Java ASCII Editor Documentation</title>
+  <style type="text/css">
+  <!--pre { font-family: Courier New, Courier; font-size: 10pt; margin: 0px; }-->
+  </style>
+  <meta name="author" content="Markus Gebhard">
+  <meta name="publisher" content="Markus Gebhard">
+  <meta name="copyright" content="Markus Gebhard">
+  <meta name="Content-Language" content="EN">
+</head>
+<body background="../paper.gif">
+
+ <a href="../index.html">[docs]</a>&nbsp;
+
+<center>
+<h1>FIGlet font export assistant (FFEA)</h1>
+</center>
+
+
+
+This assistant is located in the menu &quot;Tool&quot;.
+<p>
+
+Its intention is to help creating FIGlet fonts. To use this tool you don't need to have
+much knowledge about FIGlet fonts. However if you want to find out more about FIGlet fonts,
+have a look the <a href="../figfont.txt">FIGlet font format specification</a>.
+<p>
+In order to use this tool you must already have created the characters, for example:
+
+<center>
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>     _      ____     ____   ____    _____   _____    ____
+    / \    | __ )   / ___| |  _ \  | ____| |  ___|  / ___|
+   / _ \   |  _ \  | |     | | | | |  _|   | |_    | |  _
+  / ___ \  | |_) | | |___  | |_| | | |___  |  _|   | |_| |
+ /_/   \_\ |____/   \____| |____/  |_____| |_|      \____|
+
+    _   _   ___       _   _  __   _       __  __   _   _
+   | | | | |_ _|     | | | |/ /  | |     |  \/  | | \ | |
+   | |_| |  | |   _  | | | ' /   | |     | |\/| | |  \| |
+   |  _  |  | |  | |_| | | . \   | |___  | |  | | | |\  |
+   |_| |_| |___|  \___/  |_|\_\  |_____| |_|  |_| |_| \_|
+
+  ___    ____     ___    ____    ____    _____   _   _
+ / _ \  |  _ \   / _ \  |  _ \  / ___|  |_   _| | | | |
+| | | | | |_) | | | | | | |_) | \___ \    | |   | | | |
+| |_| | |  __/  | |_| | |  _ &lt;   ___) |   | |   | |_| |
+ \___/  |_|      \__\_\ |_| \_\ |____/    |_|    \___/</pre>
+</td></tr></table>
+</center>
+
+
+At this moment it <b>does not matter</b> how the characters are arranged.<br>
+However I would suggest using this arrangement or something similar:
+
+<center>
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>ABCDEFGHIJ
+KLMNOPQRST
+UVWXYZ
+0123456789
+abcdefghij
+klmnopqrst
+uvwxyz
+&auml;&ouml;&uuml;&Auml;&Ouml;&Uuml;&szlig;
+ !&#34;#$%&amp;'
+()*+,-./
+:;&lt;=&gt;?@
+[\]^_´{|}~</pre>
+</td></tr></table>
+</center>
+
+<p>
+Those are all characters that can be exported to FIGlet font by this assistant.
+It also does not matter if there are any characters missing: They will be left blank
+or in case of the alphabet the uppercase will be copied to the lowercase characters
+if they are not defined (or vice versa).
+<p>
+
+Now there is one more thing you have to make sure with your characters. They must be
+arranged in a uniform grid, where each character covers the same size
+and is aligned to the left:
+
+<center>
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>    _      ____     ____    ____     _____    _____     ____
+   / \    | __ )   / ___|  |  _ \   | ____|  |  ___|   / ___|
+  / _ \   |  _ \  | |      | | | |  |  _|    | |_     | |  _
+ / ___ \  | |_) | | |___   | |_| |  | |___   |  _|    | |_| |
+/_/   \_\ |____/   \____|  |____/   |_____|  |_|       \____|
+ _   _     ___         _    _  __    _        __  __   _   _
+| | | |   |_ _|       | |  | |/ /   | |      |  \/  | | \ | |
+| |_| |    | |     _  | |  | ' /    | |      | |\/| | |  \| |
+|  _  |    | |    | |_| |  | . \    | |___   | |  | | | |\  |
+|_| |_|   |___|    \___/   |_|\_\   |_____|  |_|  |_| |_| \_|
+  ___      ____     ___     ____     ____     _____    _   _
+ / _ \    |  _ \   / _ \   |  _ \   / ___|   |_   _|  | | | |
+| | | |   | |_) | | | | |  | |_) |  \___ \     | |    | | | |
+| |_| |   |  __/  | |_| |  |  _ &lt;    ___) |    | |    | |_| |
+ \___/    |_|      \__\_\  |_| \_\  |____/     |_|     \___/</pre>
+</td></tr></table>
+</center>
+
+
+
+
+
+Note that you can still modify or move your characters later in case they are not
+properly aligned.
+<p>
+Now start the FIGlet font export assistant (menu tools). On its first panel you will
+see a quick explanation. Skip to 'next' and here we go:
+
+
+<hr>
+<h3>Step 1: Adjust character size</h3>
+The assistant it not able to detect the width and height of your characters. So
+you have to adjust those values:
+<ul>
+ <li>Width:
+   <ul>
+     The width of the widest FIGlet character (and also the space covered by each other character in your grid).
+     As you modify the value you will see
+     a colored alignment grid in your document changing to your adjustments.
+	 This will help you adjust to the correct values.
+   </ul>
+ <li>Height:
+   <ul>
+     This is the maximum height in lines of your FIGlet characters.
+   </ul>
+ <li>Descent:
+   <ul>
+     This is the number of lines that are below the baseline of your FIGlet characters.
+	 For example characters like 'g' often have one or more lines underneath the baseline.
+  </ul>
+ <li>Horizontal Spacing:
+   <ul>
+     Increase this value if you have left free one or more columns between all the
+     FIGlet characters.
+  </ul>
+ <li>Vertical Spacing:
+   <ul>
+     Increase this value if you have left free one or more lines between all the
+     lines of FIGlet characters.
+  </ul>
+</ul>
+
+Have a look at these examples to understand the meaning of the values:
+
+<center>
+<img src="export_1a.gif" width="600" height="276"><br><i>A very simple grid.</i><br>
+<img src="export_1b.gif" width="650" height="230"><br><i>Simple grid with horizontal spacing.</i><br>
+<img src="export_1c.gif" width="599" height="265"><br><i>Descent: look at the 'g'.</i><br>
+
+</center>
+
+
+
+When you are done, proceed to the next step by hitting <code>next</code>.
+<hr>
+<h3>Step 2: Adjust arrangement</h3>
+
+As I already have told, you can arrange your FIGlet characters in whatever order you
+want. But now you have to tell the assistant what characters there are and how
+they are arranged.
+<p>
+Do this now by modifying the character mask. In your document you will see the grid
+and you can see whether or not the arrangement grid is correct or needs some modifications.
+Also note that you still can move or edit your characters.
+
+Here is an example of what the result should look like:
+
+<center>
+  <img src="export_2a.gif" width="722" height="494">
+</center>
+
+Note: You can also go back to the previous step by hitting the back button. So you can correct
+the size adjustment in case it was wrong.
+
+<p>
+
+When you are done, proceed to the next step by hitting <code>next</code>.
+
+
+<hr>
+<h3>Step 3: Adjust layout rules</h3>
+
+
+Although you are almost finished, there is still one very important thing to be done:
+The FIGlet font format has many options about how characters behave when they are written
+side by side or underneath each other. It is very hard to explain all these options.
+Have a look at the <a href="../figfont.txt">FIGlet font format specification</a> if
+you want to find out more.
+<p>
+However in most cases you will be able to find out a good configuration for the layout
+simply by trial and error. Hit the big button <code>Verify the settings by testing the font</code>.
+Now the FIGlet editor dialog will pop up and you can test-drive your new font.
+<p>
+If there are problems with the alignment of the characters just go back to the assistant
+and modify the options. Hitting the button for verification again you will see how the
+changes affect your font layout.
+<p>
+Remember that if there are any kind of problems with your characters, you can
+always go back to the assistant. And you can even modify the characters themselves in the
+document with the assistant dialog open.
+<p>
+Once you are satisfied with your new font proceed to the next step by hitting <code>next</code>.
+
+
+<hr>
+<h3>Step 4: Add comments</h3>
+
+Now this is rather straightforward: You can add any kind of comments to your new
+FIGlet font. I would suggest filling out the template, but you are free to write
+whatever you want.
+<p>
+Everyone can see the comments when editing the FIGlet file or choosing 'font information'
+in some FIGlet tools.
+<p>
+Proceed to the next step by hitting <code>next</code>.
+
+
+<hr>
+<h3>Step 5: Choose an appropriate name</h3>
+
+Now all your font needs is name. Choose a simple one that also describes your font well.
+<p>
+Hit <code>finish</code> and you are done! Your FIGlet font has been saved to the
+<code>/fonts/</code> folder in the JavE directory. It will be available after restarting
+JavE and will then be located in the font category &quot;new&quot;.
+<p>
+
+Please consider making your font public by informing the
+people on the newsgroup <a href="news:alt.ascii-art">alt.ascii-art</a> or JavE's program author
+<a href="mailto:markus@jave.de">markus@jave.de</a>
+
+<p>
+Also don't forget to backup a copy of this font so you will not
+accidently lose it!
+
+<hr>
+<address>
+Markus Gebhard<br>
+<a href="mailto:markus@jave.de">markus@jave.de</a><br>
+October 2001
+</address>
+ <a href="../index.html">[docs]</a>&nbsp;
+</body>
+</html>

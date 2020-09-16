@@ -1,0 +1,21 @@
+##############################################################
+# General configuration for Jave (like flip/mirror codes)
+#
+# Lines beginning with # will be ignored.
+#
+# DO NOT REMOVE SPACES FROM THE CODE LINES!
+##############################################################
+
+ ORIGINAL= !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+   MIRROR= !"#$%&`)(*+,-.\QfSEPZ6F8P:;>=<?@A8CG37DHILXJMNO9092TUVWXYS]/[^_'edcba1gdjiJjmnoqp+zjuvwxys}|{~
+     FLIP= i_#$%&.()*+`-'\Qj5342eJ8d:;<=>JGVBCDEL@HI7KFWNOb0BZJAAMXhS[/]v",gpcq6tay!1krwuobdlzfn^mxhs{|}_
+ROTATE180= i_#$%&,)(*+'-`/0lZEkS9L86:;>=<L@V8CG3JDHIFX7WNOdQ8SJAAMXhZ]\[v".eqcpaj6y!f41wuodbJs1n^mxhz}|{_
+ROTATE90R= -J#$%&`n"*+.|'\0-NW456789:;AHV?@>BCDM7G=-LAF3ZOPQRSTU<EX{N[/]>L,abcde-gh--k-mnopqrs-u<wxyzA-Y~
+ROTATE90L= -F#$%&."n*+`|,\0-NM456789:;VHA?@<BCDWLG=-"VJEZOPQRSTU>3X}N[/]<J'abcde-gh--k-mnopqrs-u>wxyzY-A~
+  
+###################################################################  
+# Those are not yet used (and I think they are not good either):  
+#Mirror diagonal:
+# -F#$%&'n"*+,|`/0-2W4N6789:;AHV?@<BCDMFG=-JALENOPQRSTU>3X}Z[\]<J.abcde-gh--k-mnopqrs-u>wxyzA-Y~
+#horizontal, vertical and then diagonal:
+# -J#$%&,"n*+'|./0-2M4N6789:;VHA?@>BCDWJG=-FVL3NOPQRSTU<EX{Z[\]>L`abcde-gh--k-mnopqrs-u<wxyzY-A~

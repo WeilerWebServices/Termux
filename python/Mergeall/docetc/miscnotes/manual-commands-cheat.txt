@@ -1,0 +1,76 @@
+# Example command lines; paste your own common command lines here.
+
+
+
+#------------------------------------------------------------------------
+# 1) Do this first if scripts may print non-ASCII filenames to a console
+#------------------------------------------------------------------------
+
+set PYTHONIOENCODING=utf8
+
+
+
+#------------------------------------------------------------------------
+# 2) mergeall compare/synch (or via GUI/console launchers)
+#------------------------------------------------------------------------
+
+# on vaioz: vaiozssd to usbstick, report only
+C:\MY-STUFF\Code\mergeall\mergeall.py C:\MY-STUFF D:\MY-STUFF -report > C:\Users\me\Desktop\mergeall-report.txt
+
+# on tablet: usbstick to tabletmsd, auto update, backup changes
+D:\MY-STUFF\Code\mergeall\mergeall.py E:\MY-STUFF D:\MY-STUFF -auto -backup > C:\Users\me\Desktop\mergeall-update.txt
+
+# on vaioz: vaiozssd to usbstick, backup changes, suppress per-file backup messages
+C:\MY-STUFF\Code\mergeall\mergeall.py C:\MY-STUFF D:\MY-STUFF -auto -backup -quiet > C:\Users\me\Desktop\mergeall-report.txt
+
+# on macbook: macbook to usbstick, backup changes, suppress per-file backup messages, skip Mac cruft files
+python3 /MY-STUFF/Code/mergeall/mergeall.py /MY-STUFF /Volumes/<name>/MY-STUFF -auto -backup -quiet -skipcruft > /Users/blue/Desktop/mergeall-report.txt
+
+# view, save logs
+notepad C:\Users\me\Desktop\mergeall-report.txt
+move C:\Users\me\Desktop\mergeall-update.txt D:\admin-stuff\mergeall-update.txt
+
+# restore prior run's TO folder completely after a catastrophic run with backups enabled 
+# replace date-time name with most recent by name sort order
+C:\MY-STUFF\Code\mergeall\mergeall.py D:\MY-STUFF\__bkp__\date150325-time165817 D:\MY-STUFF -auto -restore
+C:\MY-STUFF\Code\mergeall\rollback.py D:\MY-STUFF
+
+
+
+#------------------------------------------------------------------------
+# 3) diffall complete bytewise compare (verify merges, rarely)
+#------------------------------------------------------------------------
+
+# on vaioz: vaiozssd to usbstick
+C:\MY-STUFF\Code\mergeall\diffall.py C:\MY-STUFF D:\MY-STUFF > C:\Users\me\Desktop\diffall-stuff.txt
+
+# on tablet: usbstick to tabletmsd
+D:\MY-STUFF\Code\mergeall\diffall.py E:\MY-STUFF D:\MY-STUFF > C:\Users\me\Desktop\diffall-stuff.txt
+
+# on macbook: macbook to usbstick
+python3 /MY-STUFF/Code/mergeall/diffall.py /MY-STUFF /Volumes/<name>/MY-STUFF -skipcruft > /Users/blue/Desktop/diffall-stuff.txt
+
+# other folders
+C:\MY-STUFF\Code\mergeall\diffall.py c:\MY-OTHER-STUFF d:\MY-OTHER-STUFF > C:\Users\me\Desktop\diffall-other.txt
+
+# view, move logs
+notepad C:\Users\me\Desktop\diffall-stuff.txt
+copy C:\Users\me\Desktop\diffall-stuff.txt D:\admin-stuff\diffall-stuff.txt
+move C:\Users\me\Desktop\diffall-stuff.txt E:\admin-stuff\diffall-stuff.txt
+
+
+
+#------------------------------------------------------------------------
+# 4) more diffall options
+#------------------------------------------------------------------------
+
+# compare only files changed in last 90 or N days (partial but faster check)
+C:\MY-STUFF\Code\mergeall\diffall.py C:\MY-STUFF D:\MY-STUFF -recent > C:\Users\me\Desktop\diffall-stuff.txt
+C:\MY-STUFF\Code\mergeall\diffall.py C:\MY-STUFF D:\MY-STUFF -recent N > C:\Users\me\Desktop\diffall-stuff.txt
+
+# run full diffall via mergeall option (after updates) 
+D:\MY-STUFF\Code\mergeall\mergeall.py E:\MY-STUFF D:\MY-STUFF -auto -backup -verify
+
+# if you have spaces in filenames on Windows
+python "C:\YOUR STUFF\Code\mergeall\diffall.py" "C:\YOUR STUFF" "D:\YOUR STUFF" > "C:\Users\You\Desktop\diffall stuff.txt"
+

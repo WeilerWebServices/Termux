@@ -1,0 +1,30 @@
+Subject: ziptools - the bits that Python's zipfile forgot
+----
+
+Meet ziptools - all the features that you miss most in 
+Python's zipfile module.  ziptools is both top-level 
+scripts and importable modules that extend the standard
+library's zipfile module for:
+
+Folders: 	 
+    it adds entire folder trees to zipfiles automatically
+
+Modtimes:
+    it propagates original modtimes for files, folders, and links
+
+Cruft skips:
+    it can either include or skip system "cruft" files on request
+
+Symlinks:
+    it copies or follows symlinks to files and dirs on Unix and Windows
+
+Long paths:
+    it supports long pathnames on Windows beyond its normal limits
+
+Grab a copy of ziptools and start portably zipping your
+content today:
+
+    http://learning-python.com/ziptools.html
+
+Cheers,
+--M. Lutz, http://learning-python.com

@@ -1,0 +1,322 @@
+# assorted demos of symlinks on Windows and Mac OS X in Python 
+
+
+# Mac tests: in Terminal, no special persmission required
+# Windows test: in Command Prompt, with "Run as administrator" right-click permission
+>>> import os, stat
+
+
+
+---------------------------------------------------------------------------------
+# UNIX symlink paths fail on Windows (if copied on NTFS drive)
+# BUT: NTFS is read-only on Mac: can't copy to Windows in the first place!
+
+>>> os.remove('filelink')
+>>> os.symlink('stuff/classtools.py', 'filelink')    # UNIX paths fail on Windows
+>>> os.readlink('filelink')
+'stuff/classtools.py'
+>>> open('filelink').read()[:20]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+OSError: [Errno 22] Invalid argument: 'filelink'
+>>>
+>>> os.remove('filelink')
+>>> os.symlink('stuff\classtools.py', 'filelink')
+>>> os.readlink('filelink')
+'stuff\\classtools.py'
+>>> open('filelink').read()[:20]
+'# File classtools.py'
+
+
+
+---------------------------------------------------------------------------------
+# os.path.*() versus os.stat()/lstat()
+# (SAME results on Mac OS X: ahead)
+
+
+# simple files: same
+
+>>> os.path.isfile('t.py')
+True
+>>> os.path.isdir('t.py')
+False
+>>> os.path.islink('t.py')
+False
+>>> os.path.getmtime('t.py')
+1477931417.1788068
+>>> os.path.getsize('t.py')
+456
+>>>
+>>> s = os.lstat('t.py')
+>>> stat.S_ISREG(s.st_mode)
+True
+>>> stat.S_ISDIR(s.st_mode)
+False
+>>> stat.S_ISLNK(s.st_mode)
+False
+>>> s.st_mtime
+1477931417.1788068
+>>> s.st_size
+456
+
+
+# os.stat() follows link to file: same, except S_ISLNK
+
+>>> os.readlink('filelink')
+'stuff\\classtools.py'
+
+>>> os.path.isfile('filelink')
+True
+>>> os.path.isdir('filelink')
+False
+>>> os.path.islink('filelink')
+True
+>>> os.path.getmtime('filelink')
+1443193227.7608716
+>>> os.path.getsize('filelink')
+1145
+
+>>> s = os.stat('filelink')
+>>> stat.S_ISREG(s.st_mode)
+True
+>>> stat.S_ISDIR(s.st_mode)
+False
+>>> stat.S_ISLNK(s.st_mode)
+False
+>>> s.st_mtime
+1443193227.7608716
+>>> s.st_size
+1145
+
+
+# os.lstat() is link itself, not item it references: S_ISREG, time, size differ
+
+>>> s = os.lstat('filelink')
+>>> stat.S_ISREG(s.st_mode)
+False
+>>> stat.S_ISDIR(s.st_mode)
+False
+>>> stat.S_ISLNK(s.st_mode)
+True
+>>> s.st_mtime
+1486322226.510934
+>>> s.st_size
+0
+
+
+
+---------------------------------------------------------------------------------
+# os.path.*() versus os.lstat()
+# SAME results on Mac OS X (though all modtimes N.0)
+
+
+# files/dirs (same)
+
+>>> os.path.isfile('file')
+True
+>>> os.path.islink('file')
+False
+>>> os.path.getsize('file')
+5
+>>> os.path.getmtime('file')
+1485653524.0
+
+>>> s = os.lstat('file')
+>>> stat.S_ISREG(s.st_mode)
+True
+>>> stat.S_ISLNK(s.st_mode)
+False
+>>> s.st_size
+5
+>>> s.st_mtime
+1485653524.0
+
+
+# links (differ)
+ 
+>>> os.path.isfile('filelink')
+True
+>>> os.path.islink('filelink')
+True
+>>> os.path.getsize('filelink')      # what link refers to
+5
+>>> os.path.getmtime('filelink')
+1485653524.0
+ 
+>>> s = os.lstat('filelink')
+>>> stat.S_ISREG(s.st_mode)
+False
+>>> stat.S_ISLNK(s.st_mode)          # the link itself
+True
+>>> s.st_size
+4
+>>> s.st_mtime
+1486651410.0
+
+>>> import sys
+>>> sys.platform
+'darwin'
+
+
+
+---------------------------------------------------------------------------------
+# Windows symlinks: NTFS only, Windows paths (unless auto-converted by tools)
+
+>>> os.chdir('C:\\')     # NTFS local drive
+>>> open('test.txt').read()
+'spam\n'
+>>> os.symlink('test.txt', 'testlink')
+>>> os.readlink('testlink')
+'test.txt'
+>>> open('testlink').read()
+'spam\n'
+
+>>> os.chdir('D:\\')   # FAT32 drive
+>>> open('test.txt').read()
+'spam\n'
+>>> os.symlink('test.txt', 'testlink')
+OSError: [WinError 1] Incorrect function: 'test.txt' -> 'testlink'
+
+>>> os.chdir('C:\\')
+>>> os.chdir('D:\\')   # exFAT drive
+>>> open('test.txt').read()
+'spam\n'
+>>> os.symlink('test.txt', 'testlink')
+OSError: [WinError 1] Incorrect function: 'test.txt' -> 'testlink'
+
+
+# storable on NFTS flashdrive, but not usable on Unix 
+
+>>> os.chdir('C:\\')
+>>> os.chdir('D:\\')   # NTFS external drive
+>>> open('test.txt').read()
+'spam\n'
+>>> open('test\\test.txt').read()
+'more spam\n'
+>>> os.symlink('test.txt', 'testlink')
+>>> os.symlink('test\\test.txt', 'testsublink')
+>>> os.readlink('testlink')
+'test.txt'
+>>> os.readlink('testsublink')
+'test\\test.txt'
+>>> open('testlink').read()
+'spam\n'
+>>> open('testsublink').read()
+'more spam\n'
+
+
+
+---------------------------------------------------------------------------------
+MAC: links made on Windows not recognized; Mac cannot make links: read-only ntfs
+
+$ cd /Volumes/Untitled/
+/Volumes/Untitled$ 
+/Volumes/Untitled$ ls
+test		test.txt	testlink	testsublink
+/Volumes/Untitled$ ls -l
+total 0
+drwxr-xr-x  1 blue  staff  0 Feb  5 11:52 test
+-rwxr-xr-x  1 blue  staff  6 Feb  5 11:39 test.txt
+-rwxr-xr-x  1 blue  staff  0 Feb  5 11:53 testlink
+-rwxr-xr-x  2 blue  staff  0 Feb  5 11:53 testsublink
+/Volumes/Untitled$ py3 
+>>> import os, stat
+
+>>> os.readlink('testlink')
+OSError: [Errno 22] Invalid argument: 'testlink'
+>>> os.readlink('testsublink')
+OSError: [Errno 22] Invalid argument: 'testsublink'
+
+>>> open('testlink').read()
+''
+>>> open('testsublink').read()
+''
+
+>>> open('test.txt').read()
+'spam\n'
+>>> open('test/test.txt').read()
+'more spam\n'
+ 
+>>> s = os.lstat('testlink')
+>>> stat.S_ISLNK(s.st_mode)
+False
+>>> s = os.lstat('testsublink')
+>>> stat.S_ISLNK(s.st_mode)
+False
+
+>>> os.symlink('test\test.txt', 'maclink')
+OSError: [Errno 30] Read-only file system: 'test\test.txt' -> 'maclink'
+>>> 
+=> no reason to test Unix NTFS link on Windows: can't get there from here!
+	Windows 
+		doesn't recognize Unix symlink on exFat or FAT32
+		cannot make syminks on exFAT or FAT32: unsupported
+		can make and use symlink on NTFS => but not recognized on Unix 
+
+	MAC OS X Unix 
+		doesn't recognize Windows symlink on NTFS
+		cannot make symlinks on NTFS: read-only
+		can make and use symlink on exFAT or FAT32 => but not recognized on Windows
+
+
+	Symlinks are proprietary and platform-specific, both in path syntax and filesystem
+	Windows: symlinks require NTFS, and can be used only on Windows
+		 requires NTFS for symlinks, but Unix won't recognize
+	Unix:    symlinks require non-NTFS, and can be used only on Unix 
+		 cannot write to NTFS: read-only ithout 3rd-party driver
+
+
+
+---------------------------------------------------------------------------------
+# verify UNIX links on FAT32 (in addition to exFAT):
+
+/Volumes/KINGSTONFAT$ py3 
+>>> import os
+>>> os.chdir('test')
+>>> os.symlink('cf.xlsb', 'testlink')
+>>> os.readlink('testlink')
+'cf.xlsb'
+>>> open('testlink', 'rb').read()[:20]
+b'PK\x03\x04\x14\x00\x06\x00\x08\x00\x00\x00!\x00l\xa0~\x85I\x02'
+>>> os.system('open testlink')  # spawns Excel
+0
+>>> s = os.lstat('testlink')
+>>> import stat
+>>> stat.S_ISLNK(s.st_mode)
+True
+
+
+
+----------------------------------------------------------------------------------
+# os.path.abspath() versus os.path.realpath() [latter dereferences links]
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1$ ls -l 
+total 32
+drwxr-xr-x  3 blue  wheel  102 Jan 28 17:40 dir
+lrwxr-xr-x  1 blue  wheel    3 Feb  9 06:43 dirlink -> dir
+-rw-r--r--  1 blue  wheel    5 Jan 28 17:32 file
+lrwxr-xr-x  1 blue  wheel    4 Feb  9 06:43 filelink -> file
+lrwxr-xr-x  1 blue  wheel   14 Feb  9 06:43 nestedfilelink -> dir/nestedfile
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1$ py3
+>>> import os
+>>> for item in ('file', 'dir', 'filelink', 'dirlink', 'nestedfilelink'):
+...     print()
+...     print(os.path.abspath(item))
+...     print(os.path.realpath(item))
+... 
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/file
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/file
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/dir
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/dir
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/filelink
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/file
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/dirlink
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/dir
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/nestedfilelink
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/dir/nestedfile

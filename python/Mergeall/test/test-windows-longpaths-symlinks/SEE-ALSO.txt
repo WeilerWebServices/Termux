@@ -1,0 +1,3 @@
+See also docetc\miscnotes\Windows-path-limits for tests that 
+verify the pathlimits for dirs and files, for both absolute
+and relaive paths.

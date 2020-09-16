@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="EN"><head>
+<title>JavE - Java ASCII Editor Documentation</title>
+  <style type="text/css">
+  <!--pre { font-family: Courier New, Courier; font-size: 10pt; margin: 0px; }-->
+  </style>
+  <meta name="ROBOTS" content="index,nofollow">
+  <meta name="author" content="Markus Gebhard">
+  <meta name="publisher" content="Markus Gebhard">
+  <meta name="copyright" content="Markus Gebhard">
+  <meta name="Content-Language" content="EN">
+</head>
+<body background="../paper.gif">
+
+<a href="../index.html">[docs]</a>&nbsp;
+<center>
+<h1>JavE - Balls - Tutorial</h1>
+</center>
+
+
+<p>This Tutorial will give you some idea about how to use
+JavE to create and edit Ascii Art.
+
+<p>Just go through the steps and you will see how easy it is
+to create this image:
+
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>                       ,OoOoOoOoOO8,
+                    ,OoOoOoooOoOoOO8O8,
+                  ,oOoo:o:::::o:ooOoOO88,
+       ,OoOoOoOoOO8,oo:o::.:.::o:ooOO8O88@,
+    ,OoOoOoooOoOoOO8O8,.:.. ..:.::ooOoOO88@
+  ,oOoo:o:::::o:ooOoOO88,. . ..::ooOoOO88@@,
+ ,OOoo:o::.:.::o:ooOO8O88@, ..:.::ooOoOO88@@
+,oOoo::.:.. ..:.::ooOoOO88@:.::o:ooOO8O88@@@
+OOoOoo::.. . ..::ooOoOO88@@,::o:ooOoOO88@8@'
+OoOoo::.:.. ..:.::ooOoOO88@@oOoOoOO8O88@@@@
+O8OOoo:o::.:.::o:ooOO8O88@@@OoOoOO8O88@8@"
+8OOoOoo:o:::::o:ooOoOO88@8@'O8O8888@8@@@'
+`8O8OOoOoOoooOoOoOO8O88@@@@88888@8@8@@"
+ `8O8OOoOoOoOoOoOO8O88@8@"@@@@@@@@"'
+   "8888O8O8O8O8888@8@@@'
+     "@888888888@8@8@@"
+        `"@@@@@@@@"'</pre>
+</td></tr></table>
+
+<hr>
+<ol>
+
+<li>Start JavE.
+<p>
+On the left side there is a toolbar with the most important tools
+for editing the document.
+<p>Choose the tool "Ellipse Generic" by clicking on its icon: <img src="ellipse_generic.gif">.
+
+
+<hr>
+
+
+<li>Place the mouse cursor at the center of the document. Press down the left mouse button
+and drag the mouse to the lower right corner.
+While dragging, you will see the preview
+of the ellipse in dark blue color. Holding down the shift key will cause the ellipse to
+become a circle.
+<p>
+When you release the mouse button, the circle will be pasted into the document
+(hitting the escape key will cancel the operation).
+<p>
+Remember that you can always hit the undo button (or choose undo from the edit menu) to
+undo the last operation. You can undo/redo almost unlimited steps of editing.
+<p>
+However, your document should now look somewhat like this:
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>        _,.-----.._
+     ,-'           '-.
+   ,-                 '-
+  /                     `.
+ /                        \
+/                         \
+|                          |
+|                          |
+'.                        |
+ \                       ,'
+  `.                    /
+    -.                ,-
+      -.._        _,-'
+          '-----''</pre>
+</td></tr></table>
+
+
+
+<hr>
+
+<li>Now choose the Fill tool <img src="fill.gif"> from the toolbar. In the options dialog you can see that there
+are a lot of options available for this tool. At the moment the default settings are ok.
+Click the mouse in the inside of the circle.
+
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>        _,.-----.._
+     ,-'XXXXXXXXXXX'-.
+   ,-XXXXXXXXXXXXXXXXX'-
+  /XXXXXXXXXXXXXXXXXXXXX`.
+ /XXXXXXXXXXXXXXXXXXXXXXXX\
+/XXXXXXXXXXXXXXXXXXXXXXXXX\
+|XXXXXXXXXXXXXXXXXXXXXXXXXX|
+|XXXXXXXXXXXXXXXXXXXXXXXXXX|
+'.XXXXXXXXXXXXXXXXXXXXXXXX|
+ \XXXXXXXXXXXXXXXXXXXXXXX,'
+  `.XXXXXXXXXXXXXXXXXXXX/
+    -.XXXXXXXXXXXXXXXX,-
+      -.._XXXXXXXX_,-'
+          '-----''</pre>
+</td></tr></table>
+
+The fill tool has filled all characters that were the same as the one you have clicked on.
+You can adjust the "Match Mode" in the tool options dialog:
+<p>
+<img src="fill_options.gif">
+
+<p>
+
+
+
+
+
+
+Now choose "Any character" and click the mouse inside the circle again.
+
+<p>The result should look like that:
+
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>        XXXXXXXXXXX
+     XXXXXXXXXXXXXXXXX
+   XXXXXXXXXXXXXXXXXXXXX
+  XXXXXXXXXXXXXXXXXXXXXXXX
+ XXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXX
+ XXXXXXXXXXXXXXXXXXXXXXXXXX
+  XXXXXXXXXXXXXXXXXXXXXXX
+    XXXXXXXXXXXXXXXXXXXX
+      XXXXXXXXXXXXXXXX
+          XXXXXXXX</pre>
+</td></tr></table>
+
+Now not only identical characters were overwritten and filled, but also all
+the other characters being different from whitespace.
+
+<p>By the way: The character that is being used for solid filling can be adjusted
+at the bottom of the editor. You can asign different characters for the left and
+right mouse button: <img src="mouse_char.gif">
+
+
+<hr>
+
+<li>You can make the ball looking better by applying antialiasing: Choose "Antialias"
+from the Modify-menu. The result should look like this:
+
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>         ,XXXXXXXXXXX,
+      ,XXXXXXXXXXXXXXXXX,
+    ,XXXXXXXXXXXXXXXXXXXXX,
+   ,XXXXXXXXXXXXXXXXXXXXXXXX,
+  ,XXXXXXXXXXXXXXXXXXXXXXXXXX
+  XXXXXXXXXXXXXXXXXXXXXXXXXXX,
+  XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  XXXXXXXXXXXXXXXXXXXXXXXXXXX'
+  `XXXXXXXXXXXXXXXXXXXXXXXXXX
+   `XXXXXXXXXXXXXXXXXXXXXXX"
+     "XXXXXXXXXXXXXXXXXXXX'
+       "XXXXXXXXXXXXXXXX"
+          `"XXXXXXXX"'</pre>
+</td></tr></table>
+
+Not the best shape I have seen, but quite ok for now.
+
+
+
+
+<hr>
+
+<li>The circular shape still looks flat and not like a ball. What it takes is some
+shading. Choose the fill tool again and in the options switch from "Solid" to "Gradient".
+Now you can chose a grayscale gradient, i.e. a set of characters that seem to have different
+brightness. My favorite gradient is "<code>@8Oo:. </code>". You can choos a predefined
+gradient or create your own:
+<p>
+<img src="fill_gradient.gif">
+
+
+
+
+<p>For the match mode switch back to "Equal character", because we only want to apply shading to
+the Xs, but not to the characters for the antialiasing.
+
+<p>There are three modes available for shading. The default is "Linear" and would fill the
+area in a direction you can choose by clicking and dragging the mouse cursor.
+You can try that, but for a round shape like a ball it is a good idea to choose
+"Sunburst" instead.
+<p>
+Now click into the circle. The result should look like this:
+
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>       ,:o:o:o:o::.,
+    ,:ooooooooo:o::.:.,
+  ,ooOoOOOOOOOoOoo:o::..,
+ ,ooOoOO8O8O8OOoOoo::.:.. ,
+,ooOO8O88@8@88O8OOoo::.:..
+::ooOO8O88@88O8OOoo::.:..  ,
+:ooOO8O88@8@88O8OOoo::.:..
+::ooOoOO8O8O8OOoOoo::.:..
+:o:ooOoOOOOOOOoOoo:o::.. . '
+`.::o:ooooooooo:o::.:..
+ `.::o:o:o:o:o:o::.:.. . "
+   "..:.:.:.:.:.... .   '
+     ".:.:.:.:.... .  "
+        `". .     "'</pre>
+</td></tr></table>
+
+<p>The gradient fill is darkest at the position where you clicked the mouse. If you don't
+like the result remember that you can always undo.
+
+<p>Alternatively you can click the right mouse button instead. This will cause the gradient
+being reverted from "<code>@8Oo:. </code>" to "<code> .:oO8@</code>" for example:
+
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>       ,OoOoOoOoOO8,
+    ,OoOoOoooOoOoOO8O8,
+  ,oOoo:o:::::o:ooOoOO88,
+ ,OOoo:o::.:.::o:ooOO8O88@,
+,oOoo::.:.. ..:.::ooOoOO88@
+OOoOoo::.. . ..::ooOoOO88@@,
+OoOoo::.:.. ..:.::ooOoOO88@@
+O8OOoo:o::.:.::o:ooOO8O88@@@
+8OOoOoo:o:::::o:ooOoOO88@8@'
+`8O8OOoOoOoooOoOoOO8O88@@@@
+ `8O8OOoOoOoOoOoOO8O88@8@"
+   "8888O8O8O8O8888@8@@@'
+     "@888888888@8@8@@"
+        `"@@@@@@@@"'</pre>
+</td></tr></table>
+
+In combination with the antialiasing characters I like this inverted version much more.
+
+
+<hr>
+
+
+<li>Now we have one ball, but what we want is a second one behind it.
+Choose the selection tool from the toolbar. Click on any of the characters
+of the ball. The selection tool should automatically have selected the whole ball.
+Alternativly you can use the selection tool to select a region by clicking and dragging
+as you already did when you have drawn the ellipse.
+You can now use the mouse to move the selected ball around:
+<p>
+<img  src="move_selection.gif">
+
+
+
+
+
+<p>To duplicate the ball
+you first have to choose copy - eiter by clicking on the button in the top bar, choosing
+the right option from the edit menu or by hitting <code>Ctrl-C</code>. You have now placed a copy of the
+selection in the system clipboard.
+
+<p>Now you have to paste the copy from the clipboard into the current document. Do that by either
+hitting <code>Ctrl-V</code> or choosing 'paste' in the edit menu or the top bar.
+
+<p>Now you have a new selection with a copy of the ball floating over the document.
+In the options dialog you can choose four different layers that will influence the
+behavior of the selection to the content of the current document.
+As we want to place a copy of the ball behind the one that already exists, choose
+"Background" as layer. Moving around the selection you can see that it is placed behind
+the other ball:
+<p>
+<img src="move_sel_back.gif">
+
+<p>The selection tool tries to simulate some kind of three dimensional impression by using
+some tricks. Sometimes it is a good idea to switch that off, because so one can better
+see what the result will look like: Try deactivating the checkbox "3d View".
+
+
+
+<hr>
+
+
+<li>Move the selection to a place where the combination of the two balls looks good.
+Now we have to get rid of the selection. There are several ways to do that, the best is to
+either click to and empty position in the image or by clicking the right mouse button.
+
+<p>Now we are almost finished. It is most likely that your document is greater than the image
+of the balls and you will want to remove the white borders. You can do so by choosing "crop"
+from the edit menu (or by hitting the shortcut Ctrl-R).
+
+<p>The result should look like this:
+<table border="0"><tr><td bgcolor="#F0F0F0">
+<pre>                       ,OoOoOoOoOO8,
+                    ,OoOoOoooOoOoOO8O8,
+                  ,oOoo:o:::::o:ooOoOO88,
+       ,OoOoOoOoOO8,oo:o::.:.::o:ooOO8O88@,
+    ,OoOoOoooOoOoOO8O8,.:.. ..:.::ooOoOO88@
+  ,oOoo:o:::::o:ooOoOO88,. . ..::ooOoOO88@@,
+ ,OOoo:o::.:.::o:ooOO8O88@, ..:.::ooOoOO88@@
+,oOoo::.:.. ..:.::ooOoOO88@:.::o:ooOO8O88@@@
+OOoOoo::.. . ..::ooOoOO88@@,::o:ooOoOO88@8@'
+OoOoo::.:.. ..:.::ooOoOO88@@oOoOoOO8O88@@@@
+O8OOoo:o::.:.::o:ooOO8O88@@@OoOoOO8O88@8@"
+8OOoOoo:o:::::o:ooOoOO88@8@'O8O8888@8@@@'
+`8O8OOoOoOoooOoOoOO8O88@@@@88888@8@8@@"
+ `8O8OOoOoOoOoOoOO8O88@8@"@@@@@@@@"'
+   "8888O8O8O8O8888@8@@@'
+     "@888888888@8@8@@"
+        `"@@@@@@@@"'</pre>
+</td></tr></table>
+
+</ol>
+
+<hr>
+I hope you have enjoyed this little tutorial. It only shows very few of the tools and
+options in JavE. If you have comments or questions feel free to contact me:
+  <a href="mailto:markus@jave.de">markus@jave.de</a>
+
+<p>
+Now what about having a break and playing Asc-Tris? Choose Asc-Tris from the Special menu.
+<p>
+Have fun.
+
+
+
+<hr>
+<address>
+Markus Gebhard<br>
+<a href="mailto:markus@jave.de">markus@jave.de</a><br>
+October 2001
+</address>
+<a href="../index.html">[docs]</a>&nbsp;
+</body>
+</html>

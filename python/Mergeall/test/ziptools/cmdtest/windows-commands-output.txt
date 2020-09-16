@@ -1,0 +1,1240 @@
+See HOW-RUN.txt for command run in the following.
+
+============================================================================================================
+
+...\mergeall\test\ziptools>prompt $P$G$S
+
+...\mergeall\test\ziptools> copy ..\test-1-2.zip cmdtest\start.zip
+        1 file(s) copied.
+
+...\mergeall\test\ziptools> cd cmdtest
+
+...\mergeall\test\ziptools\cmdtest> py -3 ..\zip-extract.py start.zip start
+Unzipping from start.zip to start
+Extracted test1/
+                => start\test1
+Extracted test1/.DS_Store
+                => start\test1\.DS_Store
+Extracted test1/._.TemporaryItems
+                => start\test1\._.TemporaryItems
+Extracted test1/f0.txt
+                => start\test1\f0.txt
+Extracted test1/f1.txt
+                => start\test1\f1.txt
+Extracted test1/f3.txt
+                => start\test1\f3.txt
+Extracted test1/f6.txt
+                => start\test1\f6.txt
+Extracted test1/m1
+                => start\test1\m1
+Extracted test1/d1/
+                => start\test1\d1
+Extracted test1/d1/._.DS_Store
+                => start\test1\d1\._.DS_Store
+Extracted test1/d1/._someimage.png
+                => start\test1\d1\._someimage.png
+Extracted test1/d1/fa1.txt
+                => start\test1\d1\fa1.txt
+Extracted test1/d3/
+                => start\test1\d3
+Extracted test1/d3/.DS_Store
+                => start\test1\d3\.DS_Store
+Extracted test1/d3/.htaccess
+                => start\test1\d3\.htaccess
+Extracted test1/d3/.Trashes
+                => start\test1\d3\.Trashes
+Extracted test1/d3/f2.txt
+                => start\test1\d3\f2.txt
+Extracted test1/d3/f3.txt
+                => start\test1\d3\f3.txt
+Extracted test1/d3/f4.txt
+                => start\test1\d3\f4.txt
+Extracted test1/d3/.fseventsd/
+                => start\test1\d3\.fseventsd
+Extracted test1/d3/.fseventsd/no_log
+                => start\test1\d3\.fseventsd\no_log
+Extracted test1/m2/
+                => start\test1\m2
+Extracted test1/m2/.DS_Store
+                => start\test1\m2\.DS_Store
+Extracted test1/m2/.htaccess
+                => start\test1\m2\.htaccess
+Extracted test2/
+                => start\test2
+Extracted test2/Desktop.ini
+                => start\test2\Desktop.ini
+Extracted test2/f0.txt
+                => start\test2\f0.txt
+Extracted test2/f2.txt
+                => start\test2\f2.txt
+Extracted test2/f3.txt
+                => start\test2\f3.txt
+Extracted test2/f6.txt
+                => start\test2\f6.txt
+Extracted test2/m2
+                => start\test2\m2
+Extracted test2/$RECYCLE.BIN/
+                => start\test2\$RECYCLE.BIN
+Extracted test2/.Trash-1000/
+                => start\test2\.Trash-1000
+Extracted test2/d2/
+                => start\test2\d2
+Extracted test2/d3/
+                => start\test2\d3
+Extracted test2/d3/.htaccess
+                => start\test2\d3\.htaccess
+Extracted test2/d3/desktop.ini
+                => start\test2\d3\desktop.ini
+Extracted test2/d3/f2.txt
+                => start\test2\d3\f2.txt
+Extracted test2/d3/f3.txt
+                => start\test2\d3\f3.txt
+Extracted test2/d3/f5.txt
+                => start\test2\d3\f5.txt
+Extracted test2/d3/Thumbs.db
+                => start\test2\d3\Thumbs.db
+Extracted test2/m1/
+                => start\test2\m1
+Extracted test2/__bkp__/
+                => start\test2\__bkp__
+Extracted test2/__bkp__/README.txt
+                => start\test2\__bkp__\README.txt
+Extracted test2/__bkp__/date150325-time115227/
+                => start\test2\__bkp__\date150325-time115227
+Extracted test2/__bkp__/date150325-time115227/f2.txt
+                => start\test2\__bkp__\date150325-time115227\f2.txt
+Extracted test2/__bkp__/date150325-time115227/f3.txt
+                => start\test2\__bkp__\date150325-time115227\f3.txt
+Extracted test2/__bkp__/date150325-time115227/m2
+                => start\test2\__bkp__\date150325-time115227\m2
+Extracted test2/__bkp__/date150325-time115227/__added__.txt
+                => start\test2\__bkp__\date150325-time115227\__added__.txt
+Extracted test2/__bkp__/date150325-time115227/d2/
+                => start\test2\__bkp__\date150325-time115227\d2
+Extracted test2/__bkp__/date150325-time115227/d3/
+                => start\test2\__bkp__\date150325-time115227\d3
+Extracted test2/__bkp__/date150325-time115227/d3/f3.txt
+                => start\test2\__bkp__\date150325-time115227\d3\f3.txt
+Extracted test2/__bkp__/date150325-time115227/d3/f5.txt
+                => start\test2\__bkp__\date150325-time115227\d3\f5.txt
+Extracted test2/__bkp__/date150325-time115227/m1/
+                => start\test2\__bkp__\date150325-time115227\m1
+Extracted test2/__bkp__/date150325-time115317/
+                => start\test2\__bkp__\date150325-time115317
+Extracted test2/__bkp__/date150325-time115317/spam.txt
+                => start\test2\__bkp__\date150325-time115317\spam.txt
+Extracted test2/__bkp__/date150325-time115355/
+                => start\test2\__bkp__\date150325-time115355
+Extracted test2/__bkp__/date150325-time115355/__added__.txt
+                => start\test2\__bkp__\date150325-time115355\__added__.txt
+Extracted test2/__bkp__/date150325-time115417/
+                => start\test2\__bkp__\date150325-time115417
+Extracted test2/__bkp__/date150325-time115417/__added__.txt
+                => start\test2\__bkp__\date150325-time115417\__added__.txt
+Extracted test2/__bkp__/date150325-time115452/
+                => start\test2\__bkp__\date150325-time115452
+Extracted test2/__bkp__/date150325-time115452/spam2.txt
+                => start\test2\__bkp__\date150325-time115452\spam2.txt
+Extracted test2/__bkp__/date150325-time115452/__added__.txt
+                => start\test2\__bkp__\date150325-time115452\__added__.txt
+Extracted test2/__bkp__/date150325-time115541/
+                => start\test2\__bkp__\date150325-time115541
+Extracted test2/__bkp__/date150325-time115541/f0.txt
+                => start\test2\__bkp__\date150325-time115541\f0.txt
+Extracted test2/__bkp__/date150325-time115549/
+                => start\test2\__bkp__\date150325-time115549
+Extracted test2/__bkp__/date150325-time115549/f0.txt
+                => start\test2\__bkp__\date150325-time115549\f0.txt
+Extracted test2/__bkp__/date150325-time115557/
+                => start\test2\__bkp__\date150325-time115557
+Extracted test2/__bkp__/date150325-time115557/f0.txt
+                => start\test2\__bkp__\date150325-time115557\f0.txt
+Extracted test2/__bkp__/date150325-time115607/
+                => start\test2\__bkp__\date150325-time115607
+Extracted test2/__bkp__/date150325-time115607/f0.txt
+                => start\test2\__bkp__\date150325-time115607\f0.txt
+Extracted test2/__bkp__/date150325-time115737/
+                => start\test2\__bkp__\date150325-time115737
+Extracted test2/__bkp__/date150325-time115737/f0.txt
+                => start\test2\__bkp__\date150325-time115737\f0.txt
+Extracted test2/__bkp__/date150325-time115737/__added__.txt
+                => start\test2\__bkp__\date150325-time115737\__added__.txt
+
+============================================================================================================
+ 
+...\mergeall\test\ziptools\cmdtest> cd start
+
+...\mergeall\test\ziptools\cmdtest\start> py -3 ..\..\zip-create.py ..\cmdtest.zip test1 test2
+Zipping ['test1', 'test2'] to ..\cmdtest.zip
+Adding folder test1
+Adding  file  test1\.DS_Store
+Adding  file  test1\._.TemporaryItems
+Adding  file  test1\f0.txt
+Adding  file  test1\f1.txt
+Adding  file  test1\f3.txt
+Adding  file  test1\f6.txt
+Adding  file  test1\m1
+Adding folder test1\d1
+Adding  file  test1\d1\._.DS_Store
+Adding  file  test1\d1\._someimage.png
+Adding  file  test1\d1\fa1.txt
+Adding folder test1\d3
+Adding  file  test1\d3\.DS_Store
+Adding  file  test1\d3\.htaccess
+Adding  file  test1\d3\.Trashes
+Adding  file  test1\d3\f2.txt
+Adding  file  test1\d3\f3.txt
+Adding  file  test1\d3\f4.txt
+Adding folder test1\d3\.fseventsd
+Adding  file  test1\d3\.fseventsd\no_log
+Adding folder test1\m2
+Adding  file  test1\m2\.DS_Store
+Adding  file  test1\m2\.htaccess
+Adding folder test2
+Adding  file  test2\Desktop.ini
+Adding  file  test2\f0.txt
+Adding  file  test2\f2.txt
+Adding  file  test2\f3.txt
+Adding  file  test2\f6.txt
+Adding  file  test2\m2
+Adding folder test2\$RECYCLE.BIN
+Adding folder test2\.Trash-1000
+Adding folder test2\d2
+Adding folder test2\d3
+Adding  file  test2\d3\.htaccess
+Adding  file  test2\d3\desktop.ini
+Adding  file  test2\d3\f2.txt
+Adding  file  test2\d3\f3.txt
+Adding  file  test2\d3\f5.txt
+Adding  file  test2\d3\Thumbs.db
+Adding folder test2\m1
+Adding folder test2\__bkp__
+Adding  file  test2\__bkp__\README.txt
+Adding folder test2\__bkp__\date150325-time115227
+Adding  file  test2\__bkp__\date150325-time115227\f2.txt
+Adding  file  test2\__bkp__\date150325-time115227\f3.txt
+Adding  file  test2\__bkp__\date150325-time115227\m2
+Adding  file  test2\__bkp__\date150325-time115227\__added__.txt
+Adding folder test2\__bkp__\date150325-time115227\d2
+Adding folder test2\__bkp__\date150325-time115227\d3
+Adding  file  test2\__bkp__\date150325-time115227\d3\f3.txt
+Adding  file  test2\__bkp__\date150325-time115227\d3\f5.txt
+Adding folder test2\__bkp__\date150325-time115227\m1
+Adding folder test2\__bkp__\date150325-time115317
+Adding  file  test2\__bkp__\date150325-time115317\spam.txt
+Adding folder test2\__bkp__\date150325-time115355
+Adding  file  test2\__bkp__\date150325-time115355\__added__.txt
+Adding folder test2\__bkp__\date150325-time115417
+Adding  file  test2\__bkp__\date150325-time115417\__added__.txt
+Adding folder test2\__bkp__\date150325-time115452
+Adding  file  test2\__bkp__\date150325-time115452\spam2.txt
+Adding  file  test2\__bkp__\date150325-time115452\__added__.txt
+Adding folder test2\__bkp__\date150325-time115541
+Adding  file  test2\__bkp__\date150325-time115541\f0.txt
+Adding folder test2\__bkp__\date150325-time115549
+Adding  file  test2\__bkp__\date150325-time115549\f0.txt
+Adding folder test2\__bkp__\date150325-time115557
+Adding  file  test2\__bkp__\date150325-time115557\f0.txt
+Adding folder test2\__bkp__\date150325-time115607
+Adding  file  test2\__bkp__\date150325-time115607\f0.txt
+Adding folder test2\__bkp__\date150325-time115737
+Adding  file  test2\__bkp__\date150325-time115737\f0.txt
+Adding  file  test2\__bkp__\date150325-time115737\__added__.txt
+
+...\mergeall\test\ziptools\cmdtest\start>  cd ..
+
+...\mergeall\test\ziptools\cmdtest> py -3 ..\zip-list.py cmdtest.zip
+File Name                                             Modified             Size
+test1/                                         2016-10-02 09:01:58            0
+test1/.DS_Store                                2016-09-25 15:10:30         8196
+test1/._.TemporaryItems                        2016-09-25 08:49:30         4096
+test1/f0.txt                                   2014-02-07 16:39:10            0
+test1/f1.txt                                   2014-02-07 16:38:38            0
+test1/f3.txt                                   2014-02-07 16:41:24          103
+test1/f6.txt                                   2016-10-02 08:38:42          103
+test1/m1                                       2014-02-08 09:58:14            0
+test1/d1/                                      2016-09-30 16:41:12            0
+test1/d1/._.DS_Store                           2016-09-18 12:46:28         4096
+test1/d1/._someimage.png                       2016-09-18 12:46:28         4096
+test1/d1/fa1.txt                               2014-02-07 16:38:58            0
+test1/d3/                                      2016-10-02 09:05:02            0
+test1/d3/.DS_Store                             2016-09-25 15:10:30         8196
+test1/d3/.htaccess                             2015-03-31 16:55:44          271
+test1/d3/.Trashes                              2016-09-20 09:12:04           44
+test1/d3/f2.txt                                2014-02-07 16:39:18            0
+test1/d3/f3.txt                                2014-02-07 16:41:24          103
+test1/d3/f4.txt                                2014-02-07 16:41:24          103
+test1/d3/.fseventsd/                           2016-09-30 16:41:12            0
+test1/d3/.fseventsd/no_log                     2016-09-14 07:37:46            0
+test1/m2/                                      2016-10-02 09:13:10            0
+test1/m2/.DS_Store                             2016-09-25 15:10:30         8196
+test1/m2/.htaccess                             2015-03-31 16:55:44          271
+test2/                                         2016-10-02 09:02:24            0
+test2/Desktop.ini                              2016-09-30 14:11:22            0
+test2/f0.txt                                   2014-02-07 16:39:10            0
+test2/f2.txt                                   2014-02-07 16:39:18            0
+test2/f3.txt                                   2014-02-07 16:41:48          104
+test2/f6.txt                                   2016-10-02 08:38:42          104
+test2/m2                                       2014-02-08 09:58:14            0
+test2/$RECYCLE.BIN/                            2016-09-30 13:03:54            0
+test2/.Trash-1000/                             2016-09-30 14:08:14            0
+test2/d2/                                      2016-09-30 14:13:32            0
+test2/d3/                                      2016-10-02 09:05:12            0
+test2/d3/.htaccess                             2016-10-02 09:05:34          280
+test2/d3/desktop.ini                           2009-07-13 20:54:24          174
+test2/d3/f2.txt                                2014-02-07 16:39:18            0
+test2/d3/f3.txt                                2014-02-07 16:41:48          104
+test2/d3/f5.txt                                2014-02-07 16:41:48          104
+test2/d3/Thumbs.db                             2016-09-30 14:05:14            0
+test2/m1/                                      2014-02-08 09:57:48            0
+test2/__bkp__/                                 2016-09-30 16:41:12            0
+test2/__bkp__/README.txt                       2015-03-25 12:01:36          663
+test2/__bkp__/date150325-time115227/           2016-09-30 16:41:12            0
+test2/__bkp__/date150325-time115227/f2.txt     2014-02-07 16:39:18            0
+test2/__bkp__/date150325-time115227/f3.txt     2014-02-07 16:41:48          104
+test2/__bkp__/date150325-time115227/m2         2014-02-08 09:58:14            0
+test2/__bkp__/date150325-time115227/__added__.txt 2015-03-25 11:52:26           23
+test2/__bkp__/date150325-time115227/d2/        2015-03-25 11:52:26            0
+test2/__bkp__/date150325-time115227/d3/        2016-09-30 16:41:12            0
+test2/__bkp__/date150325-time115227/d3/f3.txt  2014-02-07 16:41:48          104
+test2/__bkp__/date150325-time115227/d3/f5.txt  2014-02-07 16:41:48          104
+test2/__bkp__/date150325-time115227/m1/        2015-03-25 11:52:26            0
+test2/__bkp__/date150325-time115317/           2016-09-30 16:41:12            0
+test2/__bkp__/date150325-time115317/spam.txt   2015-03-25 11:53:10            0
+test2/__bkp__/date150325-time115355/           2016-09-30 16:41:12            0
+test2/__bkp__/date150325-time115355/__added__.txt 2015-03-25 11:53:54           11
+test2/__bkp__/date150325-time115417/           2016-09-30 16:41:12            0
+test2/__bkp__/date150325-time115417/__added__.txt 2015-03-25 11:54:16            7
+test2/__bkp__/date150325-time115452/           2016-09-30 16:41:12            0
+test2/__bkp__/date150325-time115452/spam2.txt  2015-03-25 11:53:42            0
+test2/__bkp__/date150325-time115452/__added__.txt 2015-03-25 11:54:52           18
+test2/__bkp__/date150325-time115541/           2016-09-30 16:41:12            0
+test2/__bkp__/date150325-time115541/f0.txt     2014-02-07 16:39:10            0
+test2/__bkp__/date150325-time115549/           2016-09-30 16:41:12            0
+test2/__bkp__/date150325-time115549/f0.txt     2015-03-25 11:55:38            0
+test2/__bkp__/date150325-time115557/           2016-09-30 16:41:12            0
+test2/__bkp__/date150325-time115557/f0.txt     2015-03-25 11:55:46            0
+test2/__bkp__/date150325-time115607/           2016-09-30 16:41:12            0
+test2/__bkp__/date150325-time115607/f0.txt     2015-03-25 11:55:54            0
+test2/__bkp__/date150325-time115737/           2016-09-30 16:41:12            0
+test2/__bkp__/date150325-time115737/f0.txt     2015-03-25 11:56:00            0
+test2/__bkp__/date150325-time115737/__added__.txt 2015-03-25 11:57:36           32
+
+...\mergeall\test\ziptools\cmdtest> py -3 ..\zip-extract.py cmdtest.zip .
+Unzipping from cmdtest.zip to .
+Extracted test1/
+                => test1
+Extracted test1/.DS_Store
+                => test1\.DS_Store
+Extracted test1/._.TemporaryItems
+                => test1\._.TemporaryItems
+Extracted test1/f0.txt
+                => test1\f0.txt
+Extracted test1/f1.txt
+                => test1\f1.txt
+Extracted test1/f3.txt
+                => test1\f3.txt
+Extracted test1/f6.txt
+                => test1\f6.txt
+Extracted test1/m1
+                => test1\m1
+Extracted test1/d1/
+                => test1\d1
+Extracted test1/d1/._.DS_Store
+                => test1\d1\._.DS_Store
+Extracted test1/d1/._someimage.png
+                => test1\d1\._someimage.png
+Extracted test1/d1/fa1.txt
+                => test1\d1\fa1.txt
+Extracted test1/d3/
+                => test1\d3
+Extracted test1/d3/.DS_Store
+                => test1\d3\.DS_Store
+Extracted test1/d3/.htaccess
+                => test1\d3\.htaccess
+Extracted test1/d3/.Trashes
+                => test1\d3\.Trashes
+Extracted test1/d3/f2.txt
+                => test1\d3\f2.txt
+Extracted test1/d3/f3.txt
+                => test1\d3\f3.txt
+Extracted test1/d3/f4.txt
+                => test1\d3\f4.txt
+Extracted test1/d3/.fseventsd/
+                => test1\d3\.fseventsd
+Extracted test1/d3/.fseventsd/no_log
+                => test1\d3\.fseventsd\no_log
+Extracted test1/m2/
+                => test1\m2
+Extracted test1/m2/.DS_Store
+                => test1\m2\.DS_Store
+Extracted test1/m2/.htaccess
+                => test1\m2\.htaccess
+Extracted test2/
+                => test2
+Extracted test2/Desktop.ini
+                => test2\Desktop.ini
+Extracted test2/f0.txt
+                => test2\f0.txt
+Extracted test2/f2.txt
+                => test2\f2.txt
+Extracted test2/f3.txt
+                => test2\f3.txt
+Extracted test2/f6.txt
+                => test2\f6.txt
+Extracted test2/m2
+                => test2\m2
+Extracted test2/$RECYCLE.BIN/
+                => test2\$RECYCLE.BIN
+Extracted test2/.Trash-1000/
+                => test2\.Trash-1000
+Extracted test2/d2/
+                => test2\d2
+Extracted test2/d3/
+                => test2\d3
+Extracted test2/d3/.htaccess
+                => test2\d3\.htaccess
+Extracted test2/d3/desktop.ini
+                => test2\d3\desktop.ini
+Extracted test2/d3/f2.txt
+                => test2\d3\f2.txt
+Extracted test2/d3/f3.txt
+                => test2\d3\f3.txt
+Extracted test2/d3/f5.txt
+                => test2\d3\f5.txt
+Extracted test2/d3/Thumbs.db
+                => test2\d3\Thumbs.db
+Extracted test2/m1/
+                => test2\m1
+Extracted test2/__bkp__/
+                => test2\__bkp__
+Extracted test2/__bkp__/README.txt
+                => test2\__bkp__\README.txt
+Extracted test2/__bkp__/date150325-time115227/
+                => test2\__bkp__\date150325-time115227
+Extracted test2/__bkp__/date150325-time115227/f2.txt
+                => test2\__bkp__\date150325-time115227\f2.txt
+Extracted test2/__bkp__/date150325-time115227/f3.txt
+                => test2\__bkp__\date150325-time115227\f3.txt
+Extracted test2/__bkp__/date150325-time115227/m2
+                => test2\__bkp__\date150325-time115227\m2
+Extracted test2/__bkp__/date150325-time115227/__added__.txt
+                => test2\__bkp__\date150325-time115227\__added__.txt
+Extracted test2/__bkp__/date150325-time115227/d2/
+                => test2\__bkp__\date150325-time115227\d2
+Extracted test2/__bkp__/date150325-time115227/d3/
+                => test2\__bkp__\date150325-time115227\d3
+Extracted test2/__bkp__/date150325-time115227/d3/f3.txt
+                => test2\__bkp__\date150325-time115227\d3\f3.txt
+Extracted test2/__bkp__/date150325-time115227/d3/f5.txt
+                => test2\__bkp__\date150325-time115227\d3\f5.txt
+Extracted test2/__bkp__/date150325-time115227/m1/
+                => test2\__bkp__\date150325-time115227\m1
+Extracted test2/__bkp__/date150325-time115317/
+                => test2\__bkp__\date150325-time115317
+Extracted test2/__bkp__/date150325-time115317/spam.txt
+                => test2\__bkp__\date150325-time115317\spam.txt
+Extracted test2/__bkp__/date150325-time115355/
+                => test2\__bkp__\date150325-time115355
+Extracted test2/__bkp__/date150325-time115355/__added__.txt
+                => test2\__bkp__\date150325-time115355\__added__.txt
+Extracted test2/__bkp__/date150325-time115417/
+                => test2\__bkp__\date150325-time115417
+Extracted test2/__bkp__/date150325-time115417/__added__.txt
+                => test2\__bkp__\date150325-time115417\__added__.txt
+Extracted test2/__bkp__/date150325-time115452/
+                => test2\__bkp__\date150325-time115452
+Extracted test2/__bkp__/date150325-time115452/spam2.txt
+                => test2\__bkp__\date150325-time115452\spam2.txt
+Extracted test2/__bkp__/date150325-time115452/__added__.txt
+                => test2\__bkp__\date150325-time115452\__added__.txt
+Extracted test2/__bkp__/date150325-time115541/
+                => test2\__bkp__\date150325-time115541
+Extracted test2/__bkp__/date150325-time115541/f0.txt
+                => test2\__bkp__\date150325-time115541\f0.txt
+Extracted test2/__bkp__/date150325-time115549/
+                => test2\__bkp__\date150325-time115549
+Extracted test2/__bkp__/date150325-time115549/f0.txt
+                => test2\__bkp__\date150325-time115549\f0.txt
+Extracted test2/__bkp__/date150325-time115557/
+                => test2\__bkp__\date150325-time115557
+Extracted test2/__bkp__/date150325-time115557/f0.txt
+                => test2\__bkp__\date150325-time115557\f0.txt
+Extracted test2/__bkp__/date150325-time115607/
+                => test2\__bkp__\date150325-time115607
+Extracted test2/__bkp__/date150325-time115607/f0.txt
+                => test2\__bkp__\date150325-time115607\f0.txt
+Extracted test2/__bkp__/date150325-time115737/
+                => test2\__bkp__\date150325-time115737
+Extracted test2/__bkp__/date150325-time115737/f0.txt
+                => test2\__bkp__\date150325-time115737\f0.txt
+Extracted test2/__bkp__/date150325-time115737/__added__.txt
+                => test2\__bkp__\date150325-time115737\__added__.txt
+
+...\mergeall\test\ziptools\cmdtest> cd ..
+
+...\mergeall\test\ziptools> py -3  ..\..\mergeall.py cmdtest cmdtest\start -report
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+-------------------------------------------------------------------------------
+*Collecting tree differences
+comparing [cmdtest] [cmdtest\start]
+comparing [cmdtest\test1] [cmdtest\start\test1]
+comparing [cmdtest\test1\d1] [cmdtest\start\test1\d1]
+comparing [cmdtest\test1\d3] [cmdtest\start\test1\d3]
+comparing [cmdtest\test1\d3\.fseventsd] [cmdtest\start\test1\d3\.fseventsd]
+comparing [cmdtest\test1\m2] [cmdtest\start\test1\m2]
+comparing [cmdtest\test2] [cmdtest\start\test2]
+comparing [cmdtest\test2\$RECYCLE.BIN] [cmdtest\start\test2\$RECYCLE.BIN]
+comparing [cmdtest\test2\.Trash-1000] [cmdtest\start\test2\.Trash-1000]
+comparing [cmdtest\test2\d2] [cmdtest\start\test2\d2]
+comparing [cmdtest\test2\d3] [cmdtest\start\test2\d3]
+comparing [cmdtest\test2\m1] [cmdtest\start\test2\m1]
+comparing [cmdtest\test2\__bkp__] [cmdtest\start\test2\__bkp__]
+comparing [cmdtest\test2\__bkp__\date150325-time115227] [cmdtest\start\test2\__bkp__\date150325-time115227]
+comparing [cmdtest\test2\__bkp__\date150325-time115227\d2] [cmdtest\start\test2\__bkp__\date150325-time115227\d2]
+comparing [cmdtest\test2\__bkp__\date150325-time115227\d3] [cmdtest\start\test2\__bkp__\date150325-time115227\d3]
+comparing [cmdtest\test2\__bkp__\date150325-time115227\m1] [cmdtest\start\test2\__bkp__\date150325-time115227\m1]
+comparing [cmdtest\test2\__bkp__\date150325-time115317] [cmdtest\start\test2\__bkp__\date150325-time115317]
+comparing [cmdtest\test2\__bkp__\date150325-time115355] [cmdtest\start\test2\__bkp__\date150325-time115355]
+comparing [cmdtest\test2\__bkp__\date150325-time115417] [cmdtest\start\test2\__bkp__\date150325-time115417]
+comparing [cmdtest\test2\__bkp__\date150325-time115452] [cmdtest\start\test2\__bkp__\date150325-time115452]
+comparing [cmdtest\test2\__bkp__\date150325-time115541] [cmdtest\start\test2\__bkp__\date150325-time115541]
+comparing [cmdtest\test2\__bkp__\date150325-time115549] [cmdtest\start\test2\__bkp__\date150325-time115549]
+comparing [cmdtest\test2\__bkp__\date150325-time115557] [cmdtest\start\test2\__bkp__\date150325-time115557]
+comparing [cmdtest\test2\__bkp__\date150325-time115607] [cmdtest\start\test2\__bkp__\date150325-time115607]
+comparing [cmdtest\test2\__bkp__\date150325-time115737] [cmdtest\start\test2\__bkp__\date150325-time115737]
+Phase runtime: 0.024539862309346044
+-------------------------------------------------------------------------------
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['cmdtest.zip',
+   'HOW-RUN.txt',
+   'macosx-commands-output.txt',
+   'MacOSX-files',
+   'start',
+   'start.zip'],
+  'cmdtest',
+  'cmdtest\\start')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+*Summary
+Compared    => files: 49, folders: 26
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 6, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+============================================================================================================
+
+...\mergeall\test\ziptools> cd cmdtest
+
+...\mergeall\test\ziptools\cmdtest> py -3 ..\zip-create.py -skipcruft cmdtest.zip start/test1 start/test2
+Zipping ['start/test1', 'start/test2'] to cmdtest.zip
+Cruft patterns: {'keep': ['.htaccess'], 'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]']}
+Adding folder start/test1
+--Skipping file .DS_Store
+--Skipping file ._.TemporaryItems
+Adding  file  start/test1\f0.txt
+Adding  file  start/test1\f1.txt
+Adding  file  start/test1\f3.txt
+Adding  file  start/test1\f6.txt
+Adding  file  start/test1\m1
+Adding folder start/test1\d1
+--Skipping file ._.DS_Store
+--Skipping file ._someimage.png
+Adding  file  start/test1\d1\fa1.txt
+Adding folder start/test1\d3
+--Skipping folder .fseventsd
+--Skipping file .DS_Store
+Adding  file  start/test1\d3\.htaccess
+--Skipping file .Trashes
+Adding  file  start/test1\d3\f2.txt
+Adding  file  start/test1\d3\f3.txt
+Adding  file  start/test1\d3\f4.txt
+Adding folder start/test1\m2
+--Skipping file .DS_Store
+Adding  file  start/test1\m2\.htaccess
+Adding folder start/test2
+--Skipping folder $RECYCLE.BIN
+--Skipping folder .Trash-1000
+--Skipping file Desktop.ini
+Adding  file  start/test2\f0.txt
+Adding  file  start/test2\f2.txt
+Adding  file  start/test2\f3.txt
+Adding  file  start/test2\f6.txt
+Adding  file  start/test2\m2
+Adding folder start/test2\d2
+Adding folder start/test2\d3
+Adding  file  start/test2\d3\.htaccess
+--Skipping file desktop.ini
+Adding  file  start/test2\d3\f2.txt
+Adding  file  start/test2\d3\f3.txt
+Adding  file  start/test2\d3\f5.txt
+--Skipping file Thumbs.db
+Adding folder start/test2\m1
+Adding folder start/test2\__bkp__
+Adding  file  start/test2\__bkp__\README.txt
+Adding folder start/test2\__bkp__\date150325-time115227
+Adding  file  start/test2\__bkp__\date150325-time115227\f2.txt
+Adding  file  start/test2\__bkp__\date150325-time115227\f3.txt
+Adding  file  start/test2\__bkp__\date150325-time115227\m2
+Adding  file  start/test2\__bkp__\date150325-time115227\__added__.txt
+Adding folder start/test2\__bkp__\date150325-time115227\d2
+Adding folder start/test2\__bkp__\date150325-time115227\d3
+Adding  file  start/test2\__bkp__\date150325-time115227\d3\f3.txt
+Adding  file  start/test2\__bkp__\date150325-time115227\d3\f5.txt
+Adding folder start/test2\__bkp__\date150325-time115227\m1
+Adding folder start/test2\__bkp__\date150325-time115317
+Adding  file  start/test2\__bkp__\date150325-time115317\spam.txt
+Adding folder start/test2\__bkp__\date150325-time115355
+Adding  file  start/test2\__bkp__\date150325-time115355\__added__.txt
+Adding folder start/test2\__bkp__\date150325-time115417
+Adding  file  start/test2\__bkp__\date150325-time115417\__added__.txt
+Adding folder start/test2\__bkp__\date150325-time115452
+Adding  file  start/test2\__bkp__\date150325-time115452\spam2.txt
+Adding  file  start/test2\__bkp__\date150325-time115452\__added__.txt
+Adding folder start/test2\__bkp__\date150325-time115541
+Adding  file  start/test2\__bkp__\date150325-time115541\f0.txt
+Adding folder start/test2\__bkp__\date150325-time115549
+Adding  file  start/test2\__bkp__\date150325-time115549\f0.txt
+Adding folder start/test2\__bkp__\date150325-time115557
+Adding  file  start/test2\__bkp__\date150325-time115557\f0.txt
+Adding folder start/test2\__bkp__\date150325-time115607
+Adding  file  start/test2\__bkp__\date150325-time115607\f0.txt
+Adding folder start/test2\__bkp__\date150325-time115737
+Adding  file  start/test2\__bkp__\date150325-time115737\f0.txt
+Adding  file  start/test2\__bkp__\date150325-time115737\__added__.txt
+
+...\mergeall\test\ziptools\cmdtest> py -3 ..\zip-list.py cmdtest.zip
+File Name                                             Modified             Size
+start/test1/                                   2016-10-02 09:01:58            0
+start/test1/f0.txt                             2014-02-07 16:39:10            0
+start/test1/f1.txt                             2014-02-07 16:38:38            0
+start/test1/f3.txt                             2014-02-07 16:41:24          103
+start/test1/f6.txt                             2016-10-02 08:38:42          103
+start/test1/m1                                 2014-02-08 09:58:14            0
+start/test1/d1/                                2016-09-30 16:41:12            0
+start/test1/d1/fa1.txt                         2014-02-07 16:38:58            0
+start/test1/d3/                                2016-10-02 09:05:02            0
+start/test1/d3/.htaccess                       2015-03-31 16:55:44          271
+start/test1/d3/f2.txt                          2014-02-07 16:39:18            0
+start/test1/d3/f3.txt                          2014-02-07 16:41:24          103
+start/test1/d3/f4.txt                          2014-02-07 16:41:24          103
+start/test1/m2/                                2016-10-02 09:13:10            0
+start/test1/m2/.htaccess                       2015-03-31 16:55:44          271
+start/test2/                                   2016-10-02 09:02:24            0
+start/test2/f0.txt                             2014-02-07 16:39:10            0
+start/test2/f2.txt                             2014-02-07 16:39:18            0
+start/test2/f3.txt                             2014-02-07 16:41:48          104
+start/test2/f6.txt                             2016-10-02 08:38:42          104
+start/test2/m2                                 2014-02-08 09:58:14            0
+start/test2/d2/                                2016-09-30 14:13:32            0
+start/test2/d3/                                2016-10-02 09:05:12            0
+start/test2/d3/.htaccess                       2016-10-02 09:05:34          280
+start/test2/d3/f2.txt                          2014-02-07 16:39:18            0
+start/test2/d3/f3.txt                          2014-02-07 16:41:48          104
+start/test2/d3/f5.txt                          2014-02-07 16:41:48          104
+start/test2/m1/                                2014-02-08 09:57:48            0
+start/test2/__bkp__/                           2016-09-30 16:41:12            0
+start/test2/__bkp__/README.txt                 2015-03-25 12:01:36          663
+start/test2/__bkp__/date150325-time115227/     2016-09-30 16:41:12            0
+start/test2/__bkp__/date150325-time115227/f2.txt 2014-02-07 16:39:18            0
+start/test2/__bkp__/date150325-time115227/f3.txt 2014-02-07 16:41:48          104
+start/test2/__bkp__/date150325-time115227/m2   2014-02-08 09:58:14            0
+start/test2/__bkp__/date150325-time115227/__added__.txt 2015-03-25 11:52:26           23
+start/test2/__bkp__/date150325-time115227/d2/  2015-03-25 11:52:26            0
+start/test2/__bkp__/date150325-time115227/d3/  2016-09-30 16:41:12            0
+start/test2/__bkp__/date150325-time115227/d3/f3.txt 2014-02-07 16:41:48          104
+start/test2/__bkp__/date150325-time115227/d3/f5.txt 2014-02-07 16:41:48          104
+start/test2/__bkp__/date150325-time115227/m1/  2015-03-25 11:52:26            0
+start/test2/__bkp__/date150325-time115317/     2016-09-30 16:41:12            0
+start/test2/__bkp__/date150325-time115317/spam.txt 2015-03-25 11:53:10            0
+start/test2/__bkp__/date150325-time115355/     2016-09-30 16:41:12            0
+start/test2/__bkp__/date150325-time115355/__added__.txt 2015-03-25 11:53:54           11
+start/test2/__bkp__/date150325-time115417/     2016-09-30 16:41:12            0
+start/test2/__bkp__/date150325-time115417/__added__.txt 2015-03-25 11:54:16            7
+start/test2/__bkp__/date150325-time115452/     2016-09-30 16:41:12            0
+start/test2/__bkp__/date150325-time115452/spam2.txt 2015-03-25 11:53:42            0
+start/test2/__bkp__/date150325-time115452/__added__.txt 2015-03-25 11:54:52           18
+start/test2/__bkp__/date150325-time115541/     2016-09-30 16:41:12            0
+start/test2/__bkp__/date150325-time115541/f0.txt 2014-02-07 16:39:10            0
+start/test2/__bkp__/date150325-time115549/     2016-09-30 16:41:12            0
+start/test2/__bkp__/date150325-time115549/f0.txt 2015-03-25 11:55:38            0
+start/test2/__bkp__/date150325-time115557/     2016-09-30 16:41:12            0
+start/test2/__bkp__/date150325-time115557/f0.txt 2015-03-25 11:55:46            0
+start/test2/__bkp__/date150325-time115607/     2016-09-30 16:41:12            0
+start/test2/__bkp__/date150325-time115607/f0.txt 2015-03-25 11:55:54            0
+start/test2/__bkp__/date150325-time115737/     2016-09-30 16:41:12            0
+start/test2/__bkp__/date150325-time115737/f0.txt 2015-03-25 11:56:00            0
+start/test2/__bkp__/date150325-time115737/__added__.txt 2015-03-25 11:57:36           32
+
+...\mergeall\test\ziptools\cmdtest> py -3 ..\zip-extract.py cmdtest.zip unpack
+Unzipping from cmdtest.zip to unpack
+Extracted start/test1/
+                => unpack\start\test1
+Extracted start/test1/f0.txt
+                => unpack\start\test1\f0.txt
+Extracted start/test1/f1.txt
+                => unpack\start\test1\f1.txt
+Extracted start/test1/f3.txt
+                => unpack\start\test1\f3.txt
+Extracted start/test1/f6.txt
+                => unpack\start\test1\f6.txt
+Extracted start/test1/m1
+                => unpack\start\test1\m1
+Extracted start/test1/d1/
+                => unpack\start\test1\d1
+Extracted start/test1/d1/fa1.txt
+                => unpack\start\test1\d1\fa1.txt
+Extracted start/test1/d3/
+                => unpack\start\test1\d3
+Extracted start/test1/d3/.htaccess
+                => unpack\start\test1\d3\.htaccess
+Extracted start/test1/d3/f2.txt
+                => unpack\start\test1\d3\f2.txt
+Extracted start/test1/d3/f3.txt
+                => unpack\start\test1\d3\f3.txt
+Extracted start/test1/d3/f4.txt
+                => unpack\start\test1\d3\f4.txt
+Extracted start/test1/m2/
+                => unpack\start\test1\m2
+Extracted start/test1/m2/.htaccess
+                => unpack\start\test1\m2\.htaccess
+Extracted start/test2/
+                => unpack\start\test2
+Extracted start/test2/f0.txt
+                => unpack\start\test2\f0.txt
+Extracted start/test2/f2.txt
+                => unpack\start\test2\f2.txt
+Extracted start/test2/f3.txt
+                => unpack\start\test2\f3.txt
+Extracted start/test2/f6.txt
+                => unpack\start\test2\f6.txt
+Extracted start/test2/m2
+                => unpack\start\test2\m2
+Extracted start/test2/d2/
+                => unpack\start\test2\d2
+Extracted start/test2/d3/
+                => unpack\start\test2\d3
+Extracted start/test2/d3/.htaccess
+                => unpack\start\test2\d3\.htaccess
+Extracted start/test2/d3/f2.txt
+                => unpack\start\test2\d3\f2.txt
+Extracted start/test2/d3/f3.txt
+                => unpack\start\test2\d3\f3.txt
+Extracted start/test2/d3/f5.txt
+                => unpack\start\test2\d3\f5.txt
+Extracted start/test2/m1/
+                => unpack\start\test2\m1
+Extracted start/test2/__bkp__/
+                => unpack\start\test2\__bkp__
+Extracted start/test2/__bkp__/README.txt
+                => unpack\start\test2\__bkp__\README.txt
+Extracted start/test2/__bkp__/date150325-time115227/
+                => unpack\start\test2\__bkp__\date150325-time115227
+Extracted start/test2/__bkp__/date150325-time115227/f2.txt
+                => unpack\start\test2\__bkp__\date150325-time115227\f2.txt
+Extracted start/test2/__bkp__/date150325-time115227/f3.txt
+                => unpack\start\test2\__bkp__\date150325-time115227\f3.txt
+Extracted start/test2/__bkp__/date150325-time115227/m2
+                => unpack\start\test2\__bkp__\date150325-time115227\m2
+Extracted start/test2/__bkp__/date150325-time115227/__added__.txt
+                => unpack\start\test2\__bkp__\date150325-time115227\__added__.txt
+Extracted start/test2/__bkp__/date150325-time115227/d2/
+                => unpack\start\test2\__bkp__\date150325-time115227\d2
+Extracted start/test2/__bkp__/date150325-time115227/d3/
+                => unpack\start\test2\__bkp__\date150325-time115227\d3
+Extracted start/test2/__bkp__/date150325-time115227/d3/f3.txt
+                => unpack\start\test2\__bkp__\date150325-time115227\d3\f3.txt
+Extracted start/test2/__bkp__/date150325-time115227/d3/f5.txt
+                => unpack\start\test2\__bkp__\date150325-time115227\d3\f5.txt
+Extracted start/test2/__bkp__/date150325-time115227/m1/
+                => unpack\start\test2\__bkp__\date150325-time115227\m1
+Extracted start/test2/__bkp__/date150325-time115317/
+                => unpack\start\test2\__bkp__\date150325-time115317
+Extracted start/test2/__bkp__/date150325-time115317/spam.txt
+                => unpack\start\test2\__bkp__\date150325-time115317\spam.txt
+Extracted start/test2/__bkp__/date150325-time115355/
+                => unpack\start\test2\__bkp__\date150325-time115355
+Extracted start/test2/__bkp__/date150325-time115355/__added__.txt
+                => unpack\start\test2\__bkp__\date150325-time115355\__added__.txt
+Extracted start/test2/__bkp__/date150325-time115417/
+                => unpack\start\test2\__bkp__\date150325-time115417
+Extracted start/test2/__bkp__/date150325-time115417/__added__.txt
+                => unpack\start\test2\__bkp__\date150325-time115417\__added__.txt
+Extracted start/test2/__bkp__/date150325-time115452/
+                => unpack\start\test2\__bkp__\date150325-time115452
+Extracted start/test2/__bkp__/date150325-time115452/spam2.txt
+                => unpack\start\test2\__bkp__\date150325-time115452\spam2.txt
+Extracted start/test2/__bkp__/date150325-time115452/__added__.txt
+                => unpack\start\test2\__bkp__\date150325-time115452\__added__.txt
+Extracted start/test2/__bkp__/date150325-time115541/
+                => unpack\start\test2\__bkp__\date150325-time115541
+Extracted start/test2/__bkp__/date150325-time115541/f0.txt
+                => unpack\start\test2\__bkp__\date150325-time115541\f0.txt
+Extracted start/test2/__bkp__/date150325-time115549/
+                => unpack\start\test2\__bkp__\date150325-time115549
+Extracted start/test2/__bkp__/date150325-time115549/f0.txt
+                => unpack\start\test2\__bkp__\date150325-time115549\f0.txt
+Extracted start/test2/__bkp__/date150325-time115557/
+                => unpack\start\test2\__bkp__\date150325-time115557
+Extracted start/test2/__bkp__/date150325-time115557/f0.txt
+                => unpack\start\test2\__bkp__\date150325-time115557\f0.txt
+Extracted start/test2/__bkp__/date150325-time115607/
+                => unpack\start\test2\__bkp__\date150325-time115607
+Extracted start/test2/__bkp__/date150325-time115607/f0.txt
+                => unpack\start\test2\__bkp__\date150325-time115607\f0.txt
+Extracted start/test2/__bkp__/date150325-time115737/
+                => unpack\start\test2\__bkp__\date150325-time115737
+Extracted start/test2/__bkp__/date150325-time115737/f0.txt
+                => unpack\start\test2\__bkp__\date150325-time115737\f0.txt
+Extracted start/test2/__bkp__/date150325-time115737/__added__.txt
+                => unpack\start\test2\__bkp__\date150325-time115737\__added__.txt
+
+...\mergeall\test\ziptools\cmdtest> py -3  ..\..\..\mergeall.py start unpack\start -report
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+-------------------------------------------------------------------------------
+*Collecting tree differences
+comparing [start] [unpack\start]
+comparing [start\test1] [unpack\start\test1]
+comparing [start\test1\d1] [unpack\start\test1\d1]
+comparing [start\test1\d3] [unpack\start\test1\d3]
+comparing [start\test1\m2] [unpack\start\test1\m2]
+comparing [start\test2] [unpack\start\test2]
+comparing [start\test2\d2] [unpack\start\test2\d2]
+comparing [start\test2\d3] [unpack\start\test2\d3]
+comparing [start\test2\m1] [unpack\start\test2\m1]
+comparing [start\test2\__bkp__] [unpack\start\test2\__bkp__]
+comparing [start\test2\__bkp__\date150325-time115227] [unpack\start\test2\__bkp__\date150325-time115227]
+comparing [start\test2\__bkp__\date150325-time115227\d2] [unpack\start\test2\__bkp__\date150325-time115227\d2]
+comparing [start\test2\__bkp__\date150325-time115227\d3] [unpack\start\test2\__bkp__\date150325-time115227\d3]
+comparing [start\test2\__bkp__\date150325-time115227\m1] [unpack\start\test2\__bkp__\date150325-time115227\m1]
+comparing [start\test2\__bkp__\date150325-time115317] [unpack\start\test2\__bkp__\date150325-time115317]
+comparing [start\test2\__bkp__\date150325-time115355] [unpack\start\test2\__bkp__\date150325-time115355]
+comparing [start\test2\__bkp__\date150325-time115417] [unpack\start\test2\__bkp__\date150325-time115417]
+comparing [start\test2\__bkp__\date150325-time115452] [unpack\start\test2\__bkp__\date150325-time115452]
+comparing [start\test2\__bkp__\date150325-time115541] [unpack\start\test2\__bkp__\date150325-time115541]
+comparing [start\test2\__bkp__\date150325-time115549] [unpack\start\test2\__bkp__\date150325-time115549]
+comparing [start\test2\__bkp__\date150325-time115557] [unpack\start\test2\__bkp__\date150325-time115557]
+comparing [start\test2\__bkp__\date150325-time115607] [unpack\start\test2\__bkp__\date150325-time115607]
+comparing [start\test2\__bkp__\date150325-time115737] [unpack\start\test2\__bkp__\date150325-time115737]
+Phase runtime: 0.021596329943440976
+-------------------------------------------------------------------------------
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['.DS_Store', '._.TemporaryItems'], 'start\\test1', 'unpack\\start\\test1'),
+ (['._.DS_Store', '._someimage.png'],
+  'start\\test1\\d1',
+  'unpack\\start\\test1\\d1'),
+ (['.DS_Store', '.fseventsd', '.Trashes'],
+  'start\\test1\\d3',
+  'unpack\\start\\test1\\d3'),
+ (['.DS_Store'], 'start\\test1\\m2', 'unpack\\start\\test1\\m2'),
+ (['$RECYCLE.BIN', '.Trash-1000', 'Desktop.ini'],
+  'start\\test2',
+  'unpack\\start\\test2'),
+ (['desktop.ini', 'Thumbs.db'], 'start\\test2\\d3', 'unpack\\start\\test2\\d3')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+*Summary
+Compared    => files: 38, folders: 23
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 13, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+...\mergeall\test\ziptools\cmdtest> py -3  ..\..\..\mergeall.py start unpack\start -skipcruft -report
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+-------------------------------------------------------------------------------
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [start] [unpack\start]
+comparing [start\test1] [unpack\start\test1]
+comparing [start\test1\d1] [unpack\start\test1\d1]
+comparing [start\test1\d3] [unpack\start\test1\d3]
+comparing [start\test1\m2] [unpack\start\test1\m2]
+comparing [start\test2] [unpack\start\test2]
+comparing [start\test2\d2] [unpack\start\test2\d2]
+comparing [start\test2\d3] [unpack\start\test2\d3]
+comparing [start\test2\m1] [unpack\start\test2\m1]
+comparing [start\test2\__bkp__] [unpack\start\test2\__bkp__]
+comparing [start\test2\__bkp__\date150325-time115227] [unpack\start\test2\__bkp__\date150325-time115227]
+comparing [start\test2\__bkp__\date150325-time115227\d2] [unpack\start\test2\__bkp__\date150325-time115227\d2]
+comparing [start\test2\__bkp__\date150325-time115227\d3] [unpack\start\test2\__bkp__\date150325-time115227\d3]
+comparing [start\test2\__bkp__\date150325-time115227\m1] [unpack\start\test2\__bkp__\date150325-time115227\m1]
+comparing [start\test2\__bkp__\date150325-time115317] [unpack\start\test2\__bkp__\date150325-time115317]
+comparing [start\test2\__bkp__\date150325-time115355] [unpack\start\test2\__bkp__\date150325-time115355]
+comparing [start\test2\__bkp__\date150325-time115417] [unpack\start\test2\__bkp__\date150325-time115417]
+comparing [start\test2\__bkp__\date150325-time115452] [unpack\start\test2\__bkp__\date150325-time115452]
+comparing [start\test2\__bkp__\date150325-time115541] [unpack\start\test2\__bkp__\date150325-time115541]
+comparing [start\test2\__bkp__\date150325-time115549] [unpack\start\test2\__bkp__\date150325-time115549]
+comparing [start\test2\__bkp__\date150325-time115557] [unpack\start\test2\__bkp__\date150325-time115557]
+comparing [start\test2\__bkp__\date150325-time115607] [unpack\start\test2\__bkp__\date150325-time115607]
+comparing [start\test2\__bkp__\date150325-time115737] [unpack\start\test2\__bkp__\date150325-time115737]
+Phase runtime: 0.023495477672796295
+-------------------------------------------------------------------------------
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+*Summary
+Compared    => files: 38, folders: 23
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+============================================================================================================
+
+...\mergeall\test\ziptools\cmdtest> cd ..
+
+...\mergeall\test\ziptools> py -3 zip-create.py -skipcruft cmdtest\cmdtest.zip cmdtest\start\test1 cmdtest\start\test2
+Zipping ['cmdtest\\start\\test1', 'cmdtest\\start\\test2'] to cmdtest\cmdtest.zip
+Cruft patterns: {'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]'], 'keep': ['.htaccess']}
+Adding folder cmdtest\start\test1
+--Skipping file .DS_Store
+--Skipping file ._.TemporaryItems
+Adding  file  cmdtest\start\test1\f0.txt
+Adding  file  cmdtest\start\test1\f1.txt
+Adding  file  cmdtest\start\test1\f3.txt
+Adding  file  cmdtest\start\test1\f6.txt
+Adding  file  cmdtest\start\test1\m1
+Adding folder cmdtest\start\test1\d1
+--Skipping file ._.DS_Store
+--Skipping file ._someimage.png
+Adding  file  cmdtest\start\test1\d1\fa1.txt
+Adding folder cmdtest\start\test1\d3
+--Skipping folder .fseventsd
+--Skipping file .DS_Store
+Adding  file  cmdtest\start\test1\d3\.htaccess
+--Skipping file .Trashes
+Adding  file  cmdtest\start\test1\d3\f2.txt
+Adding  file  cmdtest\start\test1\d3\f3.txt
+Adding  file  cmdtest\start\test1\d3\f4.txt
+Adding folder cmdtest\start\test1\m2
+--Skipping file .DS_Store
+Adding  file  cmdtest\start\test1\m2\.htaccess
+Adding folder cmdtest\start\test2
+--Skipping folder $RECYCLE.BIN
+--Skipping folder .Trash-1000
+--Skipping file Desktop.ini
+Adding  file  cmdtest\start\test2\f0.txt
+Adding  file  cmdtest\start\test2\f2.txt
+Adding  file  cmdtest\start\test2\f3.txt
+Adding  file  cmdtest\start\test2\f6.txt
+Adding  file  cmdtest\start\test2\m2
+Adding folder cmdtest\start\test2\d2
+Adding folder cmdtest\start\test2\d3
+Adding  file  cmdtest\start\test2\d3\.htaccess
+--Skipping file desktop.ini
+Adding  file  cmdtest\start\test2\d3\f2.txt
+Adding  file  cmdtest\start\test2\d3\f3.txt
+Adding  file  cmdtest\start\test2\d3\f5.txt
+--Skipping file Thumbs.db
+Adding folder cmdtest\start\test2\m1
+Adding folder cmdtest\start\test2\__bkp__
+Adding  file  cmdtest\start\test2\__bkp__\README.txt
+Adding folder cmdtest\start\test2\__bkp__\date150325-time115227
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115227\f2.txt
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115227\f3.txt
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115227\m2
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115227\__added__.txt
+Adding folder cmdtest\start\test2\__bkp__\date150325-time115227\d2
+Adding folder cmdtest\start\test2\__bkp__\date150325-time115227\d3
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115227\d3\f3.txt
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115227\d3\f5.txt
+Adding folder cmdtest\start\test2\__bkp__\date150325-time115227\m1
+Adding folder cmdtest\start\test2\__bkp__\date150325-time115317
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115317\spam.txt
+Adding folder cmdtest\start\test2\__bkp__\date150325-time115355
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115355\__added__.txt
+Adding folder cmdtest\start\test2\__bkp__\date150325-time115417
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115417\__added__.txt
+Adding folder cmdtest\start\test2\__bkp__\date150325-time115452
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115452\spam2.txt
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115452\__added__.txt
+Adding folder cmdtest\start\test2\__bkp__\date150325-time115541
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115541\f0.txt
+Adding folder cmdtest\start\test2\__bkp__\date150325-time115549
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115549\f0.txt
+Adding folder cmdtest\start\test2\__bkp__\date150325-time115557
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115557\f0.txt
+Adding folder cmdtest\start\test2\__bkp__\date150325-time115607
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115607\f0.txt
+Adding folder cmdtest\start\test2\__bkp__\date150325-time115737
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115737\f0.txt
+Adding  file  cmdtest\start\test2\__bkp__\date150325-time115737\__added__.txt
+
+...\mergeall\test\ziptools> py -3 zip-list.py cmdtest\cmdtest.zip
+File Name                                             Modified             Size
+cmdtest/start/test1/                           2016-10-02 09:01:58            0
+cmdtest/start/test1/f0.txt                     2014-02-07 16:39:10            0
+cmdtest/start/test1/f1.txt                     2014-02-07 16:38:38            0
+cmdtest/start/test1/f3.txt                     2014-02-07 16:41:24          103
+cmdtest/start/test1/f6.txt                     2016-10-02 08:38:42          103
+cmdtest/start/test1/m1                         2014-02-08 09:58:14            0
+cmdtest/start/test1/d1/                        2016-09-30 16:41:12            0
+cmdtest/start/test1/d1/fa1.txt                 2014-02-07 16:38:58            0
+cmdtest/start/test1/d3/                        2016-10-02 09:05:02            0
+cmdtest/start/test1/d3/.htaccess               2015-03-31 16:55:44          271
+cmdtest/start/test1/d3/f2.txt                  2014-02-07 16:39:18            0
+cmdtest/start/test1/d3/f3.txt                  2014-02-07 16:41:24          103
+cmdtest/start/test1/d3/f4.txt                  2014-02-07 16:41:24          103
+cmdtest/start/test1/m2/                        2016-10-02 09:13:10            0
+cmdtest/start/test1/m2/.htaccess               2015-03-31 16:55:44          271
+cmdtest/start/test2/                           2016-10-02 09:02:24            0
+cmdtest/start/test2/f0.txt                     2014-02-07 16:39:10            0
+cmdtest/start/test2/f2.txt                     2014-02-07 16:39:18            0
+cmdtest/start/test2/f3.txt                     2014-02-07 16:41:48          104
+cmdtest/start/test2/f6.txt                     2016-10-02 08:38:42          104
+cmdtest/start/test2/m2                         2014-02-08 09:58:14            0
+cmdtest/start/test2/d2/                        2016-09-30 14:13:32            0
+cmdtest/start/test2/d3/                        2016-10-02 09:05:12            0
+cmdtest/start/test2/d3/.htaccess               2016-10-02 09:05:34          280
+cmdtest/start/test2/d3/f2.txt                  2014-02-07 16:39:18            0
+cmdtest/start/test2/d3/f3.txt                  2014-02-07 16:41:48          104
+cmdtest/start/test2/d3/f5.txt                  2014-02-07 16:41:48          104
+cmdtest/start/test2/m1/                        2014-02-08 09:57:48            0
+cmdtest/start/test2/__bkp__/                   2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/README.txt         2015-03-25 12:01:36          663
+cmdtest/start/test2/__bkp__/date150325-time115227/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115227/f2.txt 2014-02-07 16:39:18            0
+cmdtest/start/test2/__bkp__/date150325-time115227/f3.txt 2014-02-07 16:41:48          104
+cmdtest/start/test2/__bkp__/date150325-time115227/m2 2014-02-08 09:58:14            0
+cmdtest/start/test2/__bkp__/date150325-time115227/__added__.txt 2015-03-25 11:52:26           23
+cmdtest/start/test2/__bkp__/date150325-time115227/d2/ 2015-03-25 11:52:26            0
+cmdtest/start/test2/__bkp__/date150325-time115227/d3/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115227/d3/f3.txt 2014-02-07 16:41:48          104
+cmdtest/start/test2/__bkp__/date150325-time115227/d3/f5.txt 2014-02-07 16:41:48          104
+cmdtest/start/test2/__bkp__/date150325-time115227/m1/ 2015-03-25 11:52:26            0
+cmdtest/start/test2/__bkp__/date150325-time115317/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115317/spam.txt 2015-03-25 11:53:10            0
+cmdtest/start/test2/__bkp__/date150325-time115355/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115355/__added__.txt 2015-03-25 11:53:54           11
+cmdtest/start/test2/__bkp__/date150325-time115417/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115417/__added__.txt 2015-03-25 11:54:16            7
+cmdtest/start/test2/__bkp__/date150325-time115452/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115452/spam2.txt 2015-03-25 11:53:42            0
+cmdtest/start/test2/__bkp__/date150325-time115452/__added__.txt 2015-03-25 11:54:52           18
+cmdtest/start/test2/__bkp__/date150325-time115541/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115541/f0.txt 2014-02-07 16:39:10            0
+cmdtest/start/test2/__bkp__/date150325-time115549/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115549/f0.txt 2015-03-25 11:55:38            0
+cmdtest/start/test2/__bkp__/date150325-time115557/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115557/f0.txt 2015-03-25 11:55:46            0
+cmdtest/start/test2/__bkp__/date150325-time115607/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115607/f0.txt 2015-03-25 11:55:54            0
+cmdtest/start/test2/__bkp__/date150325-time115737/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115737/f0.txt 2015-03-25 11:56:00            0
+cmdtest/start/test2/__bkp__/date150325-time115737/__added__.txt 2015-03-25 11:57:36           32
+
+...\mergeall\test\ziptools>
+
+
+#====================================================================================================
+# Also works with '/' in commands on Windows
+#====================================================================================================
+
+...\mergeall\test\ziptools> py -3 zip-create.py -skipcruft cmdtest/cmdtest.zip cmdtest/start/test1 cmdtest/start/test2
+Zipping ['cmdtest/start/test1', 'cmdtest/start/test2'] to cmdtest/cmdtest.zip
+Cruft patterns: {'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]'], 'keep': ['.htaccess']}
+Adding folder cmdtest/start/test1
+--Skipping file .DS_Store
+--Skipping file ._.TemporaryItems
+Adding  file  cmdtest/start/test1\f0.txt
+Adding  file  cmdtest/start/test1\f1.txt
+Adding  file  cmdtest/start/test1\f3.txt
+Adding  file  cmdtest/start/test1\f6.txt
+Adding  file  cmdtest/start/test1\m1
+Adding folder cmdtest/start/test1\d1
+--Skipping file ._.DS_Store
+--Skipping file ._someimage.png
+Adding  file  cmdtest/start/test1\d1\fa1.txt
+Adding folder cmdtest/start/test1\d3
+--Skipping folder .fseventsd
+--Skipping file .DS_Store
+Adding  file  cmdtest/start/test1\d3\.htaccess
+--Skipping file .Trashes
+Adding  file  cmdtest/start/test1\d3\f2.txt
+Adding  file  cmdtest/start/test1\d3\f3.txt
+Adding  file  cmdtest/start/test1\d3\f4.txt
+Adding folder cmdtest/start/test1\m2
+--Skipping file .DS_Store
+Adding  file  cmdtest/start/test1\m2\.htaccess
+Adding folder cmdtest/start/test2
+--Skipping folder $RECYCLE.BIN
+--Skipping folder .Trash-1000
+--Skipping file Desktop.ini
+Adding  file  cmdtest/start/test2\f0.txt
+Adding  file  cmdtest/start/test2\f2.txt
+Adding  file  cmdtest/start/test2\f3.txt
+Adding  file  cmdtest/start/test2\f6.txt
+Adding  file  cmdtest/start/test2\m2
+Adding folder cmdtest/start/test2\d2
+Adding folder cmdtest/start/test2\d3
+Adding  file  cmdtest/start/test2\d3\.htaccess
+--Skipping file desktop.ini
+Adding  file  cmdtest/start/test2\d3\f2.txt
+Adding  file  cmdtest/start/test2\d3\f3.txt
+Adding  file  cmdtest/start/test2\d3\f5.txt
+--Skipping file Thumbs.db
+Adding folder cmdtest/start/test2\m1
+Adding folder cmdtest/start/test2\__bkp__
+Adding  file  cmdtest/start/test2\__bkp__\README.txt
+Adding folder cmdtest/start/test2\__bkp__\date150325-time115227
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115227\f2.txt
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115227\f3.txt
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115227\m2
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115227\__added__.txt
+Adding folder cmdtest/start/test2\__bkp__\date150325-time115227\d2
+Adding folder cmdtest/start/test2\__bkp__\date150325-time115227\d3
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115227\d3\f3.txt
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115227\d3\f5.txt
+Adding folder cmdtest/start/test2\__bkp__\date150325-time115227\m1
+Adding folder cmdtest/start/test2\__bkp__\date150325-time115317
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115317\spam.txt
+Adding folder cmdtest/start/test2\__bkp__\date150325-time115355
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115355\__added__.txt
+Adding folder cmdtest/start/test2\__bkp__\date150325-time115417
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115417\__added__.txt
+Adding folder cmdtest/start/test2\__bkp__\date150325-time115452
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115452\spam2.txt
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115452\__added__.txt
+Adding folder cmdtest/start/test2\__bkp__\date150325-time115541
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115541\f0.txt
+Adding folder cmdtest/start/test2\__bkp__\date150325-time115549
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115549\f0.txt
+Adding folder cmdtest/start/test2\__bkp__\date150325-time115557
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115557\f0.txt
+Adding folder cmdtest/start/test2\__bkp__\date150325-time115607
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115607\f0.txt
+Adding folder cmdtest/start/test2\__bkp__\date150325-time115737
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115737\f0.txt
+Adding  file  cmdtest/start/test2\__bkp__\date150325-time115737\__added__.txt
+
+
+...\mergeall\test\ziptools> py -3 zip-list.py cmdtest/cmdtest.zip
+File Name                                             Modified             Size
+cmdtest/start/test1/                           2016-10-02 09:01:58            0
+cmdtest/start/test1/f0.txt                     2014-02-07 16:39:10            0
+cmdtest/start/test1/f1.txt                     2014-02-07 16:38:38            0
+cmdtest/start/test1/f3.txt                     2014-02-07 16:41:24          103
+cmdtest/start/test1/f6.txt                     2016-10-02 08:38:42          103
+cmdtest/start/test1/m1                         2014-02-08 09:58:14            0
+cmdtest/start/test1/d1/                        2016-09-30 16:41:12            0
+cmdtest/start/test1/d1/fa1.txt                 2014-02-07 16:38:58            0
+cmdtest/start/test1/d3/                        2016-10-02 09:05:02            0
+cmdtest/start/test1/d3/.htaccess               2015-03-31 16:55:44          271
+cmdtest/start/test1/d3/f2.txt                  2014-02-07 16:39:18            0
+cmdtest/start/test1/d3/f3.txt                  2014-02-07 16:41:24          103
+cmdtest/start/test1/d3/f4.txt                  2014-02-07 16:41:24          103
+cmdtest/start/test1/m2/                        2016-10-02 09:13:10            0
+cmdtest/start/test1/m2/.htaccess               2015-03-31 16:55:44          271
+cmdtest/start/test2/                           2016-10-02 09:02:24            0
+cmdtest/start/test2/f0.txt                     2014-02-07 16:39:10            0
+cmdtest/start/test2/f2.txt                     2014-02-07 16:39:18            0
+cmdtest/start/test2/f3.txt                     2014-02-07 16:41:48          104
+cmdtest/start/test2/f6.txt                     2016-10-02 08:38:42          104
+cmdtest/start/test2/m2                         2014-02-08 09:58:14            0
+cmdtest/start/test2/d2/                        2016-09-30 14:13:32            0
+cmdtest/start/test2/d3/                        2016-10-02 09:05:12            0
+cmdtest/start/test2/d3/.htaccess               2016-10-02 09:05:34          280
+cmdtest/start/test2/d3/f2.txt                  2014-02-07 16:39:18            0
+cmdtest/start/test2/d3/f3.txt                  2014-02-07 16:41:48          104
+cmdtest/start/test2/d3/f5.txt                  2014-02-07 16:41:48          104
+cmdtest/start/test2/m1/                        2014-02-08 09:57:48            0
+cmdtest/start/test2/__bkp__/                   2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/README.txt         2015-03-25 12:01:36          663
+cmdtest/start/test2/__bkp__/date150325-time115227/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115227/f2.txt 2014-02-07 16:39:18            0
+cmdtest/start/test2/__bkp__/date150325-time115227/f3.txt 2014-02-07 16:41:48          104
+cmdtest/start/test2/__bkp__/date150325-time115227/m2 2014-02-08 09:58:14            0
+cmdtest/start/test2/__bkp__/date150325-time115227/__added__.txt 2015-03-25 11:52:26           23
+cmdtest/start/test2/__bkp__/date150325-time115227/d2/ 2015-03-25 11:52:26            0
+cmdtest/start/test2/__bkp__/date150325-time115227/d3/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115227/d3/f3.txt 2014-02-07 16:41:48          104
+cmdtest/start/test2/__bkp__/date150325-time115227/d3/f5.txt 2014-02-07 16:41:48          104
+cmdtest/start/test2/__bkp__/date150325-time115227/m1/ 2015-03-25 11:52:26            0
+cmdtest/start/test2/__bkp__/date150325-time115317/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115317/spam.txt 2015-03-25 11:53:10            0
+cmdtest/start/test2/__bkp__/date150325-time115355/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115355/__added__.txt 2015-03-25 11:53:54           11
+cmdtest/start/test2/__bkp__/date150325-time115417/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115417/__added__.txt 2015-03-25 11:54:16            7
+cmdtest/start/test2/__bkp__/date150325-time115452/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115452/spam2.txt 2015-03-25 11:53:42            0
+cmdtest/start/test2/__bkp__/date150325-time115452/__added__.txt 2015-03-25 11:54:52           18
+cmdtest/start/test2/__bkp__/date150325-time115541/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115541/f0.txt 2014-02-07 16:39:10            0
+cmdtest/start/test2/__bkp__/date150325-time115549/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115549/f0.txt 2015-03-25 11:55:38            0
+cmdtest/start/test2/__bkp__/date150325-time115557/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115557/f0.txt 2015-03-25 11:55:46            0
+cmdtest/start/test2/__bkp__/date150325-time115607/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115607/f0.txt 2015-03-25 11:55:54            0
+cmdtest/start/test2/__bkp__/date150325-time115737/ 2016-09-30 16:41:12            0
+cmdtest/start/test2/__bkp__/date150325-time115737/f0.txt 2015-03-25 11:56:00            0
+cmdtest/start/test2/__bkp__/date150325-time115737/__added__.txt 2015-03-25 11:57:36           32
+
+...\mergeall\test\ziptools>

@@ -1,0 +1,1607 @@
+<HTML>
+
+<HEAD>
+
+<TITLE>mergeall - Whitepaper</TITLE>
+
+<!--analytics javascript omitted here-->
+
+<!-- CAVEAT: parts of this page predate its author's use of CSS, and use
+     tables, &nbsp; <BR> and the like for formatting; there's no compelling
+     reason to change at this point, but consider yourself warned... -->
+
+<STYLE>
+
+/* Nov 2015: font (banish Times/serif!), toolbar button style; no external CSS file */
+/* This doc originally skipped CSS usage, and still uses tables for simple layout   */
+
+body {                                           
+    font-family: Arial, Helvetica, sans-serif;      /* font for entire doc: precedence list */
+}                                                
+
+.blocklinkbar {
+    display: block;                                 /* toolbar buttons style */
+    width: 100%;
+    text-decoration: none;  
+}
+
+.blocklinkbar:hover {                               /* on toolbar hover, underline link */
+    text-decoration: underline;
+}
+
+.footertable {                                      /* a borderless table */                 
+    border-collapse: collapse;                      /* if on table only, 2px renders as outside-only border */
+    border: 0px solid black;                        /* but borders can be variable-width at some zoom levels */
+    table-layout: fixed;                            /* spread items out a bit more evenly */
+}
+
+.lightheader {                                      /* subheader colorization: any header, <P>, etc. */
+    background-color: #c8e9ee;                      /* rgb hex sring not quoted in css code */
+}
+
+.blueheader {                                       /* not used here for <H1>s (caveat: still uses table formatting) */
+    background-color: #96CDCD;
+}
+
+.notebox {
+    margin-left: 40px; 
+    margin-right: 40px; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-style: solid; 
+    border-width: 1; 
+    padding: 5px;
+}
+
+</STYLE>
+
+</HEAD>
+
+
+<BODY>
+
+
+<P>
+<TABLE bgcolor="#96CDCD" width="100%">
+<TR>
+<TH align="left"><A HREF="../docimgs/index.html"><img src="../docimgs/mergeall128.png" border=0></A></TH>    <!--border for IE if a link-->
+<TD><H1><A NAME="mergeall"><I>mergeall</I> &mdash; Folder Synchronization for Manual "Clouds"</A></H1></TD>
+</TR>
+</TABLE>
+
+
+<P>
+<P><I>Latest substantial update: June 2017 (f/k/a Usage-Overview.html)</I> 
+
+
+<H3>Preface</H3>
+
+<P>
+This is the original whitepaper on mergeall usage.  It has been subsumed by the newer and 
+more user-focused <A HREF="../../UserGuide.html">User Guide</A> as of version 3.0, which you 
+should consult <I>first</I> for up-to-date coverage.  
+This older document has been retained here with only minor edits, for the additional background 
+context it provides on mergeall's features and roles.  For version-specific 
+development history, see also the <A HREF="Revisions.html">Revisions</A> document.
+
+
+<P class=notebox>
+<I><B>Please note</B></I>: 
+all of the older screenshots referenced in this document 
+have been removed to minimize mergeall package size, and their links here were removed.
+See the newer 
+<A HREF="../docimgs/index.html">screenshots collection</A> for up-to-date GUI examples,
+and please pardon the dearth of GUI shots here; this document has been retained 
+for its alternative perspective and project-history value only.
+
+
+</P>
+
+<H3>Introduction</H3>
+<P>
+This page describes and gives usage pointers for <I><B>mergeall</B></I>&mdash;an open source Python 3.X/2.X 
+<A HREF="../../mergeall.py">script</A> and tkinter <A HREF="../docimgs/index.html">GUI</A> useful 
+for managing backups and changes in multiple copies of large data sets (a.k.a. <I>archives</I>) stored in directory trees (a.k.a. <I>folders</I>).
+mergeall is specifically targeted at quickly synchronizing changes in content mirrored across multiple devices such as laptops, 
+tablets and USB flashdrives, and in some contexts can provide a manual alternative to cloud-based storage.    
+
+
+<P>
+<H3>Contents</H3>
+
+<UL>
+<LI><A HREF="#short">The Short Story</A>
+<LI><A HREF="#code">Code, Docs, and Screenshots</A>
+<LI><A HREF="#upgrades">Recent Upgrades</A>
+<LI><A HREF="#usage">Usage Modes Guide</A>
+<LI><A HREF="#other">Other Usage Recommendations</A>
+<LI><A HREF="#limits">Limitations and Cautions</A>
+<LI><A HREF="#clouds">Manual Merges versus Cloud Storage</A>
+</UL>
+
+
+
+
+
+
+</P>
+<P>&nbsp;</P>   <!--IE is funky with <BR>-->
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>  <!--tan #96CDCD #66CDAA-->
+<H1><A NAME="short">The Short Story</A></H1>
+</TABLE>
+
+<P>
+This system makes a destination folder the same as a source folder quickly.
+
+<P>
+It first <I>detects</I> differences by walking the two directory trees in full, comparing their structure, and checking 
+their files' timestamps and sizes, with an optional limited content test.  It then <I>resolves</I> variances by 
+automatically or selectively running in-place changes for differing items only&mdash;copying changed and unique 
+items in the source to the destination, and pruning unique items in the destination.  
+These changes are applied to both files and folders, as described in more detail <A href="#usagesub1">ahead</A>.
+
+<P>
+The net result is a fast one-way synchronization that makes the entire destination tree identical to the source,
+without requiring full-tree copies.  This may be used to synchronize multiple folder copies to each other directly, 
+or to and from a common base (e.g., a USB stick or local network drive).  In the latter mode, the base device serves
+the same intermediary role as cloud storage, and program runs achieve the same effect as cloud transfers.
+
+<P>
+Though broader in scope, the most common role for this system is 
+<I><B>mirroring large archives across multiple devices</B></I>&mdash;on changes,
+run mergeall once to synchronize to a USB flashdrive (or other),
+run again to propagate to other computers as desired,
+and run diffall occasionally to verify archive integrity,
+as covered ahead <A HREF="#recommend">here</A> and <A HREF="#rundiffall">here</A>.  
+
+
+<H3><I>A Few Details</I></H3>
+
+<P>
+The system spans 3,518 source-code lines.  It consists of a 1,318-line  
+<A HREF="../../mergeall.py">main script</A> (roughly half of which is docs); a 680-line threaded tkinter/Tkinter 
+<A HREF="../docimgs/index.html">GUI launcher</A>; a
+303-line interactive
+console launcher; 
+and new and modified utility <A HREF="../..">scripts and modules</A> that span 1,217 lines.  It's related to, 
+and reuses parts of <A HREF="http://learning-python.com/about-pp4e.html">PP4E's</A> 
+<I>diffall</I> and <I>cpall</I> examples, but is designed to merge trees quickly, without byte-for-byte compares 
+or exhaustive copies.  To protect data, the system can also automatically make backup copies of items changed,
+and restore a tree's prior version altogether if needed (recent upgrades described <A HREF="#upgrades">ahead</A>).
+
+<P>
+For its author's perhaps pathological use case&mdash;a currently 73G archive with 45K files and 2.6K folders&mdash;full 
+copies and compares can run for <I>hours</I>, regardless of the volume of changes made.  Because the mergeall in-place 
+merge system updates only for actual differences, it typically finishes in just <I>1 minute</I> when changes are moderate.  
+Running twice to merge changes both to and from an intermediary storage device serves to synchronize two computers, 
+and usually takes just <I>5 minutes</I> or less.  These times reflect USB 2.0 ports on some devices and might be better 
+for all-USB 3.0 usage, but merges are strikingly quicker than copies either way (see more timing details 
+<A HREF="Lessons-Learned.html#usb30">here</A> and
+<A HREF="#optimizations">here</A>).
+
+<P class=notebox>
+<B><I>Update, version 3.1</I></B>: as of Mergeall 3.1, the system has grown to 
+10,201 source lines among 34 files (per <A HREF="../../__sloc__.py">this</A>, 
+and up from 9,962 lines in 3.0), 
+and its development and use has spanned 4 years of occasional efforts.
+The line count includes build and zip-utility scripts, but the factor-of-3 growth largely
+reflects new functionality, multiple platform support, and multiple distribution formats.
+The example archive also grew to 102K files, 10K folders, and 128G space (and larger USB flashdrives...).
+
+
+<H3><I>Sync versus Merge</I></H3>
+
+<P>
+It may be useful to note that mergeall is <I>not</I> the same as a Windows file explorer folder merge.  Unlike mergeall, 
+Windows 7's 
+merge
+does not automatically skip 
+unchanged items (or even 
+process them
+distinctly);
+handle mixed-mode
+names;
+or prune unique items in the destination.  
+It also doesn't report on its plans, backup changes outside 
+the archive, or support true rollbacks.  Windows 8's 
+merge improves on this by allowing
+users to manually skip all 
+unchanged files whose timestamps and 
+sizes match; this requires complex and error-prone user interaction, though, and still does not remove unique 
+items in the destination, which means that renames and deletions in the source are not propagated.
+
+<P>
+In other words, Windows explorer merge does not synchronize two trees, it simply <I>combines</I> them; depending on 
+user choices, it forms only their <I>sum</I> or <I>union</I>.  By contrast, mergeall does not combine trees&mdash;it 
+quickly makes a destination the <I>same</I> as a source.  This makes its role overlap much more closely with <I>cloud</I> 
+storage, which seeks to unify a single archive across multiple devices.  With mergeall, archive copies are unified to and 
+from local storage devices instead of a remote server, but the goal and effect are similar.  The key difference is that
+cloud storage generally resides on devices owned by a third-party which fully controls access and price; 
+with mergeall, your media is your own.
+
+
+<H3><I>Why mergeall?</I></H3>
+
+<P>
+In short: privacy and control.  The mergeall system supports just one approach to archive copy synchronization, based on 
+manual whole-archive merges (see the usage notes <A HREF="#usage">ahead</A>); may require changes on some platforms with 
+more exotic file types (see its limitations <A HREF="#limits">ahead</A>); and does not address the more difficult problem
+of multiple differing copies of the same file.  On the other hand, it might just help you avoid giving away your personal 
+property to cloud providers (and/or advertisers and intelligence agencies!).  There's more on the tradeoffs of cloud
+storage in the <A HREF="#clouds">conclusion</A>, after we explore mergeall usage details.
+
+
+
+
+
+
+</P>
+<P>&nbsp;</P>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H1><A NAME="code">Code, Docs, and Screenshots</A></H1>
+</TABLE>
+
+<P>
+This section summarizes available resources for readers who prefer to jump into 
+a program right away (and others who might more shrewdly return here after perusing 
+the usage modes guide and other recommendations ahead).  Subsections here:
+
+<UL>
+<LI><A HREF="#codeanddocs">Code and Docs</A>
+<LI><A HREF="#shots">Screenshots and Examples</A>
+</UL>
+
+
+
+
+</P>
+<P>&nbsp;</P>  <!--IE is funky on <BR>-->
+<H2 class=lightheader><A name=codeanddocs>Code and Docs</A></H2> 
+
+<P>
+Fetch the mergeall distribution package at the following listed link, and please mind its usage 
+<A HREF="#warnings">warnings</A>&mdash;this system changes a directory permanently by design, 
+though 2.0's backups option also saves prior versions of items replaced or deleted:
+
+<ul>
+<li><a href="http://learning-python.com/mergeall.html">mergeall</a>&mdash;the full package, in source, app, and executable formats
+</ul>
+
+Some of the important bits in the package:
+
+<ul>
+<li><a href="../../UserGuide.html">UserGuide.html</a>&mdash;main user guide, with quick start, usage pointers, etc.
+<li><a href="Revisions.html">Revisions.html</a>&mdash;project-level docs, with version history
+<li><a href="../../mergeall.py">mergeall.py</a>&mdash;the main script, with command-line and implementation-level docs
+<li><a href="../../launch-mergeall-GUI.pyw">launch-mergeall-GUI.pyw</a>&mdash;a threaded [tT]kinter GUI front-end, with implementation docs
+<li><a href="Lessons-Learned.html">Lessons-Learned.html</A>&mdash;a summary of implementation and usage issues
+</ul>
+
+<P>
+You can view the entire contents of the zipfile, including all its source code, either on your own
+<A HREF="../..">computer</A> after unpacking, or 
+online <A HREF="http://learning-python.com/mergeall-products/unzipped">at this site</A>.
+
+
+
+</P>
+<P>&nbsp;</P>
+<H2 class=lightheader><A name="shots">Screenshots and Examples</A></H2> 
+
+<P class=notebox style="margin-top: 25px;">
+<I>
+<B>Please note</B>: this section grew fully defunct and has been removed as of 
+version 3.0.  
+It documented now-dated screenshots and runlogs from prior releases which are 
+no longer included in the mergeall package.  
+
+For the most recent GUI screen 
+captures, see the new 
+<A HREF="../../docetc/docimgs/index.html">screenshots folder</A>.
+
+For text-based examples, see the new
+<A HREF="../../test">test</A> and  
+<A HREF="../miscnotes">docetc/miscnotes</A> folders, 
+especially test's <A HREF="../../test/expected-output-3.0">expected output</A>
+HTML files.
+</I>
+
+
+
+
+
+</P>
+<P>&nbsp;</P>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>  <!--tan #96CDCD #66CDAA-->
+<H1><A NAME="upgrades">Recent Upgrades</A></H1>
+</TABLE>
+
+<P>
+This section documents the most noteworthy enhancements made to the system in recent releases.
+It currently covers:
+
+<UL>
+<LI><A HREF="#backups">Release 2.0 backups</A> 
+<LI><A HREF="#restores">Release 2.1 restores</A>
+<LI><A HREF="#optimizations">Release 2.2 optimizations</A>
+<LI><A HREF="#cruft30">Release 3.0: cruft files</A>
+</UL>
+
+
+
+
+</P>
+<P>&nbsp;</P>
+<H2 class=lightheader><A name="backups">Release 2.0: Automatic Backups for Changes</A></H2>
+
+<P>
+Version 2.0 adds an <I>automatic backups</I> option for changes.  When enabled, this option makes
+backup copies of all files and directories in the destination directory that will be destructively 
+replaced or removed in-place during a mergeall synchronization run, and notes new items added.  
+This makes mergeall runs generally safer, as unwanted or failed changes can be later undone by 
+restoring backup copies&mdash;for both individual items and entire runs. 
+
+<H3>How Backups Work</H3>
+
+<P>
+Specifically, in both the automatic and selective updates modes described <A HREF="#usage">ahead</A>,
+the prior versions of items about to be changed or deleted in the destination (TO) tree are 
+saved in an automatically-created <I>__bkp__</I> folder.  This folder resides at the top of 
+the destination archive; has one date/time-stamped subfolder for each mergeall run with backups;
+and recreates the full original directory paths of items stored within it.  
+
+<P>
+Backup folders are local to 
+an archive copy (each TO target has its own) and not synchronized across trees by mergeall.  
+To minimize the space they require, their per-run subfolders are automatically pruned by age 
+when their number exceeds a <A HREF="Revisions.html#configs21">changeable limit</A>.  As of 
+version 2.1, new additions are also listed in <I>__added__.txt</I> files in <I>__bkp__</I> 
+run subfolders; see the 2.1 section <A HREF="#restores">ahead</A>.  
+
+<P>
+For instance, an archive copy rooted at <I>D:\MY-STUFF</I> will have backup data of the following
+form after serving as the TO folder for a mergeall run with backups enabled (specific date/time
+values in folder names allow for by-name sorts):
+
+
+<PRE>
+    D:\MY-STUFF\__bkp__                                        # all backups for this copy
+    D:\MY-STUFF\__bkp__\date<I>yymmdd</I>-time<I>hhmmss</I>                  # this run's subfolder
+    D:\MY-STUFF\__bkp__\date<I>yymmdd</I>-time<I>hhmmss</I>\__added__.txt    # list of items added, by pathname (2.1)
+    D:\MY-STUFF\__bkp__\date<I>yymmdd</I>-time<I>hhmmss</I>\<I>items</I>            # items removed and replaced, top level 
+    D:\MY-STUFF\__bkp__\date<I>yymmdd</I>-time<I>hhmmss</I>\<I>subfolders</I>       # items removed and replaced, at original paths 
+</PRE>
+
+
+<H3>How Backups Help</H3>
+
+<P>
+Beyond their obvious data-safety benefit, backups are particularly useful when using mergeall with a 
+common base device to synchronize changes between multiple computers, as backups for changes are maintained 
+independently on <I>both</I> the base device and each target machine.  For example, if you configure mergeall
+to save 15 backups, each archive copy's <I>__bkp__</I> can contain the 15 most-recent backup copies of 
+frequently-changed files&mdash;one for each backups-enabled mergeall run in which the archive copy was 
+the TO destination.
+
+<P>
+Backups also serve as a record of changes made that is an alternative to the logfile and perhaps more 
+easily inspected, and are required for version 2.1 restores (per the section ahead).  The only <I>downsides</I> 
+to change backups are that they take up extra space, and may slow the merge's resolution phase for extra copies; 
+these penalties are incurred only for items recently changed, though, and are generally far outweighed by the 
+extra data safety that backups provide.
+
+
+<H3>How to Use Backups</H3>
+
+<P>
+To enable backups for changes, simply use either the new <I>-backup</I> command-line argument in 
+mergeall itself, or the corresponding widgets and replies in its 
+<A HREF="../docimgs/index.html">GUI</A>
+and 
+console launchers.
+In the GUI, the backups switch is <I>on</I> by default when updates are selected, so you 
+normally don't need to do anything to save backups during a mergeall run.
+
+<P>  
+When backups are enabled, if you ever need to restore prior versions of files, you can choose 
+from the <I>__bkp__</I> folders of any of the latest backup-enabled mergeall runs, on any of 
+your archive copies.  If ever needed, you can also rollback an entire run's changes from its
+backups folder after a catastrophic mistake (human or machine), per the next section's restore options.
+
+<P>
+You can also change backup folders arbitrarily (e.g., deleting if too large), and can generally 
+ignore any <A HREF="../../diffall.py">diffall.py</A> differences generated by their per-run subfolders
+(they'll register as unique or differing items, normally). 
+See <A HREF="../../backup.py">backup.py</A> for implementation details, 
+and <a href="Revisions.html#version20">Revisions.html</A> for more on this and other 2.0 changes.
+
+<H3>Postscripts</H3>
+
+<P>
+<I><U><B>Usage update</B></U></I>: 
+as of version 2.4, a new "-quiet" script flag (and corresponding toggles 
+in the GUI and replies in the console launchers) suppresses per-file backup log messages to minimize
+clutter in displays and logs. See <A HREF="Revisions.html#version24">version 2.4</A> release notes for details.
+
+
+
+
+
+
+</P>
+<P>&nbsp;</P>
+<H2 class=lightheader><A name="restores">Release 2.1: Automatic Restores from Backups</A></H2>
+
+<P>
+Version 2.0's automatic change backups described in the preceding <A HREF="#backups">section</A> were intended to allow one 
+or a small group of files or folders to be restored by manual copies or nested subfolder merges, in the unlikely event that 
+some mergeall changes went askew or were unwanted.  
+
+<P>
+This suffices for most cases, but doesn't help much if there are very many changes to back out.  If, for example, a user 
+inadvertently swaps the FROM and TO folders and winds up using an old archive copy for FROM and the current copy for 
+TO&mdash;a worst case user error&mdash;there may be hundreds or thousands of changes to undo, and the <I>entire run</I> 
+should be backed out.  
+
+<P>
+mergeall could formerly <I>almost</I> handle this itself by merging from an archive's backup folder to the archive's 
+root, because the backup folder saves all items replaced and deleted.  The merge would simply put all these items back.
+Unfortunately, merges also normally <I>delete</I> items unique to the TO tree&mdash;when merging from backup folder to
+archive root, this would erase all content not changed and hence not recorded in the backup.  Moreover, such a merge 
+would do nothing about backing out new items <I>added</I> to the TO archive root, because they are not recorded in 
+backup folders. 
+
+
+<H3>The 2.1 Solution</H3>
+
+<P>
+Version 2.1 addresses this very rare case with full restores (a.k.a. <I>rollbacks</I>) that take the form of a merge from 
+an archive's backup folder (FROM) to the archive's root folder (TO).  To make this work, it enhances the 2.0 <I>-backup</I> 
+command-line option available in all launch modes, and adds a new <I>-restore</I> option available in the main 
+<A HREF="../../mergeall.py">mergeall.py</A> script only:
+
+<UL>
+<LI>  
+The <I>-backup</I> option still saves all replaced and removed items at their original paths in TO's backup 
+folder as before, but now also lists the pathnames of added items in an <I>__added__.txt</I> file created 
+at the top of the TO tree's backup folder  (in TO's <I>__bkp__</I> date/time subfolder for the run).  
+
+<BR><BR>
+<LI>
+The new <I>-restore</I> option does a normal merge from archive backup to archive root, but does not delete 
+items that are unique (and hence formerly unchanged) in the root TO tree, and deletes all items in the 
+TO folder that are listed in its backup folder's <I>__added__.txt</I> as a pre-merge step.  
+</UL>
+
+<P>
+In automatic updates mode (described <A HREF="#usage">ahead</A>), the combined net effect is a <I><B>complete rollback</B></I> 
+of all changes made in a preceding run&mdash;restoring all items replaced or removed, and deleting all items added.  
+For a more concrete look at how this works, browse backups in  
+<A HREF="../../test/test2/__bkp__/">tests</A> folder  to see
+<A HREF="../../test/test2/__bkp__/date150325-time115227/">__bkp__</A> folders and
+<A HREF="../../test/test2/__bkp__/date150325-time115227/__added__.txt">__added__.txt</A> files in action.
+
+
+
+<H3>How to Run a Rollback</H3>
+
+<P>
+To back out all the  changes made by a prior run with backups enabled, simply locate your archive's most recent backup by its 
+date/time name in the archive's <I>__bkp__</I> folder, and run mergeall with the archive root as TO, and the latest backup's 
+subfolder as FROM, with a command line of one of the following forms:
+<PRE>
+    mergeall.py <I>archiveroot</I>\__bkp__\date<I>yymmdd</I>-time<I>hhmmss</I> <I>archiveroot</I> -auto -restore    # automatic rollback (see ahead)
+    mergeall.py <I>archiveroot</I>\__bkp__\date<I>yymmdd</I>-time<I>hhmmss</I> <I>archiveroot</I> -restore          # selective rollback (see ahead)
+</PRE>
+
+Run this in mergeall's source directory, or give the script's full path.  You can also delete the <I>__added__.txt</I> file 
+in <I>__bkp__</I> first if you wish to back out only replacements or removals, and may use older backups (though they are best 
+used with the selective updates mode described in the next section, as they may be arbitrarily out of synch with the current tree).  
+Here's a more concrete example for reference and cut-paste-edit&mdash;backing out a run from a USB drive and saving the log:
+
+<PRE>
+    mergeall.py D:\MY-STUFF\__bkp__\date150325-time165817 D:\MY-STUFF -auto -restore &gt; C:\...\Desktop\logfile.txt
+</PRE>
+
+<P>
+If you're not a fan of complicated command lines, version 2.1 also includes a convenience 
+script&mdash;<A HREF="../../rollback.py">rollback.py</A>&mdash;that builds and runs an automatic updates mode restore command line, 
+by globbing and sorting to find the archive's latest backups folder automatically.  This script also verifies the run and its 
+inputs for safety.  Run it with just the root path, or with no arguments to be asked for the root interactively:
+
+<PRE>
+    rollback.py <I>archiveroot</I>        # convenience script, one argument or input
+    rollback.py                    # input root path interactively: command line or click 
+    rollback.py &gt; logfile.txt      # save mergeall output (only) to a logfile 
+</PRE>
+
+<P>
+You can also click this script's filename or icon to run it on Windows 
+and skip the command line 
+altogether.  However, you may still want to use command lines to save mergeall's output to a logfile with ">" (the script's 
+interactive prompts go to the console only), or to use selective updates mode during the restore (this requires a 
+manual command line).
+
+
+<H3>A Few Assumptions</H3>
+
+<P>
+However they are invoked, restores generally assume that:
+
+<OL>
+<LI> 
+You used <I>-backup</I> in the prior run.  This is a requirement for restores in all usage modes; without backups, there 
+is nothing to restore.
+
+<BR><BR>
+<LI>
+You have not made <I>additional changes</I> to the tree since the run you're rolling back.  Restoring after any additional 
+changes are made in TO won't fully reset the tree's prior state&mdash;and may erase more recent work in automatic updates mode. 
+Devices used only for backups or transfers, however, may retain their restorability indefinitely.  
+</OL>
+
+<P>
+If your tree meets those criteria, there are three additional usage notes to be aware of:
+
+<UL>
+<LI>
+The <I>-restore</I> option is available in <I>command-line</I> mode only, because it was deemed too perilous and rarely-required 
+to escalate its visibility in the GUI&mdash;this is not a casual 
+tool, and must be deployed carefully.  You can, however, restore by clicking the <A HREF="../../rollback.py">rollback.py</A> script 
+on Windows (and possibly other platforms).
+
+<BR><BR>
+<LI>
+Rollbacks cannot <I>themselves</I> be rolled back&mdash;even if you use <I>-backup</I> with <I>-restore</I>&mdash;because 
+removals of prior items added are not saved.  You can, however, simply rerun the prior run that was rolled back if needed.
+<BR><BR>
+<LI>
+It's also possible to perform <I>multiple rollbacks</I>, to reset a tree to its state prior to multiple runs&mdash;simply 
+delete the most recent backup subfolder before each <A HREF="../../rollback.py">rollback.py</A> run (or equivalently, use successively 
+older backup subfolders with manual command lines).  This assumes that no changes have been made on the rolled-back device since 
+the oldest backup restored, but this will be the case for devices used for backups or transfers only.
+</UL>
+
+<P>
+Finally, keep in mind that <I>-restore</I> is just a <I><B>failsafe</B></I>, designed primarily to be used immediately after a run 
+you wish to undo.  Luckily, you will probably never need it if you use mergeall with a normal amount of care.
+As a guideline, you should generally be cautious with FROM/TO selection to avoid having to restore, and should ideally run
+with <I>-report</I> before <I>-auto</I> to see what will be changed.  Backups of changes in <I>__bkp__</I> are still intended 
+mainly for manual piecemeal restores, though its new <I>__added__.txt</I> also serves as additional run documentation.  
+
+<P>
+For an example of the restore option at work that demonstrates its general usage, see 
+<A HREF="../../test/expected-output-3.0">this folder's</A> HTML example sessions.
+For an example <I>__bkp__</I> folder with its new <I>__added__.txt</I> file, see <A HREF="../../test/test2/__bkp__/date150325-time115227">
+this backups folder</A> in the shipped test folders (if it's still present in your copy).
+For backup and restore implementation-level details, see 
+<A HREF="Revisions.html#version21">Revisions.html</A>'s change notes, and <A HREF="../../backup.py">backup.py</A> where most of the code resides.
+
+
+<H3>Postscripts</H3>
+
+<P>
+<I><U><B>Usage update (defunct)</B></U></I>: 
+restores should generally be run on the same platform as the 
+prior mergeall, for reasons detailed in the <A HREF="Revisions.html#version21">Revisions.html</A> note.
+
+<P>
+<I><U><B>Usage update update</B></U></I>: 
+as of version 3.0, the prior note is no longer true&mdash;the backup 
+folder's __added__.txt file's paths are now made portable, so backups created on Unix can 
+be rolled back on Windows, and vice versa.
+
+<P>
+<I><U><B>A manual option</B></U></I>: 
+a clever end user pointed out that if&mdash;<I>and only if</I>&mdash;the FROM and TO 
+trees have absolutely no files in common, a full rollback is simply a matter of moving the backup folder 
+to the archive root.  Because the backup records all items replaced and removed in their original folder paths, 
+it will in this rare context be the same as the full TO tree from the prior run.  This only works, however, 
+if you can be completely sure that the FROM and TO trees were entirely disjoint (i.e., had no files in common) 
+during the prior run.   Otherwise, common files that were <I>unchanged</I> were not saved to the backups folder, 
+and will not be restored by this shortcut.  When in doubt, run the <A HREF="../../rollback.py">rollback.py</A> 
+script described above for a general-purpose restore.
+
+
+
+
+
+</P>
+<P>&nbsp;</P>
+<H2 class=lightheader><A name="optimizations">Release 2.2: Faster Execution via Python 3.5's os.scandir()</A></H2>
+
+<P class=notebox style="margin-top: 25px;">
+<I><B><U>Update</U></B>:
+as of version 3.0, the scandir() optimization described below is <B>not</B> used on Mac OS X, because it was 
+found to <I>slow</I> mergeall's comparisons phase by a factor of 3 on that platform in Python 3.5.  Runtime 
+for a large archive on a fast machine <I>increases</I> from 2 to 6 seconds when this call is used.  It's 
+unclear whether the slowdown on Mac OS X is due to the implementation of scandir() itself or the coding 
+patterns its use implies, but the effect is clearly a negative on this platform.  The call's speed gains 
+on Windows and Linux were also eventually negated in 3.0 by an os.lstat() recoding, and os.scandir() is no
+longer used&mdash;a complete reversal of the note here.
+</I>
+
+
+<P>
+Version 2.2 is a performance optimization.  As of this version, mergeall uses Python 3.5's os.scandir(), 
+if available, to speed up tree comparisons radically.   This new function eliminates system calls for 
+some attributes of files, and is available both as a standard library tool in 3.5, and a PyPI package install.  
+When this function is present, the mergeall comparison phase uses a custom implementation that leverages the 
+new call instead of os.listdir(), which is retained to support older Pythons.
+
+
+<H3>Timing Results</H3>
+
+<P>
+So how much faster is mergeall with the new call?  
+Timing results on Windows show that the new function 
+speeds tree comparisons&mdash;a major time component in most mergeall runs&mdash;by a factor of <B>5 to 10</B>
+depending on devices.  This can shave dozens of seconds off total mergeall runtime for larger trees, and perhaps 
+more.  For an example use-case archive that's now 78G and has 50k files in 3k folders:
+
+<UL>
+<LI>
+On an Ultrabook and fast USB stick, comparison times fell from 40 seconds to just 7&mdash;a 6-fold improvement.
+
+<LI>
+On the same machine with a slower USB stick, the times fell from 112 to 16 seconds, a full 7x better.
+
+<LI>
+On an older and slower single-core machine, the results were more dramatic still, falling
+from 600 seconds to 60.
+</UL>
+
+<P>
+With a different archive, comparisons clocked in at 10x faster on a Windows 10 tablet.
+Run with command lines of the form "py -3.X launch-mergeall-GUI.pyw" to test
+specific 3.X's on your own.
+
+
+<H3>How to Enable the Speedup</H3>
+
+<P>
+This speed gain is fully automatic, but requires that a scandir() be present.  You can satisfy this
+requirement and take advantage of the mergeall 2.2 optimization by either:
+
+<OL>
+<LI>Running mergeall and its GUI with Python 3.5 or newer, where scandir() is standard in the os module
+
+<LI>Installing the <A HREF="https://pypi.python.org/pypi/scandir">PyPI package</A> version of scandir() that 
+supplies the call for older Pythons, including 2.7 and older 3.X
+</OL>
+
+Because the current PyPI package version of scandir() requires a C code compile for most Pythons, using 
+Python 3.5+ (option #1) may the simplest way to speed your merges, but watch the PyPI package for new 
+developments on this front.  You can use Python 3.5 for mergeall without breaking programs that rely 
+on older Pythons; see <A HREF="#usepy3x">this note</A> for pointers.
+
+<P>
+If you do <I>neither</I> of the options listed above, mergeall falls back on the original os.listdir() scheme so that it 
+still runs on older Pythons, albeit with the original and slower speed.  Given its potentially major speed boost, 
+though, a scandir() is now recommended for most mergeall users who manage non-trivial trees.
+
+<P>
+For more about this change, see Revisions.html's <A HREF="Revisions.html#version22">version 2.2 notes</A>, including its list of related links.
+
+
+<H3>Postscripts</H3>
+
+<P>
+<I><U><B>Timing update</B></U></I>: 
+After posing the timing results above, the unoptimized version of mergeall's comparison phase for 
+Python 3.4 and earlier was recoded to use os.lstat() and the stat module to check file types, instead 
+of os.path.is*() tests (this was motivated by new support for symbolic links, which added new type tests).
+While full timing results were not run after this change, the optimized Python 3.5+ os.scandir() 
+variant is still slower on the Mac than the non-optimized 3.4- os.listdir() version&mdash;by a factor 
+of 2, for a test comparison which takes 9 and 4.5 seconds, respectively.  os.scandir() is still a win on 
+Windows for some types of code, though manual os.stat() or os.lstat() use may yield similar gains;
+in mergeall, it made the os.scandir() variant obsolete (and it was removed altogether in 3.0).  
+
+
+
+
+
+
+</P>
+<P>&nbsp;</P>
+<H2 class=lightheader><A name="cruft30">Release 3.0: Excluding cruft (metadata) files</A></H2>
+
+<P>
+Version 3.0 adds a "-skipcruft" mode, and a corresponding toggle in mergeall's 
+<A HREF="../docimgs/index.html">GUI</A>, which allows users 
+to skip platform-specific system cruft (a.k.a. metadata) files and folders in both the FROM and TO 
+trees during a merge. In mergeall, the net effect is that these items won't be listed as differences in
+<I>report</I> mode, and won't be copied to, replaced in, or deleted from the TO tree in <I>update</I> modes. 
+This both allows cruft files to remain on the creating platform, and avoids propagating them to 
+other copies and computers.
+
+
+<H3>A Cruft by Any Other Name</H3>
+
+<P>
+This option was added primarily as a way to deal with the many hidden metadata files generated on the 
+Mac OS X platform.  With "-skipcruft", Mac metadata files remain on the Mac, but are not transferred to 
+other archive copies or non-Mac computers.  This option does the same for less-common cruft files generated
+on Windows and Linux, as well as Python bytecode files: these files remain on the creating machine only.  
+For users of single platforms, merges <I>without</I> the "-skipcruft" option still treat cruft files like any 
+other, copying them to and from archive copies whenever they differ.
+
+<P>
+The "-skipcruft" option was also added to both <A HREF="../../diffall.py">diffall</A>, where it eliminates 
+cruft files from difference reports, and <A HREF="../../cpall.py">cpall</A>, where it prevents cruft files from 
+being copied to the destination tree.  Cruft filename patterns are defined and documented in the user-editable 
+<A HREF="../../mergeall_configs.py">mergeall_configs.py</A>, which also gives more comprehensive mergeall 
+cruft-skipping examples.
+
+<P>
+In addition, a new utility script, <A HREF="../../nuke-cruft-files.py">nuke-cruft-files.py</A>, supports 
+removal of cruft files in trees on demand.  This may be used for trees that are never managed by mergeall;
+Windows-filesystem drives accessed from a Mac via networks or USB, for instance, may be decrufted with 
+this utility.
+
+
+<H3>For More Details</H3>
+
+<P>
+This extension has been thoroughly documented elsewhere, so we'll cut this overview short here.
+For more on the "-skipcruft" option, see:
+<UL>
+<LI>The new <A HREF="../../UserGuide.html#cruft">User Guide's coverage</A>
+<LI>The new <A HREF="../../skipcruft.py">skipcruft.py</A> module that filters cruft patterns
+<LI>The new <A HREF="../../mergeall_configs.py">mergeall-configs.py</A> section that defines cruft patterns
+<LI>The new <A HREF="../../nuke-cruft-files.py">nuke-cruft-files.py</A> script that deletes cruft on demand 
+<LI>The new <A HREF="../../test/expected-output-3.0">runlogs</A> examples that capture command-line usage
+<LI>The new <A HREF="../miscnotes/mac-appledouble-resourceforks-live.txt">interactive demo</A> of "._*" Mac files in Python code
+</UL>
+
+And additional version 3.0 changes described in 
+<A HREF="Revisions.html#version30">Revisions</A> 
+and marked as "[3.0]" in other source-code <A HREF="../..">files</A>.
+
+
+
+
+
+
+</P>
+<P>&nbsp;</P>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H1><A NAME="usage">Usage Modes Guide</A></H1>
+</TABLE>
+
+<P>
+Feel free to use and modify this system as you wish, but this section provides some pointers on its intended roles.  
+If you're looking for quick advice, skip ahead to the recommended usage modes <A HREF="#recommend">below</A>.  This
+section's contents:
+
+<UL>
+<LI><A href="#usagesub1">What mergeall Does</A>
+<LI><A href="#usagesub2">A Few Definitions</A>
+<LI><A href="#usagesub3">How to Use the System</A>
+<LI><A href="#recommend">Recommended Usage Modes</A>
+</UL>
+
+
+</P>
+<P>&nbsp;</P>
+<H2 class=lightheader><A name="usagesub1">What mergeall Does</A></H2>
+
+<P>
+In general, this system is designed to make an entire destination (TO) directory tree the same as a source (FROM) directory tree
+much more quickly than brute-force copies.  It achieves this by first scanning the tree to detect differences (using structural 
+inspection for folders and primarily modification times for files), and then running the following updates in the following order:
+<OL>
+<LI>Differing same-named files are copied from FROM to TO.
+<LI>Unique items (files and folders) in TO are removed from TO.
+<LI>Unique items (files and folders) in FROM are copied to TO.
+<LI>Mixed-mode same-named items (file or folder) are replaced in TO by their FROM version.
+</OL>
+
+<P> 
+Along the way, changes are backed up as described <A HREF="#backups">earlier</A>.  The net result mirrors the FROM tree to TO.  How you utilize this tool, though, involves choices between automatic and selective 
+update modes, and common base devices or direct transfers.  The following sections define these terms and explore 
+intended patterns of usage.
+
+
+
+
+<P>
+<P>&nbsp;</P>
+<H2 class=lightheader><A name="usagesub2">A Few Definitions</A></H2>
+
+To described usage patterns, we need to first define some terms:
+
+<H3><I>Common base device</I></H3>
+<P>
+This refers to a storage device&mdash; a USB flashdrive, local network
+drive, or other&mdash;that will be required in most cases to serve as an intermediary between different 
+computers.  Data is uploaded to the common base, and from there downloaded to other devices to synchronize 
+them.  Besides supporting such indirect transfers, a common base device also serves as a backup copy.
+
+
+<H3><I>Direct transfer</I></H3>
+<P>
+This means a data transfer between trees performed without a common base&mdash;possible for synchronizing 
+folders on the same machine, and for some types of device interfaces.  A device that appears as a drive when 
+connected by USB, for instance, allows for direct transfers.
+
+
+<H3><I>Automatic updates mode</I></H3>
+<P>
+This is a mergeall option which automatically resolves tree differences without 
+user intervention.  This mode automatically applies all data-set changes from one tree or device to another,
+making a destination folder the same as a source.  This can be useful both for quick backups, and for 
+synchronizing multiple trees.  Because this mode mirrors one <I>whole tree</I> to another, it generally requires 
+that you work in only one archive or subfolder copy at a time, to avoid erasing another copy's changes on 
+later full tree merges.  In exchange, this mode provides the simplest and least error-prone option.
+
+<P>
+Automatic updates mode can be invoked in manual mergeall 
+<A HREF="../../mergeall.py">command lines</A>, the console launcher, 
+or the GUI launcher&mdash;which
+by design supports this updates mode only, along with reports.  Choose this mode by using <I>-auto</I> (and omitting
+<I>-report</I>) in command lines, or by using inputs and widgets in the launchers.
+
+
+<H3><I>Selective updates mode</I></H3>
+<P>
+This is a mergeall option which asks the interactive console user to approve or 
+skip each individual file or folder update.  Though more user-intensive and error-prone, this mode allows
+you to work in multiple trees simultaneously, and reconcile their changes in a more ad-hoc <I>file-by-file</I> fashion.  
+It still requires that change sets be disjoint, to avoid changing files already changed in other trees but not yet
+synchronized.  Unlike automatic updates mode, though, it can incorporate multiple and arbitrary change sets without 
+having to treat entire archives or subfolders as locked while one copy is modified&mdash;albeit a substantial cost in 
+user interaction requirements.
+
+<P>
+Selective updates mode can be invoked in manual mergeall 
+<A HREF="../../mergeall.py">command lines</A>, or the 
+console launcher.
+Choose this mode by omitting both 
+<I>-auto</I> and <I>-report</I> in command lines, or by using launcher inputs.  
+</P>
+
+
+
+
+<P>&nbsp;</P>
+<H2 class=lightheader><A name="usagesub3">How to Use the System</A></H2>
+
+<P>
+With the preceding definitions in mind, this section describes <I>usage patterns</I>&mdash;approaches to using the 
+mergeall system to manage your data.  Some use automatic updates, some selective, and some may use both.  All 
+may be applied with or without a common base.  One note up front: in the first two sections that follow the 
+notion of "tree" generally refers to a whole archive copy, but this need not always be so; the third section on 
+subfolders will tighten up this concept.
+
+
+
+
+
+</P>
+<P>&nbsp;</P>
+<H3 class=lightheader>Working in One Archive Copy at a Time</H3>
+
+<P>
+This system was designed in part for automatic merging of all data-set changes from one tree or device to another&mdash;the
+<I>automatic updates</I> mode described earlier.  This mode can be useful both for general backups, and for synchronizing multiple 
+trees.  As a backup tool, for example, merging changes to a device in automatic updates mode will change only items modified since 
+the prior backup.
+
+<P>
+In its synchronization role, because automatic updates mode makes the destination tree a <I>mirror copy</I> of the source, 
+it works best if you're careful to make changes in only one copy at a time.  When you want to work in another tree copy or 
+device, first synchronize to propagate changes as follows:
+
+<OL start=1>
+<LI>
+When using a common base, run mergeall to automatically <I>upload</I> changes from the changed tree to the base;
+then run again to automatically <I>download</I> the changes from the base to other trees to synchronize.
+
+<BR><BR>
+<LI>When no common base is used, the upload step effectively goes away, as you'll run mergeall to automatically
+<I>transfer</I> the changed tree's updates to other trees directly.  
+</OL>
+
+This might become a frequent task if you work in multiple trees or devices often, but the merge
+steps run quickly (see the example run times <A HREF="#short">above</A>), and can use a simple USB stick or shared 
+network drive as a common base.  Moreover, you need to perform synchronization runs only when an entire batch 
+of changes is ready for transfer, not on changes to each individual file.  For example, in mode #1, when you're 
+ready to make changes on a different device, simply run mergeall to upload from the last active device
+and download to the next active device; in between these transfers, no synchronization tasks are required.
+
+<P>
+The chief <I>downside</I> of this approach is that it requires some discipline to follow properly. 
+Automatic updates mode assumes the destination tree should mirror the source tree exactly and in full, no matter
+how the destination may have changed.  If you change multiple copies without synchronizing, automatically 
+uploading or downloading from one tree may overwrite and thus <I>erase</I> the changes made in other 
+trees.  This can occur even if the trees' change sets are disjoint, because automatic merges work on a 
+whole-tree basis.  All changes, additions, deletions, and renames made in one tree are propagated to other
+copies, regardless of other trees' states.
+
+<P>
+That is, automatic updates mode works well and is simple to use, but requires some procedural diligence to avoid losing
+prior changes if multiple trees are modified but not synchronized between uploads.  Specifically: You must treat 
+the <I><B>entire tree</B></I> or device you're working in as the effectively "<B>locked</B>" copy until its changes 
+are propagated; other copies must be treated as "<B>read-only</B>" until they incorporate the locked tree's updates 
+by mergeall runs.  Because mergeall makes synchronizations relatively quick and easy, though, this isn't necessarily 
+more difficult than interfacing with cloud services on changes, and need not be run at all until switching active 
+devices or propagating data for viewing (there's more on clouds in the <A HREF="#clouds">wrap-up</A>).
+
+
+
+
+
+</P>
+<P>&nbsp;</P>
+<H3 class=lightheader>Working in Multiple Archive Copies at the Same Time</H3>
+
+<P>
+This system also has a <I>selective updates</I> mode described earlier, which allows you to choose updates to be applied.
+This mode supports working in multiple trees or devices simultaneously, and combining the changes made in them since the 
+latest synchronization step on a file-by-file basis.  Unlike automatic updates mode, it can incorporate multiple and arbitrary 
+disjoint change sets without having to treat an entire tree as locked while any one copy is modified.  At the same time, 
+it also requires much more user interaction, and is much more prone to user error. 
+
+<P>
+Like its automatic relative, selective updates mode can be used with or without a common base, and supports a variety 
+of usage patterns.  To reconcile <I>two</I> changed trees, do the following (and generalize these procedures for 
+more than two trees):
+
+<OL start=3>
+<LI>
+When using a common base, run once to selectively <I>upload</I> just the first tree's changes to the base; run 
+again to selectively do the same for the second tree; and then run again to <I>download</I> the resulting combined
+base to each tree (perhaps in automatic updates mode, as the base should have both change sets).
+
+<BR><BR>
+<LI>
+With no common base, simply run mergeall <I>twice</I>&mdash;once to selectively merge just the first tree's 
+changes to the second; and once more with swapped from/to roles to merge just the second tree's changes to 
+the first (perhaps via automatic updates mode, as only the second tree's changes should remain as differences). 
+</OL>
+
+<P>
+To broadcast just <I>one</I> tree's changes to multiple possibly-changed trees:
+
+<OL start=5>
+<LI>
+When using a common base, run once to selectively <I>upload</I> just the changed tree's changes to the base; 
+then run again to selectively <I>download</I> just those changes to each other tree.
+
+<BR><BR>
+<LI>
+With no common base, run mergeall to selectively <I>transfer</I> just the changed tree's changes into each other tree. 
+</OL>
+
+<P>
+With a common base, you can also defer downloading changes, but this seems a <I>recipe for disaster</I>. 
+Merges will grow more complex over time, as the base will grow more and more different from individual copies.
+Synchronizing from the base immediately when changes are integrated will minimize the risk of accidentally losing its 
+changes in later mergeall runs, or changing a file already changed in another tree but not yet synchronized&mdash;a worst
+case scenario for shared data sets, and a state this more piecemeal mode seems likely to foster.  
+
+<P>
+In other words, selective usage patterns require some <I>diligence</I> too, to integrate changes before trees grow too out of synch to 
+reconcile.  In fact, you still must treat the <I><B>entire set</B></I> of all modified files in any tree as "<B>locked</B>" until 
+they are transferred to other trees or devices; other copies of these files should be "<B>read-only</B>" till synchronized.  
+This constraint doesn't apply to an <I>entire tree</I> (as it does in automatic updates mode), but it's an inherent consequence of 
+working in multiple copies simultaneously.  Selective updates ultimately trade procedure for reliance on user memory&mdash;you 
+don't have to restrict edits to one tree copy at a time, but you do have to keep track of which files in which tree are current.
+
+<P>
+Selective updates mode also requires <I>careful</I> choice of updates to apply, and is manual to be sure, but reconciling two
+arbitrarily disparate trees by nature requires some sort of manual human intervention.  
+This may be useful in limited contexts, but seems too manual to be a primary 
+synchronization technique.
+
+
+<H4><I>Sidebar</I>: Selective Updates Alternatives</H4>
+
+<P>
+A future variant of this script could support the preceding's peer merges more directly instead of requiring multiple runs&mdash;by asking 
+<I>which</I> version of changed files to use, and whether unique items in either tree should be copied over or pruned&mdash;but awaits 
+some end-user experience.  It's not clear whether this would be less or <I>more</I> confusing than separate one-way runs, 
+and the merit of selective-mode usage in general remains to be shown.  On the other hand, 
+a direct peer merge would avoid analyzing differences twice.  To try this extension as an exercise yourself, 
+see <A HREF="../../mergeall.py">mergeall.py</A>'s reusable comparetrees(), which already does half the work.
+
+<P>
+An automatic peer-to-peer merge, however, is impossible; without user input, it could not choose from differing same-named files, 
+and could produce only the <I>union</I> of two trees' unique items in response to deletions or renames.
+A merge could, perhaps as an option, use the <I>newest</I> version whenever two same-named files differ,
+<I>regardless</I> of which tree it belongs to.  This would pick up the latest changes, but was not pursued as it seems highly
+prone to error&mdash;it makes the extreme assumption that any change in any copy should invalidate all others, regardless of 
+divergence since the last merge.  It's also unclear in this scheme which tree to prefer for unique items (are they deletions or 
+additions?).  A more manual selective approach that asks the user about each difference seems more rational and safe.
+</P>
+
+
+
+
+<P>&nbsp;</P>
+<H3 class=lightheader>Working in Multiple Subfolders at the Same Time</H3>
+
+<P>
+So far, we've seen how to apply automatic updates to work in one archive tree copy at a time, and selective updates to 
+work in multiple trees simultaneously, but the automatic/selective dichotomy isn't quite as orthogonal as this may imply, 
+and other schemes are possible.
+
+<P>
+For example, although mergeall makes an entire tree the same as another, this doesn't necessarily have to include every 
+piece of data you've accumulated since the dawn of digital time.  It's always possible to use automatic updates to synchronize 
+just selected <I><B>subfolders</B></I> nested within an archive&mdash;rather than the whole archive tree&mdash;to and from a 
+common base (or to another copy directly).  This has some advantages, but they come with cautions:
+
+<UL>
+<LI>
+Synching just selected subfolders may make merges <I>quicker</I>, as long as you're sure your changes are limited.  To avoid
+missing some updates, though, this requires you to keep track of all the changes you've made anywhere in the archive since 
+the most recent merge&mdash;a likely daunting task in most use cases.
+
+<BR><BR>
+<LI>
+In principle, subfolder synching could also allow you to work <I>simultaneously</I> on separate sets of data on different devices, 
+by segregate them in subfolders propagated by automatic updates to other devices as needed.  For instance, you might work on 
+programming on one machine and writing on another, by maintaining and synchronizing these as distinct subfolders within an archive.  
+This requires even more diligence, however&mdash;you'll need to remember which data set is active on which device at any given 
+time to avoid changing the same files, and must be careful to avoid inadvertent whole-archive synchronizations that may erase 
+changes in subfolders not yet propagated.
+</UL>
+
+<P>
+In fact, this scheme is essentially the same as the preceding section's topic&mdash;with subfolders representing change sets, 
+and automatic updates on subfolders replacing selective updates on a broader tree.  To synchronize, simply use the prior 
+section's modes #3 through #6 with these translations, and be sure to treat the currently-active subfolder copy as "<B>locked</B>"
+and all others as "<B>read-only</B>" just as for the prior section's more arbitrary change sets.
+
+<P>
+Subfolders have an advantage over the prior section's approach: parallel changes are easier to manage when limited to 
+specific tree locales, and automatic updates mode is much easier than selective updates from a user's perspective.  
+However, subfolder synchronization also comes with most of the same burdens and dangers: unlike full-tree approaches, 
+keeping track of tree changes still becomes more your task than the system's.
+
+<P>
+Hence, selected subfolder synching is not generally recommended, except in limited cases.  You're more likely keep trees in 
+synch if your automatic updates are made on a <I>whole-archive</I> basis, and you restrict your edits to one full-tree copy
+at a time.  That said, your merges will run faster if you organize your data wisely, with rarely-changed files in archive 
+trees that need rarely be merged.  If you do wish to make changes on different machines in parallel, though, you'll have 
+to exercise some caution to avoid losing changes.
+</P>
+
+
+
+
+<P>&nbsp;</P>
+<H2 class=lightheader><A name="recommend">Recommended Usage Modes</A></H2>
+
+<P>
+Because of the complexities&mdash;and perils&mdash;of both selective updates mode and changing multiple trees simultaneously, 
+mergeall's <I><B>automatic updates</B></I> mode and usage patterns <B>#1</B> or <B>#2</B> listed in the preceding section
+are generally recommended for most users (and frankly, have been the only techniques used in practice by the system's original 
+developer). To summarize the model:
+
+<DL>
+<DT>
+<B><I>For data sets shared by multiple devices:</I></B>
+<DD>
+<P>
+When changes are made on one device, run mergeall's automatic updates mode to <I>upload</I> them to a common base device, 
+and run mergeall's automatic updates mode again to <I>download</I> them from the base to other devices when needed.  
+You can make changes on just one device at a time, but need to synchronize this way only when switching to another device
+for edits, or propagating current data for viewing on other devices.
+</P>
+
+<DT>
+<B><I>For data sets shared by multiple folders on the same device:</I></B> 
+<DD>
+<P>
+When changes are made in one folder, run mergeall's automatic updates mode to <I>transfer</I> them to other folders directly
+when needed.  You can make changes in just one folder copy at a time, but need to synchronize this way only when switching to 
+another folder for edits, or propagating current data for viewing in other folders.
+</P>
+</DL>
+
+<P>
+Although you can apply these procedures to any subfolder nested in an archive's directory tree, it's generally simpler 
+and recommended to run them on a <I><B>whole archive</B></I>. That way, mergeall is responsible for locating changes anywhere 
+in the tree; for most real-world usage, this is much easier than keeping track of them yourself.
+ 
+<P>
+For multiple devices, this model is essentially a manual emulation of some cloud storage interfaces, where mergeall runs replace 
+network transactions to and from a cloud server, and a local device used as the common base replaces remote cloud storage.  
+Especially when augmented by version 2.0's <A HREF="#backups">automatic backup</A> of items changed on each
+device, the common base's role becomes functionally very similar to many cloud services (again, more on clouds 
+<A HREF="#clouds">ahead</A>). 
+
+<P>
+The recommended automatic usage modes listed above offer the simplest and least error-prone solution, where their procedural requirements can 
+be met.  If you really must work on disjoint file sets in multiple trees or devices at the same time, though, be sure to synchronize
+regularly to avoid version skew&mdash;transfer your changes to other tree copies as soon as possible (if not immediately), per modes 
+<B>#3</B> through <B>#6</B> above.  You can perform these transfers with automatic updates mode if your changes are isolated in disjoint 
+subfolders, but must use selective updates mode if they are more haphazard.
+
+<P>
+Put more strongly, version 2.0's automatic backup of changes helps protect your data in both automatic and selective updates modes, 
+and 2.1's rollbacks provide a failsafe for catastrophic mistakes, but there's nothing mergeall can do if the same file is changed 
+in two trees without synchronizing&mdash;a case that seems more likely when using a more sporadic simultaneous changes model.  
+Following the recommendations above is the simplest way to avoid this situation.
+
+<P>
+Because it's generally easier, automatic updates mode is the <I>only</I> updates mode supported by the mergeall 
+GUI launcher&mdash;the 
+recommended way to use this system for most users.  Selective updates mode is available in both the 
+console launcher
+and manual mergeall <A HREF="../../mergeall.py">command lines</A>, which are more powerful alternatives for more advanced use cases.
+
+
+
+
+
+
+</P>
+<P>&nbsp;</P>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H1><A NAME="other">Other Usage Recommendations</A></H1>
+</TABLE>
+
+<P>
+Apart from the preceding section's usage pattern suggestions, a variety of general techniques can help make 
+mergeall more effective for your data.  Here's a quick rundown of additional usage suggestions:
+
+<DL>
+
+<DT>
+<I><B>Experiment with the GUI live:</B></I>
+<DD>
+<P>
+There is no formal usage guide for mergeall's GUI, because it is simple enough to qualify as self-explanatory.   
+The <A HREF="#shots">screenshots</A> above give a static picture of the GUI, but your best bet may be to 
+experiment with it live&mdash;open the GUI launcher script, <A HREF="../../UserGuide.html#gui">launch-mergeall-GUI.pyw</A>; 
+select your FROM and TO folders; choose a report-only or auto-updates run; make your logfile and backups choices 
+as appropriate for your run; and press the "GO" button at the GUI screen's bottom to start the mergeall process.  
+mergeall output appears in the GUI's text area, and the GUI changes its structure to present only items relevant to the 
+selections you make.  Be sure to start out with report-only mode, and use a TO folder you don't mind changing 
+in auto-updates mode. 
+</P>
+
+<DT>
+<I><B>Design your archives wisely:</B></I>
+<DD>
+<P>
+As a rule, all files and media that you wish to be managed by mergeall should be saved in your mergeall archive 
+tree (or trees), not in any platform-specific default folders; this requires some discipline, but allows for 
+quick copies and backups.  To make merges faster, store infrequently changed data in a different archive tree than 
+data you typically change; that way, you can run mergeall on just the regular-changes tree and skip the rest.  
+Decade-old photo collections, for example, are unlikely to change often enough to warrant regular mergeall inspection.  
+On the other hand, any data that may change should be in a folder mergeall visits so that updates are propagated,
+and version 2.2's <A HREF="#optimizations">speed optimization</A> can make comparisons much faster for larger trees.  
+Also note that your archive trees must be no larger than the storage space of devices to which they will be propagated; 
+split up your tree if it's too big for your external drives.
+</P>
+
+<DT>
+<I><B>View reports before updating:</B></I>
+<DD>
+<P>
+Especially when first using the system, it's a good idea to run it in report-only mode before running it 
+to perform updates&mdash;automatic updates in particular.  The report shows differences found and describes 
+the changes that automatic updates would make, allowing you to preview and verify the plan.  In command-line usage, 
+this means run with <I>-report</I> before <I>-auto</I>; in the launchers, use inputs and widgets to report first.
+</P>
+
+<DT>
+<I><B>Use automatic backups:</B></I> 
+<DD>
+<P>
+As of version 2.0, for data safety it is recommended to always use mergeall's automatic backups option for changes
+<A HREF="#backups">described earlier</A>, in both automatic and selective updates modes.  While not foolproof, this 
+option allows unwanted or erroneous mergeall run changes to be backed out if needed.  Because this helps protect your
+archives (which are your digital property), it's enabled by default in the GUI; don't disable it unless backup 
+copies would be too large or slow for your devices.  Backups are also required for the next bullet's restores.
+</P>
+
+<DT>
+<I><B>Use automatic restores if needed:</B></I>
+<DD>
+<P>
+Though primarily intended for piecemeal restores, the prior bullet's backups also allow for <I>complete rollbacks</I> 
+of immediately preceding runs as of version 2.1, in unlikely but catastrophic scenarios (if you mix up FROM and TO folders, 
+for example).  For details, see the new restore option <A HREF="#restores">described earlier</A>.  You should generally 
+be cautious with folder selection to avoid restores altogether, and full rollbacks should be very rarely required; restores 
+provide a failsafe recovery option if ever needed.
+</P>
+
+<DT>
+<I><B>Keep multiple copies:</B></I>
+<DD>
+<P> 
+To protect your data further, keep multiple archive copies, and rotate their mergeall updates by age (always merge to the
+oldest copy).  This way, you'll have additional backups to fall back on in case of rare but catastrophic 
+<A HREF="Lessons-Learned.html#device">device failures</A>.
+</P>
+
+<DT>
+<I><B><A name="rundiffall">Run diffall.py:</A></B></I> 
+<DD>
+<P>
+For further archive fidelity, run the accompanying <A HREF="../../diffall.py">diffall.py</A> script occasionally, to verify the 
+integrity of archive copies by byte-for-byte comparisons.  Unlike mergeall, diffall compares full file content
+instead of just file modification times, and so gives a slower but more complete proof of data equality.  To run diffall, 
+use mergeall's <I>-verify</I> command-line option or direct command lines; see 
+<A HREF="../miscnotes/manual-commands-cheat.txt">manual-commands-cheat.txt</A> for examples.  
+For more on diffall, see its <A HREF="../../diffall.py">script</A>'s docstring,
+and its <I>-recent</I> option documented in version 2.0 change notes in <A HREF="Revisions.html#uochange1">Revisions.html</A>.  
+Also note that some differences are normal, including <I>__bkp__</I> per-run subfolders used for change 
+<A HREF="#backups">backups</A>, and files changed trivially by Excel as discussed in 
+<A HREF="Lessons-Learned.html#stamps">Lessons-Learned.html</A> and a version 1.4 usage note in 
+<A HREF="Revisions.html#uonote2">Revisions.html</A>.
+</P>
+
+<DT>
+<I><B>Fix file permissions:</B></I>
+<DD>
+<P>
+Some file permissions preclude mergeall updates.  This includes read-only and hidden/system files; some may
+be copied over to a destination, but cannot be updated there on changes.  As the system does not modify your
+files' permissions automatically (your files are your property), you may want to change these yourself if they 
+register as errors and skips in the mergeall log.  In-use file errors can be addressed by rerunning.
+See the related usage note in <A HREF="Revisions.html#uonote9">Revisions.html</A> for more details.  
+</P>
+
+<DT>
+<I><B>Handle DST rollover:</B></I>
+<DD>
+<P>
+If you use FAT devices (e.g., most flashdrives) on Windows, you'll probably want to adopt a policy for 
+dealing with the 1-hour modtime skew that occurs at Daylight Savings Time (DST) rollovers.  See the version 1.4 
+usage note in <A HREF="Revisions.html#uonote1">Revisions.html</A> for options&mdash;including the 
+<A HREF="Revisions.html#fixfatdst">new script</A> workaround in 2.0&mdash;and
+<A HREF="Lessons-Learned.html#stamps">Lessons-Learned.html</A> for additional context.   This is easy to handle, 
+but the default policy means that your FAT archive copies will be rewritten in full twice a year.   
+
+<P>
+<I><B><U>Update</U></B></I>: as of version 3.0, users are advised to format external drives with 
+the exFAT filesystem to work around the DST rollover issue.  This fixes the problem completely,
+though Linux users (only) may have to install exFAT support.  See the new coverage of this 
+topic in the <A HREF="../../UserGuide.html#dst">User Guide</A>.
+</P>
+
+<DT>
+<I><B>Use shorter names and paths:</B></I>
+<DD>
+<P>
+On most systems (including Windows), there is a limit on both filename and directory path length, above which 
+mergeall updates may fail.  To avoid this, try to avoid excessively long filenames and excessively deep 
+directory trees.  If items fail due to length, you may need to manually shorten or prune them, or move them
+closer to the archive root; saved web pages are notorious in this department.  On the <I>upside</I>, mergeall can 
+handle any filename that works on your platform (including those containing spaces and other odd characters 
+on Windows), even though some may be difficult to use in other platforms' shells; and properly propagates
+mixed-case file renames, even on platforms whose filenames are case-insensitive (including Windows).
+
+<P>
+<I><B><U>Update</U></B></I>: version 3.0 lifts the Windows pathname length limit, by formatting too-long 
+pathnames in such a way as to invoke different API tools that support much longer paths.  Thus, you probably
+won't run into pathname limits anymore in mergeall (even in website save folders), though pathologically-long 
+filenames or pathnames may still fail on any platform.
+</P>
+
+<DT>
+<I><B>Log to different drives:</B></I>
+<DD>
+<P>
+Routing mergeall's output to a logfile that is located in the TO destination folder may cause mergeall to
+run substantially slower due to the extra writes, especially on flashdrives.  Make sure your logfiles are 
+routed to a different drive (e.g., on Windows, use C: for the log if D: is the TO destination tree).
+Also note that this may not be a significant issue on some drives (e.g., SSDs); try it on yours to be sure.
+</P>
+
+<DT>
+<I><B>Set your shell Unicode type:</B></I>
+<DD>
+<P>
+Be sure to set Python's Unicode environment variable PYTHONIOENCODING to UTF8 (or other) in your 
+shell or Control Panel if you receive Unicode errors when scripts like mergeall.py attempt to print non-ASCII 
+filenames on your platform.  This manual setting is <I>not</I> required for the 
+GUI launcher&mdash;it 
+automatically sets and propagates this variable to its mergeall.py subprocess, and does not route text to a console 
+(only to a GUI and bytes-mode logfile).  However, this setting <I>may</I> be required for both the 
+console launcher,
+ and <A HREF="../../mergeall.py">mergeall.py</A> when run directly from a command line&mdash;because both print filenames to the console, 
+visiting any file with a non-ASCII name may otherwise abort these scripts, especially in 3.X.  
+For more on this variable, see 
+<A HREF="http://learning-python.com/about-pp4e.html">PP4E</A> or
+<A HREF="http://learning-python.com/about-lp5e.html">LP5E</A>.
+</P>
+
+<DT>
+<I><B><A name="usepy3x">Consider using Python 3.X and 3.5+</A>:</B></I>
+<DD>
+<P>
+This note pertains to the source-code mergeall package only.
+As described in the Revisions' release notes, it's generally recommended that mergeall and its launchers
+be run under Python 3.X instead of 2.X for trees having many non-ASCII filenames, and under Python 3.5 
+or later for larger trees.  Using 3.X avoids some minor <A HREF="Revisions.html#version16">display issues</A>, 
+and using 3.5+ allows mergeall to run <A HREF="Revisions.html#version22">much quicker</A>.  Note that you should be 
+able to install these Pythons without breaking programs that rely on prior releases; on Windows, install without 
+filename associations, and run mergeall and its launchers from command lines instead of clicks 
+(e.g., "py -3.5 launch-mergeall-GUI.pyw")
+
+<P>
+<I><B><U>Update</U></B></I>: the speed gains of the Python 3.5+ optimization are realized only on 
+Windows and Linux.  On Mac OS X, this optimization is irrelevant and unused, as it actually <I>slows</I>
+comparisons by a factor of 3 in Python 3.5 (also see the note <A HREF="#optimizations">above</A>: the
+3.5+ scandir() optimization was subsumed by an alternative coding).  Moreover, it now
+appears that some of Python 2.X's Unicode filename issues may be limited to Windows (this is to be further
+explored).  Still, the latest Python is generally recommended on all platforms.
+</P>
+
+</DL>
+
+
+
+
+
+
+</P>
+<P>&nbsp;</P>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H1><A NAME="limits">Limitations and Cautions</A></H1>
+</TABLE>
+
+<P>
+Though mergeall works as intended and continues to see regular action, it's not without
+the usual dark corners inherent in system-related tools.  None of these are unique to mergeall&mdash;in
+fact, cloud providers and other backup systems must deal with many of the same issues.  
+This section's subsections summarize the set, though, so you can be fully aware of issues that
+may crop up:
+
+<UL>
+<LI><A HREF="#limits1">Same-File Differences</A>
+<LI><A HREF="#limits2">Other Limitations</A>
+<LI><A HREF="#warnings">Use With Care</A>
+</UL>
+
+
+
+</P>
+<P>&nbsp;</P>
+<H2 class=lightheader><A name="limits1">Same-File Differences</A></H2>
+ 
+<P>
+Keep in mind that change sets must be <I>disjoint</I> to reconcile two trees at all (e.g., working on only website files in 
+one tree, and spreadsheet files in another).  The recommended usage modes described <A HREF="#recommend">earlier</A> avoid this
+issue altogether by limiting changes to one copy at a time.  If you change the <I>same file</I> in two or more trees without 
+synchronizing, though, you'll have to select a single version, and may have to manually reconcile in-file changes.  
+
+<P>
+This is a dilemma that source control systems aim to address, and for which some products may attempt to apply proprietary 
+solutions for a limited number of file types, but it remains an unavoidable potential pitfall in the general case.  Whether you 
+merge local copies with this system or resort to a network cloud, you must still be careful to avoid changing the same file in
+multiple trees or devices without synchronizing the file to all copies after each set of changes, by either manual or automated
+transfers.
+
+
+</P>
+<P>&nbsp;</P>
+<H2 class=lightheader><A name="limits2">Other Limitations</H2>
+
+<P>
+Beyond basic usage models, this system also comes with some open issues and caveats, described in the docstrings at 
+the top of its code files; search for TBD and CAVEAT for details.  Among them: 
+
+<UL>
+<LI>Although archives of normal files and folders work well, due to limited testing the behavior of symbolic links, FIFOs, 
+and other exotic <I>file types</I> is unknown, especially outside Windows; extend as desired (and patches are welcome).
+[UPDATE: mergeall 3.0 now supports symbolic links on Unix and Windows, and skips FIFOs explicitly; see the
+<A HREF="../../UserGuide.html#symlinks">User Guide</A>.]
+
+<BR><BR>
+<LI>There are some well-known file modification <I>timestamp</I> issues that merit user knowledge and possibly 
+action&mdash;including daylight savings time rollover for FAT file systems on Windows, and programs like Excel 
+that may change files but not update modtimes or sizes.  [UPDATE: version 3.0 recommends formatting external 
+drives with the exFAT filesystem to avoid time-change issues; see the
+<A HREF="../../UserGuide.html#dst">User Guide</A>.]
+
+
+<BR><BR>
+<LI><I>Filesystems</I> themselves have inherent constraints that this system may run up against, including name-length 
+limits, permissions, and locks.  [UPDATE: version 3.0 removes Windows pathname length limits;
+see the
+<A HREF="../../UserGuide.html#winpaths">User Guide</A>.]
+
+<BR><BR>
+<LI>Though rare, <I>storage devices</I> can fail too, though likely no more&mdash;and perhaps less&mdash;often than network clouds
+(see the next section).
+</UL>
+
+<P>
+For notes on unusual file types, see <A HREF="Revisions.html#version15">version 1.5</A>.
+For more on device failures, see <A HREF="Lessons-Learned.html#device">Lessons-Learned.html</A> in the
+docs folder.  For more on timestamp and filesystem issues, see 
+<a href="Lessons-Learned.html#stamps">Lessons-Learned.html</A>; the CAVEATS section in the docstring of the main
+<A HREF="../../mergeall.py">mergeall.py</A> script;
+and the usage notes in the version history of the top-level 
+<A HREF="Revisions.html#history">Revisions.html</A> file.  
+The latter of these also includes specific usage notes and workarounds, some of which are
+omitted here; among its coverage and solutions:
+
+<UL>
+<LI>(<A HREF="Revisions.html#uonote1">note</A>) FAT drives munge file modtimes at DST rollover if auto-adjust.
+<LI>(<A HREF="Revisions.html#uonote2">note</A>) Some programs may change file content but not modtime or size.
+<LI>(<A HREF="Revisions.html#uonote3">note</A>) Some filesystems limit maximum filename and path length.
+<LI>(<A HREF="Revisions.html#uonote4">note</A>) Routing logfiles to a USB drive being scanned slows merges.
+<LI>(<A HREF="Revisions.html#uonote5">note</A>) Device and shared network drives use special path syntax.
+<LI>(<A HREF="Revisions.html#uonote6">note</A>) On Linux, Windows NTFS volumes may skew some modtimes too.
+<LI>(<A HREF="Revisions.html#uonote7">note</A>) On FAT32 drives, names that differ with Unicode may be equated without.
+<LI>(<A HREF="Revisions.html#uonote8">note</A>) On Windows, some deletions may not be finalized immediately.
+<LI>(<A HREF="Revisions.html#uonote9">note</A>) Permission errors may trigger failures: read-only, hidden/system, in use, etc.
+</UL>
+
+The good news is that update failures are not generally harmful&mdash;they produce error messages
+in the log, but simply leave a difference to be resolved either manually or on the next mergeall run. 
+See also <A HREF="#other">other recommendations</A> earlier, for pointers on 
+dealing with some of these limitations.
+
+
+</P>
+<P>&nbsp;</P>
+<H2 class=lightheader><A name="warnings">Use With Care</A></H2>
+
+<P>
+However you use this system, also keep in mind that it may <I><B>change its destination tree in-place</B></I>. 
+Moreover, by default it does so without making backups of files or directories added, replaced, or deleted (see the 
+next paragraph). This is all by design, to optimize speed and space requirements; after all, the goal of this system 
+is to synchronize large trees faster than brute-force copies.  If in doubt, though, please try it on a 
+temporary copy first, and make manual backups as needed.  There is also a more detailed warning in the  
+<A HREF="../../UserGuide.html#warn">UserGuide.html</A> file that you should read before use.
+
+<P>
+<I>Update</I>: for added data safety, see the 2.0 <I><B>automatic backup</B></I> for changes option 
+<A HREF="#backups">described earlier</A>.  When enabled, this option mitigates some data loss risk by automatically saving 
+all files and directories replaced or deleted in-place, and noting all files added.  This allows you to back out changes if 
+needed&mdash;either by manual piecemeal copies, or by version 2.1's <A HREF="#restores">complete rollbacks<A>&mdash;and should 
+generally always be used.  However, this should still not be considered foolproof, given the many ways that storage devices 
+<A HREF="Lessons-Learned.html#device">can fail</A>.  See the preceding <A HREF="#recommend">recommended usage</A> and 
+<A HREF="#other">other recommendations</A> if you haven't already, for more pointers on promoting archive integrity. 
+
+
+
+
+
+
+</P>
+<P>&nbsp;</P>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H1><A name="clouds">Manual Merges versus Cloud Storage</A></H1>
+</TABLE>
+
+<P>
+In closing, here are a few words on this system's purpose.  As noted <A HREF="#recommend">earlier</A>, 
+mergeall's recommended usage mode corresponds closely to cloud services, where program runs replace 
+cloud server transfers, a local base device replaces remote cloud storage, and backed-up changes on 
+each destination device can help protect your data.  
+
+<P>
+Compared to some of the current claims of cloud storage providers, though, the recommended mergeall
+usage model may require extra manual steps to synchronize; its on-demand whole-archive resolution must be 
+run only when needed, but it must be run. On the other hand, some cloud services come with interface tasks
+of their own, and may not be quite as automatic as their marketing may imply.  More crucially,
+cloud servers are controlled, in most cases, by financially-interested third parties, on which your 
+digital property becomes wholly dependent&mdash;a <I>massive</I> downside, and a primary motivation for starting this project.  
+
+<P>
+To be clear, data stored on commercial and/or public clouds&mdash;including 
+Google Drive, Dropbox, Microsoft's OneDrive (formerly SkyDrive), Apple's iCloud, 
+and Amazon's Cloud Drive:
+
+<UL>
+<LI>Requires a network connection to access at all (see most airlines and/or Wyoming).
+
+<LI>Is limited by the speed of networks when they are available (see much faster USB 3.0
+    <A HREF="Lessons-Learned.html#usb30">flashdrives</A>).
+
+<LI>Relies upon provider reliability and longevity (see Sony's 
+    <A HREF="http://blog.sony.com/2014/02/the-future-of-reader-store/">Reader Store</A>).
+
+<LI>May increase in price arbitrarily after you've come to rely on it (see your 
+    <A HREF="http://time.com/94344/netflix-price-increase/">Netflix</A> and cable bills).
+
+<LI>Is vulnerable to being stolen by criminals (see 
+    <A HREF="http://www.reuters.com/article/2015/03/19/target-settlement-idUSL2N0WL0DV20150319">Target</A>,
+    <A HREF="http://www.reuters.com/article/2015/03/18/us-cyberattack-premera-idUSKBN0MD2FF20150318">Blue Cross</A>, and
+    <A HREF="http://en.wikipedia.org/wiki/Data_breach#Major_incidents">more</A>).
+
+<LI>Is subject to arbitrary access and use by government entities, without 
+    your knowledge or consent (see the <A HREF="https://www.eff.org/nsa-spying">NSA</A>).
+
+<LI>Is subject to arbitrary access and use by advertising entities, without 
+    your knowledge or consent (see much of today's
+    <A HREF="http://www.reuters.com/article/2014/03/19/us-google-gmail-lawsuit-idUSBREA2I13G20140319">web experience</A>).
+</UL>
+
+<P>
+If that's not enough to raise a red flag or two, also keep in mind that clouds are not
+a panacea for all the issues inherent in data storage (despite the Orwellian language on some 
+of their web sites).  Multiple copies or devices raise difficult problems that require 
+careful resolution under any regime.  The more a cloud promises simple solutions, the 
+less likely it is to deliver them.
+
+<P>
+This issue has grown more acute as the ongoing computer revolution has coaxed more of
+us to move important personal property to digital storage.  This is convenient to be sure, 
+but comes with substantial tradeoffs and risks.  Uploading your photo libraries to a public
+cloud is no different than giving a shoebox full of them to a complete stranger you met on
+the bus, for safe keeping.  Some such strangers may not only pass along your shoebox to 
+others without getting your okay, they might just hold it for ransom in the future.  
+If you wouldn't do this in the "real" world, why would you do so on the web?  
+
+<P>
+Regardless of how you proceed, please be careful out there.  Trusting your personal digital 
+property to a third party is inherently perilous, especially when that party is laden with agendas.  
+For better or worse, the computer industry at present seems to have no shortage of companies 
+jockeying to establish points of control that can be used to squeeze nickels out of people with 
+fewer nickels left to be squeezed.  Random example: a company that abruptly adopts an  
+advertising-or-subscription model for a game that had been freely available for over two 
+decades may not have your best interest at heart 
+(see Windows 8 <A HREF="http://cdn.windowsobserver.com/wp-content/uploads/2013/03/Screenshot-132.png">Solitaire!</A>).
+
+
+<P>
+<I><B>Postscripts</B></I>
+<P>
+<I>May-17-14</I>: Adobe's Creative Cloud goes offline for
+a day leaving subscribers in the dark, as reported
+<A HREF="http://www.bbc.com/news/technology-27439189">here</A>,
+<A HREF="http://www.infoworld.com/t/cloud-computing/adobe-creative-cloud-crash-shows-no-cloud-too-big-fail-242674?source=rss_the_industry_standard">here</A>, and
+<A HREF="http://www.thedailybeast.com/articles/2014/05/15/adobe-s-creative-cloud-goes-offline-and-takes-a-million-designers-with-it.html">here</A>.
+
+<P>
+<I>Mar-13-15</I>: Per the web, 
+<A HREF="http://www.reuters.com/article/2015/03/11/us-apple-services-idUSKBN0M71NZ20150311">Apple</A>,
+<A HREF="http://www.wired.com/2012/11/amazon-google-outages/">Amazon</A>,
+<A HREF="http://www.theregister.co.uk/2015/03/09/google_promises_proper_patch_preparation_after_second_cloud_outage/">Google</A>, 
+<A HREF="http://www.winbeta.org/news/microsoft-azure-hit-major-service-outage-affecting-onedrive-microsoft-blogs-microsoft-band-and">Microsoft</A>, 
+<A HREF="http://www.nevillehobson.com/2014/01/11/dropbox-outage-shows-the-fragility-of-the-cloud/">Dropbox</A>, and
+<A HREF="http://www.theguardian.com/technology/2015/jan/27/is-facebook-down-outages">Facebook</A> 
+aren't immune to 
+<A HREF="http://www.crn.com/news/cloud/index/cloud-outages-cloud-services-downtime.htm">service outages</A> either.
+
+<!-- http://www.pcworld.com/article/2086726/dropbox-hit-by-outage-on-friday-denies-that-it-was-hacked.html-->
+
+<P>
+<I>Mar-18-15</I>: For an example of how sensitive an issue cloud storage can be, see  
+<A HREF="http://www.drop-dropbox.com/">this controversy</A> regarding a cloud provider.
+
+<P>
+<I>Mar-28-15</I>: Speaking of changing the rules after you've become dependent, see Amazon's change
+<A HREF="http://www.androidos.in/2015/03/amazon-no-longer-offers-free-cloud-storage-intros-paid-unlimited-plans">here</A> and
+<A HREF="https://www.amazon.com/gp/help/customer/display.html?nodeId=201731340">here</A>. 
+
+
+
+
+
+
+</P>
+<BR><BR>
+<!--borrowed from websites' theme-->
+<TABLE class=footertable bgcolor="#96CDCD" width="100%">
+<TD align=center>
+  <A class=blocklinkbar href="http://www.python.org">                                <!--border=0 for IE img links-->
+  <IMG SRC="../docimgs/PythonPowered.gif" ALT="[Python Logo]" border=0 width=55 height=22></A>   <!--scale larger gif for res-->
+<TD align=center>
+  <B><A class=blocklinkbar HREF="http://learning-python.com/index.html">Books</A></B>
+<TD align=center>
+  <B><A class=blocklinkbar HREF="http://learning-python.com/programs.html">Programs</A></B>
+<TD align=center>
+  <B><A class=blocklinkbar HREF="http://learning-python.com/posts.html">Posts</A></B>
+<TD align=center>
+  <B><A class=blocklinkbar HREF="mailto:lutz@learning-python.com">Feedback</A></B>
+<TD align=center>                                                                              
+  &copy;<I> M. Lutz</A></I>   
+</TABLE>
+
+
+</BODY>
+</HTML>

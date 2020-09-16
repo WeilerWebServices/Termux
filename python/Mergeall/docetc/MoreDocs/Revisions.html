@@ -1,0 +1,2605 @@
+<HTML>
+
+<HEAD>
+
+<TITLE>mergeall - Revisions History</TITLE>
+
+<!--analytics javascript omitted here-->
+
+<!-- CAVEAT: parts of this page predate its author's use of CSS, and use
+     tables, &nbsp;, <BR> and the like for formatting; there's no compelling
+     reason to change at this point, but consider yourself warned... -->
+
+<STYLE>
+
+/* Nov 2015: font (banish Times/serif!), toolbar button style; no external CSS file */
+/* This doc originally skipped CSS usage, and still uses tables for simple layout   */
+
+body {                                           
+    font-family: Arial, Helvetica, sans-serif;      /* font for entire doc: precedence list */
+}                                                
+
+.blocklinkbar {
+    display: block;                                 /* toolbar buttons style */
+    width: 100%;
+    text-decoration: none;  
+}
+
+.blocklinkbar:hover {                               /* on toolbar hover, underline link */
+    text-decoration: underline;
+}
+
+.footertable {                                      /* a borderless table */                 
+    border-collapse: collapse;                      /* if on table only, 2px renders as outside-only border */
+    border: 0px solid black;                        /* but borders can be variable-width at some zoom levels */
+    table-layout: fixed;                            /* spread items out a bit more evenly */
+}
+
+.blueheader {                                       /* not used here (caveat): any header, <P>, etc. */
+    background-color: "#96CDCD";
+}
+
+.notebox {
+    margin-left: 40px; 
+    margin-right: 40px; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-style: solid; 
+    border-width: 1; 
+    padding: 5px;
+}
+
+</STYLE>
+
+</HEAD>
+
+
+<BODY>
+
+
+<P>
+<TABLE bgcolor="#96CDCD" width="100%">
+<TR>
+<TH align="left"><A HREF="../docimgs/index.html"><img src="../docimgs/mergeall128.png" border=0></A></TH>    <!--border for IE if a link-->
+<TD><H1><A NAME="mergeall"><I>mergeall</I> &mdash; Revisions History</A></H1></TD>
+</TR>
+</TABLE>
+
+<P>
+<I>Last updated: December 2017 (f/k/a Readme.html)</I>
+
+
+</P>
+<H3>Introduction</H3>
+
+<P>
+This document, aimed primarily at developers, describes changes made in each released 
+version of mergeall, and provides additional context along the way.  This document 
+also includes overviews from its original role as a first-level README; as 
+these are now dated and mostly redundant with other resources, they have been moved 
+to the end as optional reading.
+For up-to-date usage fundamentals, see instead the 
+<A HREF="../../UserGuide.html">User Guide</A>.
+For additional project and usage background details, see also the original (and also 
+somewhat dated) <A HREF="Whitepaper.html">Whitepaper</A>.
+</P>
+
+
+<P class=notebox>
+<I><B>Please note</B></I>: 
+Apart from its coverage of the latest <A HREF="#version31">releases</A>,
+this document is no longer actively maintained, and much of its material is now
+<I>project history</I> only.
+All of the older screenshots and logs referenced in this document have been removed to minimize 
+mergeall package size, and their links were deleted during docs reorganization. 
+See the newer <A HREF="../docimgs/index.html">screenshots collection</A> for up-to-date 
+GUI images, and please excuse the shortage of off-page context here.
+
+
+
+</P>
+<H3>Main Contents</H3>
+
+<OL>
+<LI><A HREF="#history"><B>Version History</B></A>
+</OL>
+
+<H3>Other Contents</H3>
+<OL start=2>
+<LI><A HREF="#start">(<I>Dated</I>) Usage Summary</A>
+<LI><A HREF="#overview">(<I>Dated</I>) System Summary</A>
+<LI><A HREF="#links">(<I>Dated</I>) See-Also Links<A>
+</OL>
+
+</P>
+
+
+
+<!--===================================================================================-->
+</P>
+<P>&nbsp;</P>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H1><A name="history">Version History</A></H1>
+</TABLE>
+
+<P>
+This section&mdash;the majority of this document&mdash;lists both changes and usage notes, 
+grouped by release version.
+To find a version's specific changes in the <I>source code</I>, search for its 
+release number in the source code files (e.g., search for "3.0" in the ".py" and ".pyw"
+Python source files to view version 3.0 code changes).
+
+<P>Contents here:
+
+<P>
+<TABLE border=1 cellpadding=4>
+
+<TR><TH><A HREF="#version31">Version 3.1</A>
+    <TD>Dec-2017
+    <TD>Folder modtimes, Linux exe flushes, scripts "-u"
+    <TD><A HREF="#changes31">Changes</A>
+    <TD>&nbsp;</TD>   <!-- needed for IE, else no border; chrome splits: punt -->
+
+<TR><TH><A HREF="#version30">Version 3.0</A>
+    <TD>Jun-2017
+    <TD>GUI redesign, Mac OS X port, cruft, app/exe, etc.
+    <TD><A HREF="#changes30">Changes</A>
+    <TD>&nbsp;</TD>   <!-- needed for IE, else no border; chrome splits: punt -->
+
+<TR><TH><A HREF="#version24">Version 2.4</A>
+    <TD>Aug-31-16
+    <TD>Quiet logging mode, screenshot thumbs
+    <TD><A HREF="#changes24">Changes</A>
+    <TD>&nbsp;</TD>
+
+<TR><TH><A HREF="#version23">Version 2.3</A>
+    <TD>Apr-24-16
+    <TD>Patch add-file encoding, 2.X makedirs
+    <TD><A HREF="#changes23">Changes</A>
+    <TD><A HREF="#usage23">Usage Notes</A>
+
+<TR><TH><A HREF="#version22">Version 2.2</A>
+    <TD>Sep-25-15
+    <TD>Faster execution with os.scandir()
+    <TD><A HREF="#changes22">Changes</A>
+    <TD>&nbsp;</TD>
+
+<TR><TH><A HREF="#version21">Version 2.1</A>
+    <TD>Mar-31-15
+    <TD>Automatic restores from backups
+    <TD><A HREF="#changes21">Changes</A>
+    <TD>&nbsp;</TD>
+
+<TR><TH><A HREF="#version20">Version 2.0</A>
+    <TD>Mar-18-15
+    <TD>Backups for changes, smarter GUI, etc.
+    <TD><A HREF="#changes20">Changes</A>
+    <TD><A HREF="#usage20">Usage Notes</A>
+
+<TR><TH><A HREF="#version171">Version 1.7.1</A>
+    <TD>Oct-28-14
+    <TD>Error message fix, usage note update
+    <TD><A HREF="#changes171">Changes</A>
+    <TD><A HREF="#usage171">Usage Notes</A>
+ 
+<TR><TH><A HREF="#version17">Version 1.7</A>
+    <TD>Oct-10-14
+    <TD>Extend report, minor fixes/upgrades
+    <TD><A HREF="#changes17">Changes</A>
+    <TD><A HREF="#usage17">Usage Notes</A>
+
+<TR><TH><A HREF="#version16">Version 1.6</A>
+    <TD>Jul-27-14
+    <TD>Python 2.X Unicode fix, verify quit
+    <TD><A HREF="#changes16">Changes</A>
+    <TD>&nbsp;</TD>
+
+<TR><TH><A HREF="#version15">Version 1.5</A>
+    <TD>May-5-14
+    <TD>Linux port patch + notes
+    <TD><A HREF="#changes15">Changes</A>
+    <TD><A HREF="#usage15">Usage Notes</A>
+
+<TR><TH><A HREF="#version14">Version 1.4</A>
+    <TD>Mar-27-14
+    <TD>GUI threading, multiple updates + notes
+    <TD><A HREF="#changes14">Changes</A>
+    <TD><A HREF="#usage14">Usage Notes</A>
+
+<TR><TH><A HREF="#version13">Version 1.3</A>
+    <TD>Feb-27-14
+    <TD>FAT 2-second modtime range fix
+    <TD><A HREF="#changes13">Changes</A>
+    <TD>&nbsp;</TD>
+
+<TR><TH><A HREF="#version12">Version 1.2</A>
+    <TD>Feb-15-14
+    <TD>Launchers Unicode fix
+    <TD><A HREF="#changes12">Changes</A>
+    <TD>&nbsp;</TD>
+    
+<TR><TH><A HREF="#version11">Version 1.1</A>
+    <TD>Feb-10-14
+    <TD>Add GUI+Console launchers
+    <TD><A HREF="#changes11">Changes</A>
+    <TD>&nbsp;</TD>
+    
+<TR><TH><A HREF="#version10">Version 1.0</A>
+    <TD>Feb-1-14
+    <TD>Initial release
+    <TD>&nbsp;</TD>
+    <TD>&nbsp;</TD>
+
+</TABLE>
+</P>
+<BR>
+
+
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version31">Version 3.1, Dec-2017</A></H2>
+</TABLE>
+
+
+<P>
+<I>Summary</I>: folder modtimes, Linux exe flushes, scripts "-u"
+
+
+<H3><A name="changes31">Changes</A></H3>
+
+<P>
+This minor-enhancements version was released in all packages&mdash;source, app, and executables&mdash;and
+is a recommended <A HREF="../../UserGuide.html#configure">upgrade</A> for all prior-version users.
+There were no changes to user configurations or the Mergeall GUI in this release, and version 3.0's 
+<A HREF="../docimgs/index.html">screenshots</A> still reflect the state of the system in 3.1.
+Version 3.1 includes the following enhancements (tagged with "[3.1]" in the code):
+
+
+
+<OL>
+<LI>
+<B>Mergeall and cpall&mdash;all forms: propagate folder modtimes to copies</B>
+<BR>
+<P>
+Both the <A HREF="../../mergeall.py">mergeall.py</A> and <A HREF="../../cpall.py">cpall.py</A> 
+scripts now propagate source-folder modification times to new destination-folder 
+copies on platforms that support this, just as they formerly did for simple files 
+and symlinks.  This change was implemented for all package formats (source, app, and executable) 
+of these two programs, and is naturally inherited by Mergeall's launcher GUI.
+It has been seen to work well on Mac OS, Windows, and Linux, though Mac OS required
+a coding workaround to handle exFAT drives properly, and not all combinations of 
+platforms, filesystems, and drivers may support folder modtime updates. 
+
+<P>
+Folder (a.k.a. directory) modtimes are less significant than others and were formerly ignored, 
+because they are not used by mergeall's incremental-updates logic and do not influence its results, 
+and may be changed whenever any contained item is changed.  The latter of these factors can render 
+folder modtimes nearly useless.  On Mac OS, for example, a folder's modtime changes whenever 
+Finder adds a hidden "<A HREF="../../UserGuide.html#cruft">.DS_Store</A>" file to it; hence,
+simply <I>viewing</I> a folder is enough to lose its original modtime!  Still, folder updates 
+history may be useful enough in some contexts to preserve where possible, especially on systems
+that do not differentiate folders and files in listings.
+
+<P>
+<I><U>Implementation details</U></I>:
+because mergeall uses cpall's copytree() to copy folders in all contexts,
+folder modtime propagation required just a post-processing step in 
+copytree(), run at the end of each call to this function (including any
+recursive-level calls).  This satisfies the requirement that modtimes be copied 
+<I>after</I> a tree is fully processed, else new folder copy times may be updated 
+automatically when their nested content is copied.  This also avoids having to 
+queue modtimes to be copied later, as done in the related
+<A HREF="http://learning-python.com/ziptools.html">ziptools</A> program.
+
+
+
+</P>  <!-- required for IE -->
+<LI>
+<B>Mergeall&mdash;Linux executable: flush output to avoid GUI pauses</B>
+<BR>
+<P>
+The <A HREF="../../mergeall.py">mergeall.py</A> script now forcibly flushes its output lines 
+in the Linux executable, so they appear immediately in the GUI. This was formerly implemented
+for the Windows executable (along with Unicode translations not needed or used on Linux).  
+It is not required and was not implemented for the Mac app or the source-code version on Linux 
+and elsewhere, as Python's "-u" flag is forced by the GUI in both contexts.  For source code,
+Python's "-u" flag or PYTHONUNBUFFERED setting can be used to disable buffering selectively.
+
+<P>
+<I><U>Implementation details</U></I>: 
+output flushing changes print() to a custom version, instead of always using print()'s flush=True 
+(which is available only in Python 3.3+) or PyInstaller "spec" files (which complicate builds and offer 
+less control).  A stream-proxy class would work too, but the custom print() was already coded for
+Windows.  The GUI also had already been setting PYTHONUNBUFFERED before the spawn, with no effect
+(which seems a PyInstaller issue).
+See subprocproxy.py in <A HREF="http://learning-python.com/pyedit.html">PyEdit</A> 
+for related context and notes.
+
+
+
+</P>  <!-- required for IE -->
+<LI>
+<B>Diffall and cpall&mdash;Mac apps: support unbuffered output with "-u"</B>
+<BR>
+<P>
+The <A HREF="../../diffall.py">diffall.py</A> script grew a "-u" command-line argument 
+to make its output unbuffered.  This is useful for watching diffall's output with a 
+Unix "tail" in the Mac app or Linux executable, where Python's own "-u" flag cannot be 
+used, and its PYTHONUNBUFFERED environment equivalent may go unnoticed.  It's irrelevant 
+on Windows, and is not required when using source-code (use Python's "-u" instead).  
+For symmetry, a "-u" switch was added to <A HREF="../../cpall.py">cpall.py</A> for use 
+when tailing its Mac app too.  For more usage-level details, see 
+<A HREF="http://learning-python.com/post-release-updates.html#diffalltail">this post</A>.
+
+<P>
+<I><U>Implementation details</U></I>:  
+Unbuffered stdout may now be standard for frozen Mac apps per a recent
+<A HREF="https://bitbucket.org/ronaldoussoren/pyobjc/issues/177/on-python3-print-does-not-automatically">py2App change</A>, 
+but the two Mergeall scripts here use a stream-proxy 
+<A HREF="http://learning-python.com/mergeall-products/unzipped/autoflush.py">class</A>
+for platform- and version-neutral control.
+See subprocproxy.py in <A HREF="http://learning-python.com/pyedit.html">PyEdit</A> 
+for related context and notes.  
+Note that a "-u" flag was <I>not</I> added to the 
+<A HREF="../../mergeall.py">mergeall.py</A> script, because its stdout is flushed 
+forcibly in all contexts when spawned by the GUI launcher (mergeall.py's primary role),
+and can be flushed optionally using Python's own "-u" when the script is run as source code.
+This may be less than orthogonal, but no use case has arisen to justify a redesign.
+
+
+
+</P>  <!-- required for IE -->
+<LI>
+<B>Mac app package&mdash;retain original resource-file modtimes</B>
+<BR>
+<P>
+The Mac app's build 
+<A HREF="http://learning-python.com/mergeall-products/unzipped/build/build-app-exe/macosx/build.py">script</A>
+was redesigned to copy all extra resource items 
+manually, in order to preserve their original modification times.  These 
+times are especially crucial in Mergeall's <A HREF="../../test">test</A> folder
+where modtimes influence test results, and 
+<A HREF="https://py2app.readthedocs.io/en/latest/">py2app</A>'s copy policy for
+its automatic "--resources" option did not propagate modtimes correctly.  
+Resource modtimes were already correct in the source-code package (built by 
+<A HREF="http://learning-python.com/ziptools.html">ziptools</A>), 
+as well as for files in the Windows and Linux executable packages (built by 
+<A HREF="https://pyinstaller.readthedocs.io/en/stable/">PyInstaller</A>,
+but using manual resource copies that were tweaked to use shutil's 
+<A HREF="https://docs.python.org/3/library/shutil.html?highlight=shutil%20copy2#shutil.copy2">copy2()</A>
+for top-level file times).
+
+
+
+</P>  <!-- required for IE -->
+<LI>
+<B>Etcetera&mdash;utility Python 2.X support, terminology skew</B>
+<BR>
+<P>
+The <A HREF="../../fix-fat-dst-modtimes.py">fix-fat-dst-modtimes.py</A> utility 
+script works on Python 2.X again (it formerly used a keyword argument in os.utime()
+unsupported in 2.X).  Even so, this script's status has declined over time, because 
+most users are better off addressing DST rollovers by formatting external drives as 
+<A HREF="../../UserGuide.html#dst">exFAT</A>.  All other scripts were reverified to 
+run under 2.X.
+
+<P>
+There has also been some attempt to more consistently use "<I>Mergeall</I>" to denote the system 
+at large, and "<I>mergeall</I>" to refer to just the mergeall.py script.  Given 
+the volume of documentation this project has spawned over its 
+<A HREF="#version10">4-year run</A>, though, 
+this convention might not be adopted universally for quite some time...
+
+</OL>
+</P>
+
+
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version30">Version 3.0, Jun-2017</A></H2>
+</TABLE>
+
+<P>
+<I>Summary</I>: 
+
+<UL>
+<LI style="margin-top: 5px;">Mac OS X port
+<LI style="margin-top: 5px;">GUI redesign
+<LI style="margin-top: 5px;">Cruft-files handling
+<LI style="margin-top: 5px;">Symlink support on Unix and Windows
+<LI style="margin-top: 5px;">Long-pathname support on Windows
+<LI style="margin-top: 5px;">Linux app-bar icon
+<LI style="margin-top: 5px;">Configurable text area and editor popups
+<LI style="margin-top: 5px;">New User Guide and screenshots
+<LI style="margin-top: 5px;">Suppressible comparison messages
+<LI style="margin-top: 5px;">Non-BMP Unicode replacements
+<LI style="margin-top: 5px;">Speed optimizations
+<LI style="margin-top: 5px;">Frozen app/executable packages
+<LI style="margin-top: 5px;">And more
+</UL>
+</P>
+
+
+<H3><A name="changes30">Changes</A></H3>
+
+<P>
+Per the preceding summary list, this was a <I>major</I> release, initially 
+started as a port to Mac OS X, and expanded with new features over many months
+of development.  The following list describes 3.0's most prominent changes,
+but is not complete.  For a more exhaustive look at this version's changes, 
+search mergeall's <A HREF="../..">source files</A> for string "[3.0]".
+
+
+
+<OL>
+
+<LI> <B>{all} Mac OS X port</B>
+<BR><BR>
+mergeall, its GUI and console launchers, and its accompanying programs
+including diffall and cpall, have all been ported to run on 
+<A HREF="../docimgs/macosx/index.html">Mac OS X</A>, in 
+addition to their prior support of 
+<A HREF="../docimgs/windows/index.html">Window</A> and 
+<A HREF="../docimgs/linux/index.html">Linux</A>.
+
+<P>
+The underlying <A HREF="../../mergeall.py">mergeall.py</A> script worked on the Mac largely 
+unchanged, as it was coded to be portable, and formerly ported to Unix-like Linux.  
+However, it required changes to avoid using Python 3.5+'s <I>os.scandir()</I> on Macs only,
+and eventually replaced the os.scandir() variant altogether with a recoding that uses
+saved os.lstat() results.
+Before it was dropped, the os.scandir() call ran quicker than os.listdir() on Windows
+and Linux, but 3 times <I>slower</I> on Mac OS X as used by mergeall 
+(see 2.2's <A HREF="#scandir">notes</A>).
+
+<P>
+In addition, the Mac OS X port necessitated numerous changes to the 
+<A HREF="../../launch-mergeall-GUI.pyw">GUI launcher</A>: 
+
+<P>   <!-- need for IE -->
+<UL>
+<LI>Colored Buttons must be replaced with Labels
+<LI>The Python webbrowser module requires complete file URLs
+<LI>Special __main__ code may be needed to force initial active-window state
+<LI>The Desktop default folder for saved logs must be set by platform-specific code 
+<LI>Widgets are better disabled/enabled than erased/redrawn (see <A HREF="#30disable">ahead</A>)
+<LI>Dynamic scrolling in the Text widget is impractically slow (see <A HREF="#30scroll">ahead</A>)
+<LI>File and folder open dialogs require a "message" argument, as "title" doesn't appear
+<LI>Common dialogs can use a "parent" argument to open as slide-down sheets instead of popups
+<LI>The Mac ReopenApp event is caught to deiconify and force focus to the main window 
+<LI>Paths in backups' __added__.txt files are now translated portably during rollbacks
+</UL>
+
+<BR>
+Beyond GUI and scandir() impacts, the Mac port motivated broader functional changes, 
+most notably the new <I>cruft-file</I> skipping modes and removal scripts (see 
+<A HREF="#30cruft">ahead</A>) and symlinks support which grew to include both Unix 
+and Windows (also <A HREF="#30symlinks">ahead</A>).
+On the upside, mergeall and its GUI are now fully usable
+on the Mac, and merges both run quickly and seem to sidestep some Unicode-filename issues 
+described in this document that now appear confined to Windows.
+
+<BR><BR>
+For more details on Mac OS port changes, search for "darwin"&mdash;the Mac's
+platform name in Python&mdash;in the system's source files.
+
+
+
+
+<BR><BR>
+<LI> <A name="30disable"><B>{launchers} GUI redesign: disable versus erase, better labels and text, etc.</B></A>
+<BR><BR>
+As most users are likely to launch mergeall with its 
+<A HREF="../docimgs/index.html">GUI</A>, some work was 
+devoted to improving its ergonomics and utility.  For example, the GUI launcher 
+now disables and enables widgets as they fall in and out of relevance, instead 
+of erasing and redrawing them.  This was initially motivated by the Mac OS X
+port&mdash;where a redraw can trigger a visible flash&mdash;but proved 
+subjectively less chaotic on other platforms too. 
+
+<BR><BR>
+The mergeall GUI was also polished in other ways, including bold section headers;
+more descriptive selection labels and dialogs text; new toggles to suppress comparison
+messages and logfile popups; and less-dense dialog 
+text layout that yields better readability on Mac and Linux.  See the
+<A HREF="../docimgs/index.html">screenshots</A> page and folder for examples of
+the GUI and its dialogs in actions.
+
+
+
+
+<BR><BR>
+<LI> <A name="30scroll"><B>{launchers} Suppressible comparison-phase messages</B></A>
+<BR><BR>
+Also motivated by the Mac OS X port, but useful elsewhere: the 
+<A HREF="../docimgs/index.html">GUI</A> grew a new 
+toggle to suppress per-folder comparison-phase messages in the GUI only.
+These messages serve as status indicators if enabled and still appear in 
+the saved mergeall log file even if suppressed.  However, suppressing
+them in the GUI avoids some clutter, and, more critically, avoids delays 
+for results if the GUI scrolls messages more slowly than the underlying 
+mergeall process generates them.  When not suppressed, the GUI's scrolling
+may continue to run after the mergeall process has already finished,
+artificially inflating the merge's apparent runtime.
+
+<BR><BR>
+Although text scrolling may add a trivial handful of seconds on Windows and Linux,
+it adds an especially long delay on Mac OS X.  On Macs, the currently-recommended
+install's Tk 8.5 Text widget scrolls text messages some 30 times slower 
+than mergeall prints them.   In one test, mergeall may finish in 2 seconds 
+on a Mac, but the GUI's scrolling of its output can run for one minute
+before the final results are displayed.  Because of this, the new 
+suppression toggle is enabled by default on Macs, but disabled on 
+Windows and Linux where the GUI largely keeps up with mergeall. 
+
+<BR><BR>
+This is user-switchable because other platforms may benefit from disabling 
+messages on slower machines, and the Mac speed issue may be addressed in future 
+Tks (if it's not already fixed in Tk 8.6&mdash;to be tested).  The new
+toggle is also dynamic: it can be enabled and disabled any time during a 
+mergeall run to turn comparison messages on and off. 
+
+
+
+
+<BR><BR>
+<LI> <B>{launchers, mergeall} New configurations: text area, editor popups, cruft, and more</B>
+<BR><BR>
+The GUI now supports a much wider variety of user-configurable options,
+defined and customizable in the top-level 
+<A HREF="../../mergeall_configs.py"><B>mergeall_configs.py</B></A>.  Among these, 
+users can now tailor the colors, font, and initial sizes of the scrollable 
+message text area; can specify a default for the log-file saves folder that 
+overrides the per-platform Desktop path; and enabled or disable the 
+automatic text editor popup after mergeall runs for viewing a 
+saved logfile (this later became an initial value for the popup's
+toggle added to the GUI).  Cruft filename patterns are also defined in this 
+file to support user customization, though they are mostly off interest to 
+advanced users (see <A HREF="#30cruft">ahead</A>).
+The maximum-backups-retentions setting is still present as before.
+
+
+
+
+<BR><BR>
+<LI> <B>{launchers} Linux app icon</B>
+<BR><BR>
+mergeall's GUI launcher now sets its windows' app-bar icons on Linux
+platforms to a custom image.  Windows sets window icons as before, 
+but Mac OS X does not currently set custom icons as these seem outside
+the scope of source-code based programs on that platform (update: the
+Mac app distribution added later fully supports all Mac icon contexts,
+and seems required for icons on this platform).
+
+
+
+
+<BR><BR>
+<LI> <A name="30cruft"><B>{all} Skipping cruft files: handling platform-specific metadata</B></A>
+<BR><BR>
+Given mergeall's new portability to Windows, Linux, and Max OS X, support
+has been added for explicit handling of platform-specific metadata files 
+(a.k.a. "cruft").  This is especially important on Mac OS X, which adds
+numerous hidden files to content, that have no purpose outside a Mac,
+and may be undesirable in cross-platform archive copies.  To this end, 
+mergeall 3.0 provide two new tools:
+
+<UL>
+<BR>
+<LI>
+The new script 
+<A HREF="../../nuke-cruft-files.py"><B>nuke-cruft-files.py</B></A> allows
+cruft files and folders to be removed manually and on-demand, and
+can be used for folders and drives not explicitly managed by mergeall.
+
+<BR><BR>
+<LI>
+The new <B>"-skipcruft"</B> option&mdash;available in 
+<A href="../../mergeall.py">mergeall</A>, 
+<A href="../../diffall.py">diffall</A>,
+<A href="../../cpall.py">cpall</A>, and mergeall's GUI and console 
+<A href="../docimgs/macosx/main-window.png">launchers</A>&mdash;automatically skips 
+files and folders matching cruft name patterns in both FROM (source) and 
+TO (destination) folders.  In mergeall and diffall comparisons, this 
+prevents cruft for being reported as differences.  In mergeall's updates 
+mode, this new option allows platform-specific cruft to remain on its
+creating platform, but prevents it from being propagated to other
+copies and computers where it is irrelevant.  When used consistently in
+mergeall, merged folders wind up the same <I>except</I> for their unique 
+cruft items, and the prior bullet's script is unnecessary in most use cases.
+</UL>
+
+<BR>
+For more on the new cruft-skipping tools, see the new User Guide's
+<A HREF="../../UserGuide.html#cruft">coverage</A> as well as
+its cross-platform <A HREF="../../UserGuide.html#cross">pointers</A>;
+the cruft filename patterns and examples in 
+<A HREF="../../mergeall_configs.py">mergeall_configs.py</A>; and the 
+background notes in <A HREF="../../nuke-cruft-files.py">nuke_cruft_files.py</A>.
+Note to Mac users: mergeall itself copies just data forks (normal file 
+content), not resource forks, and does not merge resource forks back to 
+data forks if they are present; see dot_clean to address the latter,
+and the <A HREF="../../UserGuide.html#macresource">User Guide</A> for more 
+background.
+
+
+
+
+<BR><BR>
+<LI> <B><A name="30symlinks">{mergeall} Support for Windows and Unix symlinks</A></B>
+<BR><BR>
+New in this release, mergeall supports propagating symbolic links on 
+both Windows and Unix (Mac OS X and Linux), subject to platform 
+and portability constraints enumerated in the 
+<A HREF="../../UserGuide.html#symlinks">User Guide</A>.  When present, symlinks are
+always copied, not followed, to avoid duplicating data.  For a tool 
+that also supports link following, see the 
+<A HREF="http://learning-python.com/ziptools">ziptools</A> system.
+
+
+
+
+<BR><BR>
+<LI> <B>{mergeall} Support long pathnames on Windows</B></A>
+<BR><BR>
+The new module <A HREF="../../fixlongpaths.py"><B>fixlongpaths.py</B></A> provides
+tools that support very-long pathnames on Windows. 
+It does so by mutating too-long pathnames to use a "\\?" prefix ("'\\?\UNC\" 
+for network paths), which automatically enables extended-path Windows API tools
+(these tools are no-ops on Unix).
+mergeall, diffall, and cpall all use these tools for every pathname passed 
+to system calls, as well as those passed to recursive tree walkers.  The
+net effect lifts the normal 260-character pathname limit to 32k characters on this 
+platform.  
+
+<BR><BR>
+Long pathnames typically crop up in saved webpage folders; they 
+formerly generated error messages and failed to update in mergeall, but can
+now be processed normally.  See the new <A HREF="../../fixlongpaths.py">module</A>
+for more details, and search for FWP (uppercase) in mergeall's source files for 
+the new module's  clients; <A HREF="http://learning-python.com/ziptools">ziptools</A> 
+uses these tools as well.
+
+
+
+
+<BR><BR>
+<LI> <B>{mergeall, diffall} Code and algorithm optimizations</B></A>
+<BR><BR>
+Some work was done in this release to optimize the code in the mergeall and 
+diffall programs.  Specifically, repeated scans of listing result were 
+eliminated, and os.path.join() calls were replaced with possibly-simpler
+direct os.sep concatenations (the former change also improved diffall reports, 
+by reporting missed files before subdirectories).
+
+<BR><BR>
+In the end, most optimization attempts were fruitless, as the time spent in 
+either system calls or file I/O far overshadowed the speed of mergeall 
+programs' code.  One exception: on Windows, the time required to compare two 
+very large archive copies fell from 19 to 14 seconds on Pythons 3.4 and older
+(which use os.listdir()).  However, there was no impact to a mergeall 7.2 
+second runtime on Pythons 3.5+ (which use an os.scandir() variant that fully 
+accounts for its faster speed), or diffall (which spends nearly all of its time
+reading files byte-for-byte).
+
+<BR><BR>
+Also in this category: the comparison phase in mergeall was recoded to use 
+saved os.lstat() results, which made it as fast as its former os.scandir()
+variant on Windows; the os.scandir() branch was subsequently dropped. 
+For more details, see comparetrees() in <A HREF="../../mergeall.py">mergeall.py</A>,
+and the main docstring in <A HREF="../../diffall.py">diffall.py</A>.
+For timing results, see <A HREF="../../test/expected-output-3.0/optimizations-3.0">this folder</A>.
+
+
+
+
+<BR><BR>
+<LI> <B>{launchers} Sanitize non-BMP Unicode characters in scrolled mergeall text</B>
+<BR><BR>
+
+Tk 8.6 and earlier, used by the tkinter Python module underlying mergeall's GUI,
+cannot display Unicode characters whose codepoints fall outside the BMP (UCS2)
+range of U+0000..U+FFFF.  This includes newer "emoji" characters; when such non-BMP
+characters are used in filenames, they formerly killed the GUI with an uncaught 
+exception when the GUI attempted to insert them in the scrolled text area. 
+
+<BR><BR>
+To work around this, mergeall now replaces all non-BMP characters in  displayed text with 
+the standard Unicode replacement character, U+FFFD, which Tk displays as a highlighted 
+question mark diamond.  This workaround was coded to assume that Tk 8.7&mdash;to be 
+supported in a future but unknown Python release&mdash;will lift the BMP restriction, 
+per a developer forums post.  For details, see fixTkBMP() in the GUI 
+<A HREF="../../launch-mergeall-GUI.pyw">launcher</A>.
+
+
+
+
+<BR><BR>
+<LI> <B>{cpall, mergeall} Ignore spurious Mac exceptions from shutl.copystat()</B>
+<BR><BR>
+
+The cpall.copyfile() function used by mergeall now suppresses and ignores EINVAL (a.k.a. 
+error number 22, "Invalid argument") if it is raised by Python's shutil.copystat().  
+On Mac OS X, shutil.copystat() can fail this way due to an error raised by
+Mac libraries when trying to copy extended attributes with chflags() from a file on
+a Mac filesystem drive (e.g., HFS+) to a file on a non-Mac filesystem drive 
+(e.g., FAT32 or exFAT).
+
+<BR><BR>  
+This error occurs after all content and times have been copied, so it's safe to 
+ignore in this context.  It also occurs at the shell on "cp -p", so it's likely 
+a Mac issue.  This cropped up in mergeall for all files saved with Mac's TextEdit, 
+which adds an extended attribute for Unicode encoding type, but can also occur in
+other contexts such as files marked as quarantined.  For more details, 
+see the main docstring in <A HREF="../../cpall.py">cpall.py</A>, and the shell
+session log <A HREF="../miscnotes/mac-chflags-error22.txt">mac-chflags-error22.txt</A>.
+
+
+
+
+<BR><BR>
+<LI> <B>{docs, packaging} New user guide, new folder structure</B>
+<BR><BR>
+A completely new user guide was developed: 
+<A HREF="../../UserGuide.html"><B>UserGuide.html</B></A>, shipped
+in the package's top-level folder.  This new user guide is designed
+to be more user-focused, and provides a less technically-heavy overview
+of the system and its GUI.  It largely subsumes the former documentation,
+which was more implementation- and project-focused, and arguably less 
+approachable for end users.  Nevertheless, 
+the original documents are still shipped in folder 
+<A HREF=".">docs/MoreDocs</A> for now:
+
+<UL>
+<BR>
+<LI>
+The prior <I>Usage-Guide.html</I> was retained for its extra background 
+details on roles and features, and renamed 
+<A HREF="Whitepaper.html">Whitepaper.html</A>.
+
+<BR><BR>
+<LI>
+The former top-level <I>Readme.html</I> was also kept for its version 
+history, and rebranded <A HREF="Revisions.html">Revisions.html</A> (this file).
+</UL>
+
+<BR>
+In addition, the original top-level launcher-config folder was demoted
+to a <A HREF="../launcher-configs">docetc subfolder</A> due to its declining 
+relevance;
+the somewhat dated <A HREF="Lessons-Learned.html">Lessons-Learned.html</A>
+was kept for its implementation notes; and a new <A HREF="../Tools">Tools</A>
+folder ships with line-end conversion and color-chooser utility scripts. 
+
+
+
+
+<BR><BR>
+<LI> <B>{screenshots} New screenshots and examples (older items dropped)</B>
+<BR><BR>
+New <A HREF="../../docetc/docimgs/index.html"><B>screenshots</B></A> were taken for this release 
+on all three of its supported platforms, and new example 
+<A HREF="../../test/expected-output-3.0">session logs</A> were 
+compiled, including logs from all three platforms formatted as HTML for 
+<A HREF="../../test/expected-output-3.0/BASIC-TESTS-MacOSX.html">readability</A>.  
+In light of the new screenshots and logs, to reduce the size of the program's
+distribution package all prior screenshots were dropped from the package,
+and their links in docs were scrubbed.
+
+
+
+
+<BR><BR>
+<LI> <B>{packaging} New "frozen" distributions: Mac app, Windows and Linux executables</B>
+<BR><BR>
+In addition to its original source-code distribution, mergeall is now available in 
+Mac app, Windows executable, and Linux executable forms.  The new forms run on just 
+one platform, but do not require a Python install.  For more details on these 
+new packages, see the <A HREF="../../README.txt">README</A> file, and the mergeall
+<A HREF="http://learning-python.com/mergeall.html">downloads</A> page.
+
+
+
+
+
+<BR><BR>
+<LI> <B>{assorted} And so on</B>
+<BR><BR>
+Version 3.0 incorporates additional enhancements, including:
+
+<BR><BR>
+<UL>
+<LI>A new indicator of preceding error messages in mergeall's report summary
+<LI>Better error reporting for terminal exceptions during mergeall's comparisons phase
+<LI>Verbose-level arguments and exception skip-or-fail options in <A HREF="../../cpall.py">cpall</A>
+<LI>Better argument error checking and message labels in <A HREF="../../diffall.py">diffall</A>
+<LI>A fix for the bogus extra line at the end of scrolled text in mergeall's <A HREF="../../launch-mergeall-GUI.pyw">GUI</A>
+<LI>A Python-coded tool for unzipping precoded test <A HREF="../../test/">folders</A>
+<LI>A new optional "numhours" argument in <A HREF="../../fix-fat-dst-modtimes.py">fix-fat-dst-modtimes</A>
+<LI>A new endorsement of exFAT formatting to work around DST time-change <A HREF="../../UserGuide.html#dst">issues</A>
+</UL>
+
+<BR>
+And more; again, search for "[3.0]" in the system's source-code files for all changes.
+</OL>
+</P>
+
+
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version24">Version 2.4, Aug-31-16</A></H2>
+</TABLE>
+
+<P>
+<I>Summary</I>: quiet log messages mode, screenshot thumbnail pages
+
+
+<H3><A name="changes24">Changes</A></H3>
+
+<P>
+This is a minor enhancement release, adding two user-visible functionality upgrades.
+For all code changes applied in this release, search for "[2.4]" in its recently-modified
+<A HREF="../..">source files</A>. 
+
+<OL>
+<LI> <B>{mergeall, launchers} Add quiet log messages mode</B>
+<BR><BR>
+Both the main script and the GUI and console launchers now allow users to suppress 
+per-file backup messages in the generated output.  These are informational and may
+be of interest to new users, but are arguably superfluous once the system's operation
+usage is clear, because files being replaced or removed are already displayed.  
+In large merges, the extra lines decrease report readability.  To support the new quiet mode:
+
+<BR><BR>
+<UL>
+<LI>
+The <A HREF="../../mergeall.py">main script</A> has a new "-quiet" command-line
+option, which is relevant only when "-backup" is also used.  Backups themselves
+apply only when updating, but the new quiet switch is effective whether automatic 
+("-auto") or interactive (not "-report") updates mode is selected.
+
+<BR><BR>
+<LI>
+The <A HREF="../../launch-mergeall-GUI.pyw">GUI launcher</A> has a new toggle button, displayed only when backups are enabled, 
+to force "-quiet" to be passed to the main script.  The new toggle appears at the bottom of the 
+controls section when 
+the backups toggle is selected, which in turn appears only when automatic updates 
+run-mode is chosen.
+
+<BR><BR>
+<LI>
+The <A HREF="../../launch-mergeall-Console.py">console launcher</A> similarly prompts the user for this mode only when backups 
+are chosen, whether updates are automatic or interactive.
+</UL>
+
+<BR>
+When quiet mode is selected&mdash;by command-line, GUI, or console&mdash;the system 
+still generates one message indicating that backups mode is enabled and giving the 
+backups folder path, but it does not print a backups message for every file replaced
+or removed.  Users may still inspect the backups folder to see results.
+<BR><BR>
+
+
+
+<LI> <B>{screenshots} Add thumbnails pages for screenshots folders</B>
+<BR><BR>
+To make the screenshots collection easier to browse, thumbnail image index
+pages were added to the screenshots root folder, as well its subfolders.  See the 
+new root <A HREF="../docimgs/index.html">index page</A>, and
+click on its subfolder links.  The subfolders display their own thumbs 
+pages automatically on a server; 
+click their "index.html" files manually if viewing offline in a file explorer.
+These pages are courtesy of the Python-coded 
+<A HREF="http://learning-python.com/thumbspage.html">thumbspage</A> program.
+
+</OL>
+</P>
+
+
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version23">Version 2.3, Apr-24-16</A></H2>
+</TABLE>
+
+<P>
+<I>Summary</I>: patches for __added__.txt Unicode encoding and Python 2.X os.makedirs() calls; filename dashes usage note
+
+
+<H3><A name="changes23">Changes</A></H3>
+
+<P>
+This is a minor patch release, to address two issues of minimal impact.  No screenshots 
+were retaken for this release, and documentation changes pertain to this release's 
+changes only.  For all code changes applied in this release, search for "[2.3]" in
+source file <A HREF="../../backup.py">backup.py</A>.
+
+<OL>
+<LI> <B>{mergeall} Use explicit UTF8 (by default) for __added__.txt encoding</B>
+<BR><BR>
+    In both Python 3.X and 2.X, use an explicit UTF8 Unicode encoding, instead of the
+    platform default encoding, for writing and reading the __added__.txt files created 
+    in backups mode for use in 2.1 <A href="#changes21">emergency restores</A>.  These
+    files reside in per-run __bkp__ subfolders, and are used for backing out prior archive
+    additions.  The new preset UTF8 encoding should suffice for most use cases, but can 
+    be changed in code if required; see <A HREF="../../backup.py">backup.py</A>'s ADDENC setting.
+<BR><BR>
+    This is a minor change unlikely to impact most users (if any at all), as both unencodable 
+    filenames and emergency restores are very rare.  Without it, a new file whose name 
+    could not be encoded per the local Unicode default would be added to the TO archive
+    normally, but also generate an error message in the mergeall log, and not be removed 
+    from the archive automatically by a future emergency restore.  
+<BR><BR>
+    This change is also expected to be largely backward-compatible: because ASCII is a 
+    subset of UTF8, this should not have any major impact for most users' __added__.txt 
+    files written before this change was applied.  
+
+<BR><BR>
+<LI> <B>{mergeall} Use code portable to Python 2.X for os.makedirs() calls</A></B>
+<BR><BR>
+    Python's os.makedirs(), used in backup-mode runs, supports an exists_ok switch in 3.X only 
+    that suppresses an exception if the path already exists.  To support backup-mode use on 2.X, 
+    specialize all makedirs calls on 2.X to emulate the 3.X exists_ok behavior without passing 
+    the 3.X-only argument.  This patch applies to 2.X users only, but is crucial for such 
+    users.  Without it, nearly all backup-mode mergeall runs will fail on 2.X with exceptions.
+  
+<BR><BR>
+    Note that use on Python 2.X is now generally discouraged, as 3.X has better support for 
+    Unicode; 3.5+ allows for much faster execution since  mergeall 
+    <A HREF="#version22">version 2.2</A>; and mergeall's development 
+    "staff" has limited resources for 2.X testing.  As a random compatibility example, filenames 
+    with odd characters may still be skipped by mergeall in 2.X only, because that Python's
+    os module fails to classify them as either file or directory on Windows (unlike 3.X).
+<BR><BR>
+    In retrospect, supporting both Python lines in a system-level tool like mergeall has proven 
+    to be substantial effort, and probably prohibitive in this project's context.  Library differences 
+    can impact code more than language differences, and are often more complex to accommodate.  
+    While mergeall largely works the same on 2.X, and 2.X usage is not deprecated, please run mergeall
+    on 3.X if at all possible.
+</OL>
+
+
+
+<H3><A name="usage23">Usage Notes</A></H3>
+
+<OL>
+<LI> <B>More Windows FAT32 filename character mangling: emdash versus ASCII dash</B>
+<BR><BR>
+     This note describes a very rare mergeall usage issue, not a mergeall bug or change.  
+     An erroneous translation of dashes in filenames was recently observed on a FAT32 device,
+     which seems related to the accent-morphing issue described earlier (ahead) for mergeall 
+     versions <A HREF="#usage171">1.7.1</A> and <A HREF="#usage17">1.7</A>.  
+     To date this has been seen only on one USB flashdrive and Windows 7, 
+     but potentially applies to any FAT32 drive.
+
+<BR><BR>
+     Specifically, the content-based <A HREF="../../diffall.py">diffall</A> script reported a spurious file 
+     difference not noted  by the timestamp-based <A HREF="../../mergeall.py">mergeall</A>.  This happened 
+     on a FAT32 device containing two files of differing content, whose names differed only in one character 
+     position which was an ASCII dash ("-") in one and a Unicode emdash ("&mdash;") in the other.  
+     For example, with paths and some output omitted for space:
+
+<PRE>
+     c:\test> <B>dir /B "d:\xxxxxx*"</B>
+     xxxxxx - xxxxxx.htm
+     xxxxxx — xxxxxx.htm
+
+     c:\test> <B>dir "d:\xxxxxx*"</B>
+     04/03/2016  09:46 AM            50,444 xxxxxx - xxxxxx.htm
+     04/15/2016  11:30 AM            50,573 xxxxxx — xxxxxx.htm
+</PRE>
+
+     When both such files are present on a FAT32 drive, the Windows operating system may return the wrong 
+     file's content for a given filename, because it internally maps the emdash to an ASCII dash.
+     This in turn causes diffall to register a false file difference.
+
+<BR><BR>
+     Because this occurs in the filesystem level of the operating system, it may not 
+     be addressable in Python code&mdash;filename dashes passed correctly by a Python script
+     are mishandled after they are received by an open() call.  In fact, this issue extends 
+     beyond Python: the two files in question also incorrectly report a difference in a 
+     Windows/DOS "fc" command line despite having identical content.
+
+<BR><BR>
+     For instance, in the following command-line session, the same issue crops up when comparing 
+     same-named files on an SSD (NTFS filesystem) and USB flashdrive (FAT32 filesystem) having names 
+     with an embedded emdash.  Curiously, comparisons fail only <I>after</I> similarly-named files 
+     with an ASCII-dash have been accessed once; prior to that, the emdash files compare the same 
+     correctly, suggesting that caching may be a factor:
+
+<PRE>
+     # After either a fresh insert or removal+reinstert of a FAT32 USB flashdrive on d:
+
+     c:\test> <B>fc "c:\xxxxxx — xxxxxx.htm" "d:\xxxxxx — xxxxxx.htm"</B>
+     Comparing files C:\xxxxxx — xxxxxx.htm and D:\XXXXXX — XXXXXX.HTM
+     FC: no differences encountered
+
+     c:\test> <B>fc "c:\xxxxxx - xxxxxx.htm" "d:\xxxxxx - xxxxxx.htm"</B>
+     Comparing files C:\xxxxxx - xxxxxx.htm and D:\xxxxxx - xxxxxx.HTM
+     FC: no differences encountered
+
+     c:\test> <B>fc "c:\xxxxxx — xxxxxx.htm" "d:\xxxxxx — xxxxxx.htm"</B>
+     Comparing files C:\xxxxxx — xxxxxx.htm and D:\XXXXXX — XXXXXX.HTM
+     ***** C:\xxxxxx — xxxxxx.htm
+                     &lt;meta name="bitly-verification" content="3xx1017cyy1d"/&gt;
+                     &lt;title>xxxxxx ΓÇö xxxxxx</title>
+
+     ***** D:\XXXXXX — XXXXXX.HTM
+                     &lt;meta name="bitly-verification" content="3xx1017cyy1d"/&gt;
+                     &lt;title>xxxxxx - xxxxxx</title>                                       # <= ASCII-dash content
+     *****
+     # ....Plus many more diffs....
+</PRE>
+
+     This issue wasn't addressed in mergeall, because it may be impossible to fix at the Python level, 
+     and seems rare in the extreme&mdash;it has been witnessed only once in two years 
+     of frequent mergeall usage; may be limited to a subset of devices used on Windows; and can occur only 
+     for folders containing files with names identical apart from alternative dash characters in the same 
+     positions.  
+
+<BR><BR>
+     Should this recur anyhow, the suggested workaround is to either ignore the diffall differences, 
+     or simply adjust your filenames.  Formatting USB drives with NTFS may help, but this
+     may also impact drive performance, and is to be determined.  
+
+<BR><BR>
+     For more hints on the convoluted&mdash;and even <I>tortuous</I>&mdash;underlying operating-system issue, see this forum 
+     <A HREF="http://stackoverflow.com/questions/19503697/unicode-filenames-on-fat-32">thread</A>, or this Microsoft
+     <A HREF="https://msdn.microsoft.com/en-us/library/windows/desktop/dd317748%28v=vs.85%29.aspx">page</A>.
+     I'd report this as a bug to Microsoft, but a Windows fix for this seems as likely as ski-lift tickets in Hades
+     (no, <A HREF="http://learning-python.com/edge-links-bug.html">really</A>).
+     
+
+</OL>
+</P>
+
+
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version22">Version 2.2, Sep-25-15</A></H2>
+</TABLE>
+
+<P>
+<I>Summary</I>: faster execution with os.scandir() using Python 3.5+ or PyPI package install
+
+
+<P>
+This version was repackaged three times after its initial release:
+
+
+<DL>
+
+<DT>
+On <B>Jan-27-16</B> with minor code and doc changes: 
+<DD>
+Correct the script name in <A HREF="../../diffall.py">diffall.py</A>'s usage message; 
+add total runtime in <A HREF="../../diffall.py">diffall.py</A>'s report; 
+and add documentation notes about <A HREF="Whitepaper.html#short">common role</A>,  
+cross-platform <A HREF="#version21">restores</A>, and
+diffall <A HREF="Whitepaper.html#rundiffall">purpose</A>.
+
+<BR><BR>
+<DT>
+On <B>Nov-10-15</B> with doc changes only:
+<DD>
+New font, header, and toolbar styling; 
+minor content tweaks; 
+and updated URLs for <A HREF="http://learning-python.com">book site</A> relocation.
+
+<BR><BR>
+<DT>
+On <B>Oct-2-15</B> with minor doc changes only:
+<DD>
+Document new folder 
+dialog on Windows. 
+
+</DL>
+</P>
+
+
+
+<H3><A name="changes22"><A name="scandir">Changes</A></A></H3>
+
+<P>
+<I><B><U>Update for version 3.0</U></B>:
+The scandir() optimization described below ran comparisons 5X-10X faster on Windows and 
+2X faster on Linux, but proved to run <U>3X slower</U> on Mac OS X, as used by mergeall.
+Consequently, mergeall 3.0 used this call on Windows and Linux, but not on Mac OS X.
+A later recoding to use saved os.lstat() results eventually made the non-scandir() variant
+as fast on Windows and Linux, and made the scandir() optimization obsolete.  
+For more details, see comments in the comparison-phase code of <A HREF="../../mergeall.py">mergeall.py</A>.
+</I>
+
+<P>
+Version 2.2 speeds up tree comparisons radically by using the new os.scandir() call, which is standard in 
+Python 3.5 and later, and available separately as a <A HREF="https://pypi.python.org/pypi/scandir">PyPI package</A>
+for other Pythons, including 2.7.  In tests on Windows, the mergeall tree comparison phase runs 5 to 10 times quicker 
+when the 2.2 optimization is used, depending on devices and trees.  For larger trees, this can shave dozens of seconds 
+off total runtime, and more on slower machines.  If the scandir() call is not present in the os module or a separate 
+install, mergeall falls back on the original os.listdir() scheme to support older Pythons (though a scandir() is now 
+recommended for performance).
+
+<P>
+mergeall's resolution phase was not optimized, because it is bound by file write times, and visits only 
+differences.  Because the optimized tree comparison phase always scans two trees exhaustively, however, it can 
+dominate mergeall runtimes, especially when there are relatively few changes in large trees.  This change impacts 
+only the <A HREF="../../mergeall.py">mergeall.py</A> script, whose output was augmented with an initial line indicating 
+use of the new optimization, plus lines giving runtime for each of its phases.  
+
+<P>
+<I>Other</I>:
+As no changes were made to the GUI apart from a new version number, most prior <B>screenshots</B> were not retaken 
+for this release.
+One new screenshot was taken on Windows 10
+as described in the list below, and a new folder-browse dialog screenshot was taken for its new and improved native
+format on Windows as of Python 3.5.
+The new folder dialog reflects a change in Python 3.5 (really, in the latest version of the Tk 8.6 library it includes), 
+not in mergeall code; see 
+<A HREF="http://learning-python.com/python-changes-2014-plus.html#s359">this overview</A> and the
+<A HREF="http://www.tcl.tk/cgi-bin/tct/tip/432.html">Tk changes note</A> for more details.
+<B>Documentation</B> was also revamped for this release as usual (and restyled for the Nov-10 repackaging).
+
+<P>
+For more details, see:
+
+<UL>
+<LI>The <A HREF="Whitepaper.html#optimizations">Whitepaper</A> description of 2.2 changes
+<LI>The <A HREF="../Release-announcements/announce-2.2.txt">2.2 announcement</A> posted to the python-announce list
+<LI>The (now defunct) 2.2 timing logs folder and its README
+<LI>The implementation and its comments in the <A HREF="../../mergeall.py">mergeall.py</A> script (search for "[2.2]")
+<LI>The (now defunct) scene on a Windows 10 tablet&mdash;a 10x speedup from Python 3.4 (left) to 3.5 (right)
+</UL>
+</P
+
+
+
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version21">Version 2.1, Mar-31-15</A></H2>
+</TABLE>
+
+<P>
+<I>Summary</I>: automatic restores (a.k.a. rollbacks) from automatic backups
+
+<H3>April Updates</H3>
+
+<P>
+After its March release, this version was repackaged&mdash;most recently on <B>Apr-29-15</B>&mdash;with 
+only very minor changes to its documentation <A HREF="Whitepaper.html">files</A> and retaken 
+screenshots for its Ultrabook, 
+Windows tablet,  
+and Linux use case.
+As these changes did not impact any functionality, a new version number was not warranted.
+</P>
+
+<H3>March Release</H3>
+
+<P>
+Version 2.1 was an afterthought to 2.0.  By using and extending 2.0's automatic 
+change backups, 2.1 supports complete and automatic rollback of an immediately preceding 
+run's changes, including additions, as a failsafe for catastrophic or emergency scenarios.
+
+
+
+<H3><A name="changes21">Changes</A></H3>
+
+<OL>
+<LI> <B>{mergeall + docs} Automatic restores from automatic backups</B>
+<BR><BR>
+     Added support for complete rollback of a prior run's changes, by extending the
+     <A HREF="#changes20">2.0 "-backup" option</A> and adding a new "-restore" option in 
+     <A HREF="../../mergeall.py">mergeall.py</A> to allow changes to be undone by merging from 
+     a __bkp__ folder's date/time subfolder to its archive's root.  These changes are 
+     invoked in consecutive mergeall runs:
+<BR><BR>
+     <OL type=A>
+     <LI>
+     <I>Synchronize run</I>: The existing "-backup" option saves replaced and removed items in the TO folder's __bkp__ as before, 
+     but was extended to also list items added to the TO tree in a new __added__.txt file at the top of a
+     __bkp__ date/time subfolder.  
+<BR><BR>
+     <LI>
+     <I>Restore run</I>: The new "-restore" option runs a normal merge from backup to root (in automatic or selective updates mode), but:
+     <UL>
+<BR>
+     <LI>
+     Does not delete unique items in the TO tree.  In restores, the TO tree is the archive root and FROM is the backup; items 
+     present in the archive but not the backup were unchanged in the prior synchronization run.
+<BR><BR>
+     <LI>
+     As a pre-merge step removes items from the TO tree that are listed in a  __bkp__ subfolder's __added__.txt 
+     (if this file is present).  This is pre-merge because order matters for renames on Windows.  The __added__.txt 
+     file itself is copied to TO by the merge as well, but manually removed.
+     </UL>
+     </OL>
+<BR>
+     Hence, when mergeall is run from a command line with "-restore" to merge from a prior run's backup subfolder 
+     to its archive root, the net effect is a <I>complete rollback</I> of all changes made in a prior run: replacements 
+     and removals are restored, and additions are removed.  
+<BR><BR>
+     Restores require "-backups" to be used in the prior run, and are primarily intended to be used to restore all of an 
+     immediately preceding run's changes in catastrophic scenarios (e.g., transposing FROM and TO folders).  They will not 
+     fully reset the TO tree if any changes were made to it since the backup was created (and in this event may erase more 
+     recent changes), and older backups will be out of synch with the current tree unless applied serially.
+<BR><BR>  
+     For general restore operation, see this 
+     <A HREF="../../test/test2/__bkp__/date150325-time115227">backups folder</A>. 
+
+     For implementation details, see
+     <A HREF="../../mergeall.py">mergeall.py</A>'s changes marked with "[2.1]" and <A HREF="../../backup.py">backup.py</A>. 
+
+     For complete usage details, see <A HREF="Whitepaper.html#restores">Whitepaper.html</A>.
+
+     Automatic restore is available in command-line mode only;
+     because no changes were made to the GUI, no GUI screenshots were retaken for this release.  Logfile content
+     is also unchanged in this release apart from a minor section reordering (per item #3 ahead).
+
+<BR><BR>
+     <I><U>Usage update (defunct)</U></I>: because added items are recorded using the path syntax of the platform on which the 
+     prior mergeall ran, restores with additions should generally be run on the same platform as the prior merge.
+     On platforms with incompatible path syntax, additions won't terminate a restore operation, but they will trigger
+     error messages and won't be backed out.
+
+<BR><BR>
+     <I><U>Usage update update</U></I>: as of mergeall 3.0, the prior note's constraint has been lifted, by converting
+     __added__.txt path separators from '/' to '\' on Windows, and from '\' to '/' on Unix.  This makes these
+     paths portable, such that backups saved on Windows can now be rolled back on Unix, and vice versa.
+     For details, see the "CAVEAT" and "UPDATE" in function removeprioradds() of source file 
+     <A HREF="../../backup.py">backup.py</A>.
+
+
+
+<BR><BR>
+<LI> <B>{utilities} New rollback.py convenience script for restores</B>
+<BR><BR>
+     As part of the restore enhancement, also added a convenience script, <A HREF="../../rollback.py">rollback.py</A>.  Given
+     just an archive's root path (on the command line or interactively), this script automatically builds and runs an 
+     automatic-updates restore-mode mergeall command line, by globbing and sorting to find the archive's latest backups folder.  
+     This script also routes prints and prompts to stderr, so that mergeall stdout output (only) can be captured to a file via 
+     a ">" shell redirect, and can be run by command line or filename/icon 
+     clicks.  See its <A HREF="../../test/expected-output-3.0/BASIC-TESTS-MacOSX.html">example session</A>.
+
+
+<BR><BR>
+<LI> <B>{mergeall} Reorder categories in differences report for consistency</B>
+<BR><BR>
+     Minor and cosmetic, but in mergeall's differences report, order the categories to match the order in 
+     which their updates are applied (and later reported), as well as the order of totals printed in the summary report.
+     This makes the report more consistent, but also reflects the fact that update order can matter on 
+     some platforms (on case-insensitive Windows, deletes must always precede adds for mixed-case renames;
+     see <A HREF="../../mergeall.py">mergeall.py</A>'s mergetrees() docstring for details).  This complicates logfile
+     comparisons to prior versions, but is a user-visible item.  
+
+
+<BR><BR>
+<LI> <B><A name="configs21">{mergeall} Import maximum-number-backups setting from a user-configurations module</A></B>
+<BR><BR>
+     Fetch the limit on number of backup folders per archive copy from the new <A HREF="../../mergeall_configs.py">mergeall_configs.py</A>
+     module, which can be more easily changed by users than a hard-coded literal in the program's code.  After this limit is 
+     reached, backups are pruned by age.  Frequent mergers may want a higher number than the default (10), and users with typically 
+     large backup folders may want a lower setting.  Errors in this module simply make mergeall fall back on the default (it has
+     just one setting today).
+
+
+<BR><BR>
+<LI> <B>{docs} Rewrote Whitepaper material to clarify intended usage</A></B>
+<BR><BR>
+     In the main usage overview <A HREF="Whitepaper.html">doc (now Whitepaper)</A>, updated the usage modes 
+     <A HREF="Whitepaper.html#usage">section</A> substantially to better describe ways to 
+     use the system; some of this was formerly tentative by design, but practice has solidified its concepts.  
+     Also added a new <A HREF="Whitepaper.html#short">comparison</A> to Windows explorer 
+     folder merges (which really just combine, not synchronize).  
+</OL>
+</P>
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version20">Version 2.0, Mar-18-15</A></H2>
+</TABLE>
+
+<P>
+<I>Summary</I>: automatic backup of changed items, more intelligent GUI, help, counts, DST, etc.
+
+<P>
+This version's development spanned two and a half weeks.  It was initially focused 
+on the new auto-backup for changes option, but spawned additional enhancements, 
+and warranted a new major version number.
+
+
+
+<H3><A name="changes20">Changes</A></H3>
+
+<OL>
+<LI> <B>{mergeall + launchers} Automatic backup of changed items</B>
+<BR><BR>
+     When enabled in the launchers or mergeall command lines, this option makes 
+     backup copies of all files and directories in the TO directory that will
+     be destructively replaced or deleted in-place during a mergeall run.  These 
+     items' prior versions in the TO tree are saved in the automatically-created 
+     __bkp__ folder at the top of the TO archive, with their full directory paths,
+     and segregated by run in a date/time-stamped subfolder.  Backup folders are
+     not synchronized across trees, but are automatically pruned by age when their 
+     number exceeds a limit.  
+<BR><BR>
+     This option makes mergeall generally safer, as unwanted or failed changes can
+     be later undone by restoring backup copies from any of the latest mergeall run
+     backups in the __bkp__ of any archive copy.  This change's new "-backup" mergeall 
+     command line argument was also integrated into both the GUI and console launchers.      
+     Automatic backups defaults to on (enabled) in the GUI launcher, because it should 
+     normally be used for data safety unless space becomes a concern.
+<BR><BR>
+     Backup folders can be changed by users arbitrarily; their per-run subfolders
+     may appear as <A HREF="../../diffall.py">diffall.py</A> differences that generally can 
+     be ignored.  When used, __bkp__ folders can also serve as a record of runs with 
+     changes against a tree, and an alternative to the logfile for inspecting changes, 
+     though only replacements and deletions are recorded; new additions are never backed 
+     up, as they would be just redundant copies (though <A HREF="#changes21">version 2.1</A> 
+     later extended the backups option to also list additions in a backup folder's __added__.txt).  
+<BR><BR>
+     Also note that, despite its name, this new backups option simply saves prior 
+     versions of files and folders on changes, and is just a nested operation within 
+     a general archive backup performed by a mergeall run.  For more complete details, 
+     see the docstrings in the new file <A HREF="../../backup.py">backup.py</A>, which hosts 
+     the backup system's implementation, as well as the summary in the version 2.0 update 
+     of <A HREF="Whitepaper.html#backups">Whitepaper.html</A>.
+
+
+<BR><BR>
+<LI> <B>{Launcher GUI} More intelligent and dynamic GUI</B>
+<BR><BR>
+     The GUI launcher was changed so as to show only configuration items 
+     relevant to run modes selected: the logfile folder chooser appears
+     only if logging is toggled on, and the new backups toggle frame appears
+     only if automatic updates are selected (-backup applies only to -auto 
+     mode in the GUI, as it has no interactive/selective update mode).
+     Both hidden components retain their state while hidden in the GUI.
+     Also made the mode selections text more descriptive: changed from 
+     "Report only" and "Automatic updates" to "Report differences only" and 
+     "Automatically resolve differences in TO" (this is a GUI, after all).
+
+
+<BR><BR>
+<LI> <B>{Launcher GUI} Help button and popup</B>
+<BR><BR>
+     Added a "Help" button that spawns the main mergeall user guide 
+     document in a web browser (in the spirit of the 
+     <A HREF="http://learning-python.com/frigcal.html">frigcal</A> calendar 
+     GUI.
+     Just a convenience, but useful nonetheless.
+
+
+<BR><BR>
+<LI> <B>{mergeall} Summary report: number files/directories compared/changed, diffs found</B>
+<BR><BR>
+     Added counters for both the comparison and resolution phases, displayed
+     in the log at each phase's end.  For comparison: files and folders checked.
+     For resolution: (replaced, deleted, created) for both files and folders.
+     Later added counts of number differences found in each of the 4 categories, 
+     from differences data.
+
+
+<BR><BR>
+<LI> <B>{Launcher GUI} Workaround for last line covered on repack GO button</B>
+<BR><BR>
+     mergeall now issues a final 'finished\n\n' message, which prevents the 
+     last output line being covered when the GUI's GO button is unhidden after
+     resizes (a minor annoyance, that required a scroll).  The extra blank line 
+     is now covered, which is easier and less distracting than auto-scrolling.
+
+
+<BR><BR>
+<LI> <B><A name="uonote8">{mergeall} Try to recover from rmdir Windows deletion failures in shutil.rmtree</A></B>
+<BR><BR>
+     On Windows, retry shutil.rmtree's os.rmdir directory removal calls that
+     fail, via a temporary wait-loop callback on errors.  Apparently, Windows 
+     deletes may sometimes not be finalized immediately&mdash;they are left still 
+     pending after the delete call returns (perhaps due to other activities,
+     such as indexing or anti-virus software).  This is lethal to rmtree, as 
+     directories cannot be removed until after all their contents are removed.
+<BR><BR>
+     This seems rare; indeed, it's been observed on just one machine after a 
+     year of usage, and may warrant further research.  However, its symptoms 
+     were witnessed on failures during the new backup folder pruning, and are 
+     also prone to occur during mergeall's normal deletion of unique TO folders. 
+     To trigger the delete error recovery logic, open a file in a folder to be 
+     deleted. 
+<BR><BR>
+     Note that this recovery logic applies only to os.rmdir calls in shutil.rmtree directory
+     removals, not to deletions of <I>simple files</I> in the TO folder with os.remove.  File 
+     deletes could be retried too, but there seems little point; such failures are very rare, 
+     they're likely to be caused by unrecoverable permission errors, and they just leave an 
+     extra file in TO.  Temporary in-use lock failures will be cleaned up by the next mergeall run.
+     Scan your logfiles' resolution phase messages (or the scrolled text in the GUI) to see if 
+     any updates may have failed. 
+<BR><BR>
+     See <A HREF="../../backup.py">backup.py</A> for additional details, links to related 
+     threads on the web, and the workaround's error callback.  Python's shutil.rmtree 
+     may address this shortcoming in the future, though failing changes may be a broader 
+     Windows issue (os.rename, not used here, also seems suspect).  All such failures 
+     are mostly harmless here, as they simply cancel a single update and continue, 
+     leaving a difference for the next mergeall run to resolve.
+
+
+<BR><BR>
+<LI> <B>{mergeall, Launchers} More error checking for command-line arguments and files</B>
+<BR><BR>
+     Expanded error checking for command-line arguments passed to mergeall, in both command-line
+     and launcher modes.  Bad from/to file paths formerly showed full Python exception 
+     text in all three usage modes, but no longer do:
+     <UL>
+     <BR>
+     <LI>
+     In the <A HREF="../../mergeall.py">mergeall script</A>, catch non-existent from/to paths in the
+     command-line, and report with a simple error message, instead of exception text.  Also start 
+     interactive help('mergeall') as before on this and other usage errors, but only if stdin and 
+     stdout are an interactive console&mdash;not when connected to subprocess pipes used by the 
+     launchers in most modes.  pydoc itself didn't prompt for input when the calling process was 
+     connected to pipes, but mergeall formerly did (though not for bad paths), and prompts in spawned 
+     programs can be problematic (see <A HREF="#prompts1">ahead</A>)
+<BR><BR>
+     <LI>
+     In the GUI launcher,
+     check for bad from/to paths before starting mergeall, so errors can be reported in 
+     new GUI popups,
+     instead of mergeall's text output.  mergeall's own checks would catch this and display text in the
+     GUI's text area (without help()), but that's not as nice in a GUI, and showing usage help for a command-line doesn't
+     make sense for users of a GUI that automates it.  The logfile's path was already being handled by pretests
+     this way.
+<BR><BR>
+     <LI>
+     In the console launcher, also
+     test for valid from/to paths before starting mergeall, and display a simple message instead of 
+     exception text.  mergeall's own error messages would work in both the interactive and non-interactive 
+     modes of this launcher (interactive mode shares its streams with mergeall; non-interactive is non-tty,
+     so  help() would be precluded and not prompt for input), but mergeall's command-line oriented display 
+     doesn't make sense here either. 
+     </UL>
+
+
+<BR>
+<LI> <B>{Launcher GUI} Use Desktop for logfiles by default on Windows</B>
+<BR><BR>
+     Set the initial value of the logfile path to the user's Desktop folder, on Windows machines
+     where this works and exists (on all others, use the former "select..." message).  This is just an 
+     initial suggested default for convenience, and can be changed freely in the GUI.  It's intended to
+     discourage use of a flashdrive for both an archive source and logfile target (which slows progress),
+     but could prove too user-friendly to retain.   
+
+
+<BR><BR>
+<LI> <B><A name="uochange1">{diffall} Add recently-changed-comparisons-only option, new stats</A></B>
+<BR><BR>
+     Not part of mergeall itself per se, but in the accompanying <A HREF="../../diffall.py">diffall.py</A> 
+     script borrowed from the book <A HREF="http://learning-python.com/about-pp4e.html">PP4E</A>, 
+     added a "-recent [days]" command-line option which limits file comparisons to files 
+     modified within the last N days in either tree (N defaults to 90 if not given; 
+     use 365 for a full year).  This is a 
+     heuristic, designed to allow quick verifications for recent mergeall changes
+     only.  It assumes that recent changes in a large archive are typically 
+     limited to a small subset of its files.
+<BR><BR>
+     By default, diffall does a full byte-for-byte compare of every file in two 
+     trees, and should be run occasionally to verify integrity of entire archive
+     copies.  While complete, this script can take a long time for large archives 
+     (1 hour or more for the 72G use case, with a USB stick and micro SD card). 
+     The "-recent" option allows for quicker verifications of just items changed 
+     recently, and hence subject to recent mergeall updates.  This option is for 
+     command-line use only; mergeall's "-verify" still does exhaustive compares.
+<BR><BR>
+     Like mergeall, diffall also grew new simple counter stats, reported at run end; 
+     its output ends with an extra line of this form: 
+     "Dirs checked 52, Files checked: 8, Files skipped: 1528".
+
+
+<BR><BR>
+<LI> <B>{diffall, cpall} Call file.close explicitly for use outside CPython</B>
+<BR><BR>
+     Changed the related <A HREF="../../diffall.py">diffall.py</A> and 
+     <A HREF="../../cpall.py">cpall.py</A> scripts/modules borrowed from  
+     <A HREF="http://learning-python.com/about-pp4e.html">PP4E</A>
+     to call file.close explicitly for use outside CPython (e.g., PyPy), rather 
+     than relying on the auto-close-on-collection behavior of file objects in CPython.  
+     diffall.py is run by mergeall for "-verify", and manually for archive integrity
+     checks; cpall.py is imported and used by mergeall for its core file and tree 
+     copying. 
+
+
+<BR><BR>
+<LI> <B>{mergeall, cpall} Dropped the cpall.copyfile shutil.copystat hack</B>
+<BR><BR>
+     Got rid of a blatantly evil case of monkey-patching in mergeall.py, by changing
+     cpall.copyfile in-place to  call copystat as a default option.  The original 
+     code went to great lengths to avoid changing cpall, but was far too dark to 
+     document further here; see <A HREF="../../mergeall.py">mergeall.py</A> (if you must). 
+
+
+<BR><BR>
+<LI> <B><A name="fixfatdst">{utilities} New script to work around DST modtime skew on FAT drives</A></B>
+<BR><BR>
+     Added a new script, <A HREF="../../fix-fat-dst-modtimes.py">fix-fat-dst-modtimes.py</A>, as one option 
+     for addressing the 1-hour modtime skew of FAT drives on Windows that occurs at 
+     Daylight Savings Time rollovers.  Simply run this from a command line after each
+     DST rollover; it adds or subtracts an hour from the modtime of each file in a FAT 
+     archive copy, to keep them in synch with an NTFS copy, per mergeall's timestamp+size 
+     comparisons.  For more on this issue, see the version 1.4 release note <A HREF="#uonote1">below</A>;
+     it's also mentioned in <A HREF="Lessons-Learned.html#stamps">Lessons Learned</A> and 
+     <A HREF="Whitepaper.html#limits">Usage Overview</A>.  See the  
+     <A HREF="../../fix-fat-dst-modtimes.py">script</A> itself for usage pointers.
+     <I>3.0 update</I>: you can generally avoid this script by formatting external drives with 
+     <A HREF="../../UserGuide.html#dst">exFAT</A>.
+
+
+<BR><BR>
+<LI> <B>{Docs, examples} Relative links, README to HTML, miscellaneous changes</B>
+<BR><BR>
+     Assorted non-functional changes:
+     <UL>
+     <BR>
+     <LI>
+     Adjusted links in <A HREF=".">documents</A> to use a new examples structure that's the same in the 
+     <A HREF="http://learning-python.com/mergeall.html">zipfile</A>; 
+     for the web, use links relative to a simple unpacked copy of the zipfile 
+     instead of copying individual items to a website folder.  Due to ISP rules, this also required 
+     an <I>.htaccess</I> file in the top folder (only) to display indexes on the web,  
+     and forced this top-level file to be renamed from README.html to Readme.html 
+     (see <A HREF="../../.htaccess">.htaccess</A>).
+<BR><BR>
+     <LI>  
+     Converted this README from plain text to HTML for readability; rewrote much of the 
+     <A HREF=".">docs</A> folder's existing HTML documentation; generated new screen shots and 
+     logfiles in the (now defunct) examples folder.
+<BR><BR>
+     <LI>
+     <A name="prompts1">Added</A> a note in <A HREF="../../launch-mergeall-Console.py">launch-mergeall-Console.py</A>
+     with new findings on the streams issue for interactive input prompts from programs spawned by
+     subprocess.  The prompts work if the streams are unbuffered and read by byte instead of line, 
+     and the parent process's stdout is flushed after each byte is printed.  This may be still
+     problematic, though, for multi-byte Unicode characters, endline sequence normalization, and
+     large outputs.
+<BR><BR>
+     <LI>
+     Added another <A HREF="../../__sloc__.py">new script</A>, 
+     <I>__sloc.py__</I>, a simple source lines-count script used for metrics purposes only.
+
+</OL>
+
+
+
+<H3><A name="usage20">Usage Notes</A></H3>
+
+<OL>
+<LI> <B>More on Windows FAT daylight savings time rollover issue: 2 copies</B>
+<BR><BR>
+     It has been pointed out that this issue, documented in version 1.4 notes
+     <A HREF="#usage14">below</A>, can also be addressed by keeping <I>two</I> 
+     FAT device archive copies: one to be used when DST is active, and one 
+     when it is not.  This way, DST rollover won't require a full archive rewrite
+     on the currently-used copy, and you'll also automatically keep a longer-term 
+     backup copy.  Keeping two such copies on the <I>same</I> device is equivalent
+     to keeping the copies on separate devices, provided your archives are small
+     enough, and your device is FAT enough (yes, pun intended). 
+
+
+<BR><BR>
+<LI> <B><A name="uonote9">File permission-related failures: fix and rerun</A></B> 
+<BR><BR>
+     Mergeall 's updates can fail for files whose permissions preclude changes. 
+     This includes files marked as:
+<BR><BR>
+     <UL>
+     <LI>Read-only (copyable, by not changeable in an archive copy)
+     <LI>Hidden/system (e.g., dekstop.ini, thumbnails.db, some media files)
+     <LI>In-use by another process (even the Windows indexer can trigger this)
+     </UL>
+<BR>
+     These failures don't stop a merge; they report as errors in the logfile 
+     and are simply skipped, leaving the difference for the next run.  To avoid 
+     these failures, though, make sure that the files are not read-only or 
+     hidden, by right clicking to their Properties, and unclicking these modes
+     (you may need to enable viewing of hidden files in order to see them in 
+     file explorer).
+<BR><BR>
+     Mergeall itself does not change permissions, as your files are your property;
+     read-only mode, for instance, may be set deliberately to avoid overwrites.
+     In-use errors (and skips) can't be avoided by mergeall in general; be sure 
+     that you don't have a file open in the TO archive when mergeall is run, 
+     or rerun again to pick up changes for files previously in use.
+</OL>
+</P>
+
+
+<!------------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version171">Version 1.7.1, Oct-28-14</A></H3> 
+</TABLE>
+
+<P>
+<I>Summary</I>: minor error text fix, and updated usage note here.
+<P>
+Repackaged <B>Oct-31-14</B> and <B>Nov-8-14</B> with only minor doc changes here and in HTML files.
+
+
+
+<H3><A name="changes171">Changes</H3>
+
+<OL>
+<LI> <B>{mergeall} Minor error message text format patch in mergall.py</B>
+<BR><BR>
+     The "message" argument in mergeall's file error() message text was not 
+     being displayed.  Also prefixed error text produced by cpall.copyfile()
+     with "**", so the format of errors reported during its recursive tree 
+     copies matches that of mergeall's own top-level file error messages 
+     (they're now both "**Error...").
+</OL>
+
+
+
+<H3><A name="usage171">Usage Notes</A></H3>
+
+<OL>
+<LI> <B>Update on 1.7's Windows Unicode filenames issue: accents</B>
+<BR><BR>
+     <I>Update: for a possibly-related example of this issue observed later, 
+     see also release 2.3's usage note <A HREF="#usage23">above</A>.</I>
+
+<BR><BR>
+     This note augments a 1.7 usage note <A HREF="#usage17">below</A>.  
+     On further exploration, this appears to be yet another FAT32 
+     filesystem issue, and dependent on order of directory copies.
+     The issue occurs only when <I>both</I>:
+<BR><BR>
+     <OL type=a>
+     <LI> Copying to FAT32 filesystems, of the sort used by default
+        on USB flash drives.
+
+     <LI> Copying the non-accented name first, followed by the 
+        accented name that is otherwise equivalent.
+     </OL>
+<BR>
+     When both conditions are met, both Windows file explorer and 
+     the mergeall Python script issue an error for trying to create
+     a folder that already exists.
+<BR><BR>
+     For instance, Windows' file explorer issues the following error message text 
+     in a popup and offers to merge folders, even though the only 
+     folder in the destination is the unaccented "Rodriguez":
+<PRE>     This destination already contains a folder named 'Rodríguez'"
+</PRE>
+     Python&mdash;and hence mergeall&mdash;issues a Windows 183 exception; 
+     mergeall skips the single folder copy and continues, per the
+     messages in its run log:
+<PRE>
+     copied new FROM dir, C:/.../test-Rodriguez\Rodriguez
+     **Error copying FROM dir: skipped C:/.../test-Rodriguez\Rodríguez
+     <class 'FileExistsError'> [WinError 183] Cannot create a file when that file already exists: 'D:/rodriguez\\Rodríguez'
+     copied new FROM file, C:/.../test-Rodriguez\findings.txt
+</PRE>
+     Hence, this is the same FAT32-related error, and seems independent
+     of Python.  Conversely, the issue does not occur when <I>either</I>:
+<BR><BR>
+     <OL type=a>
+     <LI>Copying to NTFS filesystem devices (e.g., to the C: drive) via 
+        drag-and-drop, cut-and-paste, or otherwise.
+
+     <LI>Copying the accented name first, followed by the non-accented name
+        (or when a multi-folder copy is lucky enough to be ordered this way).
+     </OL>
+<BR>
+     In either case, both folders are created, and no error occurs.
+     If you do manage to copy both folders to a FAT32 device, though, trying 
+     to delete both later either issues an error or leaves one unremoved.
+     This behavior seems a bug, given that FAT32 on USB drives supports 
+     non-ASCII file and folder names in most other contexts.  It may, however, 
+     reflect a fundamental limitation in the older FAT filesystem used by
+     default for most USB and SD flashcard devices.
+<BR><BR>
+     There may be a procedural workaround for this issue that requires an 
+     additional and manual step (e.g., code page settings?), but an automatic
+     resolution may be beyond the scope of a Python script if the issue is 
+     inherent in either the FAT32 implementation, or Python's own choice of 
+     filesystem API calls.  In any event, it seems rare enough to warrant a 
+     pass here.  The workaround for now is to either:
+<BR><BR>
+     <UL>
+     <LI>Rename without accents
+     <LI>Manually merge the two folders' content once
+     <LI>Manually copy the folders once in the desired order
+     </UL>
+     <BR>
+     Watch for "**Error" in your run logs to see if/when this occurs.
+     The following links provide background on this issue, but search on "fat32 unicode filenames" 
+     for other pointers: 
+
+<BR><BR>
+     <UL>
+     <LI>
+     <A HREF="http://msdn.microsoft.com/en-us/library/windows/desktop/dd317748(v=vs.85).aspx">This page</A>
+     on MSDN describes (tersely) the underlying issue
+
+     <LI>
+     <A HREF="https://msdn.microsoft.com/en-us/library/windows/desktop/dd317752(v=vs.85).aspx">This page</A>
+     on MSDN describes code pages in general 
+
+     <LI>
+     <A HREF="http://en.wikipedia.org/wiki/Windows_code_page#Problems_arising_from_the_use_of_code_pages">This page</A>
+     on Wikipedia mentions dropping accents due to code pages
+     </UL>
+
+</OL>
+</P>
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version17">Version 1.7, Oct-10-14</A></H2> 
+</TABLE>
+
+<P>
+<I>Summary</I>: minor GUI fixes, mergeall report update, doc updates, usage caveat note.
+
+
+
+<H3><A name="changes17">Changes</A></H3>
+
+<OL>
+<LI> <B>{Launcher GUI} Minor fix for Python 2.X only: showerror import</B>
+<BR><BR>
+     Add an import of Tkinter's showerror when using Python 2.X; else this dialog never
+     appears if a bad logfile name is used.  The import was present for 3.X, but 
+     not 2.X, and was required only by a rare context never tested under 2.X.
+
+
+<BR><BR>
+<LI> <B>{Launcher GUI} Minor fix: catch log open() exceptions</B>
+<BR><BR>    
+     Catch PermissionError (etc.) on logfile open and report error in popup;
+     else fails silently on Windows, as ".pyw" has no console for exception text.
+     This can occur if you select "C:\Program Files" for the log dir on Windows.
+     Formerly, only the existence of the logfile's folder was verified.
+
+
+<BR><BR>
+<LI> <B>{mergeall} Add disposition note lines to differences report</B>
+<BR><BR>
+     Add message lines for each difference category, reminding user how they will
+     be resolved by automatically if -auto, or if updates selected in GUI: "These
+     items will be replaced", "These items will be permanently deleted", and so on.
+
+<BR><BR>
+<LI> <B>{Docs} Assorted minor doc updates, and USB 3.0 speed correction</B>
+<BR><BR>
+     Assorted minor updates to the HTML files in the docs subfolder, plus one minor
+     correction added in <A HREEF="Lessons-Learned.html#device">Lessons-Learned.html</A>: 
+     its USB 3.0-versus-wifi speed figures were off by a factor of 8 due to bytes/bits rating differences 
+     (USB is actually 8X faster than previously stated).  Also added new version 1.7
+     screenshots in examples/, taken on Windows 7.
+</OL>
+
+
+
+<H3><A name="usage17">Usage Notes</A></H3>
+
+<OL>
+<LI> <B><A name="uonote7">Windows: differing folder names may be the same sans Unicode</A></B>
+<BR><BR>
+     <I>Update: see further details on this issue in 1.7.1's usage note <A HREF="#usage171">above</A>.</I>
+<BR><BR>
+     A bizarre and very rare use case can trigger run-log error messages that
+     require manually copying a directory after mergeall finishes.  The observed 
+     behavior: on Windows 7, if there are two different directories named:
+<BR><BR>
+    <UL>
+    <LI>"Rodriguez" (with no accent)     
+    <LI>"Rodríguez" (with Unicode accented "i", Latin-1 code-point 237=0xED) 
+    </UL>
+<BR>
+     then the two are treated as having the same name, and you cannot copy both 
+     to the same folder.  This is true for Windows drag-and-drop copies (which 
+     issue an error), so it appears that Windows itself effectively drops the 
+     accent, making the two the same for core file operations. 
+<BR><BR>
+     Mergeall reports an error for trying to create a folder that already exists,
+     when copying the second of the two.  In this likely very rare event, the 
+     simplest workaround is to manually copy the folder whose automatic copy 
+     failed and displayed an error in the log.  This is not Python 3.X/2.X-specific.
+<BR><BR>     
+     It may be possible that using bytes (instead of str) for folder names in
+     mergeall's os.listdir() calls would obviate this issue, but Window's own
+     drag-and-drop failures suggest that it might be a deeper issue in Windows
+     itself, and the issue's rarity and large impact on existing code makes 
+     further exploration unwarranted.  This would also apply to Python 3.X only, because
+     2.X has no true bytes object.  My Windows 7 (US) console doesn't even print 
+     this character properly, though IDLE does, and your console might (setting 
+     the Windows codepage via a "chcp 65001" helps on mine&mdash;see Page 755 in 
+     <A HREF="http://learning-python.com/about-lp5e.html"><I>Learning Python, 5th Edition</I> </A> (LP5E)
+     for details, and test with the following script):
+<PRE>
+         #!python3
+         # -*- coding: latin-1 -*-
+         s = 'í'
+         print(s)
+         print(s.encode('latin-1'))
+</PRE>
+</OL>
+</P>
+
+ 
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version16">Version 1.6, Jul-27-14</A></H2> 
+</TABLE>
+
+<P>
+<I>Summary</I>: Python 2.X Unicode issue workaround, verify quit, misc GUI/doc/package updates.
+
+<P>
+Repackaged <B>Aug-05-14</B> with minor doc-only updates.
+
+
+
+<H3><A name="changes16">Changes</A></H3>
+
+<OL>
+<LI> <B>{Launcher GUI} Python 2.X Unicode issue workaround (3.X recommendation)</B>
+<BR><BR>
+     Wrapped a stream line decode in an exception handler, to prevent its 
+     potential failure on Python 2.X from killing the GUI for some non-ASCII 
+     characters in filenames.  This is a process-boundary issue that impacts only
+     the GUI display (not the logfile, or the underlying mergeall process), and 
+     reflects a 2.X/3.X incompatibility, despite the launcher's automatic propagation 
+     of PYTHONIOENCODING.  See the 1.6 change note in 
+     <A HREF="../../launch-mergeall-GUI.pyw">launch-mergeall-GUI.pyw</A>
+     for details (search on "1.6").  This fix was also applied to the 
+     <A HREF="../../launch-mergeall-Console.py">console launcher</A>, for stream 
+     lines decoded for console display.
+<BR><BR>
+     Note that this patch applies only to the GUI and console launchers' displays. 
+     Its worst-case impact is that some non-ASCII filenames may be displayed with 
+     "(UNDECODABLE LINE):" prefixes and still-encoded names in the GUI or console 
+     launcher displays under Python 2.X only.  This normally happens for just a handful 
+     of filenames, if any, and filenames display correctly in both the logfiles created
+     by the launchers, and the main <A HREF="../../mergeall.py">mergeall.py</A> script itself, 
+     which processes files with non-ASCII names properly.  Nevertheless, this is significant 
+     enough to recommend use of Python 3.X for users with archives having many non-ASCII filenames. 
+<BR><BR>
+     Also note that PYTHONIOENCODING must still be set manually in your system shell 
+     when running script mergeall.py directly from a command line, if it may ever process
+     and thus print non-ASCII filenames, especially in 3.X.  This manual setting 
+     isn't required for the GUI launcher, as it automatically sets and propagates
+     this to its mergeall.py subprocess, and does not route text to a console
+     (only to a GUI and logfile).  However, this setting may be required for both 
+     mergeall.py and the console launcher, as both print filenames to the console.
+
+
+<BR><BR>   
+<LI> <B>{Launcher GUI} Verify main window quit</B>
+<BR><BR>
+     Added a simple quit verify dialog.  Caveat: this avoids accidental exits,
+     but no longer shuts down the GUI immediately if there are queued lines 
+     to be displayed; a sys.exit() might exit quicker, but could result in 
+     GUI error messages in the console.
+
+
+<BR><BR>
+<LI> <B>{Misc} Sync 2 doc files, fix launch-mergeall-GUI.pyw eolns, display version#</B>
+<BR><BR>
+     Synchronized 2 MoreDocs/ HTML files with current versions on book website 
+     (Lessons-Learned, and Whitepaper which is now called mergeall.html 
+     on the website).  Also added version number in GUI launcher title (and 
+     console launcher startup), and fixed file launcher-mergeall-GUI.pyw to 
+     have Windows eolns (a.k.a. end-of-lines, endlines); as it was, this file 
+     inconsistently had Unix line breaks, which show as a single line in most some 
+     text editors like Notepad (though not PyEdit or IDLE);
+     origin unknown, but likely harmless.  None of the changes in this category 
+     impacted program execution.
+</OL>
+</P>
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version15">Version 1.5, May-5-14</A></H2>
+</TABLE>
+
+<P>
+<I>Summary</I>: Linux compatibility&mdash;patch and usage notes.
+
+<P>
+This system was initially developed and used on Windows (7 and 8).
+Testing on Linux (Fedora 20/Gnome 3) has so far yielded one minor
+patch, and two usage notes for Linux users.  
+
+<P>
+Note that the patch applied allows mergeall to work on Linux for archives 
+containing basic files and directories&mdash;that is, for normal user data and media.
+More exotic Linux file types (e.g., links and FIFOs) remain untested, and 
+may or may not require additional changes; modify as desired.
+</P>
+
+
+
+<H3><A name="changes15">Changes</A></H3>
+
+<OL>
+<LI> <B>{Linux Patch} subprocess.Popen() shell argument</B>
+<BR><BR>
+     In both GUI and console launchers, changed the call to Python's
+     subprocess.Popen() to pass shell=False on Linux, and other Unix-like
+     platforms, only.  Else, when passing a command-line sequence (not a
+     single string), this call always spawns just an interactive Python 
+     session&mdash;as though the full command run were "python", the first 
+     item in the command-line sequence.  However, on Windows, shell=True 
+     is still required if filename associations are to be employed.  This 
+     seems counter to the portability goals of subprocess (and is largely 
+     undocumented), but the fix is very minor.  
+<BR><BR>
+     With this patch, mergeall's GUI and main script work well for basic file 
+     types on Linux in testing thus far; see the Linux screenshots from versions 
+     1.5 and 2.1 (defunct), and <A HREF="../docimgs/linux/index.html">3.0</A>.
+</OL>
+
+
+
+<H3><A name="usage15">Usage Notes</A></H3>
+
+<OL>
+<LI> <B>Linux: #! lines</B>
+<BR><BR>  
+     Linux users may want to change some of the "#!" first lines in this 
+     system's script files to name the specific version of Python for which
+     you have [tT]kinter GUI support installed, if you wish to run the scripts
+     directly as executables.  For instance, a change from "#!/usr/bin/python"
+     to "#!/usr/bin/python3" in launch-mergeall-GUI.pyw was required for my 
+     Python 3.X install, but was not changed as such in the released code, 
+     as this script also works on Python 2.X systems and other platforms.
+     Change as needed for your installs and links, or use full "python2 ..."
+     or "python3 ..." command lines to launch the top-level script.
+
+
+<BR><BR>
+<LI> <B><A name="uonote6">Linux: Windows/Linux timestamps DST skew</A></B>
+<BR><BR>
+     Also on Linux, it appears that there is another file timestamp DST 
+     rollover issue that makes some files' mod times off by an hour when 
+     synchronizing between Windows and Linux trees.  Specifically, a Windows
+     NTFS volume (e.g., your mounted C:) may report some mod times skewed by
+     1 hour from Linux times; this appears to happen for files saved in the
+     past while DST was active.  Naturally, this can generate spurious 
+     differences in timestamp-based synchronization tools like mergeall.
+<BR><BR>     
+     This is a TBD, but seems related or similar to the Windows NTFS/FAT 
+     skew reported in release 1.4 notes <A HREF="#usage14">below</A> (see its item #1).  
+     No fix was coded and no ideal workaround is yet known; but synching once with
+     auto-update on suffices to remove the timestamp differences, albeit at 
+     the expense of some extra one-time copies.  As a demo, the new Linux 
+     desktop screenshot in ./examples/Screenshots shows mergeall runs on Linux
+     performing and verifying a Windows/Linux timestamp synch.  Note that this 
+     is an issue only when comparing trees _between_ Windows and Linux, not 
+     for compares of trees that reside on the same platform.
+</OL>
+</P>
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version14">Version 1.4, Mar-10-14 to March-27-14</A></H2>
+</TABLE>
+
+<P>
+<I>Summary</I>: Multiple updates&mdash;behavior (earlier dates) and docs (later dates).
+
+<P>
+This version's development spanned 2 weeks.  It yielded numerous changes
+and notes reflecting real world usage and testing.
+
+
+
+<H3><A name="changes14">Changes</A></H3>
+
+<OL>
+<LI> <B>{GUI Launcher} Enhanced to thread subprocess stream reads</B>
+<BR><BR>
+     Read the spawned mergeall subprocess's stdout/stderr lines in a spawned 
+     parallel thread, that posts lines to a queue polled by timer events in 
+     the main GUI thread.  This structure is more complex, but prevents the 
+     GUI from being blocked and unresponsive while waiting for a next line 
+     from the subprocess&mdash;not a bug and normally not a concern, but it 
+     could become apparent if mergeall was busy copying large trees.
+
+
+<BR><BR>
+<LI> <B>{Launchers} Fix for Unicode stream encoding (binary mode + manual decode)</B>
+<BR><BR>
+     Redo on <A HREF="#changes12">1.2 issue</A>: forcing the mergeall subprocess to use 
+     the default Unicode encoding in the locale module sufficed to make it agree with 
+     Popen's text-mode stream reader (which always uses the locale setting), but still 
+     failed on encoding errors on Windows for some Unicode filenames as they were 
+     printed in mergeall&mdash;before they ever reached the Popen reader.  Fixed by 
+     forcing subproc to use the broader UTF8 for its prints via PYTHONIOENCODING, and 
+     reading stdout lines from Popen in binary mode with manual post-read UTF8 decoding.
+     See the 1.4 change notes in <A HREF="../../launch-mergeall-GUI.pyw">launch-mergeall-GUI.pyw</A>
+     for more details.
+
+
+<BR><BR>
+<LI> <B>{Launchers} Fix for Python 2.X logfile incompatibility (binary mode files)</B>
+<BR><BR>
+     Prior launcher versions failed in Python 2.X when logfiles were enabled,
+     because they opened logfiles in text mode using 3.X's open() with encoding,
+     and didn't account for 2.X's different open().  Temporarily changed to use 
+     open=codecs.open in 2.X, then changed to write logs in binary mode with new
+     binary stream data to sidestep the issue altogether.  2.X's codecs.open() does
+     not expand \n to \r\n on Windows when writing decoded Unicode, though the next 
+     item made this a moot point.
+
+
+<BR><BR>
+<LI> <B>{Launchers} Handle Python 2.X -u unbuffered flag in mergeall spawn command-line</B>
+<BR><BR>
+     This Python switch makes streams unbuffered, but oddly also makes line-ends
+     \r\n in 3.X but \n in 2.X, which leads to single-line logfiles in Windows 
+     if not special-cased.  Temporarily dropped for 2.X compatibility, so all 
+     line-ends are \r\n when written to files on Windows.
+
+     Later reinstated: without the Python '-u' unbuffered flag, mergeall output
+     may not appear for 10 or more seconds on some machines and slower devices 
+     due to internal buffering.  Because this flag also makes line-breaks differ
+     between Python 2.X and 3.X, though, also need to use special-case logfile 
+     writes to map all linebreaks to the platform's version.  See 1.4  change notes 
+     in <A HREF="../../launch-mergeall-GUI.pyw">launch-mergeall-GUI.pyw</A> for more details.
+
+
+<BR><BR>
+<LI> <B>{Docs} Added Lessons-Learned.html post implementation notes</B>
+<BR><BR>
+     This <A HREF="Lessons-Learned.html">write-up</A> summarizes trade-offs and 
+     issues, and discusses decoupled versus single process architectures.
+</OL>
+
+
+
+<H3><A name="usage14">Usage Notes</A></H3> 
+
+<OL>
+<LI> <B><A name="uonote1">FAT drives munge file modtimes at DST rollover if auto-adjust</A></B>
+<BR><BR>
+     <I><B><U>Update for version 3.0</U></B>: A new overview of this issue and a new list of fixes now
+     appears in the <A HREF="../../UserGuide.html#dst">User Guide</A> added in release 3.0.
+     Importantly, users on Windows and Mac OS X are now advised to format their external
+     drives using the <B>exFAT</B> filesystem, which avoids this issue altogether; Linux exFAT
+     support is somewhat emerging, but the fixer script and other options below still apply.</I>
+<BR><BR>
+     On Windows, FAT/FAT32 file systems (e.g., many USB sticks) have an issue with 
+     daylight savings time (DST): they adjust file modtimes for localtime, making them all 
+     appear to be off by one hour when DST begins, versus the true UTC time of NTFS and 
+     exFAT.  This is a well-known Windows issue, and seems to occur only if your 
+     Windows system is set to auto-adjust when DST begins, but it can make <I>every</I>
+     file register as a difference in mergeall if only one of the drives uses FAT.
+<BR><BR>
+     No solution was coded in mergeall itself here, but there are a variety of procedural 
+     ways to deal with this, from arguably-simplest to most complex: 
+<BR><BR>
+     <OL type=a>
+     <LI> Allow mergeall, and other timestamp-based backup or synchronization 
+          tools, to rewrite your archive in full twice a year.
+     <BR><BR>
+     <LI> Clear your Windows auto-dst-adjust setting, and manually change your 
+          time/clock when needed (see below).
+     <BR><BR>
+     <LI> Use two FAT device archive copies (e.g., on one or two USB sticks)&mdash;one during
+          DST and one otherwise; this has the advantage of keeping a long-term backup copy 
+          (more on this in <A HREF="#usage20">2.0 usage notes</A>).
+     <BR><BR>
+     <LI> Write a script to add or subtract 1 hour on all file modtimes, and run on
+          FAT drive archives at DST rollovers; use os.walk, os.path.getmtime, and os.utime.
+          <I><B>Done</B></I> => see <A HREF="#fixfatdst">this 2.0 note</A> for a script to run.
+     <BR><BR>
+     <LI> Use NTFS instead of FAT on your drives (e.g., a shell command such as 
+         "convert D: /FS:NTFS" can do the job), if this makes sense on your device;
+         it may degrade performance on some.  
+     <BR><BR>
+     <LI> Resort to using lower-level C/C++ Windows libraries if they offer a 
+          solution not available in Python directly (this requires recoding, and 
+          possibly C++ skills if no Python API exists).   
+     </OL>
+<BR>
+     The first of these is the default if you take no action.  The second&mdash;clearing 
+     your auto-dst-adjust setting&mdash;is easy but manual: see  
+     Control Panel => Date and Time => Timezone, or click your toolbar date/time to 
+     clear your DST setting (be sure to "OK" out of all your Control Panel dialogs).
+     The third and fourth require some minimal action at DST rollovers; 
+     the new <A HREF="#fixfatdst">2.0 script</A> makes the fourth a simple command-line 
+     run, but the third ensures a long-term backup.
+
+     See <A HREF="Lessons-Learned.html#stamps">Lessons-Learned.html</A> for more 
+     on this issue, including relevant links on the web.
+
+
+<BR><BR>
+<LI> <B><A name="uonote2">Some programs may change file content but not modtime or size</A></B>
+<BR><BR>
+     Excel on Windows (among others?) can occasionally change a few bytes in a file's 
+     content trivially without updating the file's modification time or size.  This registers 
+     as a difference in the bytewise <A HREF="../../diffall.py">diffall.py</A> but not in the 
+     timestamp/size-based mergeall.py (and is officially considered to be cheating here).  
+     Such modifications appear to reflect changes to unimportant metadata only; thus far 
+     seem limited to older Excel files opened but not saved; and can generally be ignored.
+     Copy over the impacted files manually, if you don't wish to see the diffall difference. 
+
+
+<BR><BR>
+<LI> <B><A name="uonote3">Some filesystems limit maximum filename path length</A></B>
+<BR><BR>
+     <I><B><U>Update for version 3.0</U></B>: pathname limits were eventually addressed 
+     and lifted on Windows by automatically adding "<B>\\?</B>" pathname-prefix strings
+     universally on that platform (only) to invoke enhanced APIs; 
+     see <A HREF="#version30">3.0 above</A></I>.
+<BR><BR>
+     For large/deep trees, you may run up against file path length limits.  These 
+     won't terminate mergeall or the GUI, but will manifest as error messages in 
+     mergeall output that will continue to appear in later runs until addressed.  
+     This often is the result of directory renames or moves, and is a filesystem 
+     issue, not a program error&mdash;you also may not be able to do much with files 
+     in such long paths in a file explorer, until you shorten the path by renaming files
+     or folders, moving items closer to the drive's root, or deleting parent directories.  
+     That is the suggested policy and workaround for mergeall as well.  
+     See <A HREF="Lessons-Learned.html#stamps">Lessons-Learned.html</A> for more on this issue.
+
+
+<BR><BR>
+<LI> <B><A name="uonote4">Routing logfiles to a USB drive being scanned slows merges</A></B>
+<BR><BR>
+     Perhaps a given to some readers, but mergeall scans USB flash drives quicker 
+     if you route the logfile (if one is requested) to a different device than the 
+     USB drive being scanned&mdash;to your Desktop, for example&mdash;and copy it over to 
+     the USB drive later if desired.  Writing a logfile on the same USB drive being
+     scanned can slow down the scan by a factor of 3 or 4 in tests run, due to 
+     the read/write combination.
+
+
+<BR><BR>
+<LI> <B><A name="uonote5">Naming devices and network drives in Windows pathnames</A></B>
+<BR><BR>
+     Perhaps also obvious to some, but on Windows, pathnames denote connected drives
+     by device letter, and name shared network drives by volume syntax.  Examples:
+<PRE>       C:\folder\...          --for a folder on your main drive (normally)
+       D:\folder\...          --for a folder on your USB flashdrive (or other letter)
+       \\Computer\folder\...  --for a shared folder on a computer in your network
+</PRE>
+     Such path formats are passed to the main script as arguments, but are automatic
+     when selecting folders in the GUI.  Other platforms use different naming schemes
+     (e.g., /dev/..., /mnt/...); see your system docs.  
+<BR><BR>
+     <I>Also on this topic</I>: drives shared on a Windows home network seem to be <I>very 
+     slow</I> (often <B>35-50</B> times slower than recent USB drives) and tedious to set up, 
+     but your mileage may vary.  Private clouds may or may not be faster, but seem 
+     likely to be bound by similar constraints imposed by network transmission
+     speed in general (and public clouds are loaded with tradeoffs: see the last 
+     section of <A HREF="Whitepaper.html#clouds">Whitepaper.html</A>).
+     See also USB flashdrive and Internet speed comparisons in 
+     <A HREF="Lessons-Learned.html#usb30">Lessons-Learned.html</A>.
+</OL>
+</P>
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version13">Version 1.3, Feb-27-14</A></H2>
+</TABLE>
+
+<P>
+<I>Summary</I>: mergeall.py fix for FAT 2-second modtime resolution (range test).
+
+
+<H3><A name="changes13">Changes</A></H3>
+
+<P>
+     Allowed for FAT32 file system's 2-second resolution/granularity of file
+     modification times, by replacing equality with a +/- 2 second range test;
+     else copies on the more accurate NTFS file system (and others) may register
+     a mismatch despite having identical content.  Update: see 
+     <A HREF="Lessons-Learned.html#stamps">Lessons-Learned.html</A> 
+     for more on this issue.
+</P>
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version12">Version 1.2, Feb-15-14</A></H2>
+</TABLE>
+
+<P>
+<I>Summary</I>: Launchers fix for Unicode stream encoding (match subproc to Popen).
+
+
+<H3><A name="changes12">Changes</A></H3>
+
+<P>
+     Fixed encoding disagreement between mergeall subprocess streams and 
+     launcher's Popen text mode auto-decoding, by using PYTHONIOENCODING and 
+     locale module setting used by Popen; else aborts on Unicode exception in 
+     stdlib when reading subproc's stdout lines for non-ASCII filename in report.
+      This was later revisited in <A HREF="#changes14">version 1.4</A>.
+</P>
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version11">Version 1.1, Feb-10-14</A></H2>
+</TABLE>
+
+<P>
+<I>Summary</I>: New GUI+console launchers.
+
+
+<H3><A name="changes11">Changes</A></H3>
+
+<P>
+     Added console and GUI launchers, run atop the main mergeall.py script.
+     Console launcher supports interactive/selective mode, but GUI does not.
+</P>
+
+
+<!--------------------------------------------------------------------------------------->
+
+
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A name="version10">Version 1.0, Feb-1-14</A></H2>
+</TABLE>
+
+<P>
+<I>Summary</I>: Initial release, command-line mergeall.py only.
+</P>
+
+
+
+
+<!--===================================================================================-->
+
+</P>
+<P>&nbsp;</P>   <!--IE is funky with <BR>-->
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H1><A name="start">(<I>Dated</I>) Usage Summary</A></H1>
+</TABLE>
+
+<P class=notebox style="margin-top: 25px;">
+<I><B>Please note</B></I>: the following is now largely subsumed by the new <A HREF="../../UserGuide.html">User Guide</A>
+added in version 3.0, but is retained for any extra details or context it may provide.
+For current information in using the source, app, and executable formats of mergeall, see 
+the User Guide's <A HREF="../../UserGuide.html#platform">pointers</A>, as well as 
+the main <A HREF="../../README.txt">README</A> file.  This section covers the original and
+still-available source-code format.
+
+
+
+<P>
+<B>Download</B> mergeall's zipfile <A HREF="http://learning-python.com/mergeall.html"><B>here</B></A>, and unpack on your 
+computer.  Its unpacked content may be viewed either <A HREF="../..">locally</A> or 
+<A HREF="http://learning-python.com/mergeall-products/unzipped">online</A>.
+
+<P>
+This source-code version of the system <B>requires</B> just <A HREF="http://www.python.org/downloads">Python</A> 3.X or 2.X.
+Python 3.X is preferred for Unicode filenames, per version 1.6's <A HREF="#version16">release notes</A>. 
+Python 3.5 or later (or a separate scandir() PyPI install) was recommended for speed on Windows and
+Linux, per version 2.2's <A HREF="#version22">release notes</A>, but no longer as of 3.0.
+
+<P>
+The system is known to <B>run on</B> 
+Windows 7, 
+Windows 8.1, 
+Windows 10, and 
+Linux, and, as of
+version 3.0,  
+<A HREF="../../UserGuide.html#gui">Mac OS X</A>.  Most usage to date has been on Windows
+for archives of normal files and folders, though Mac and Linux have seen more action lately;
+as of 3.0, Mac has emerged as both major enhancements source and platform of choice. 
+
+<P>
+This program may be <B>launched</B> in 3 ways, from simplest to advanced:
+
+<OL>
+<LI>Run <B>launch-mergeall-GUI.pyw</B> to run mergeall.py easily from a 
+desktop GUI.
+
+<LI>Run <B>launch-mergeall-Console.py</B> to run mergeall.py with 
+interactive inputs.
+
+<LI>Run <B>mergeall.py</B> directly via manual <A HREF="../../mergeall.py">command lines</A> in a 
+console window.
+</OL>
+
+<P>
+For more <B>screenshots</B> of modes 1 and 2, see <A HREF="Whitepaper.html#shots">Whitepaper.html</A>.
+For <B>script usage</B> details in mode 3, see <A HREF="../../mergeall.py">mergeall.py</A>'s topmost docstring, 
+and the example sessions <A HREF="Whitepaper.html#shots">here</A>.
+
+<P>
+This system began as a command-line-only tool with this file as its sole documentation in plain 
+text format, and was later extended with HTML documents.  Largely due to this legacy, 
+you can find <B>documentation</B> for it in multiple places and forms:
+
+<UL>
+<LI><A HREF="../../UserGuide.html">UserGuide.html</A> is the latest user guide, added in version 3.0.
+<LI><A HREF="Whitepaper.html">Whitepaper.html</A> is the original usage guide, with extra background.
+
+<LI><A HREF="#history">Version history</A> in this file logs project changes and assorted usage notes.
+
+<LI><A HREF="../../mergeall.py">mergeall.py</A>'s docstring (among others) has implementation-focused details.
+
+<LI><A HREF="Lessons-Learned.html">Lessons-Learned.html</A> contains post-implementation notes.
+</UL>
+</P>
+
+
+
+
+<!--===================================================================================-->
+</P>
+<P>&nbsp;</P>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H1><A name="overview">(<I>Dated</I>) System Summary</A></H1>
+</TABLE>
+
+
+<P class=notebox style="margin-top: 25px;">
+<I><B>Please note</B></I>: the following has grown redundant with the new 
+<A HREF="../../UserGuide.html#what">User Guide</A> and original and 
+similarly-dated 
+<A HREF="Whitepaper.html#short">Whitepaper</A>, 
+but is retained as an alternative (if now largely historical) overview.
+</P>
+
+<P>
+<A HREF="../../mergeall.py">mergeall.py</A>, the main script, synchronizes a destination tree to be the 
+same as a source tree, by copying only differing and unique items in 
+the source to the destination, and pruning unique items in the destination.
+This process is applied to both files and folders in the trees.
+
+<P>
+For speed, file differences are detected by checking only modification 
+times and sizes (with an optional limited content test), and all updates
+are made in-place in the destination and limited to changed items only.
+As of version 2.0, prior versions of changed items can be saved to a 
+backup folder automatically; as of 2.1, backups may be restored automatically.
+
+<P>
+This can be useful for both quick backups of changes made in large trees, 
+as well as one-way synchronization of multiple tree copies.  In the former 
+role, a single run suffices to backup changed items.  In the latter 
+role, multiple runs work to broadcast changes to multiple 
+copies&mdash;backup changes to an external device (e.g., USB flashdrive, 
+backup drive, or network drive), and propagate them from there to one 
+or more destination devices.  
+In selective/interactive mode, this system may also be used as a more 
+peer-level synchronization tool.
+
+<P>
+In the target use case (currently 73G space, 45k files, and 2.6K directories) 
+total runtime fell from 2 to 3 hours for a full copy and compare, to just 
+1 minute for a typical mergeall run with moderate changes on devices tested.  
+Running twice to leverage an intermediary device normally takes 5 minutes 
+or less.
+
+<P>
+The main script is command-line and console based, and runs in report-only,
+automatic-update, and selective/interactive modes.  The launcher scripts 
+simplify common usage modes by inputting settings in a shell 
+console 
+or a [tT]kinter 
+GUI, 
+and spawning the main script automatically.  The GUI 
+launcher scrolls the main script's output in its main window, and 
+saves the output to a logfile on request.
+
+<P>
+All scripts in this system run on both Python 3.X and 2.X (and mergeall.py 
+works around a 2.X library issue regarding modtime digits).  To date, this
+system has been tested and used on Windows, Linux, and Mac OS X, on Python 3.5,
+3.4, 3.3, and 2.7; other Pythons are likely supported, but await formal testing.
+
+<P>
+This is an extension to similar tools in the book 
+<A HREF="http://learning-python.com/about-pp4e.html"><I>Programming Python, 4th Edition</I></A> (PP4E), 
+from which the 
+<A HREF="../../cpall.py">cpall.py</A> and <A HREF="../../diffall.py">diffall.py</A> here 
+were borrowed and reused.
+See code docstrings for open issues (TBDs) and shortcomings (CAVEATs),
+and the first two items in the next major section's table for additional context.
+</P>
+
+
+
+
+<!--===================================================================================-->
+</P>
+<P>&nbsp;</P>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H1><A name="links">(<I>Dated</I>) See-Also Links</A></H1>
+</TABLE>
+
+<P class=notebox style="margin-top: 25px;">
+<I><B>Please note</B></I>: the following has grown out of date (and will be 
+dropped in a future release); please pardon the cruft!
+</P> 
+
+
+<P>
+See also the following major items in this system's zipfile:
+
+<P>
+<TABLE border=1 cellpadding=4>
+<TR>
+<TD nowrap><A HREF="../../UserGuide.html">User Guide.html</A>
+    <TD>
+    The first-level user's guide, with common usage mode options, GUI 
+    documentation, general pointers, and more <I>(read this first)</I>
+
+<TR>
+<TD nowrap><A HREF="Whitepaper.html">Whitepaper.html</A>
+    <TD>
+    The older and original usage guide, with additional background on features 
+    and roles, comparisons to cloud-based storage, and more
+
+<TR>
+<TD nowrap><A HREF="Lessons-Learned.html">Lessons-Learned.html</A>
+    <TD>
+    Early implementation notes, including implementation issues, device
+    notes, and process architecture alternatives
+
+<TR>
+<TD nowrap><A HREF="../../mergeall.py">mergeall.py's docstring</A>
+     <TD>
+    Full details on the merge/sync process itself (or run help("mergeall") 
+    at the interactive Python prompt)
+
+<TR>
+<TD nowrap><A HREF="../../test/expected-output-3.0">new examples folder</A>
+    <TD>
+    mergeall.py script example usage logs, as well as other examples
+    updated for version 3.0
+
+<TR>
+<TD nowrap>[Defunct] old examples folder
+    <TD>
+    mergeall.py script example usage logs, as well as launcher example
+    logs and GUI screenshots, and Python demos of known issues
+
+<TR>
+<TD nowrap><A HREF="../../test">test directory</A>
+    <TD>
+    Test-case subdirectories to experiment with (don't risk changing your 
+    own until you're familiar with this system)
+
+<TR>
+<TD nowrap><A HREF="../../launch-mergeall-GUI.pyw">launch-mergeall-GUI.pyw</A>
+    <TD>
+    A script that inputs settings in a [tT]kinter GUI and runs any number
+    of implied mergeall -report or -auto command lines
+ 
+<TR>
+<TD nowrap><A HREF="../../launch-mergeall-Console.py">launch-mergeall-Console.py</A> 
+    <TD>
+    A script that inputs settings in a console interactively and runs one 
+    implied mergeall command line, in -report, -auto, or selective mode
+
+<TR>
+<TD nowrap><A HREF="../miscnotes/readme-Windows-shortcuts.txt">readme-Windows-shortcuts.txt</A>
+    <TD>
+    Hints on making clickable desktop icons to launch this (and other) scripts
+    on Windows (this scheme is largely subsumed by the two launch-* scripts,  
+    coded later in the project)
+
+<TR>
+<TD nowrap><A HREF="../miscnotes/manual-commands-cheat.txt">manual-commands-cheat.txt</A>
+    <TD>
+    Example command lines used to manually invoke mergeall (this system) and 
+    diffall (byte-for-byte verification compares, when desired)
+
+<TR>
+<TD nowrap><A HREF="../launcher-configs">launcher-configs directory</A>
+    <TD>
+    With "mergeall-desktop-icon.ico", a Windows icon usable for shortcuts to the
+    launcher GUI drug out onto your desktop (right-click to Properties)
+
+<TR>
+<TD nowrap><A HREF="../../backup.py">backup.py</A>
+    <TD>
+    The 2.0 auto-backups for changes extension, with implementation and usage details.
+
+<TR>
+<TD nowrap><A HREF="../../diffall.py">diffall.py</A>, <A HREF="../../cpall.py">cpall.py</A>
+    <TD>
+    Utility modules and scripts reused and extended for this project, from the book
+    <A HREF="http://learning-python.com/about-pp4e.html">PP4E</A>
+</TABLE>
+</P>
+
+
+
+
+<!--===================================================================================-->
+ 
+
+
+
+</P>
+<BR><BR>
+<!--borrowed from websites' theme-->
+<TABLE class=footertable bgcolor="#96CDCD" width="100%">
+<TD align=center>
+  <A class=blocklinkbar href="http://www.python.org">                                <!--border=0 for IE img links-->
+  <IMG SRC="../docimgs/PythonPowered.gif" ALT="[Python Logo]" border=0 width=55 height=22></A>   <!--scale larger gif for res-->
+<TD align=center>
+  <B><A class=blocklinkbar HREF="http://learning-python.com/index.html">Books</A></B>
+<TD align=center>
+  <B><A class=blocklinkbar HREF="http://learning-python.com/programs.html">Programs</A></B>
+<TD align=center>
+  <B><A class=blocklinkbar HREF="http://learning-python.com/posts.html">Posts</A></B>
+<TD align=center>
+  <B><A class=blocklinkbar HREF="mailto:lutz@learning-python.com">Feedback</A></B>
+<TD align=center>                                                                              
+  &copy;<I> M. Lutz</A></I>   
+</TABLE>
+
+
+
+</BODY>
+</HTML>

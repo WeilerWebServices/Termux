@@ -1,0 +1,48 @@
+--------------------
+Comparing test1 to test2
+*UNIQUE items in test1:
+... .DS_Store
+... ._.TemporaryItems
+... d1
+... f1.txt
+*UNIQUE items in test2:
+... $RECYCLE.BIN
+... .Trash-1000
+... d2
+... Desktop.ini
+... f2.txt
+... __bkp__
+Comparing contents
+f0.txt matches
+*DIFFER: f3.txt
+*DIFFER: f6.txt
+*MISSED: m1
+*MISSED: m2
+--------------------
+Comparing test1\d3 to test2\d3
+*UNIQUE items in test1\d3:
+... .DS_Store
+... .fseventsd
+... .Trashes
+... f4.txt
+*UNIQUE items in test2\d3:
+... desktop.ini
+... f5.txt
+... Thumbs.db
+Comparing contents
+*DIFFER: .htaccess
+f2.txt matches
+*DIFFER: f3.txt
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 2, Files checked: 6, Files skipped: 0
+Diffs found: 8
+- items UNIQUE at [test1] - [test2]
+- files DIFFER at [test1\f3.txt] - [test2\f3.txt]
+- files DIFFER at [test1\f6.txt] - [test2\f6.txt]
+- items MISSED at [test1] - [test2]: [m1]
+- items MISSED at [test1] - [test2]: [m2]
+- items UNIQUE at [test1\d3] - [test2\d3]
+- files DIFFER at [test1\d3\.htaccess] - [test2\d3\.htaccess]
+- files DIFFER at [test1\d3\f3.txt] - [test2\d3\f3.txt]
+End of report.

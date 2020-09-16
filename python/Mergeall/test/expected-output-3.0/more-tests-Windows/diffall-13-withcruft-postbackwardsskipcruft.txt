@@ -1,0 +1,62 @@
+--------------------
+Comparing test1 to test2
+*UNIQUE items in test1:
+... .DS_Store
+... ._.TemporaryItems
+*UNIQUE items in test2:
+... $RECYCLE.BIN
+... .Trash-1000
+... Desktop.ini
+Comparing contents
+f0.txt matches
+f2.txt matches
+f3.txt matches
+f6.txt matches
+m2 matches
+--------------------
+Comparing test1\d2 to test2\d2
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing test1\d3 to test2\d3
+*UNIQUE items in test1\d3:
+... .DS_Store
+... .fseventsd
+... .Trashes
+*UNIQUE items in test2\d3:
+... desktop.ini
+... Thumbs.db
+Comparing contents
+.htaccess matches
+f2.txt matches
+f3.txt matches
+f5.txt matches
+--------------------
+Comparing test1\m1 to test2\m1
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing test1\__bkp__ to test2\__bkp__
+*UNIQUE items in test1\__bkp__:
+... date161012-time183139
+*UNIQUE items in test2\__bkp__:
+... date150325-time115227
+... date150325-time115317
+... date150325-time115355
+... date150325-time115417
+... date150325-time115452
+... date150325-time115541
+... date150325-time115549
+... date150325-time115557
+... date150325-time115607
+... date150325-time115737
+... README.txt
+Comparing contents
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.01
+Dirs checked 5, Files checked: 9, Files skipped: 0
+Diffs found: 3
+- items UNIQUE at [test1] - [test2]
+- items UNIQUE at [test1\d3] - [test2\d3]
+- items UNIQUE at [test1\__bkp__] - [test2\__bkp__]
+End of report.

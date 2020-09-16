@@ -1,0 +1,735 @@
+Run on Mac OS X 10.11, Python 3.5, mergeall 3.0 (ziptools 1.0).
+
+These tests demonstrate zipping links without and then with -atlinks (follow).  
+They start with basics, then exercise recursive links in increasingly-complex 
+patterns.  The script ls.py displays starting and extracted folders' content 
+and links along the way.
+
+All tests here were regenerated to reflect the final output-message order of
+the zip-create/extract scripts.
+
+Once:   chmod +x ls.py
+        export PATH=$PATH:.
+
+Always: rm -rf *unzip  # at start and stop
+
+=====================================================================================================
+
+# startup
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ rm -rf *unzip
+
+=====================================================================================================
+
+# basic non-recursive links test: links copied verbatim unless -atlinks (copies referents)
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py test1
+...test1
+......dirlink => dir
+......file
+......filelink => file
+......nestedfilelink => dir/nestedfile
+......test1/dir
+.........nestedfile
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py test1 test1 -skipcruft
+Zipping ['test1'] to test1.zip
+Cruft patterns: {'keep': ['.htaccess'], 'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]']}
+Adding folder test1
+--Skipped cruft file test1/.DS_Store
+Adding folder test1/dir
+Adding  file  test1/dir/nestedfile
+Adding  link  ~folder test1/dirlink
+Adding  file  test1/file
+Adding  link  ~file test1/filelink
+Adding  link  ~file test1/nestedfilelink
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py test1 test1unzip
+Unzipping from test1.zip to test1unzip
+Extracted test1/
+		=> test1unzip/test1
+Extracted test1/dir/
+		=> test1unzip/test1/dir
+Extracted test1/dir/nestedfile
+		=> test1unzip/test1/dir/nestedfile
+(Link) Extracted test1/dirlink
+		=> test1unzip/test1/dirlink
+Extracted test1/file
+		=> test1unzip/test1/file
+(Link) Extracted test1/filelink
+		=> test1unzip/test1/filelink
+(Link) Extracted test1/nestedfilelink
+		=> test1unzip/test1/nestedfilelink
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py test1unzip
+...test1unzip
+......test1unzip/test1
+.........dirlink => dir
+.........file
+.........filelink => file
+.........nestedfilelink => dir/nestedfile
+.........test1unzip/test1/dir
+............nestedfile
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ rm -rf test1unzip
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py test1 test1 -skipcruft -atlinks
+Zipping ['test1'] to test1.zip
+Cruft patterns: {'keep': ['.htaccess'], 'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]']}
+Adding folder test1
+--Skipped cruft file test1/.DS_Store
+Adding folder test1/dir
+Adding  file  test1/dir/nestedfile
+Adding folder test1/dirlink
+Adding  file  test1/dirlink/nestedfile
+Adding  file  test1/file
+Adding  file  test1/filelink
+Adding  file  test1/nestedfilelink
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py test1 test1unzip
+Unzipping from test1.zip to test1unzip
+Extracted test1/
+		=> test1unzip/test1
+Extracted test1/dir/
+		=> test1unzip/test1/dir
+Extracted test1/dir/nestedfile
+		=> test1unzip/test1/dir/nestedfile
+Extracted test1/dirlink/
+		=> test1unzip/test1/dirlink
+Extracted test1/dirlink/nestedfile
+		=> test1unzip/test1/dirlink/nestedfile
+Extracted test1/file
+		=> test1unzip/test1/file
+Extracted test1/filelink
+		=> test1unzip/test1/filelink
+Extracted test1/nestedfilelink
+		=> test1unzip/test1/nestedfilelink
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py test1unzip
+...test1unzip
+......test1unzip/test1
+.........file
+.........filelink
+.........nestedfilelink
+.........test1unzip/test1/dir
+............nestedfile
+.........test1unzip/test1/dirlink
+............nestedfile
+
+=====================================================================================================
+
+# more basics; unlike the prior test, "dirlink" here points to a file, not a folder (a mergeall test)
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py test2
+...test2
+......dirlink => file
+......extralink => file
+......file
+......nestedfilelink => dir/nestedfile
+......test2/dir
+.........nestedfile
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py test2 test2 -skipcruft
+Zipping ['test2'] to test2.zip
+Cruft patterns: {'keep': ['.htaccess'], 'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]']}
+Adding folder test2
+Adding folder test2/dir
+Adding  file  test2/dir/nestedfile
+Adding  link  ~file test2/dirlink
+Adding  link  ~file test2/extralink
+Adding  file  test2/file
+Adding  link  ~file test2/nestedfilelink
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py test2 test2unzip
+Unzipping from test2.zip to test2unzip
+Extracted test2/
+		=> test2unzip/test2
+Extracted test2/dir/
+		=> test2unzip/test2/dir
+Extracted test2/dir/nestedfile
+		=> test2unzip/test2/dir/nestedfile
+(Link) Extracted test2/dirlink
+		=> test2unzip/test2/dirlink
+(Link) Extracted test2/extralink
+		=> test2unzip/test2/extralink
+Extracted test2/file
+		=> test2unzip/test2/file
+(Link) Extracted test2/nestedfilelink
+		=> test2unzip/test2/nestedfilelink
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ rm -rf test2unzip
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py test2 test2 -skipcruft -atlinks
+Zipping ['test2'] to test2.zip
+Cruft patterns: {'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]'], 'keep': ['.htaccess']}
+Adding folder test2
+Adding folder test2/dir
+Adding  file  test2/dir/nestedfile
+Adding  file  test2/dirlink
+Adding  file  test2/extralink
+Adding  file  test2/file
+Adding  file  test2/nestedfilelink
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py test2 test2unzip
+Unzipping from test2.zip to test2unzip
+Extracted test2/
+		=> test2unzip/test2
+Extracted test2/dir/
+		=> test2unzip/test2/dir
+Extracted test2/dir/nestedfile
+		=> test2unzip/test2/dir/nestedfile
+Extracted test2/dirlink
+		=> test2unzip/test2/dirlink
+Extracted test2/extralink
+		=> test2unzip/test2/extralink
+Extracted test2/file
+		=> test2unzip/test2/file
+Extracted test2/nestedfilelink
+		=> test2unzip/test2/nestedfilelink
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py test2unzip/
+......test2unzip/
+......test2unzip/test2
+.........dirlink
+.........extralink
+.........file
+.........nestedfilelink
+.........test2unzip/test2/dir
+............nestedfile
+
+=====================================================================================================
+
+# a recursive link to an ancestor (copied instead of followed by -atlinks)
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur1
+...recur1
+......recur1/sub
+.........recur1/sub/subsub
+............tosub => ../../sub
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py recur1 recur1 -skipcruft
+Zipping ['recur1'] to recur1.zip
+Cruft patterns: {'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]'], 'keep': ['.htaccess']}
+Adding folder recur1
+Adding folder recur1/sub
+Adding folder recur1/sub/subsub
+Adding  link  ~folder recur1/sub/subsub/tosub
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py recur1 recur1unzip
+Unzipping from recur1.zip to recur1unzip
+Extracted recur1/
+		=> recur1unzip/recur1
+Extracted recur1/sub/
+		=> recur1unzip/recur1/sub
+Extracted recur1/sub/subsub/
+		=> recur1unzip/recur1/sub/subsub
+(Link) Extracted recur1/sub/subsub/tosub
+		=> recur1unzip/recur1/sub/subsub/tosub
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur1unzip
+......recur1unzip/
+......recur1unzip/recur1
+.........recur1unzip/recur1/sub
+............recur1unzip/recur1/sub/subsub
+...............tosub => ../../sub
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ rm -rf recur1unzip
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py recur1 recur1 -skipcruft -atlinks
+Zipping ['recur1'] to recur1.zip
+Cruft patterns: {'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]'], 'keep': ['.htaccess']}
+Adding folder recur1
+Adding folder recur1/sub
+Adding folder recur1/sub/subsub
+Recursive link copied recur1/sub/subsub/tosub
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py recur1 recur1unzip
+Unzipping from recur1.zip to recur1unzip
+Extracted recur1/
+		=> recur1unzip/recur1
+Extracted recur1/sub/
+		=> recur1unzip/recur1/sub
+Extracted recur1/sub/subsub/
+		=> recur1unzip/recur1/sub/subsub
+(Link) Extracted recur1/sub/subsub/tosub
+		=> recur1unzip/recur1/sub/subsub/tosub
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur1unzip
+...recur1unzip
+......recur1unzip/recur1
+.........recur1unzip/recur1/sub
+............recur1unzip/recur1/sub/subsub
+...............tosub => ../../sub
+
+=====================================================================================================
+
+# two non-recursive links to same target (multiple copies if -atlinks)
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur2
+...recur2
+......recur2/dir1
+.........file.txt
+......recur2/dir2
+.........dir1 => ../dir1
+......recur2/dir3
+.........dir1 => ../dir1
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py recur2 recur2 -skipcruft
+Zipping ['recur2'] to recur2.zip
+Cruft patterns: {'keep': ['.htaccess'], 'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]']}
+Adding folder recur2
+--Skipped cruft file recur2/.DS_Store
+Adding folder recur2/dir1
+Adding  file  recur2/dir1/file.txt
+Adding folder recur2/dir2
+Adding  link  ~folder recur2/dir2/dir1
+Adding folder recur2/dir3
+Adding  link  ~folder recur2/dir3/dir1
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py recur2 recur2unzip
+Unzipping from recur2.zip to recur2unzip
+Extracted recur2/
+		=> recur2unzip/recur2
+Extracted recur2/dir1/
+		=> recur2unzip/recur2/dir1
+Extracted recur2/dir1/file.txt
+		=> recur2unzip/recur2/dir1/file.txt
+Extracted recur2/dir2/
+		=> recur2unzip/recur2/dir2
+(Link) Extracted recur2/dir2/dir1
+		=> recur2unzip/recur2/dir2/dir1
+Extracted recur2/dir3/
+		=> recur2unzip/recur2/dir3
+(Link) Extracted recur2/dir3/dir1
+		=> recur2unzip/recur2/dir3/dir1
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur2unzip
+...recur2unzip
+......recur2unzip/recur2
+.........recur2unzip/recur2/dir1
+............file.txt
+.........recur2unzip/recur2/dir2
+............dir1 => ../dir1
+.........recur2unzip/recur2/dir3
+............dir1 => ../dir1
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ rm -rf recur2unzip
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py recur2 recur2 -skipcruft -atlinks
+Zipping ['recur2'] to recur2.zip
+Cruft patterns: {'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]'], 'keep': ['.htaccess']}
+Adding folder recur2
+--Skipped cruft file recur2/.DS_Store
+Adding folder recur2/dir1
+Adding  file  recur2/dir1/file.txt
+Adding folder recur2/dir2
+Adding folder recur2/dir2/dir1
+Adding  file  recur2/dir2/dir1/file.txt
+Adding folder recur2/dir3
+Adding folder recur2/dir3/dir1
+Adding  file  recur2/dir3/dir1/file.txt
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py recur2 recur2unzip
+Unzipping from recur2.zip to recur2unzip
+Extracted recur2/
+		=> recur2unzip/recur2
+Extracted recur2/dir1/
+		=> recur2unzip/recur2/dir1
+Extracted recur2/dir1/file.txt
+		=> recur2unzip/recur2/dir1/file.txt
+Extracted recur2/dir2/
+		=> recur2unzip/recur2/dir2
+Extracted recur2/dir2/dir1/
+		=> recur2unzip/recur2/dir2/dir1
+Extracted recur2/dir2/dir1/file.txt
+		=> recur2unzip/recur2/dir2/dir1/file.txt
+Extracted recur2/dir3/
+		=> recur2unzip/recur2/dir3
+Extracted recur2/dir3/dir1/
+		=> recur2unzip/recur2/dir3/dir1
+Extracted recur2/dir3/dir1/file.txt
+		=> recur2unzip/recur2/dir3/dir1/file.txt
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur2unzip
+...recur2unzip
+......recur2unzip/recur2
+.........recur2unzip/recur2/dir1
+............file.txt
+.........recur2unzip/recur2/dir2
+............recur2unzip/recur2/dir2/dir1
+...............file.txt
+.........recur2unzip/recur2/dir3
+............recur2unzip/recur2/dir3/dir1
+...............file.txt
+
+=====================================================================================================
+
+# transitive but non-recursive links (dir1=>dir2=>dir3; atlinks makes multiple copies of dir3)
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur3
+...recur3
+......recur3/dir1
+.........dir2 => ../dir2
+......recur3/dir2
+.........dir3 => ../dir3
+......recur3/dir3
+.........file.txt
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py recur3 recur3 -skipcruft
+Zipping ['recur3'] to recur3.zip
+Cruft patterns: {'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]'], 'keep': ['.htaccess']}
+Adding folder recur3
+--Skipped cruft file recur3/.DS_Store
+Adding folder recur3/dir1
+Adding  link  ~folder recur3/dir1/dir2
+Adding folder recur3/dir2
+Adding  link  ~folder recur3/dir2/dir3
+Adding folder recur3/dir3
+Adding  file  recur3/dir3/file.txt
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py recur3 recur3unzip
+Unzipping from recur3.zip to recur3unzip
+Extracted recur3/
+		=> recur3unzip/recur3
+Extracted recur3/dir1/
+		=> recur3unzip/recur3/dir1
+(Link) Extracted recur3/dir1/dir2
+		=> recur3unzip/recur3/dir1/dir2
+Extracted recur3/dir2/
+		=> recur3unzip/recur3/dir2
+(Link) Extracted recur3/dir2/dir3
+		=> recur3unzip/recur3/dir2/dir3
+Extracted recur3/dir3/
+		=> recur3unzip/recur3/dir3
+Extracted recur3/dir3/file.txt
+		=> recur3unzip/recur3/dir3/file.txt
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur3unzip
+...recur3unzip
+......recur3unzip/recur3
+.........recur3unzip/recur3/dir1
+............dir2 => ../dir2
+.........recur3unzip/recur3/dir2
+............dir3 => ../dir3
+.........recur3unzip/recur3/dir3
+............file.txt
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ rm -rf recur3unzip
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py recur3 recur3 -skipcruft -atlinks
+Zipping ['recur3'] to recur3.zip
+Cruft patterns: {'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]'], 'keep': ['.htaccess']}
+Adding folder recur3
+--Skipped cruft file recur3/.DS_Store
+Adding folder recur3/dir1
+Adding folder recur3/dir1/dir2
+Adding folder recur3/dir1/dir2/dir3
+Adding  file  recur3/dir1/dir2/dir3/file.txt
+Adding folder recur3/dir2
+Adding folder recur3/dir2/dir3
+Adding  file  recur3/dir2/dir3/file.txt
+Adding folder recur3/dir3
+Adding  file  recur3/dir3/file.txt
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py recur3 recur3unzip
+Unzipping from recur3.zip to recur3unzip
+Extracted recur3/
+		=> recur3unzip/recur3
+Extracted recur3/dir1/
+		=> recur3unzip/recur3/dir1
+Extracted recur3/dir1/dir2/
+		=> recur3unzip/recur3/dir1/dir2
+Extracted recur3/dir1/dir2/dir3/
+		=> recur3unzip/recur3/dir1/dir2/dir3
+Extracted recur3/dir1/dir2/dir3/file.txt
+		=> recur3unzip/recur3/dir1/dir2/dir3/file.txt
+Extracted recur3/dir2/
+		=> recur3unzip/recur3/dir2
+Extracted recur3/dir2/dir3/
+		=> recur3unzip/recur3/dir2/dir3
+Extracted recur3/dir2/dir3/file.txt
+		=> recur3unzip/recur3/dir2/dir3/file.txt
+Extracted recur3/dir3/
+		=> recur3unzip/recur3/dir3
+Extracted recur3/dir3/file.txt
+		=> recur3unzip/recur3/dir3/file.txt
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur3unzip
+...recur3unzip
+......recur3unzip/recur3
+.........recur3unzip/recur3/dir1
+............recur3unzip/recur3/dir1/dir2
+...............recur3unzip/recur3/dir1/dir2/dir3
+..................file.txt
+.........recur3unzip/recur3/dir2
+............recur3unzip/recur3/dir2/dir3
+...............file.txt
+.........recur3unzip/recur3/dir3
+............file.txt
+
+=====================================================================================================
+
+# transitively links to recursive links in dir3 to all in chain (-atlinks copies where detected)
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur4
+...recur4
+......recur4/dir1
+.........todir2 => ../dir2
+......recur4/dir2
+.........todir3 => ../dir3
+......recur4/dir3
+.........todir1 => ../dir1
+.........todir2 => ../dir2
+.........todir3 => ../dir3
+.........file.txt
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py recur4 recur4 -skipcruft
+Zipping ['recur4'] to recur4.zip
+Cruft patterns: {'keep': ['.htaccess'], 'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]']}
+Adding folder recur4
+--Skipped cruft file recur4/.DS_Store
+Adding folder recur4/dir1
+Adding  link  ~folder recur4/dir1/todir2
+Adding folder recur4/dir2
+Adding  link  ~folder recur4/dir2/todir3
+Adding folder recur4/dir3
+Adding  file  recur4/dir3/file.txt
+Adding  link  ~folder recur4/dir3/todir1
+Adding  link  ~folder recur4/dir3/todir2
+Adding  link  ~folder recur4/dir3/todir3
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py recur4 recur4unzip
+Unzipping from recur4.zip to recur4unzip
+Extracted recur4/
+		=> recur4unzip/recur4
+Extracted recur4/dir1/
+		=> recur4unzip/recur4/dir1
+(Link) Extracted recur4/dir1/todir2
+		=> recur4unzip/recur4/dir1/todir2
+Extracted recur4/dir2/
+		=> recur4unzip/recur4/dir2
+(Link) Extracted recur4/dir2/todir3
+		=> recur4unzip/recur4/dir2/todir3
+Extracted recur4/dir3/
+		=> recur4unzip/recur4/dir3
+Extracted recur4/dir3/file.txt
+		=> recur4unzip/recur4/dir3/file.txt
+(Link) Extracted recur4/dir3/todir1
+		=> recur4unzip/recur4/dir3/todir1
+(Link) Extracted recur4/dir3/todir2
+		=> recur4unzip/recur4/dir3/todir2
+(Link) Extracted recur4/dir3/todir3
+		=> recur4unzip/recur4/dir3/todir3
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur4unzip
+...recur4unzip
+......recur4unzip/recur4
+.........recur4unzip/recur4/dir1
+............todir2 => ../dir2
+.........recur4unzip/recur4/dir2
+............todir3 => ../dir3
+.........recur4unzip/recur4/dir3
+............todir1 => ../dir1
+............todir2 => ../dir2
+............todir3 => ../dir3
+............file.txt
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ rm -rf recur4unzip
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py recur4 recur4 -skipcruft -atlinks
+Zipping ['recur4'] to recur4.zip
+Cruft patterns: {'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]'], 'keep': ['.htaccess']}
+Adding folder recur4
+--Skipped cruft file recur4/.DS_Store
+Adding folder recur4/dir1
+Adding folder recur4/dir1/todir2
+Adding folder recur4/dir1/todir2/todir3
+Adding  file  recur4/dir1/todir2/todir3/file.txt
+Recursive link copied recur4/dir1/todir2/todir3/todir1
+Recursive link copied recur4/dir1/todir2/todir3/todir2
+Recursive link copied recur4/dir1/todir2/todir3/todir3
+Adding folder recur4/dir2
+Adding folder recur4/dir2/todir3
+Adding  file  recur4/dir2/todir3/file.txt
+Adding folder recur4/dir2/todir3/todir1
+Recursive link copied recur4/dir2/todir3/todir1/todir2
+Recursive link copied recur4/dir2/todir3/todir2
+Recursive link copied recur4/dir2/todir3/todir3
+Adding folder recur4/dir3
+Adding  file  recur4/dir3/file.txt
+Adding folder recur4/dir3/todir1
+Adding folder recur4/dir3/todir1/todir2
+Recursive link copied recur4/dir3/todir1/todir2/todir3
+Adding folder recur4/dir3/todir2
+Recursive link copied recur4/dir3/todir2/todir3
+Recursive link copied recur4/dir3/todir3
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py recur4 recur4unzip
+Unzipping from recur4.zip to recur4unzip
+Extracted recur4/
+		=> recur4unzip/recur4
+Extracted recur4/dir1/
+		=> recur4unzip/recur4/dir1
+Extracted recur4/dir1/todir2/
+		=> recur4unzip/recur4/dir1/todir2
+Extracted recur4/dir1/todir2/todir3/
+		=> recur4unzip/recur4/dir1/todir2/todir3
+Extracted recur4/dir1/todir2/todir3/file.txt
+		=> recur4unzip/recur4/dir1/todir2/todir3/file.txt
+(Link) Extracted recur4/dir1/todir2/todir3/todir1
+		=> recur4unzip/recur4/dir1/todir2/todir3/todir1
+(Link) Extracted recur4/dir1/todir2/todir3/todir2
+		=> recur4unzip/recur4/dir1/todir2/todir3/todir2
+(Link) Extracted recur4/dir1/todir2/todir3/todir3
+		=> recur4unzip/recur4/dir1/todir2/todir3/todir3
+Extracted recur4/dir2/
+		=> recur4unzip/recur4/dir2
+Extracted recur4/dir2/todir3/
+		=> recur4unzip/recur4/dir2/todir3
+Extracted recur4/dir2/todir3/file.txt
+		=> recur4unzip/recur4/dir2/todir3/file.txt
+Extracted recur4/dir2/todir3/todir1/
+		=> recur4unzip/recur4/dir2/todir3/todir1
+(Link) Extracted recur4/dir2/todir3/todir1/todir2
+		=> recur4unzip/recur4/dir2/todir3/todir1/todir2
+(Link) Extracted recur4/dir2/todir3/todir2
+		=> recur4unzip/recur4/dir2/todir3/todir2
+(Link) Extracted recur4/dir2/todir3/todir3
+		=> recur4unzip/recur4/dir2/todir3/todir3
+Extracted recur4/dir3/
+		=> recur4unzip/recur4/dir3
+Extracted recur4/dir3/file.txt
+		=> recur4unzip/recur4/dir3/file.txt
+Extracted recur4/dir3/todir1/
+		=> recur4unzip/recur4/dir3/todir1
+Extracted recur4/dir3/todir1/todir2/
+		=> recur4unzip/recur4/dir3/todir1/todir2
+(Link) Extracted recur4/dir3/todir1/todir2/todir3
+		=> recur4unzip/recur4/dir3/todir1/todir2/todir3
+Extracted recur4/dir3/todir2/
+		=> recur4unzip/recur4/dir3/todir2
+(Link) Extracted recur4/dir3/todir2/todir3
+		=> recur4unzip/recur4/dir3/todir2/todir3
+(Link) Extracted recur4/dir3/todir3
+		=> recur4unzip/recur4/dir3/todir3
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur4unzip
+...recur4unzip
+......recur4unzip/recur4
+.........recur4unzip/recur4/dir1
+............recur4unzip/recur4/dir1/todir2
+...............recur4unzip/recur4/dir1/todir2/todir3
+..................file.txt
+..................todir1 => ../dir1
+..................todir2 => ../dir2
+..................todir3 => ../dir3
+.........recur4unzip/recur4/dir2
+............recur4unzip/recur4/dir2/todir3
+...............file.txt
+...............todir2 => ../dir2
+...............todir3 => ../dir3
+...............recur4unzip/recur4/dir2/todir3/todir1
+..................todir2 => ../dir2
+.........recur4unzip/recur4/dir3
+............todir3 => ../dir3
+............file.txt
+............recur4unzip/recur4/dir3/todir1
+...............recur4unzip/recur4/dir3/todir1/todir2
+..................todir3 => ../dir3
+............recur4unzip/recur4/dir3/todir2
+...............todir3 => ../dir3
+
+=====================================================================================================
+
+# blatantly-recursive links: to self, parent, and grandparent (all copied by -atlinks)
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur5
+...recur5
+......recur5/sub
+.........recur5/sub/subsub
+............toroot => ../..
+............toself => .
+............tosub => ../../sub
+............tosubsub => ../subsub
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py recur5 recur5 -skipcruft
+Zipping ['recur5'] to recur5.zip
+Cruft patterns: {'keep': ['.htaccess'], 'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]']}
+Adding folder recur5
+Adding folder recur5/sub
+Adding folder recur5/sub/subsub
+Adding  link  ~folder recur5/sub/subsub/toroot
+Adding  link  ~folder recur5/sub/subsub/toself
+Adding  link  ~folder recur5/sub/subsub/tosub
+Adding  link  ~folder recur5/sub/subsub/tosubsub
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py recur5 recur5unzip
+Unzipping from recur5.zip to recur5unzip
+Extracted recur5/
+		=> recur5unzip/recur5
+Extracted recur5/sub/
+		=> recur5unzip/recur5/sub
+Extracted recur5/sub/subsub/
+		=> recur5unzip/recur5/sub/subsub
+(Link) Extracted recur5/sub/subsub/toroot
+		=> recur5unzip/recur5/sub/subsub/toroot
+(Link) Extracted recur5/sub/subsub/toself
+		=> recur5unzip/recur5/sub/subsub/toself
+(Link) Extracted recur5/sub/subsub/tosub
+		=> recur5unzip/recur5/sub/subsub/tosub
+(Link) Extracted recur5/sub/subsub/tosubsub
+		=> recur5unzip/recur5/sub/subsub/tosubsub
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur5unzip
+...recur5unzip
+......recur5unzip/recur5
+.........recur5unzip/recur5/sub
+............recur5unzip/recur5/sub/subsub
+...............toroot => ../..
+...............toself => .
+...............tosub => ../../sub
+...............tosubsub => ../subsub
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ rm -rf recur5unzip
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py recur5 recur5 -skipcruft -atlinks
+Zipping ['recur5'] to recur5.zip
+Cruft patterns: {'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]'], 'keep': ['.htaccess']}
+Adding folder recur5
+Adding folder recur5/sub
+Adding folder recur5/sub/subsub
+Recursive link copied recur5/sub/subsub/toroot
+Recursive link copied recur5/sub/subsub/toself
+Recursive link copied recur5/sub/subsub/tosub
+Recursive link copied recur5/sub/subsub/tosubsub
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py recur5 recur5unzip
+Unzipping from recur5.zip to recur5unzip
+Extracted recur5/
+		=> recur5unzip/recur5
+Extracted recur5/sub/
+		=> recur5unzip/recur5/sub
+Extracted recur5/sub/subsub/
+		=> recur5unzip/recur5/sub/subsub
+(Link) Extracted recur5/sub/subsub/toroot
+		=> recur5unzip/recur5/sub/subsub/toroot
+(Link) Extracted recur5/sub/subsub/toself
+		=> recur5unzip/recur5/sub/subsub/toself
+(Link) Extracted recur5/sub/subsub/tosub
+		=> recur5unzip/recur5/sub/subsub/tosub
+(Link) Extracted recur5/sub/subsub/tosubsub
+		=> recur5unzip/recur5/sub/subsub/tosubsub
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls.py recur5unzip
+...recur5unzip
+......recur5unzip/recur5
+.........recur5unzip/recur5/sub
+............recur5unzip/recur5/sub/subsub
+...............toroot => ../..
+...............toself => .
+...............tosub => ../../sub
+...............tosubsub => ../subsub
+
+=====================================================================================================
+
+# shutdown
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ rm -rf *unzip
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ mkdir _save-created-zips
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls *.zip
+recur1.zip		recur3.zip		recur5.zip		test2.zip
+recur2.zip		recur4.zip		test1.zip		zip-on-macosx.zip
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ mv *.zip _save-created-zips

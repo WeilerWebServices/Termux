@@ -1,0 +1,484 @@
+<HTML>
+
+<HEAD>
+
+<TITLE>mergeall - Lessons Learned</TITLE>
+
+<!--analytics javascript omitted here-->
+
+<STYLE>
+
+/* Nov 2015: font (banish Times/serif!), toolbar button style; no external CSS file */
+/* This doc originally skipped CSS usage, and still uses tables for simple layout   */
+
+body {                                           
+    font-family: Arial, Helvetica, sans-serif;      /* font for entire doc: precedence list */
+}                                                
+
+.blocklinkbar {
+    display: block;                                 /* toolbar buttons style */
+    width: 100%;
+    text-decoration: none;  
+}
+
+.blocklinkbar:hover {                               /* on toolbar hover, underline link */
+    text-decoration: underline;
+}
+
+.footertable {                                      /* a borderless table */                 
+    border-collapse: collapse;                      /* if on table only, 2px renders as outside-only border */
+    border: 0px solid black;                        /* but borders can be variable-width at some zoom levels */
+    table-layout: fixed;                            /* spread items out a bit more evenly */
+}
+
+.blueheader {                                       /* not used here (caveat): any header, <P>, etc. */
+    background-color: "#96CDCD";
+}
+
+.notebox {
+    margin-left: 40px; 
+    margin-right: 40px; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-style: solid; 
+    border-width: 1; 
+    padding: 5px;
+}
+
+</STYLE>
+
+</HEAD>
+
+
+<BODY>
+
+
+<H1><I>mergeall</I> &mdash; Post-Implementation Notes</H1>
+
+
+<P class=notebox>
+<B><I>Please note</I></B>: this programmer-oriented page is a supplement to the 
+original mergeall <A HREF="Whitepaper.html">Whitepaper</A>, and is similarly 
+dated.  In fact, this page is older still, and something of a relic: it reflects
+mergeall's very-early development and has not been significantly updated in 
+years (despite more-recent, hard-won lessons), but it still
+provides extra project history and context.  For space, former GUI screenshots and 
+their links here have been removed.  
+See the newer <A HREF="../../UserGuide.html">User Guide</A> for 
+the latest documentation and screen captures.
+</P>
+
+<P>
+The mergeall system today is a general tool aimed at a wide variety of users.
+It was initially coded both for personal use and as an extra instructional 
+example for <A HREF="http://learning-python.com/about-pp4e.html">PP4E</A> 
+book readers.  For the latter role, and for developers of similar tools, this 
+page discusses some of the issues and tradeoffs confronted along the way
+during mergeall's early development.  For notes from more recent mergeall 
+development, see both the <A HREF="Revisions.html">Revisions</A> history, 
+and the latest <A HREF="../../UserGuide.html">User Guide</A> added in version 3.0.
+
+<P>
+In this document:
+
+<UL>
+<LI><A HREF="#stamps">Timestamp and Filesystem Issues</A>
+<LI><A HREF="#compat">Python 3.X/2.X Compatibility</A>
+<LI><A HREF="#device">Storage Device Reliability and Speed</A>
+<LI><A HREF="#process">Decoupled versus Single-Process Architectures</A>
+</UL>
+
+
+
+
+
+</P>
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A NAME="stamps">Timestamp and Filesystem Issues</A></H2>
+</TABLE>
+
+<P>
+In the somewhat limited usage that this system has seen to date, a slew of issues arose
+regarding file modification timestamp fidelity, which call their reliability&mdash;and 
+usability in general&mdash;into question.  These issues are not 
+unique to mergeall, but shared by all timestamp-based tools (including some 
+<A HREF="https://www.google.com/search?q=onedrive+timestamp+problem">cloud providers</A>).  
+Among these were issues with:
+
+<UL>
+<LI>Daylight savings time (DST) rollovers on FAT filesystems, that skew 
+modification times on some devices by an hour
+
+<LI>Similar DST timestamp skew when comparing mounted Windows NTFS
+volumes to native volumes on Linux
+
+<LI>Programs like Excel that may change trivial content without updating
+file modification time or size.
+
+<LI>A 2-second granularity on FAT that requires range comparisons
+to UTC times of other file systems (fixed in <A HREF="Revisions.html#version13">version 1.3</A>).  
+</UL>
+
+Python itself has an issue regarding timestamp precision in 2.X (only), that 
+also required a workaround here&mdash;an inherent part of library dependence
+on general, and Python's "batteries included" motif in particular.
+
+<P>
+Platforms whose filenames are case-insensitive impose additional and subtle constraints on 
+some file operations.  Windows, for example, requires that deletions happen <I>before</I>
+additions when implementing file case renames (and when backing them out), because a deletion 
+will happily remove a file of different name case (see <A HREF="../../mergeall.py">mergeall.py</A>'s 
+mergetrees() docstring for more details).
+
+<P>
+If we also factor in exotic file types such as links and fifos (a.k.a. symlinks and 
+named pipes)&mdash;not yet tested or fully addressed here&mdash;it makes for a 
+fairly large functionality matrix.  In the end, supporting the timestamp and other 
+idiosyncrasies of <I>all</I> file systems and <I>all</I> file types on <I>all</I> 
+platforms may be a daunting task, suggesting that other techniques (e.g., checksums?) 
+might be worth exploring.  
+
+<P>
+File systems also vary in other usage details such as maximum path lengths, permissions,
+and more; these are impossible for any file-processing tool to repair, but could become 
+customer support issues in a widely-used synchronization system.  
+
+<P class=notebox>
+<B><I>3.0 update</I></B>: 
+actually, Windows pathname-length limits <I>did</I> prove possible to 
+<A HREF="../../UserGuide.html#winpaths">repair</A>;
+symbolic links are now supported and fifos 
+<A HREF="../../UserGuide.html#symlinks">skipped</A>;
+and exFAT formatting is a workable solution to the DST rollover 
+<A HREF="../../UserGuide.html#dst">issue</A>.  But this point is still valid&mdash;there 
+are many other variables in the content-archiving  domain.
+</P>
+
+
+<H3>Workarounds and Resources</H3>
+
+<P>
+For workarounds to some timestamp and filesystem issues not addressed by code, see the 
+usage notes (and other changes) in the version history sections of this project's  
+<A HREF="Revisions.html#history">Revisions.html</A> file, as well as the higher-level 
+<A HREF="Whitepaper.html#other">usage pointers</A>  
+and <A HREF="Whitepaper.html#limits">limitations<A> sections in Whitepaper.html.  
+In sum:
+
+<UL>
+<LI>The Windows FAT DST rollover issue can be easily addressed in a variety of ways; 
+see version 1.4 usage notes in <A HREF="Revisions.html#usage14">Revisions.html</A>.
+
+<LI>Too-long path names can be addressed by shortening containing directories, or
+moving files closer to your tree's root.
+
+<LI>Covert Excel changes are insignificant and generally ignorable, but can be addressed
+by manual file copies if desired.
+
+<LI>Windows/Linux timestamp skew issues can be repaired by running a one-time auto-update 
+synch.
+
+<LI>Windows FAT folder names that differ with Unicode may be equated without, requiring
+a manual copy or <A HREF="Revisions.html#usage171">other fix</A>.
+
+<LI>Windows file deletions may be deferred as pending, causing some tree removals to 
+pause or fail; failures require <A HREF="Revisions.html#uonote8">reruns</A>.
+
+<LI>Files marked as read-only, hidden/system, or in-use may require permission changes 
+or reruns to allow copies or deletes.
+</UL>
+
+
+<P>
+In all cases, file update failures are simply left as differences for a next run, but may 
+produce log messages.
+
+<P>
+For more details on implementation issues, see the CAVEATS section in
+<A HREF="../../mergeall.py">mergeall.py's</A> docstring, and Python
+demos of some timestamp issues in the (now defunct) examples/issues folder of this system's tree.  
+Further technical details are also available on the Web.  FAT (and other) file timestamp 
+issues are well known in the Windows world at large; for more details, try a web search 
+or see:
+
+<UL>
+<LI><A HREF="http://msdn.microsoft.com/en-us/library/windows/desktop/ms724290.aspx">
+http://msdn.microsoft.com/en-us/library/windows/desktop/ms724290.aspx</A>
+</UL>
+
+<P>
+Maximum path length limits vary by platform and filesystem.  On Windows, there 
+is a general 256-character limit, as mentioned in <A HREF="Revisions.html#uonote3">Revisions.html</A> 
+file, and described in the following:
+
+<UL>
+<LI>
+<A HREF="http://msdn.microsoft.com/en-us/library/aa365247.aspx#maxpath">
+    http://msdn.microsoft.com/en-us/library/aa365247.aspx#maxpath</A>
+<LI>
+<A HREF="http://msdn.microsoft.com/en-us/library/ee681827.aspx">
+    http://msdn.microsoft.com/en-us/library/ee681827.aspx</A>
+</UL>
+
+<P>
+<I><B>3.0 update</B>: Windows pathname-length limits have been removed as of 
+mergeall 3.0.  See the <A HREF="../../UserGuide.html#winpaths">details</A>.</I>
+
+
+
+
+
+</P>
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A NAME="compat">Python 3.X/2.X Compatibility</A></H2>
+</TABLE>
+
+<P>
+This proved more elusive than expected.  Issues related to supporting both 
+Pythons' flavors of stream buffering and encoding, as well as their models
+for file processing in general, made this program more complex than it might
+have been.  It's possible to support both Pythons, but requires substantial 
+extra effort; especially for system-related work, supporting a single Python 
+line still makes for simpler code.  
+
+<P>
+See the code files' internal documentation, as well as 
+<A HREF="Revisions.html#history">Revisions.html</A>
+file's version changes for more on specific compatibility issues confronted.
+
+<P>
+One specific note: even Python 3.X seems to still be struggling to come to grips 
+with the full ramifications of <I>Unicode</I>, in some of its standard libraries.  
+Its <B>subprocess.Popen</B> object, for example, always uses a Unicode encoding 
+setting in the <B>locale</B> module to automatically decode text-mode output streams 
+of spawned programs.  This is clearly insufficient in the presence of potentially 
+wide encoding variability.  
+
+<P>
+For instance, printing the names of files in a tree&mdash;as done by this and
+other systems&mdash;may require broad and arbitrary encodings if the tree includes
+files obtained from the Internet.  At the least, encoding should be controllable with 
+an optional argument.  Binary-mode streams help in 3.X itself, and were adopted in 
+the end, but at the same time aggravate 3.X/2.X compatibility issues.
+
+<P>
+<I><U>Update, Jul-14</U></I>: 
+<P>
+See also the <A HREF="Revisions.html#version16">Revisions.html</A> file's notes 
+for version 1.6: this version works around a further Unicode filename decoding issue
+which reflects a fundamental difference in process text stream content in Python 2.X.
+In the end, Python 2.X/3.X compatibility for system-level programs like mergeall may
+be a pipedream, and is certainly substantial extra work.
+</I>
+
+
+
+
+
+</P>
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A NAME="device">Storage Device Reliability and Speed</A></H2>
+</TABLE>
+
+<P>
+During this project's development and testing, there were some spectacular backup 
+device failures, including:
+
+<UL>
+<LI>USB 3.0 flashdrives with either improper hardware shielding, or software driver 
+or timing issues, that both crippled wired and wireless mice, and on one rare occasion 
+returned incorrect data for file content read results when used in USB 2.0 ports.  
+This was independent of any Python scripts' operation.  Mouse impacts were seen on 
+multiple machines; bad read results were seen only on one Micro USB socket with a USB
+adapter.  Whatever the cause, USB 3.0 may be less backward-compatible than billed.
+<BR><BR>
+
+<LI>USB flashdrives that sporadically triggered spurious Windows error 
+messages on insertion, prompting drive scans that found no errors.
+This was despite proper ejects, and may reflect a Windows 7/8.1 
+compatibility issue for one drive, and an approaching end of 
+lifespan for another.
+<BR><BR>
+
+<LI>An all-out failure of a new backup harddrive connected by USB adapter on a Windows 
+8.1 tablet, that caused a blue-screen crash on a resume from sleep, and eventually trashed
+the USB driver altogether&mdash;requiring it to be manually uninstalled so it could
+be reinstalled automatically on reboot (it's not clear where the fault lies on this one;
+Windows 8.1 tablets are often temperamental).
+</UL>
+
+<P>
+In other words, personal peripheral storage devices are not entirely reliable
+today.  If you add to this the long but limited write/connect cycle lifespans of 
+USB flashdrives, your data can be on somewhat shaky ground.
+
+<P>
+That being said, this system has gone on to be used regularly for over a year to date without 
+any device problems; both the program and the devices it has run against proved to be robust 
+enough to trust with valued content (and certainly no less reliable than network 
+<A HREF="Whitepaper.html#clouds">cloud storage</A> would be; see, for instance, the 
+recent outages at the end of the preceding link's section).
+
+<P>  
+Still, because all backup and synchronization tools can be only as reliable as the 
+devices on which they write files, the best policy seems to be a <I>defensive</I> one&mdash;make 
+as many copies of your data as possible, so that you will have functional versions when 
+needed.  Storage devices are much cheaper than loss of important data.
+
+
+
+<H3><A name="usb30"><I>Update</I>: New Faster Devices (and a Word on Clouds)</H3> 
+
+<P>
+It turns out that not all flashdrives are created equal, and one does seem to get 
+what one pays for.  After writing the above, the target use case adopted two new 
+128G SanDisk storage cards: a USB 3.0 "Extreme Pro", and a MicroSD SDXC
+UHS-1 "Ultra"</I>.  Especially on a USB 3.0 port, the USB card was radically faster&mdash;<B>5 
+to 10</B> times as quick as some former USB drives, even for the many-small-files mix
+of typical archives.  Full comparisons that formerly took 1.5 hours now finished 
+in just <B>8</B> minutes, and full copies that ran 1.5 to 2 hours (or more) on other devices 
+came in at just <B>20</B> minutes.  This is for a combined data set that is now 73G, with 45K 
+files and 2600 directories as this update is being written.
+
+<P>
+On a USB 3.0 port, the USB card's 260/240 MB per second read and write rated speeds 
+would be faster than harddrives in some cases, and roughly <B>80</B> and <B>320</B> times quicker 
+for reads and writes, respectively, than typical broadband Internet&mdash;and hence Internet-based
+<I>cloud storage</I> transfer speed.  At just 28 and 6 Mb/sec (my current Wifi broadband's 
+average speeds for downloads and uploads), an Internet-based cloud could seem painfully slow 
+by comparison, especially for large data sets or files (see calculations <A HREF="#correct">below</A>).  
+The MicroSD card wasn't quite as fast, but was still an improvement in both speed and space.
+
+<P>
+These new devices are quick enough for occasional brute-force full copies, but 
+it's still important to minimize writes on flashdrives to extend their lifespan&mdash;exactly 
+what mergeall's changes-only updates achieve.  Moreover, thanks to its selective updates model,
+a typical mergeall run for this same archive takes just <I><B>1 minute</B></I>, which is still some 
+<B>20</B> times quicker than a full copy even at USB 3.0 and premium card speeds.  Given that a complete
+ copy also generally merits a complete verification compare, a mergeall run is really some <B>30</B> times
+quicker (1 minute versus 20 + 8).
+
+<P>
+The newer drives also are not cheap: at $200 each when first released, their combined cost is roughly 
+the same  as that of the secondary device they are used to support (a Dell 8"
+Windows 8.1 tablet
+with a decent processor and screen, but crippled by a single data/charge port and what's left of
+64G storage&mdash;calculated or not, a limitation seemed destined to encourage cloud storage).
+As always, though, data matters more than device.
+
+<P>
+For more on the comparison of flashdrives to <I>cloud storage</I>, see the 
+<A HREF="Whitepaper.html#clouds">Whitepaper</A> write-up.
+For pointers on using drives shared on a <I>local network</I>, see the top-level
+<A HREF="Revisions.html#uonote5">Revisions.html</A> file's usage note
+(spoiler: they also seem very slow by comparison to USB drives, checking in at 
+<B>35 to 50</B> times slower on tests run).  Direct Wifi results may or may not vary,
+but physically connected devices will likely always be quicker.
+
+<P>
+<I><A NAME="correct"><U>Corrected, Oct-14</U></A></I>:
+<P>
+The preceding was originally off by a factor of 8 due to measurement unit differences, but has
+been corrected.  On closer analysis, the USB 3.0 card on a USB 3.0 port is rated at 260/240 MB 
+(<B>bytes</B>) per second for read/write transfers, but my Wifi broadband checks in at 28/6 Mb 
+(<B>bits</B>) per second for download/upload transfers, the equivalent of read/write for Internet-based
+cloud usage.  Given 8 bits per byte, this means the USB card is actually 8 times quicker than originally 
+stated above&mdash;USB is some <B>80 and 320</B> times quicker for reading and writing data, respectively, than 
+typical broadband Internet.  For instance, 320 = (240 MB * 8 bits/byte) / 6 Mb) for writes.  
+Some such statistics may reflect ideal conditions, of course, and some cloud services may gain from 
+synchronizing on a frequent file-by-file (not occasional whole archive) basis; but the difference 
+is clearly striking.
+
+
+
+
+
+</P>
+<BR>
+<TABLE bgcolor="#96CDCD" width="100%"><TR><TD>
+<H2><A NAME="process">Decoupled versus Single-Process Architectures</A></H2>
+</TABLE>
+
+<P>
+The launchers both use a <I>decoupled</I> model, which spawns mergeall in a
+separate process and intercepts its output streams.  Both launchers also 
+duplicate intercepted output to logfiles on request, and the console launcher
+and spawned mergeall share the console input stream in interactive mode.
+
+<P>
+This is a standard technique, and is required for running non-Python programs. 
+As the change log attests, though, it led to a handful of implementation issues
+related to stream decoding and buffering, especially for dual Python 3.X/2.X usage.
+In retrospect, there might be advantages to a <I>single-process</I> model, 
+which imports mergeall as a module and calls its functions directly, instead
+of spawning it as a separate program.  
+
+<P>
+In a single process model, the input and output streams may still be
+intercepted, by assigning their sys module attributes to class instance 
+objects with read/write methods that route data to and from console or GUI
+components, and possibly echo it to a logfile.  The GUI launcher would 
+still need to thread calls to mergeall and route its intercepted lines to 
+a queue to be polled and processed in the main GUI thread as it is now.
+The console launcher would simply print and possibly log intercepted text. 
+Stream reads, however, would be replaced with write methods that receive 
+printed text from mergeall by direct calls, and decode as appropriate.
+
+<P>
+For details and examples of intercepting streams with objects in a GUI, see 
+the chapter <I><U>GUI Coding Techniques</U></I> in the book 
+(<A HREF="http://learning-python.com/about-pp4e.html">PP4E</A>), 
+especially its sections <I>GuiStreams: Redirecting Streams to Widgets</I> and 
+<I>Adding a GUI As a Separate Program: Command Pipes</I>.  A single process
+model implementation would use nearly identical techniques, but the book's
+<B>GuiOutput.write()</B> method would simply queue mergeall's output lines to be 
+displayed by a timer loop in the main GUI thread.
+
+
+<H3>Tradeoffs and Conclusions</H3>
+
+<P>
+The single-process model may hold promise, but it's unclear if it would be simpler
+than the current decoupled scheme.  Moreover, among its generic <I>disadvantages</I>, 
+a single process cannot be distributed to run on multiple CPU cores, and problems in 
+the spawned program become problems in the launcher&mdash;in a decoupled model, 
+mergeall exceptions or crashes don't impact the GUI, though this might be mitigated 
+in the single-process approach by thread exception handlers and stderr routing.
+
+<P>
+The current decoupled mergeall system works both well and as intended for its 
+initial target use case, so any further refactoring here is left as suggested 
+exercise.  Replacing decoupled streams with in-process stream interception may 
+or may not prove simpler; given the nature of software development, though, 
+it seems more likely to come with an entirely new set of implementation issues.
+</P>
+
+
+
+
+
+</P>
+<BR>
+<!--borrowed from websites' theme-->
+<TABLE class=footertable bgcolor="#96CDCD" width="100%">
+<TD align=center>
+  <A class=blocklinkbar href="http://www.python.org">                                <!--border=0 for IE img links-->
+  <IMG SRC="../docimgs/PythonPowered.gif" ALT="[Python Logo]" border=0 width=55 height=22></A>   <!--scale larger gif for res-->
+<TD align=center>
+  <B><A class=blocklinkbar HREF="http://learning-python.com/index.html">Books</A></B>
+<TD align=center>
+  <B><A class=blocklinkbar HREF="http://learning-python.com/programs.html">Programs</A></B>
+<TD align=center>
+  <B><A class=blocklinkbar HREF="http://learning-python.com/posts.html">Posts</A></B>
+<TD align=center>
+  <B><A class=blocklinkbar HREF="mailto:lutz@learning-python.com">Feedback</A></B>
+<TD align=center>                                                                              
+  &copy;<I> M. Lutz</A></I>   
+</TABLE>
+
+
+</BODY>
+</HTML>

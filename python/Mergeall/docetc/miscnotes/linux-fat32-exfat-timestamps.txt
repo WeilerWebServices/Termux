@@ -1,0 +1,93 @@
+Testing results and notes for FAT32 and exFAT drive timestamps on Linux.
+
+Recent Linux exFAT status => https://github.com/relan/exfat/issues/38
+The version installed by Ubuntu appears to handle simulated DST rollovers, 
+but not timezone changes.
+
+All resuls are versus files on a linux local drive, whose times change on 
+tz change only.  The system was not rebooted before some tests (though 
+it might not be in practice either).
+
+*reboot*
+
+timedatectl set-local-rtc 0 (recommended by Linux)
+   initially
+	fat32	off by -8 hours
+	exfat	agrees with linux local drive
+
+   set time+date and wait for DST (post reboot or not)
+	local	unchanged
+	fat32	still off by -8 hours (unchanged)
+	exfat	agrees with linux local drive
+
+   set timezone only
+	local	plus one hour
+	fat32	off by -1 hour from linux local drive
+	exfat	off by -1 hour from linux local drive
+
+   set date in future post DST
+	(after resetting intial time, date and tz: fat32 now agrees with linux local; why?)
+ 	fat32	agrees
+	exfat	agrees
+	after rebooting, fat32 is -8 hours off, exfat agrees
+
+*reboot*
+
+timedatectl set-local-rtc 1 (not recommended, but useful on dual-boot systems)
+   initially
+	fat32	agrees
+	exfat	agrees
+
+   set time+date and wait for DST (post an extra reboot or not)
+	local	unchanged
+	fat32	agrees
+	exfat	agrees
+
+   set timezone only
+	local	plus 1 hour
+	fat32	off by -1 hour from linux local drive
+	exfat	off by -1 hour from linux local drive
+
+   set date in future post DST
+ 	fat32	agrees
+	exfat	agrees
+
+
+Related quotes from the web and man pages:
+
+"""
+To avoid problems with time zone and DST switching, it is recommended to keep 
+the hardware clock in UTC. The shown Example 2.11, Synchronizing the Hardware 
+Clock with System Time is useful, for example, in case of a multi boot with a 
+Windows system, which assumes the hardware clock runs in local time by default, 
+and all other systems need to accommodate to it by using local time as well. 
+It may also be needed with a virtual machine; if the virtual hardware clock 
+provided by the host is running in local time, the guest system needs to be 
+configured to use local time, too. 
+"""
+
+"""
+ set-local-rtc [BOOL]
+           Takes a boolean argument. If "0", the system is configured to
+           maintain the RTC in universal time. If "1", it will maintain the
+           RTC in local time instead. Note that maintaining the RTC in the
+           local timezone is not fully supported and will create various
+           problems with time zone changes and daylight saving adjustments.
+           If at all possible, keep the RTC in UTC mode. Note that invoking
+           this will also synchronize the RTC from the system clock, unless
+           --adjust-system-clock is passed (see above).
+"""
+
+"""
+If you have multiple operating systems installed in the same machine, they 
+will all derive the current time from the same hardware clock: for this reason
+you must make sure that all of them see the hardware clock as providing time 
+in the same chosen standard, or some of them will perform the time zone 
+adjustement for the system clock, while others will not. In particular, it is
+recommended to set the hardware clock to UTC, in order to avoid conflicts 
+between the installed operating systems. For example, if the hardware clock 
+was set to localtime, more than one operating system may adjust it after a 
+DST change, thus resulting in an overcorrection; more problems may arise when 
+travelling between different time zones and using one of the operating systems 
+to reset the system/hardware clock. 
+"""

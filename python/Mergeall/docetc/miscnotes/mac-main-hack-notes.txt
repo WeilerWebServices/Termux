@@ -1,0 +1,97 @@
+# This is notes clipped from mergeall's GUI launcher __main__ Mac OS X hack.
+# For mergeall docs - learning-python.com/mergeall/UserGuide.html
+
+# Update: ActiveState's Tk 8.5.18 had additional problems on Mac OS (X) in other 
+# programs, which may be related to that described here.  PyEdit and PyMailGUI,
+# for example, had to work around windows losing their application menu after
+# clicking elsewhere, and this happens at the same time as losing focus in general.  
+# All programs also left phantom/zombie Window menu and Dock entries on closing, 
+# which may also be related.  Homebrew Python's supported Tk 8.6 may fix some (or
+# many) of the Tk issues dealt with here (TBD).   Alas, python.org still recommends 
+# ActiveState Tk 8.5, and still requires Tk 8.5, as of Python 3.6.  Why?
+
+# Update: root.focus_force() restores active state after standard dialog calls
+# drop it.  However, it doesn't help for minimize/restore events caught via <Map>
+# or <Visibility> and has no impact on the initial active state in all codings tried.
+
+# UPDATE: the loss of focus on deiconfy (unhide) in AS Tk 8.5 was eventually solved
+# by creating, lowering, and destroying a temp toplevel window around an update(); 
+# see the GUI's __main__ code for details for the gory details;  this plus the 
+# on-start focus fix make the GUI near perfect, apart from phantom Dock menus items...
+
+
+"""
+[3.0]
+
+SUMMARY: Although most of tkinter works well on Mac OS X, a bug in the
+recommended Tk 8.5 from ActiveState botches active-window widget styling
+broadly on Macs.  The workaround here fixes styling for initial opening 
+only; further resolution awaits a new Tk for Mac Python.
+
+WORKAROUND: This code hides/unhides the main window so it shows its radio 
+and check buttons in Aqua's active-window (default blue) style immediately.  
+Without this special-case code, the buttons appear on first window open in 
+a plain grey style, and change to Aqua active style only after users click 
+any other window and then click this program's window.
+
+CAVEAT: This code fixes initial opening only; the active style is lost 
+again after the window is minimized and restored -- users must click to 
+another window and click back again to reset buttons to active styling.
+The main windows also loses its active-style widget coloring when any
+common dialog is dismissed (e.g., Open), but this case isn't as grievous,
+as it takes just a single click on the main window to reset the style.
+
+OTHER TRIES:
+
+All other attempts to force main window activation style on either initial
+opening or minimize/restore -- including various combinations of lift(), 
+grab_set(), focus_force(), takefocus(), -topmost, and <Map> bindings -- had
+no effect.  
+
+Oddly, both frigcal and pymailgui required only a lift() to open their main
+Checkbuttons in active style when run directly from a 'python3' command line,
+but required the same hack as mergeall when run by the python launcher on a 
+click (mergeall needed the full fix in both cases).  Like mergeall, frigcal
+and pymailgui both lose active widget styling after a minimize/restore.
+
+Creating a bogus Tk root and hiding it via after_idle() also works for
+initial opening, but seems odd and overkill.  A 15-line AppleScript hack 
+also addresses initial opening (only), and app bundles may help (TBD), 
+but these both seem well beyond reasonable requirements for a portable 
+GUI toolkit like Tk.  In the end, this is a general bug in the version
+of Tk recommended by python.org, and heroics can only go so far.
+
+DISCUSSION:
+
+This issue is cosmetic only, and most of Tk DOES work both portably and 
+well on a Mac.  But Tk also seems to be a second-class citizen on this 
+platform, if not orphaned altogether.  Python/Tk scripts should largely 
+just work across platform -- as they do on Windows and Linux.
+
+This is likely a bug in the Tk 8.5 Mac OS X implementation from ActiveState,
+and recommended by python.org.  IDLE's search dialog has the same issue,
+other widget types lose their active styling too, and common dialog calls
+also cause the active style to be lost.  It's a broad issue, and one that 
+would be difficult to miss in basic testing.
+
+More tellingly, the Tk 8.5 preinstalled by Apple for its preinstalled 
+Python 2.7 does NOT have this problem -- buttons open with and retain the 
+active styling always (though this Tk 8.5 has other issues of its own; 
+deiconified windows don't draw completely until the user moves the mouse).
+
+It seems unlikely that the bug is _having_ the active style at all (in 
+which case ttk themes may be suspect).  Python 2.7's Tk 8.5 gets the 
+active styling correct, strongly suggesting that this is the normal and
+desired behavior.   In any event, there is no way to suppress active
+style either, and Apple's active-window styling seems clearly defined.
+
+It's possible that Tk 8.6 may improve this, but it currently requires a 
+source build, which is far too much to ask of this program's user base. 
+An ActiveState Python 3.4 couldn't be made to use its own 8.6 (and had a
+nasty blurry fonts issue fixed in py.org's install).  It's also possible
+that Python 3.6 may support and possibly include Tk 8.6 in the future; 
+if so, it is recommended to run with those versions. 
+
+"""
+
+

@@ -1,0 +1,74 @@
+c:\...\Code\mergeall>nuke-cruft-files.py
+Data set (archive) tree root path? Y:\
+List matching cruft files only? y
+Match all "._*" files too (more aggressive)? y
+Match all ".*" files too (most aggressive)?
+About to run in LIST ONLY mode
+        On root "Y:\"
+        Finding [
+                '.DS_Store',
+                '._.DS_Store',
+                '.localized',
+                '.TemporaryItems',
+                'Desktop.ini',
+                'Thumbs.db',
+                '._*'
+                ]
+        Keeping ['.htaccess', '.login', '.bash*']
+        Pruning ['*\ziptools*selftest', '*\mergeall*\test[12]', '*\mac\DRIVE-METADATA']
+Continue? n
+Run cancelled, no changes made.
+Press Enter to exit.
+
+
+c:\...\Code\mergeall>nuke-cruft-files.py C:\MY-STUFF -listonly -dotunders
+About to run in LIST ONLY mode
+        On root "C:\MY-STUFF"
+        Finding [
+                '.DS_Store',
+                '._.DS_Store',
+                '.localized',
+                '.TemporaryItems',
+                '[dD]esktop.ini',
+                'Thumbs.db',
+                '._*'
+                ]
+        Keeping ['.htaccess', '.login', '.bash*']
+        Pruning ['*\ziptools*selftest', '*\mergeall*\test[12]', '*\mac\DRIVE-METADATA']
+Continue? y
+Walking root tree...
+Cruft file =>   C:\MY-STUFF\Books\Dev\4E\PP4E\PP4E-Examples-1.4\changes\book-web-site\pystockmood\desktop.ini
+Cruft file =>   C:\MY-STUFF\Books\Dev\5E\LP5E\CopyEdit\incoming\__MACOSX\._aa_about_the_author_rm.doc
+Cruft file =>   C:\MY-STUFF\Books\Dev\5E\LP5E\CopyEdit\incoming\__MACOSX\._aa_dedication_page_before_TOC_noedits.doc
+Cruft file =>   C:\MY-STUFF\Books\Dev\5E\LP5E\CopyEdit\incoming\__MACOSX\._appa_install_and_config_rm.doc
+Cruft file =>   C:\MY-STUFF\Books\Dev\5E\LP5E\CopyEdit\incoming\__MACOSX\._appb_windows_launcher_rm.doc
+Cruft file =>   C:\MY-STUFF\Books\Dev\5E\LP5E\CopyEdit\incoming\__MACOSX\._appc_python_changes_rm.doc
+...
+...etc
+...
+Cruft file =>   C:\MY-STUFF\Websites\Books\prior\current-site-feb1814\pystockmood\desktop.ini
+Cruft file =>   C:\MY-STUFF\Websites\Books\prior\prior-oct1714\pystockmood\desktop.ini
+Cruft file =>   C:\MY-STUFF\Websites\Books\prior\prior-version\Thumbs.db
+Cruft file =>   C:\MY-STUFF\Websites\Books\prior\prior-version\pystockmood\desktop.ini
+Cruft file =>   C:\MY-STUFF\Websites\Training\prior\prior-version\OLDSITE-FEB2012-partial\desktop.ini
+(Pruned folder) C:\MY-STUFF\__more__\Gadgets\mac\DRIVE-METADATA
+----------------------------------------
+Done: 105 cruft items found.
+Number items removed=0, failed=0
+Cruft item counts by name:
+  0001 => "._355739learn_python_5ed_mech-ORM-2.pdf"
+  0001 => "._OTD_PrintLP.pdf"
+  0001 => "._QC2_Print.pdf"
+  0001 => "._QC2_Web.pdf"
+  0001 => "._Screen Shot 2016-09-01 at 3.00.28 PM.png"
+  0001 => "._Screen Shot 2016-09-01 at 3.02.16 PM.png"
+...
+...etc
+...
+  0001 => "._part8-advanced_noedits.doc"
+  0001 => "._part9-appendixes_noedits.doc"
+  0001 => "._pythonPR_5e_QC1.pdf"
+  0001 => "._pythonPR_QC2.pdf"
+  0011 => "Thumbs.db"
+  0008 => "desktop.ini"
+Press Enter to exit.

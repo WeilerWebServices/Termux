@@ -1,0 +1,30 @@
+# SEE ALSO
+
+    https://bugs.python.org/issue18595
+    https://mail.python.org/pipermail/python-list/2005-June/322179.html
+    https://duckduckgo.com/?q=python+zipfile+symlink
+
+Seen on various forums (nearly correct)
+
+# ADDING A SYMLINK
+
+    if os.path.islink(filename):
+        dest = os.readlink(filename)
+        attr = zipfile.ZipInfo()
+        attr.filename = fileName
+        attr.create_system = 3
+        attr.external_attr = 2716663808L # long type of hex val 
+                                         # of '0xA1ED0000L'
+                                         # say, symlink attr magic..
+        self.zip.writestr(attr, dest)
+    else:
+        ....
+
+# EXTRACTING A SYMLINK
+
+    info = zip.getinfo(fileName)
+    if hex(info.external_attr) == 2716663808L:
+        target = zip.read(fileName)
+        os.symlink(target, ofile)
+    else:
+        ...

@@ -1,0 +1,87 @@
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [C:/MY-STUFF/Code/mergeall/test/test1] [C:/MY-STUFF/Code/mergeall/test/test2]
+excluding C:/MY-STUFF/Code/mergeall/test/test2\__bkp__
+comparing [C:/MY-STUFF/Code/mergeall/test/test1\d3] [C:/MY-STUFF/Code/mergeall/test/test2\d3]
+Phase runtime: 0.003666795197539245
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('.htaccess',
+  'C:/MY-STUFF/Code/mergeall/test/test1\\d3',
+  'C:/MY-STUFF/Code/mergeall/test/test2\\d3',
+  'modtime'),
+ ('f3.txt',
+  'C:/MY-STUFF/Code/mergeall/test/test1\\d3',
+  'C:/MY-STUFF/Code/mergeall/test/test2\\d3',
+  'modtime'),
+ ('f3.txt',
+  'C:/MY-STUFF/Code/mergeall/test/test1',
+  'C:/MY-STUFF/Code/mergeall/test/test2',
+  'modtime'),
+ ('f6.txt',
+  'C:/MY-STUFF/Code/mergeall/test/test1',
+  'C:/MY-STUFF/Code/mergeall/test/test2',
+  'filesize')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['d2', 'f2.txt'],
+  'C:/MY-STUFF/Code/mergeall/test/test1',
+  'C:/MY-STUFF/Code/mergeall/test/test2'),
+ (['f5.txt'],
+  'C:/MY-STUFF/Code/mergeall/test/test1\\d3',
+  'C:/MY-STUFF/Code/mergeall/test/test2\\d3')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['d1', 'f1.txt'],
+  'C:/MY-STUFF/Code/mergeall/test/test1',
+  'C:/MY-STUFF/Code/mergeall/test/test2'),
+ (['f4.txt'],
+  'C:/MY-STUFF/Code/mergeall/test/test1\\d3',
+  'C:/MY-STUFF/Code/mergeall/test/test2\\d3')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[('m1',
+  'C:/MY-STUFF/Code/mergeall/test/test1',
+  'C:/MY-STUFF/Code/mergeall/test/test2'),
+ ('m2',
+  'C:/MY-STUFF/Code/mergeall/test/test1',
+  'C:/MY-STUFF/Code/mergeall/test/test2')]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+....backing up all items to C:/MY-STUFF/Code/mergeall/test/test2\__bkp__\date161012-time181732
+replaced same file, using FROM C:/MY-STUFF/Code/mergeall/test/test1\d3\.htaccess
+replaced same file, using FROM C:/MY-STUFF/Code/mergeall/test/test1\d3\f3.txt
+replaced same file, using FROM C:/MY-STUFF/Code/mergeall/test/test1\f3.txt
+replaced same file, using FROM C:/MY-STUFF/Code/mergeall/test/test1\f6.txt
+removed old TO dir, C:/MY-STUFF/Code/mergeall/test/test2\d2
+removed old TO file, C:/MY-STUFF/Code/mergeall/test/test2\f2.txt
+removed old TO file, C:/MY-STUFF/Code/mergeall/test/test2\d3\f5.txt
+copied new FROM dir, C:/MY-STUFF/Code/mergeall/test/test1\d1
+copied new FROM file, C:/MY-STUFF/Code/mergeall/test/test1\f1.txt
+copied new FROM file, C:/MY-STUFF/Code/mergeall/test/test1\d3\f4.txt
+replaced dir with file, using FROM C:/MY-STUFF/Code/mergeall/test/test1\m1
+replaced file with dir, using FROM C:/MY-STUFF/Code/mergeall/test/test1\m2
+Phase runtime: 0.014828943979599267
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 6, folders: 2
+Differences => samefile: 4, uniqueto: 3, uniquefrom: 3, mixedmode: 2
+Changed:
+files   => created: 2, deleted: 2, replaced: 5
+folders => created: 1, deleted: 1, replaced: 1
+-------------------------------------------------------------------------------
+Finished.

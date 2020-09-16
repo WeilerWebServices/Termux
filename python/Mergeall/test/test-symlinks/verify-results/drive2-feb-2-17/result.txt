@@ -1,0 +1,18 @@
+/Admin-Mergeall/samsung-ssd500G/feb-2-17$ ls
+nonopt--mergeall-date170202-time102606.txt		start-nonopt--mergeall-date170202-time102506.txt
+opt--mergeall-date170202-time102833.txt
+
+/Admin-Mergeall/samsung-ssd500G/feb-2-17$ diff start-nonopt--mergeall-date170202-time102506.txt nonopt--mergeall-date170202-time102606.txt 
+3974c3974
+< Phase runtime: 7.938484095968306
+---
+> Phase runtime: 5.026345756021328
+
+/Admin-Mergeall/samsung-ssd500G/feb-2-17$ diff nonopt--mergeall-date170202-time102606.txt opt--mergeall-date170202-time102833.txt 
+0a1
+> Using Python 3.5+ os.scandir() optimized variant.
+3974c3975
+< Phase runtime: 5.026345756021328
+---
+> Phase runtime: 9.351570850994904
+

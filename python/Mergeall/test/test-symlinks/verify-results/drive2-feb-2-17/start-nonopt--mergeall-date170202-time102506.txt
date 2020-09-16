@@ -1,0 +1,18 @@
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [/MY-STUFF] [/Volumes/SSDT3/MY-STUFF]
+excluding /MY-STUFF/__bkp__
+excluding /Volumes/SSDT3/MY-STUFF/__bkp__
+comparing [/MY-STUFF/__more__] [/Volumes/SSDT3/MY-STUFF/__more__]
+...
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 59521, folders: 3967
+Differences => samefile: 215, uniqueto: 38, uniquefrom: 87, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.

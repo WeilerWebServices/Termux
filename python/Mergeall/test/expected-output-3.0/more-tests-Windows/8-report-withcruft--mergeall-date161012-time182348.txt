@@ -1,0 +1,42 @@
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [C:/MY-STUFF/Code/mergeall/test/test1] [C:/MY-STUFF/Code/mergeall/test/test2]
+excluding C:/MY-STUFF/Code/mergeall/test/test2\__bkp__
+comparing [C:/MY-STUFF/Code/mergeall/test/test1\d1] [C:/MY-STUFF/Code/mergeall/test/test2\d1]
+comparing [C:/MY-STUFF/Code/mergeall/test/test1\d3] [C:/MY-STUFF/Code/mergeall/test/test2\d3]
+comparing [C:/MY-STUFF/Code/mergeall/test/test1\d3\.fseventsd] [C:/MY-STUFF/Code/mergeall/test/test2\d3\.fseventsd]
+comparing [C:/MY-STUFF/Code/mergeall/test/test1\m2] [C:/MY-STUFF/Code/mergeall/test/test2\m2]
+Phase runtime: 0.0008415595535335972
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 19, folders: 5
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.

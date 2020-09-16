@@ -1,0 +1,32 @@
+PLEASE READ THIS CONTRACT CAREFULLY. BY DOWNLOADING/USING ALL OR ANY PORTION OF
+THE SOFTWARE YOU ACCEPT ALL THE TERMS AND CONDITIONS OF THIS AGREEMENT
+
+This software is provided as is by the author and contributors without warranty
+of any kind. To the maximum extent permitted by applicable law, i further
+disclaim all warranties, including without limitation any implied warranties
+of merchantability, fitness for a particular purpose, and noninfringement.
+The entire risk arising out of the use or performance of the product and
+documentation remains with recipient.
+To the maximum extent permitted by applicable law, in no event shall i
+be liable for any consequential, incidental, direct, indirect, special,
+punitive, or other damages whatsoever (including, without limitation, damages
+for loss of business profits, business interruption, loss of business
+information, or other pecuniary loss) arising out of this agreement or the
+use of or inability to use the product, even if i have been advised of the
+possibility of such damages.
+
+This software may be used free of charge. It may be freely distributed, as
+long as there are no files from the package removed or modified.
+
+The software may not be decompiled without my permission.
+
+The software contains the free java library BrowserLauncher, which is Copyright
+1999-2001 by Eric Albert (ejalbert@cs.stanford.edu)
+
+The software contains the Gif89Encoder from J. M. G. Elliott. It is based on
+the acme gif encoder:
+ Copyright (C) 1996 by Jef Poskanzer .  All rights reserved.
+
+The JavE software is Copyright (C) 2000-2002 by Markus Gebhard.
+
+                           March 19th, 2002    Markus Gebhard (markus@jave.de)

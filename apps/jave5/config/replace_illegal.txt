@@ -1,0 +1,45 @@
+######################################################################
+# Rules for replacing illegal characters (non Ascii) by Ascii
+# characters
+# Every line is one rule for replacing charcaters:
+#   CODE_OF_CHAR_TO_REPLACE CHARACTER_TO_REPLACE_IT_WITH
+#
+# lines beginning with # are being ignored.
+######################################################################
+180 ' #Umgekehrter `
+160   #shift-space
+209 N #N with tilde
+184 . #somewhat like ,
+168 " #double dot at top
+183 . #dot in the middle
+175 " #like _ on top
+248 o #o with digonal dash
+166 | #| with a break in the middle
+228 a #german umlauted a
+196 A #german umlauted A
+246 o #german umlauted u
+214 O #german umlauted O
+252 u #german umlauted u
+220 U #german umlauted U
+8217 ' #similar to ´
+216 O #O with digonal dash
+8230 _ #tripplet dot bottom
+164 * #o with whiskers?
+167 $ #paragraph
+197 A #A with circumflex
+174 @ #(R)
+169 @ #(C)
+65533 # #rectangular box
+176 ' #degree symbol
+186 . #circumflex in the middle?
+165 Y #Y with two horizontal lines in middle
+191 c #Question mark upside down?
+224 a #à
+233 e #é
+201 E #É
+172 - #L rotatet 90 degrees left, centered like -
+171 < # << in one character
+187 > # >>in one character
+178 ' #exp(2)
+230 e #ae in one character - better ideas for replacement?
+  

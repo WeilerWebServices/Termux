@@ -1,0 +1,40 @@
+Sep 25, 2015
+mergeall 2.2, with os.scandir() speed optimization
+
+There's a new version of the mergeall folder tree synchronization tool, which
+uses Python 3.5's os.scandir(), if available, to radically speed up its trees
+comparison phase.  In testing on Windows 7 and 10, the new call speeds mergeall
+comparisons by a factor of 5 to 10, depending on devices.  This is due entirely
+to the elimination of system calls that os.scandir() affords.
+
+The savings is especially significant for large archives.  For a 78G target use
+case of 50k files in 3k folders, comparison runtime fell from  40 to 7 seconds 
+on a fast USB stick (6x); from 112 to 16 seconds on a slower stick (7x); and 
+from 600 to 60 seconds on an ancient single-core machine (10x). 
+
+Also note that the scandir() call is standard in the os module in 3.5, but can
+also be had for older Python releases, including 2.7 and older 3.X, via a PyPI
+package.  mergeall uses either form if present, and falls back on the original 
+os.listdir() scheme as a last resort to continue supporting older Pythons 
+(though a scandir() is now strongly recommended, for obvious reasons!).
+
+All of which seems proof that language improvement and backward compatibility 
+are not necessarily mutually exclusive.  The details:
+
+2.2 changes:
+    http://learning-python.com/mergeall/docs/Usage-Overview.html#optimizations
+
+Main README: 
+    http://learning-python.com/mergeall/Readme.html
+
+Usage guide:
+    http://learning-python.com/mergeall/docs/Usage-Overview.html
+
+GUI screenshot:
+    http://learning-python.com/mergeall/examples/Screenshots/main-quit-help.png
+
+Download the package:
+    http://learning-python.com/downloads/mergeall.zip
+
+Cheers,
+--M. Lutz (http://www.rmi.net/~lutz | http://learning-python.com)

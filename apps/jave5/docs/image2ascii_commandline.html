@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="EN"><head>
+<title>JavE image2ascii commandline utility</title>
+  <meta name="ROBOTS" content="index,nofollow">
+  <meta name="author" content="Markus Gebhard">
+  <meta name="publisher" content="Markus Gebhard">
+  <meta name="copyright" content="Markus Gebhard">
+  <meta name="Content-Language" content="EN">
+</head>
+
+<body background="paper.gif">
+
+<a href="../index.html">[docs]</a>&nbsp;
+
+
+<center>
+<h1>JavE image2ascii commandline utility</h1>
+</center>
+
+<p>Since JavE4.0 the image2ascii converter can be accessed without using the graphical user
+interface by invoking JavE from the command line.
+JavE will convert the gif, bmp or jpg file and write the ascii result to the standard
+output (System.out).
+</p>
+
+<h2>Usage</h2>
+<blockquote>
+  <pre>java -jar jave5.jar image2ascii imagefile {options}</pre>
+  <ul><b>Note:</b> You can write the output to a file on most systems by using the following syntax:<br>
+  <pre>java -jar jave5.jar image2ascii imagefile {options} > outputfile</pre>
+  </ul>
+  <br>
+</blockquote>
+
+<h2>Options</h2>
+<blockquote>
+
+<table border=0>
+ <tr>
+  <th align="left" valign="top">
+   <code>width=WIDTH</code>
+  </th>
+  <td>
+   <br>
+   <code>WIDTH</code> is the width of the result in characters.<br>
+   Default is 72.
+  </td>
+ </tr>
+
+ <tr>
+  <th align="left" valign="top">
+   <code>shape=SHAPE</code>
+  </th>
+  <td>
+    <br>
+    <code>SHAPE</code> is the shape factor (for adjusting the height to width proportions)
+    as double value.<br>
+    Default is 1.0.
+  </td>
+ </tr>
+
+ <tr>
+  <th align="left" valign="top">
+   <code>algorithm=ALGORITHM</code>
+  </th>
+  <td>
+    <br>
+    <code>ALGORITHM</code> is the name of the conversion algorithm. Note that not all algorithms
+    from the image2ascii converter are available at the command line yet.<br>
+    Supported algorithms are:
+    <ul>
+     <li><code>jave_algorithm</code> (new since JavE5.0)
+     <li><code>4_pixels_per_character</code>
+     <li><code>1_pixel_per_character</code> (new since JavE5.0, old one is renamed to 'Gradient')
+     <li><code>gradient</code>
+     <li><code>edge_detection</code>
+     <li><code>edge_tracing</code>
+     <li><code>felt_pen</code>
+    </ul>
+    Default is <code>jave_algorithm</code>.
+  </td>
+ </tr>
+
+
+ <tr>
+  <th align="left" valign="top">
+   <code>table=TABLE</code>
+  </th>
+  <td>
+    <br>
+    <code>TABLE</code> is the name of the character greyscale table that shall be used for conversion.
+    Choosing the table to fit the font used for displying the result will cause an optimum conversion
+    result.
+
+    This option can only be used for the following algorithms (others will ignore it):
+    <ul>
+     <li><code>jave_algorithm</code>
+     <li><code>4_pixels_per_character</code>
+     <li><code>1_pixel_per_character</code>
+    </ul>
+    Default is <code>courier_new</code>, other examples are <code>fixedsys</code> or <code>lucida_console</code>.
+    For a complete list of font tables available onb your system have a look into the
+    folder JAVE_MAIN_FOLDER/config/greyscaletables/
+  </td>
+ </tr>
+
+
+
+
+ <tr>
+  <th align="left" valign="top">
+   <code>charfile=CHARFILE</code>
+  </th>
+  <td>
+    <br>
+    <code>CHARFILE</code> is the name of a text file containing special characters for
+    the algorithm. The interpretation of this file depends on the algorithm being used.<br>
+    Here is a list of what it is used for at the moment:
+    <ul>
+     <li><code>jave_algorithm</code>: The first line of the file contains the characters that shall not be used for conversion
+     <li><code>4_pixels_per_character</code>: dito
+     <li><code>1_pixel_per_character</code>: dito
+     <li><code>gradient</code>: The first line of the file contains the characters used for the gradient (example: <code>.:coCO8@</code>).
+    </ul>
+    <small>(I had to put those in a file, for I don't know how to read space characters from a command line :-))</small>
+  </td>
+ </tr>
+
+</table>
+</blockquote>
+<h2>Example</h2>
+<blockquote>
+  <pre>java -jar jave4.jar image2ascii c:\images\jave_logo_big.gif algorithm=4_Pixels_per_Character width=50</pre>
+  <p>In this example the file jave_logo_big.gif is converted to ascii using the 4-pixel per character
+  algorithm and the result being 40 characters wide.
+</blockquote>
+
+<h2>Limitations</h2>
+<blockquote>
+  The converter will not be suitable for real-time animations, as
+  for every single image you have to start the Java Virtual Machine
+  to launch JavE.
+</blockquote>
+
+<h2>Future Enhancements</h2>
+<blockquote>
+  In case you have a question or need some options not yet provided by the command line interface -
+  just let me know:
+  <a href="mailto:markus@jave.de">markus@jave.de</a>.
+</blockquote>
+
+</body>
+</html>

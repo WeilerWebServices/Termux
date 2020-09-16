@@ -1,0 +1,23 @@
+Tests here reflect the automated output of selftest.py, and exercise the
+basics of ziptools' symlink support.  See also cmdtest/ for more script
+tests, and moretests/ for symlink, long pathname, and advanced tests.
+
+To run tests here:
+
+# ../../{test1, test2} were restored to their start state via test-1-2-do-unzip.py
+# py3 was aliased to python3 on Mac, Linux results are the same as Mac (Unix)
+
+/.../mergeall/test/ziptools$ py3 selftest.py > selftest/macosx-withcruft-output.txt
+/.../mergeall/test/ziptools$ py3 selftest.py - > selftest/macosx-skipcruft-output.txt
+
+C:\...\mergeall\test\ziptools> py -3 selftest.py > selftest\windows-withcruft-output.txt
+C:\...\mergeall\test\ziptools> py -3 selftest.py - > selftest\windows-skipcruft-output.txt
+
+# and Linux is identical to Mac OS X in this context
+
+----
+Expectations: the "withcruft" tests will show no differences in their mergeall and
+diffall runs because they included the original folders' cruft.  The "skipcruft" 
+tests will show differences, but only for cruft files skipped in the originals.
+
+Results here were regenerated to reflect the final message order in zip-create/extract.

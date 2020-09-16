@@ -1,0 +1,44 @@
+# Convert a Text File into Speech
+ 
+Here, covert the text file into speech. Reading the text file and pass to gTTS module
+
+<Code>
+
+Import gTTS and os library
+
+from gtts import gTTS 
+import os
+
+
+Reading the text file and store into object called text. My file name is “draft.txt”
+
+file = open("draft.txt", "r").read().replace("\n", " ")
+
+
+Choosing language English
+
+language = ‘en’
+
+
+Passing the text file into gTTS module and store into speech
+
+speech = gTTS(text = str(file), lang = language, slow = False)
+
+
+Saving the converted audio in a mp3 file named called ‘voice.mp3’
+
+speech.save("voice.mp3")
+
+
+Playing the mp3 file
+
+os.system("start voice.mp3")
+
+
+Output
+
+Converted draft.txt file into voice.mp3
+
+ 
+
+Draft.txt file saved as a voice.mp3 file.Play the Mp3 file to listen the text presented in the draft.txt file

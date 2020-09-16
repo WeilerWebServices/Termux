@@ -1,0 +1,81 @@
+c:\MY-STUFF\Code\mergeall> nuke-cruft-files.py  > test\expected-output-3.0\nuke-cruft-files\live-run\other-listonly.txt
+Data set (archive) tree root path? C:\MY-OTHER-STUFF
+List matching cruft files only? y
+Match all "._*" files too (more aggressive)? y
+Match all ".*" files too (most aggressive)? y
+About to run in LIST ONLY mode
+        On root "C:\MY-OTHER-STUFF"
+        Finding [
+                '.DS_Store',
+                '._.DS_Store',
+                '.localized',
+                '.TemporaryItems',
+                '[dD]esktop.ini',
+                'Thumbs.db',
+                '~*',
+                '._*',
+                '.*'
+                ]
+        Keeping ['.htaccess*', '.login', '.bash*', '.profile', '.svn']
+        Pruning ['*\ziptools*selftest', '*\mergeall*\test[12]', '*\mac\DRIVE-METADATA']
+Continue? y
+Walking root tree...
+Finished - press Enter to exit.
+
+
+
+c:\MY-STUFF\Code\mergeall> nuke-cruft-files.py  > test\expected-output-3.0\nuke-cruft-files\live-run\other-removals.txt
+Data set (archive) tree root path? C:\MY-OTHER-STUFF
+List matching cruft files only? n
+Match all "._*" files too (more aggressive)? y
+Match all ".*" files too (most aggressive)? y
+About to run in REMOVE FILES mode
+        On root "C:\MY-OTHER-STUFF"
+        Finding [
+                '.DS_Store',
+                '._.DS_Store',
+                '.localized',
+                '.TemporaryItems',
+                '[dD]esktop.ini',
+                'Thumbs.db',
+                '~*',
+                '._*',
+                '.*'
+                ]
+        Keeping ['.htaccess*', '.login', '.bash*', '.profile', '.svn']
+        Pruning ['*\ziptools*selftest', '*\mergeall*\test[12]', '*\mac\DRIVE-METADATA']
+Continue? y
+Walking root tree...
+Finished - press Enter to exit.
+
+
+
+c:\MY-STUFF\Code\mergeall> nuke-cruft-files.py
+Data set (archive) tree root path? C:\MY-OTHER-STUFF
+List matching cruft files only? y
+Match all "._*" files too (more aggressive)? y
+Match all ".*" files too (most aggressive)? y
+About to run in LIST ONLY mode
+        On root "C:\MY-OTHER-STUFF"
+        Finding [
+                '.DS_Store',
+                '._.DS_Store',
+                '.localized',
+                '.TemporaryItems',
+                '[dD]esktop.ini',
+                'Thumbs.db',
+                '~*',
+                '._*',
+                '.*'
+                ]
+        Keeping ['.htaccess*', '.login', '.bash*', '.profile', '.svn']
+        Pruning ['*\ziptools*selftest', '*\mergeall*\test[12]', '*\mac\DRIVE-METADATA']
+Continue? y
+Walking root tree...
+----------------------------------------
+Summary: 0 cruft items found.
+Number items removed=0, failed=0
+Cruft item counts by name:
+[None]
+----------------------------------------
+Finished - press Enter to exit.

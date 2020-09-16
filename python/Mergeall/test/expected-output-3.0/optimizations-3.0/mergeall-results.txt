@@ -1,0 +1,116 @@
+# IN ALL 3.X OUTPUTS:
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 58811, folders: 3559
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+
+
+
+C:\Users\me\Desktop\temp>py -3.5 c:\MY-STUFF\Code\mergeall\mergeall.py c:\MY-STUFF c:\MY-STUFF -report > new-35
+
+C:\Users\me\Desktop\temp>py -3.3 c:\MY-STUFF\Code\mergeall\mergeall.py c:\MY-STUFF c:\MY-STUFF -report > new-33
+
+C:\Users\me\Desktop\temp>py -3.5 c:\MY-STUFF\Code\mergeall\prior-mergeall.py c:\MY-STUFF c:\MY-STUFF -report > old-35
+
+C:\Users\me\Desktop\temp>py -3.3 c:\MY-STUFF\Code\mergeall\prior-mergeall.py c:\MY-STUFF c:\MY-STUFF -report > old-33
+
+C:\Users\me\Desktop\temp>py -2.7 c:\MY-STUFF\Code\mergeall\mergeall.py c:\MY-STUFF c:\MY-STUFF -report > new-27
+
+
+
+C:\Users\me\Desktop\temp>fc new-33 new-35
+Comparing files new-33 and NEW-35
+***** new-33
+Starting.
+-------------------------------------------------------------------------------
+***** NEW-35
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+-------------------------------------------------------------------------------
+*****
+
+***** new-33
+comparing [c:\MY-STUFF\__more__\__etc__\web-browser-favorites] [c:\MY-STUFF\__more__\__etc__\web-browser-favorites]
+Phase runtime: 13.751886544870226
+-------------------------------------------------------------------------------
+***** NEW-35
+comparing [c:\MY-STUFF\__more__\__etc__\web-browser-favorites] [c:\MY-STUFF\__more__\__etc__\web-browser-favorites]
+Phase runtime: 7.234210128916954
+-------------------------------------------------------------------------------
+*****
+
+
+C:\Users\me\Desktop\temp>fc old-33 old-35
+Comparing files old-33 and OLD-35
+***** old-33
+Starting.
+-------------------------------------------------------------------------------
+***** OLD-35
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+-------------------------------------------------------------------------------
+*****
+
+***** old-33
+comparing [c:\MY-STUFF\__more__\__etc__\web-browser-favorites] [c:\MY-STUFF\__more__\__etc__\web-browser-favorites]
+Phase runtime: 18.827809682431003
+-------------------------------------------------------------------------------
+***** OLD-35
+comparing [c:\MY-STUFF\__more__\__etc__\web-browser-favorites] [c:\MY-STUFF\__more__\__etc__\web-browser-favorites]
+Phase runtime: 7.273870455541758
+-------------------------------------------------------------------------------
+*****
+
+
+C:\Users\me\Desktop\temp>fc new-33 old-33
+Comparing files new-33 and OLD-33
+***** new-33
+comparing [c:\MY-STUFF\__more__\__etc__\web-browser-favorites] [c:\MY-STUFF\__more__\__etc__\web-browser-favorites]
+Phase runtime: 13.751886544870226
+-------------------------------------------------------------------------------
+***** OLD-33
+comparing [c:\MY-STUFF\__more__\__etc__\web-browser-favorites] [c:\MY-STUFF\__more__\__etc__\web-browser-favorites]
+Phase runtime: 18.827809682431003
+-------------------------------------------------------------------------------
+*****
+
+
+C:\Users\me\Desktop\temp>fc new-35 old-35
+Comparing files new-35 and OLD-35
+***** new-35
+comparing [c:\MY-STUFF\__more__\__etc__\web-browser-favorites] [c:\MY-STUFF\__more__\__etc__\web-browser-favorites]
+Phase runtime: 7.234210128916954
+-------------------------------------------------------------------------------
+***** OLD-35
+comparing [c:\MY-STUFF\__more__\__etc__\web-browser-favorites] [c:\MY-STUFF\__more__\__etc__\web-browser-favorites]
+Phase runtime: 7.273870455541758
+-------------------------------------------------------------------------------
+*****
+
+
+C:\Users\me\Desktop\temp>fc new-35 new-27
+Comparing files new-35 and NEW-27
+***** new-35
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+-------------------------------------------------------------------------------
+***** NEW-27
+Starting.
+-------------------------------------------------------------------------------
+*****
+
+...[Unicode filename name-replacement diffs removed]...
+
+***** new-35
+comparing [c:\MY-STUFF\__more__\__etc__\web-browser-favorites] [c:\MY-STUFF\__more__\__etc__\web-browser-favorites]
+Phase runtime: 7.234210128916954
+-------------------------------------------------------------------------------
+***** NEW-27
+comparing [c:\MY-STUFF\__more__\__etc__\web-browser-favorites] [c:\MY-STUFF\__more__\__etc__\web-browser-favorites]
+Phase runtime: 10.6050045914
+-------------------------------------------------------------------------------
+

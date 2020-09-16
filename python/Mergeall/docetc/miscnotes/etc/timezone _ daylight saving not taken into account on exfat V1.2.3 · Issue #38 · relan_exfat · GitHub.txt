@@ -1,0 +1,5 @@
+For a thread concerning DST rollover and timezone issues in the exFAT support 
+on Linux (the fuse-exfat package), as well as their apparent resolution in late
+2016, see the following page (HTML omitted here to protect the innocent...):
+
+    https://github.com/relan/exfat/issues/38

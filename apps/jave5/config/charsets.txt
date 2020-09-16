@@ -1,0 +1,29 @@
+#############################################################################  
+# charsets.txt
+#
+# this file contains all character sets one can choose in JavE
+# Menu View->Mark Illegal Characters
+#
+# File format:  
+#  * empty lines or lines starting with # are being ignored
+#  * every character set consists of two subsequent lines: Name and Set
+#    (have a look at the examples below)
+#  * You do not have to specify [space] as correct character
+#    it is automatically included.
+#############################################################################  
+
+  
+#############################################################################  
+# 1) On german bank statements only a limited set of characters can be used:
+#
+German Bank Statement
+ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$%&/`*´+-,.?^
+ 
+      
+  
+#############################################################################  
+# Pure Ascii does  not have to be specified, because it is hard coded
+# However  it is here as  a template for your own creations
+#
+#Pure ASCII
+#!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~

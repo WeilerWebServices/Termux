@@ -1,0 +1,62 @@
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [copied-by-mergeall] [xfer-symlinks-winpaths]
+excluding copied-by-mergeall\__bkp__
+excluding xfer-symlinks-winpaths\__bkp__
+comparing [copied-by-mergeall\mergeall-logs] [xfer-symlinks-winpaths\mergeall-logs]
+comparing [copied-by-mergeall\symlinks] [xfer-symlinks-winpaths\symlinks]
+comparing [copied-by-mergeall\symlinks\dir] [xfer-symlinks-winpaths\symlinks\dir]
+comparing [copied-by-mergeall\winpaths] [xfer-symlinks-winpaths\winpaths]
+comparing [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll] [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll]
+comparing [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo] [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo]
+comparing [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn] [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn]
+comparing [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg] [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg]
+comparing [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp] [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp]
+comparing [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa] [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]
+comparing [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\tttttttttttttttttttttttttttttttttttttttttttttttttt] [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\tttttttttttttttttttttttttttttttttttttttttttttttttt]
+comparing [copied-by-mergeall\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\tttttttttttttttttttttttttttttttttttttttttttttttttt\hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh] [xfer-symlinks-winpaths\winpaths\llllllllllllllllllllllllllllllllllllllllllllllllll\oooooooooooooooooooooooooooooooooooooooooooooooooo\nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn\gggggggggggggggggggggggggggggggggggggggggggggggggg\pppppppppppppppppppppppppppppppppppppppppppppppppp\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\tttttttttttttttttttttttttttttttttttttttttttttttttt\hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh]
+Phase runtime: 0.007440238376948945
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('badlink',
+  'copied-by-mergeall\\symlinks',
+  'xfer-symlinks-winpaths\\symlinks',
+  'linkpaths')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+....backing up badlink to xfer-symlinks-winpaths\__bkp__\date170414-time162946\symlinks\badlink
+propagating symlink xfer-symlinks-winpaths\symlinks\badlink
+propagating symlink copied-by-mergeall\symlinks\badlink
+replaced same file, using FROM copied-by-mergeall\symlinks\badlink
+Phase runtime: 0.0025032120971316667
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 6, folders: 13
+Differences => samefile: 1, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 1
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.

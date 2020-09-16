@@ -1,0 +1,282 @@
+# Windows, all on AC power to avoid cpu-throttling skew
+
+C:\Users\...\Desktop\test\OLDMERGEALL\mergeall>cd c:\MY-STUFF\Code
+
+c:\MY-STUFF\Code>cd mergeall
+
+
+================================================================================
+
+# start in non-opt cmp mode
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | more
+<built-in function perf_counter>
+Starting.
+-------------------------------------------------------------------------------
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [C:\MY-STUFF] [C:\MY-STUFF]
+excluding C:\MY-STUFF\__bkp__
+excluding C:\MY-STUFF\__bkp__
+comparing [C:\MY-STUFF\Books] [C:\MY-STUFF\Books]
+...
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.643389974636033
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.628509781498478
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.646736161000092
+
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | more
+<built-in function perf_counter>
+Starting.
+-------------------------------------------------------------------------------
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [C:\MY-STUFF] [C:\MY-STUFF]
+excluding C:\MY-STUFF\__bkp__
+excluding C:\MY-STUFF\__bkp__
+comparing [C:\MY-STUFF\Books] [C:\MY-STUFF\Books]
+...
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.692047248327395
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.606337570435096
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.703027059783697
+
+
+================================================================================
+
+# changed cmp mode to scandir() opt
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 11.317095508281163
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 11.245026170334423
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 11.167123120305344
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | more
+Using Python 3.5+ os.scandir() optimized variant.
+<built-in function perf_counter>
+Starting.
+-------------------------------------------------------------------------------
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [C:\MY-STUFF] [C:\MY-STUFF]
+excluding C:\MY-STUFF\__bkp__
+excluding C:\MY-STUFF\__bkp__
+comparing [C:\MY-STUFF\Books] [C:\MY-STUFF\Books]
+...
+
+
+================================================================================
+
+# more non-opt
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | more
+<built-in function perf_counter>
+Starting.
+-------------------------------------------------------------------------------
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [C:\MY-STUFF] [C:\MY-STUFF]
+excluding C:\MY-STUFF\__bkp__
+excluding C:\MY-STUFF\__bkp__
+comparing [C:\MY-STUFF\Books] [C:\MY-STUFF\Books]
+...
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 11.12451996618138
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.028088514864065
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.127602250013439
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.125379115535551
+
+
+================================================================================
+
+# more opt
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | more
+Using Python 3.5+ os.scandir() optimized variant.
+<built-in function perf_counter>
+Starting.
+-------------------------------------------------------------------------------
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [C:\MY-STUFF] [C:\MY-STUFF]
+excluding C:\MY-STUFF\__bkp__
+excluding C:\MY-STUFF\__bkp__
+comparing [C:\MY-STUFF\Books] [C:\MY-STUFF\Books]
+...
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.679140948387506
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.620710972969539
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.665687295047917
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.641855918991697
+
+
+================================================================================
+
+# more non-opt
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | more
+<built-in function perf_counter>
+Starting.
+-------------------------------------------------------------------------------
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [C:\MY-STUFF] [C:\MY-STUFF]
+excluding C:\MY-STUFF\__bkp__
+excluding C:\MY-STUFF\__bkp__
+comparing [C:\MY-STUFF\Books] [C:\MY-STUFF\Books]
+...
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 9.996507201118165
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.017853983706463
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.056540140063825
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.098403878389803
+
+
+================================================================================
+
+# more opt
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | more
+Using Python 3.5+ os.scandir() optimized variant.
+<built-in function perf_counter>
+Starting.
+-------------------------------------------------------------------------------
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [C:\MY-STUFF] [C:\MY-STUFF]
+excluding C:\MY-STUFF\__bkp__
+excluding C:\MY-STUFF\__bkp__
+comparing [C:\MY-STUFF\Books] [C:\MY-STUFF\Books]
+...
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.683138094330493
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.647389075412592
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.60627403834406
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.662315207139052
+
+
+================================================================================
+
+# more non-opt
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | more
+<built-in function perf_counter>
+Starting.
+-------------------------------------------------------------------------------
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [C:\MY-STUFF] [C:\MY-STUFF]
+excluding C:\MY-STUFF\__bkp__
+excluding C:\MY-STUFF\__bkp__
+comparing [C:\MY-STUFF\Books] [C:\MY-STUFF\Books]
+...
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.21332365690716
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.012573489524536
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.05545765097424
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | findstr Phase
+Phase runtime: 10.097577961206328
+
+c:\MY-STUFF\Code\mergeall>
+
+
+================================================================================
+
+# verify scandir opt version being used or not
+
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | more
+<built-in function perf_counter>
+Starting.
+-------------------------------------------------------------------------------
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [C:\MY-STUFF] [C:\MY-STUFF]
+excluding C:\MY-STUFF\__bkp__
+excluding C:\MY-STUFF\__bkp__
+comparing [C:\MY-STUFF\Books] [C:\MY-STUFF\Books]
+comparing [C:\MY-STUFF\Books\Dev] [C:\MY-STUFF\Books\Dev]
+comparing [C:\MY-STUFF\Books\Dev\3E] [C:\MY-STUFF\Books\Dev\3E]
+comparing [C:\MY-STUFF\Books\Dev\3E\LP3E] [C:\MY-STUFF\Books\Dev\3E\LP3E]
+comparing [C:\MY-STUFF\Books\Dev\3E\PP3E] [C:\MY-STUFF\Books\Dev\3E\PP3E]
+comparing [C:\MY-STUFF\Books\Dev\3E\Pyref3E] [C:\MY-STUFF\Books\Dev\3E\Pyref3E]
+
+
+c:\MY-STUFF\Code\mergeall>py -3 mergeall.py C:\MY-STUFF C:\MY-STUFF -skipcruft -report | more
+Using Python 3.5+ os.scandir() optimized variant.
+<built-in function perf_counter>
+Starting.
+-------------------------------------------------------------------------------
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+scandir dirs
+comparing [C:\MY-STUFF] [C:\MY-STUFF]
+excluding C:\MY-STUFF\__bkp__
+excluding C:\MY-STUFF\__bkp__
+scandir dirs
+comparing [C:\MY-STUFF\Books] [C:\MY-STUFF\Books]
+scandir dirs
+comparing [C:\MY-STUFF\Books\Dev] [C:\MY-STUFF\Books\Dev]
+scandir dirs
+comparing [C:\MY-STUFF\Books\Dev\3E] [C:\MY-STUFF\Books\Dev\3E]
+scandir dirs
+comparing [C:\MY-STUFF\Books\Dev\3E\LP3E] [C:\MY-STUFF\Books\Dev\3E\LP3E]
+scandir() files
+scandir() files
+scandir() files
+scandir dirs
+comparing [C:\MY-STUFF\Books\Dev\3E\PP3E] [C:\MY-STUFF\Books\Dev\3E\PP3E]
+scandir() files
+scandir() files
+scandir() files
+scandir dirs
+comparing [C:\MY-STUFF\Books\Dev\3E\Pyref3E] [C:\MY-STUFF\Books\Dev\3E\Pyref3E]

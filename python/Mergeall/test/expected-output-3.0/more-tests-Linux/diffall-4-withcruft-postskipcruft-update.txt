@@ -1,0 +1,52 @@
+--------------------
+Comparing test1 to test2
+*UNIQUE items in test1:
+... .DS_Store
+... ._.TemporaryItems
+*UNIQUE items in test2:
+... Desktop.ini
+... __bkp__
+... $RECYCLE.BIN
+... .Trash-1000
+Comparing contents
+f3.txt matches
+f1.txt matches
+f6.txt matches
+f0.txt matches
+m1 matches
+--------------------
+Comparing test1/d1 to test2/d1
+*UNIQUE items in test1/d1:
+... ._someimage.png
+... ._.DS_Store
+Comparing contents
+fa1.txt matches
+--------------------
+Comparing test1/m2 to test2/m2
+*UNIQUE items in test1/m2:
+... .DS_Store
+Comparing contents
+.htaccess matches
+--------------------
+Comparing test1/d3 to test2/d3
+*UNIQUE items in test1/d3:
+... .Trashes
+... .DS_Store
+... .fseventsd
+*UNIQUE items in test2/d3:
+... desktop.ini
+... Thumbs.db
+Comparing contents
+f3.txt matches
+f2.txt matches
+f4.txt matches
+.htaccess matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 4, Files checked: 11, Files skipped: 0
+Diffs found: 4
+- items UNIQUE at [test1] - [test2]
+- items UNIQUE at [test1/d1] - [test2/d1]
+- items UNIQUE at [test1/m2] - [test2/m2]
+- items UNIQUE at [test1/d3] - [test2/d3]
+End of report.

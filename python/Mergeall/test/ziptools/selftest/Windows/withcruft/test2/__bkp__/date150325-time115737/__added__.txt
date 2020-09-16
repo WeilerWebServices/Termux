@@ -1,0 +1,3 @@
+spam6
+spam7.txt
+d1\spam8.txt

@@ -1,0 +1,33 @@
+----------------------------------------------------------------------------------
+# os.path.abspath() versus os.path.realpath() [latter dereferences links]
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1$ ls -l 
+total 32
+drwxr-xr-x  3 blue  wheel  102 Jan 28 17:40 dir
+lrwxr-xr-x  1 blue  wheel    3 Feb  9 06:43 dirlink -> dir
+-rw-r--r--  1 blue  wheel    5 Jan 28 17:32 file
+lrwxr-xr-x  1 blue  wheel    4 Feb  9 06:43 filelink -> file
+lrwxr-xr-x  1 blue  wheel   14 Feb  9 06:43 nestedfilelink -> dir/nestedfile
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1$ py3
+>>> import os
+>>> for item in ('file', 'dir', 'filelink', 'dirlink', 'nestedfilelink'):
+...     print()
+...     print(os.path.abspath(item))
+...     print(os.path.realpath(item))
+... 
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/file
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/file
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/dir
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/dir
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/filelink
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/file
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/dirlink
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/dir
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/nestedfilelink
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/test1/dir/nestedfile

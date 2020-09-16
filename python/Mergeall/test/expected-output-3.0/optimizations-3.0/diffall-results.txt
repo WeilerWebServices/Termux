@@ -1,0 +1,135 @@
+# IN ALL OUTPUT FILES:
+--------------------
+Comparing c:\MY-STUFF to c:\MY-STUFF
+Directory lists are identical
+Comparing contents
+--------------------
+[...etc...]
+--------------------
+Comparing c:\MY-STUFF\__more__\__etc__\web-browser-favorites to c:\MY-STUFF\__more__\__etc__\web-browser-favorites
+Directory lists are identical
+Comparing contents
+bookmark.htm matches
+================================================================================
+Runtime hrs:mins:secs = 0:4:18.88
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+No diffs found.
+End of report.
+
+
+
+C:\Users\me\Desktop\temp>py -3.5 c:\MY-STUFF\Code\mergeall\diffall.py c:\MY-STUFF c:\MY-STUFF > new-35
+
+C:\Users\me\Desktop\temp>py -3.5 c:\MY-STUFF\Code\mergeall\prior-diffall.py c:\MY-STUFF c:\MY-STUFF > old-35
+
+C:\Users\me\Desktop\temp>py -3.5 c:\MY-STUFF\Code\mergeall\diffall.py c:\MY-STUFF c:\MY-STUFF > new-35-2
+
+C:\Users\me\Desktop\temp>py -3.5 c:\MY-STUFF\Code\mergeall\prior-diffall.py c:\MY-STUFF c:\MY-STUFF > old-35-2
+
+C:\Users\me\Desktop\temp>py -3.5 c:\MY-STUFF\Code\mergeall\diffall.py c:\MY-STUFF c:\MY-STUFF > new-35-3
+
+C:\Users\me\Desktop\temp>py -3.5 c:\MY-STUFF\Code\mergeall\prior-diffall.py c:\MY-STUFF c:\MY-STUFF > old-35-3
+
+
+
+C:\Users\me\Desktop\temp>fc new-35 new-35-2
+Comparing files new-35 and NEW-35-2
+***** new-35
+================================================================================
+Runtime hrs:mins:secs = 0:4:18.88
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+***** NEW-35-2
+================================================================================
+Runtime hrs:mins:secs = 0:4:20.89
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+*****
+
+
+C:\Users\me\Desktop\temp>fc new-35 new-35-3
+Comparing files new-35 and NEW-35-3
+***** new-35
+================================================================================
+Runtime hrs:mins:secs = 0:4:18.88
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+***** NEW-35-3
+================================================================================
+Runtime hrs:mins:secs = 0:4:21.61
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+*****
+
+
+C:\Users\me\Desktop\temp>
+C:\Users\me\Desktop\temp>fc old-35 old-35-2
+Comparing files old-35 and OLD-35-2
+***** old-35
+================================================================================
+Runtime hrs:mins:secs = 0:4:23.70
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+***** OLD-35-2
+================================================================================
+Runtime hrs:mins:secs = 0:4:21.33
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+*****
+
+
+C:\Users\me\Desktop\temp>fc old-35-2 old-35-3
+Comparing files old-35-2 and OLD-35-3
+***** old-35-2
+================================================================================
+Runtime hrs:mins:secs = 0:4:21.33
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+***** OLD-35-3
+================================================================================
+Runtime hrs:mins:secs = 0:4:22.66
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+*****
+
+
+C:\Users\me\Desktop\temp>fc new-35 old-35
+Comparing files new-35 and OLD-35
+***** new-35
+================================================================================
+Runtime hrs:mins:secs = 0:4:18.88
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+***** OLD-35
+================================================================================
+Runtime hrs:mins:secs = 0:4:23.70
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+*****
+
+
+C:\Users\me\Desktop\temp>fc new-35-2 old-35-2
+Comparing files new-35-2 and OLD-35-2
+***** new-35-2
+================================================================================
+Runtime hrs:mins:secs = 0:4:20.89
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+***** OLD-35-2
+================================================================================
+Runtime hrs:mins:secs = 0:4:21.33
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+*****
+
+
+C:\Users\me\Desktop\temp>fc new-35-3 old-35-3
+Comparing files new-35-3 and OLD-35-3
+***** new-35-3
+================================================================================
+Runtime hrs:mins:secs = 0:4:21.61
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+***** OLD-35-3
+================================================================================
+Runtime hrs:mins:secs = 0:4:22.66
+Dirs checked 3559, Files checked: 58811, Files skipped: 0
+*****
+
+
+
+C:\Users\me\Desktop\temp>py -2.7 c:\MY-STUFF\Code\mergeall\prior-diffall.py c:\MY-STUFF c:\MY-STUFF > old-27
+
+================================================================================
+Runtime hrs:mins:secs = 0:4:19.08
+Dirs checked 3556, Files checked: 58517, Files skipped: 0
+Diffs found: 92
+[Unicode filenames counted as MISSED]
+

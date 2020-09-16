@@ -1,0 +1,493 @@
+
+
+**** CREATING ****
+
+Zipping ['..\\test1', '..\\test2'] to selftest\Windows\withcruft\ziptest.zip
+Adding folder ..\test1
+Adding  file  ..\test1\.DS_Store
+Adding  file  ..\test1\._.TemporaryItems
+Adding  file  ..\test1\f0.txt
+Adding  file  ..\test1\f1.txt
+Adding  file  ..\test1\f3.txt
+Adding  file  ..\test1\f6.txt
+Adding  file  ..\test1\m1
+Adding folder ..\test1\d1
+Adding  file  ..\test1\d1\._.DS_Store
+Adding  file  ..\test1\d1\._someimage.png
+Adding  file  ..\test1\d1\fa1.txt
+Adding folder ..\test1\d3
+Adding  file  ..\test1\d3\.DS_Store
+Adding  file  ..\test1\d3\.htaccess
+Adding  file  ..\test1\d3\.Trashes
+Adding  file  ..\test1\d3\f2.txt
+Adding  file  ..\test1\d3\f3.txt
+Adding  file  ..\test1\d3\f4.txt
+Adding folder ..\test1\d3\.fseventsd
+Adding  file  ..\test1\d3\.fseventsd\no_log
+Adding folder ..\test1\m2
+Adding  file  ..\test1\m2\.DS_Store
+Adding  file  ..\test1\m2\.htaccess
+Adding folder ..\test2
+Adding  file  ..\test2\Desktop.ini
+Adding  file  ..\test2\f0.txt
+Adding  file  ..\test2\f2.txt
+Adding  file  ..\test2\f3.txt
+Adding  file  ..\test2\f6.txt
+Adding  file  ..\test2\m2
+Adding folder ..\test2\$RECYCLE.BIN
+Adding folder ..\test2\.Trash-1000
+Adding folder ..\test2\d2
+Adding folder ..\test2\d3
+Adding  file  ..\test2\d3\.htaccess
+Adding  file  ..\test2\d3\desktop.ini
+Adding  file  ..\test2\d3\f2.txt
+Adding  file  ..\test2\d3\f3.txt
+Adding  file  ..\test2\d3\f5.txt
+Adding  file  ..\test2\d3\Thumbs.db
+Adding folder ..\test2\m1
+Adding folder ..\test2\__bkp__
+Adding  file  ..\test2\__bkp__\README.txt
+Adding folder ..\test2\__bkp__\date150325-time115227
+Adding  file  ..\test2\__bkp__\date150325-time115227\f2.txt
+Adding  file  ..\test2\__bkp__\date150325-time115227\f3.txt
+Adding  file  ..\test2\__bkp__\date150325-time115227\m2
+Adding  file  ..\test2\__bkp__\date150325-time115227\__added__.txt
+Adding folder ..\test2\__bkp__\date150325-time115227\d2
+Adding folder ..\test2\__bkp__\date150325-time115227\d3
+Adding  file  ..\test2\__bkp__\date150325-time115227\d3\f3.txt
+Adding  file  ..\test2\__bkp__\date150325-time115227\d3\f5.txt
+Adding folder ..\test2\__bkp__\date150325-time115227\m1
+Adding folder ..\test2\__bkp__\date150325-time115317
+Adding  file  ..\test2\__bkp__\date150325-time115317\spam.txt
+Adding folder ..\test2\__bkp__\date150325-time115355
+Adding  file  ..\test2\__bkp__\date150325-time115355\__added__.txt
+Adding folder ..\test2\__bkp__\date150325-time115417
+Adding  file  ..\test2\__bkp__\date150325-time115417\__added__.txt
+Adding folder ..\test2\__bkp__\date150325-time115452
+Adding  file  ..\test2\__bkp__\date150325-time115452\spam2.txt
+Adding  file  ..\test2\__bkp__\date150325-time115452\__added__.txt
+Adding folder ..\test2\__bkp__\date150325-time115541
+Adding  file  ..\test2\__bkp__\date150325-time115541\f0.txt
+Adding folder ..\test2\__bkp__\date150325-time115549
+Adding  file  ..\test2\__bkp__\date150325-time115549\f0.txt
+Adding folder ..\test2\__bkp__\date150325-time115557
+Adding  file  ..\test2\__bkp__\date150325-time115557\f0.txt
+Adding folder ..\test2\__bkp__\date150325-time115607
+Adding  file  ..\test2\__bkp__\date150325-time115607\f0.txt
+Adding folder ..\test2\__bkp__\date150325-time115737
+Adding  file  ..\test2\__bkp__\date150325-time115737\f0.txt
+Adding  file  ..\test2\__bkp__\date150325-time115737\__added__.txt
+
+
+**** EXTRACTING ****
+
+Unzipping from selftest\Windows\withcruft\ziptest.zip to selftest\Windows\withcruft
+Extracted ../test1/
+		=> selftest\Windows\withcruft\test1
+Extracted ../test1/.DS_Store
+		=> selftest\Windows\withcruft\test1\.DS_Store
+Extracted ../test1/._.TemporaryItems
+		=> selftest\Windows\withcruft\test1\._.TemporaryItems
+Extracted ../test1/f0.txt
+		=> selftest\Windows\withcruft\test1\f0.txt
+Extracted ../test1/f1.txt
+		=> selftest\Windows\withcruft\test1\f1.txt
+Extracted ../test1/f3.txt
+		=> selftest\Windows\withcruft\test1\f3.txt
+Extracted ../test1/f6.txt
+		=> selftest\Windows\withcruft\test1\f6.txt
+Extracted ../test1/m1
+		=> selftest\Windows\withcruft\test1\m1
+Extracted ../test1/d1/
+		=> selftest\Windows\withcruft\test1\d1
+Extracted ../test1/d1/._.DS_Store
+		=> selftest\Windows\withcruft\test1\d1\._.DS_Store
+Extracted ../test1/d1/._someimage.png
+		=> selftest\Windows\withcruft\test1\d1\._someimage.png
+Extracted ../test1/d1/fa1.txt
+		=> selftest\Windows\withcruft\test1\d1\fa1.txt
+Extracted ../test1/d3/
+		=> selftest\Windows\withcruft\test1\d3
+Extracted ../test1/d3/.DS_Store
+		=> selftest\Windows\withcruft\test1\d3\.DS_Store
+Extracted ../test1/d3/.htaccess
+		=> selftest\Windows\withcruft\test1\d3\.htaccess
+Extracted ../test1/d3/.Trashes
+		=> selftest\Windows\withcruft\test1\d3\.Trashes
+Extracted ../test1/d3/f2.txt
+		=> selftest\Windows\withcruft\test1\d3\f2.txt
+Extracted ../test1/d3/f3.txt
+		=> selftest\Windows\withcruft\test1\d3\f3.txt
+Extracted ../test1/d3/f4.txt
+		=> selftest\Windows\withcruft\test1\d3\f4.txt
+Extracted ../test1/d3/.fseventsd/
+		=> selftest\Windows\withcruft\test1\d3\.fseventsd
+Extracted ../test1/d3/.fseventsd/no_log
+		=> selftest\Windows\withcruft\test1\d3\.fseventsd\no_log
+Extracted ../test1/m2/
+		=> selftest\Windows\withcruft\test1\m2
+Extracted ../test1/m2/.DS_Store
+		=> selftest\Windows\withcruft\test1\m2\.DS_Store
+Extracted ../test1/m2/.htaccess
+		=> selftest\Windows\withcruft\test1\m2\.htaccess
+Extracted ../test2/
+		=> selftest\Windows\withcruft\test2
+Extracted ../test2/Desktop.ini
+		=> selftest\Windows\withcruft\test2\Desktop.ini
+Extracted ../test2/f0.txt
+		=> selftest\Windows\withcruft\test2\f0.txt
+Extracted ../test2/f2.txt
+		=> selftest\Windows\withcruft\test2\f2.txt
+Extracted ../test2/f3.txt
+		=> selftest\Windows\withcruft\test2\f3.txt
+Extracted ../test2/f6.txt
+		=> selftest\Windows\withcruft\test2\f6.txt
+Extracted ../test2/m2
+		=> selftest\Windows\withcruft\test2\m2
+Extracted ../test2/$RECYCLE.BIN/
+		=> selftest\Windows\withcruft\test2\$RECYCLE.BIN
+Extracted ../test2/.Trash-1000/
+		=> selftest\Windows\withcruft\test2\.Trash-1000
+Extracted ../test2/d2/
+		=> selftest\Windows\withcruft\test2\d2
+Extracted ../test2/d3/
+		=> selftest\Windows\withcruft\test2\d3
+Extracted ../test2/d3/.htaccess
+		=> selftest\Windows\withcruft\test2\d3\.htaccess
+Extracted ../test2/d3/desktop.ini
+		=> selftest\Windows\withcruft\test2\d3\desktop.ini
+Extracted ../test2/d3/f2.txt
+		=> selftest\Windows\withcruft\test2\d3\f2.txt
+Extracted ../test2/d3/f3.txt
+		=> selftest\Windows\withcruft\test2\d3\f3.txt
+Extracted ../test2/d3/f5.txt
+		=> selftest\Windows\withcruft\test2\d3\f5.txt
+Extracted ../test2/d3/Thumbs.db
+		=> selftest\Windows\withcruft\test2\d3\Thumbs.db
+Extracted ../test2/m1/
+		=> selftest\Windows\withcruft\test2\m1
+Extracted ../test2/__bkp__/
+		=> selftest\Windows\withcruft\test2\__bkp__
+Extracted ../test2/__bkp__/README.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\README.txt
+Extracted ../test2/__bkp__/date150325-time115227/
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115227
+Extracted ../test2/__bkp__/date150325-time115227/f2.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115227\f2.txt
+Extracted ../test2/__bkp__/date150325-time115227/f3.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115227\f3.txt
+Extracted ../test2/__bkp__/date150325-time115227/m2
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115227\m2
+Extracted ../test2/__bkp__/date150325-time115227/__added__.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115227\__added__.txt
+Extracted ../test2/__bkp__/date150325-time115227/d2/
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115227\d2
+Extracted ../test2/__bkp__/date150325-time115227/d3/
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115227\d3
+Extracted ../test2/__bkp__/date150325-time115227/d3/f3.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115227\d3\f3.txt
+Extracted ../test2/__bkp__/date150325-time115227/d3/f5.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115227\d3\f5.txt
+Extracted ../test2/__bkp__/date150325-time115227/m1/
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115227\m1
+Extracted ../test2/__bkp__/date150325-time115317/
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115317
+Extracted ../test2/__bkp__/date150325-time115317/spam.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115317\spam.txt
+Extracted ../test2/__bkp__/date150325-time115355/
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115355
+Extracted ../test2/__bkp__/date150325-time115355/__added__.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115355\__added__.txt
+Extracted ../test2/__bkp__/date150325-time115417/
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115417
+Extracted ../test2/__bkp__/date150325-time115417/__added__.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115417\__added__.txt
+Extracted ../test2/__bkp__/date150325-time115452/
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115452
+Extracted ../test2/__bkp__/date150325-time115452/spam2.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115452\spam2.txt
+Extracted ../test2/__bkp__/date150325-time115452/__added__.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115452\__added__.txt
+Extracted ../test2/__bkp__/date150325-time115541/
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115541
+Extracted ../test2/__bkp__/date150325-time115541/f0.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115541\f0.txt
+Extracted ../test2/__bkp__/date150325-time115549/
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115549
+Extracted ../test2/__bkp__/date150325-time115549/f0.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115549\f0.txt
+Extracted ../test2/__bkp__/date150325-time115557/
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115557
+Extracted ../test2/__bkp__/date150325-time115557/f0.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115557\f0.txt
+Extracted ../test2/__bkp__/date150325-time115607/
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115607
+Extracted ../test2/__bkp__/date150325-time115607/f0.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115607\f0.txt
+Extracted ../test2/__bkp__/date150325-time115737/
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115737
+Extracted ../test2/__bkp__/date150325-time115737/f0.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115737\f0.txt
+Extracted ../test2/__bkp__/date150325-time115737/__added__.txt
+		=> selftest\Windows\withcruft\test2\__bkp__\date150325-time115737\__added__.txt
+
+
+**** COMPARING MODTIMES: test1 ****
+
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [..\test1] [selftest\Windows\withcruft\test1]
+comparing [..\test1\d1] [selftest\Windows\withcruft\test1\d1]
+comparing [..\test1\d3] [selftest\Windows\withcruft\test1\d3]
+comparing [..\test1\d3\.fseventsd] [selftest\Windows\withcruft\test1\d3\.fseventsd]
+comparing [..\test1\m2] [selftest\Windows\withcruft\test1\m2]
+Phase runtime: 0.0006939757528781667
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 19, folders: 5
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+**** COMPARING MODTIMES: test2 ****
+
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [..\test2] [selftest\Windows\withcruft\test2]
+excluding ..\test2\__bkp__
+excluding selftest\Windows\withcruft\test2\__bkp__
+comparing [..\test2\$RECYCLE.BIN] [selftest\Windows\withcruft\test2\$RECYCLE.BIN]
+comparing [..\test2\.Trash-1000] [selftest\Windows\withcruft\test2\.Trash-1000]
+comparing [..\test2\d2] [selftest\Windows\withcruft\test2\d2]
+comparing [..\test2\d3] [selftest\Windows\withcruft\test2\d3]
+comparing [..\test2\m1] [selftest\Windows\withcruft\test2\m1]
+Phase runtime: 0.0007140130809542264
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 12, folders: 6
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
+
+
+**** COMPARING CONTENT: test1 ****
+
+--------------------
+Comparing ..\test1 to selftest\Windows\withcruft\test1
+Directory lists are identical
+Comparing contents
+.DS_Store matches
+._.TemporaryItems matches
+f0.txt matches
+f1.txt matches
+f3.txt matches
+f6.txt matches
+m1 matches
+--------------------
+Comparing ..\test1\d1 to selftest\Windows\withcruft\test1\d1
+Directory lists are identical
+Comparing contents
+._.DS_Store matches
+._someimage.png matches
+fa1.txt matches
+--------------------
+Comparing ..\test1\d3 to selftest\Windows\withcruft\test1\d3
+Directory lists are identical
+Comparing contents
+.DS_Store matches
+.htaccess matches
+.Trashes matches
+f2.txt matches
+f3.txt matches
+f4.txt matches
+--------------------
+Comparing ..\test1\d3\.fseventsd to selftest\Windows\withcruft\test1\d3\.fseventsd
+Directory lists are identical
+Comparing contents
+no_log matches
+--------------------
+Comparing ..\test1\m2 to selftest\Windows\withcruft\test1\m2
+Directory lists are identical
+Comparing contents
+.DS_Store matches
+.htaccess matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.02
+Dirs checked 5, Files checked: 19, Files skipped: 0
+No diffs found.
+End of report.
+
+
+**** COMPARING CONTENT: test2 ****
+
+--------------------
+Comparing ..\test2 to selftest\Windows\withcruft\test2
+Directory lists are identical
+Comparing contents
+Desktop.ini matches
+f0.txt matches
+f2.txt matches
+f3.txt matches
+f6.txt matches
+m2 matches
+--------------------
+Comparing ..\test2\$RECYCLE.BIN to selftest\Windows\withcruft\test2\$RECYCLE.BIN
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing ..\test2\.Trash-1000 to selftest\Windows\withcruft\test2\.Trash-1000
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing ..\test2\d2 to selftest\Windows\withcruft\test2\d2
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing ..\test2\d3 to selftest\Windows\withcruft\test2\d3
+Directory lists are identical
+Comparing contents
+.htaccess matches
+desktop.ini matches
+f2.txt matches
+f3.txt matches
+f5.txt matches
+Thumbs.db matches
+--------------------
+Comparing ..\test2\m1 to selftest\Windows\withcruft\test2\m1
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing ..\test2\__bkp__ to selftest\Windows\withcruft\test2\__bkp__
+Directory lists are identical
+Comparing contents
+README.txt matches
+--------------------
+Comparing ..\test2\__bkp__\date150325-time115227 to selftest\Windows\withcruft\test2\__bkp__\date150325-time115227
+Directory lists are identical
+Comparing contents
+f2.txt matches
+f3.txt matches
+m2 matches
+__added__.txt matches
+--------------------
+Comparing ..\test2\__bkp__\date150325-time115227\d2 to selftest\Windows\withcruft\test2\__bkp__\date150325-time115227\d2
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing ..\test2\__bkp__\date150325-time115227\d3 to selftest\Windows\withcruft\test2\__bkp__\date150325-time115227\d3
+Directory lists are identical
+Comparing contents
+f3.txt matches
+f5.txt matches
+--------------------
+Comparing ..\test2\__bkp__\date150325-time115227\m1 to selftest\Windows\withcruft\test2\__bkp__\date150325-time115227\m1
+Directory lists are identical
+Comparing contents
+--------------------
+Comparing ..\test2\__bkp__\date150325-time115317 to selftest\Windows\withcruft\test2\__bkp__\date150325-time115317
+Directory lists are identical
+Comparing contents
+spam.txt matches
+--------------------
+Comparing ..\test2\__bkp__\date150325-time115355 to selftest\Windows\withcruft\test2\__bkp__\date150325-time115355
+Directory lists are identical
+Comparing contents
+__added__.txt matches
+--------------------
+Comparing ..\test2\__bkp__\date150325-time115417 to selftest\Windows\withcruft\test2\__bkp__\date150325-time115417
+Directory lists are identical
+Comparing contents
+__added__.txt matches
+--------------------
+Comparing ..\test2\__bkp__\date150325-time115452 to selftest\Windows\withcruft\test2\__bkp__\date150325-time115452
+Directory lists are identical
+Comparing contents
+spam2.txt matches
+__added__.txt matches
+--------------------
+Comparing ..\test2\__bkp__\date150325-time115541 to selftest\Windows\withcruft\test2\__bkp__\date150325-time115541
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing ..\test2\__bkp__\date150325-time115549 to selftest\Windows\withcruft\test2\__bkp__\date150325-time115549
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing ..\test2\__bkp__\date150325-time115557 to selftest\Windows\withcruft\test2\__bkp__\date150325-time115557
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing ..\test2\__bkp__\date150325-time115607 to selftest\Windows\withcruft\test2\__bkp__\date150325-time115607
+Directory lists are identical
+Comparing contents
+f0.txt matches
+--------------------
+Comparing ..\test2\__bkp__\date150325-time115737 to selftest\Windows\withcruft\test2\__bkp__\date150325-time115737
+Directory lists are identical
+Comparing contents
+f0.txt matches
+__added__.txt matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.03
+Dirs checked 20, Files checked: 30, Files skipped: 0
+No diffs found.
+End of report.
+Press Enter to exit.

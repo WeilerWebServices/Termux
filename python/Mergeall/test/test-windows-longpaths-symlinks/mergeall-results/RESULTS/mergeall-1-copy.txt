@@ -1,0 +1,51 @@
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [xfer-symlinks-winpaths] [copied-by-mergeall]
+Phase runtime: 0.0019108862358033615
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['mergeall-logs', 'README.txt', 'symlinks', 'winpaths'],
+  'xfer-symlinks-winpaths',
+  'copied-by-mergeall')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+copied new FROM dir, xfer-symlinks-winpaths\mergeall-logs
+copied new FROM file, xfer-symlinks-winpaths\README.txt
+propagating symlink xfer-symlinks-winpaths\symlinks\badlink
+propagating symlink xfer-symlinks-winpaths\symlinks\dirlink
+propagating symlink xfer-symlinks-winpaths\symlinks\filelink
+propagating symlink xfer-symlinks-winpaths\symlinks\nestedfilelink
+copied new FROM dir, xfer-symlinks-winpaths\symlinks
+copied new FROM dir, xfer-symlinks-winpaths\winpaths
+Phase runtime: 0.017306960170973003
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 0, folders: 1
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 4, mixedmode: 0
+Changed:
+files   => created: 1, deleted: 0, replaced: 0
+folders => created: 3, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.

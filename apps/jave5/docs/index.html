@@ -1,0 +1,323 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="EN"><head>
+<title>JavE - Java ASCII Editor Documentation</title>
+  <meta name="ROBOTS" content="index,nofollow">
+  <meta name="author" content="Markus Gebhard">
+  <meta name="publisher" content="Markus Gebhard">
+  <meta name="copyright" content="Markus Gebhard">
+  <meta name="Content-Language" content="EN">
+  <style type="text/css">
+  <!--pre { font-family: Courier New, Courier; font-size: 10pt; margin: 0px; }-->
+  </style></head>
+<body background="paper.gif">
+
+
+
+<!-- LINK BAR  -->
+<center>
+ <!-- <a href="index.html">[home]</a>&nbsp; -->
+ <a href="http://www.jave.de">[JavE Homepage]</a>&nbsp;
+<!-- <a href="./docs/index.html">[docs]</a>&nbsp;-->
+ <a href="faq.html">[faq]</a>&nbsp;
+ <a href="http://www.jave.de#screenshots">[screenshots]</a>&nbsp;
+ <a href="http://www.jave.de/submission.html">[submit cliparts]</a>&nbsp;
+ <a href="http://www.jave.de/disclaimer.html">[download]</a>&nbsp;
+</center>
+<!-- END OF LINK BAR  -->
+
+
+
+
+
+<center>
+<h1>JavE - Documentation</h1>
+</center>
+<small>[<a href="http://www.jave.de/docs/index.html">Online version of this  document</a>]</small>
+
+
+
+
+
+
+
+
+
+
+
+<p>You can use this software free of charge.<br>
+However if you find this tool useful
+you can make me happy by sending a <b>nice postcard</b> (no virtual ones please!):
+<p>
+<center><pre>.--------------------------------------.
+|  ._                       /\/\/\/\   |
+|    `--..                 &lt;50c     &gt;  |
+|  -..__                   &lt;  O  O  &gt;  |
+|..        .               &lt;   ()   &gt;  |
+|_   '--._  `'-..          &lt; `.__.' &gt;  |
+| `-.__   `-                \/\/\/\/   |
+| .    ' ..    -..  |                  |
+|  `-.  _  `-.      | Markus Gebhard   |
+| --._   `-.    `-- | Ackerstrasse 8   |
+| _  '' .._  ''' ,  | D-92708 Mantel   |
+|  `.      `      ' | GERMANY          |
+`--------------------------------------'</pre></center>
+<p>
+The more postcards I receive the more often I will bring out new releases :-)
+
+
+<hr>
+NOTE: At the moment there is no documentation available for all the tools in JavE.
+After you have managed to start the program I recommend going through the <a href="./tutorial1/tutorial.html">tutorial</a>
+to figure out how to use the program.
+<hr>
+
+
+<h2>Documentation on demand</h2>
+<ul>
+  You need explanation for a specific feature or tool in JavE? - Just ask me:
+  <a href="mailto:markus@jave.de">markus@jave.de</a> - I will write detailed documentation about that part
+  and add it here.
+</ul>
+
+<hr>
+
+
+
+
+<h2>Table of contents</h2>
+<ul>
+  <li>Detailed <a href="#installation">Installation instructions</a>
+  <li>FAQ: <a href="faq.html">Frequently Asked Questions</a>
+  <li>The first <a href="./tutorial1/tutorial.html">tutorial</a> - creating Ascii Art with JavE
+  <li>A tutorial from Joris Bellenger: <a href="./tutorial2/index.html">The Grayscale Girl</a>
+  <li><a href="./figletexport/figletexport.html">FIGlet font export assistant</a>
+  <li><a href="image2ascii_commandline.html">JavE image2ascii commandline utility</a><em><font color="#C0C000">NEW!</font></em>
+  <li>Syntax for the <a href="./formula2/formula2.html">Mathematical Expressions Editor</a>
+  <li><a href="#uninstall">Uninstallation</a>
+  <li>JavE <a href="#files">files and folders</a>
+  <li>version <a href="history.txt">history</a>
+  <li>Warranty Disclaimer/<a href="license.txt">License</a> (End User License Agreement)
+  <li>Misc. <a href="#add">Additional information</a>
+</ul>
+
+
+<h2>Contact</h2>
+
+For questions, comments and bug reports feel free to write to:
+<ul>
+ <a href="mailto:markus@jave.de">markus@jave.de</a>
+</ul>
+
+
+<p>Further informations, updates, etc.:
+<ul>
+ <a href="http://www.jave.de">http://www.jave.de</a>
+</ul>
+
+<p>Markus Gebhard, December 2001
+
+
+
+
+
+
+
+<hr>
+<a name="installation"></a>
+
+<h2>Installation instructions</h2>
+
+<ol>
+
+<li>As you can read this documentation you already should have downloaded the JavE ZIP-File
+from <a href="http://www.jave.de">http://www.jave.de</a> and unziped it to a new folder
+(you can use separate folders to install different versions of JavE).
+
+
+<li>If there is no Java Runtime Environment (JRE) installed to
+your system, download it from
+  <a href="http://java.sun.com/j2se/1.3/jre/">http://java.sun.com/j2se/1.3/jre/</a>
+and follow the installation instructions.
+<p>
+Any JRE Java version 1.1 or greater should work.
+<p>
+You only have to do that once and will be able to run any Java
+application from then on.
+<p>
+(If you are not sure whether you already have the JRE or not,
+just follow the next steps. If you can not start JavE then
+just install the JRE as described above and try it again)
+
+
+<li>What comes next depends on the operating system you are using:
+<ul>
+
+  <li>Windows 95/98/ME/NT...:
+  <ul>
+    You should now be able to launch JavE by double clicking onto
+    the jave2.jar-File in the JavE folder.
+    <p>
+    You can add a link to your desktop or the start menu (drag and drop
+    the jar file with the right mouse button). There is also I nice icon
+    available in the JavE folder: icon.ico
+  </ul>
+
+
+  <li>Linux, Solaris:
+  <ul>
+    (Note: On Linux it is sometimes recommended to rather install
+    IBMs JRE from <a href="http://www.ibm.com/java/jdk">http://www.ibm.com/java/jdk</a> )
+
+    <p>jave4.jar is an executable Java Archive.
+    With an up to date JRE you should be able to start the application from the command
+    line using this command:
+      <code>java -jar jave4.jar</code>
+
+    <p>However if this does not work you have to put jave4.jar on your java class path
+    and start JavE by calling:
+      <code>java de.jave.jave.Jave</code>
+
+  </ul>
+
+
+
+  <li>Mac with Mac OS 8.1 or later:
+  <ul>
+
+
+    If there is no Macintosh Runtime Environment for Java (MRJ)
+    installed to your system, download it from
+
+<a href="http://developer.apple.com/java/download.html">http://developer.apple.com/java/download.html</a>
+and follow the installation instructions. Current release is  Mac OS Runtime for Java (MRJ) 2.2.5
+<p>
+For some versions of JavE there is a launcher available for download. Check the download site
+at <a href="">http://www.jave.de</a>. If there is none available for the current version,
+you will have to do the following:
+<ul>
+You will need JBindery. It is not included in MRJ but contained in a separate piece of
+Software called MRJ Software Development Kit ("SDK") which must be
+downloaded and installed separately. SDK can as well be found at
+<a href="http://developer.apple.com/java/download.html">http://developer.apple.com/java/download.html</a>.
+Current release is MRJ Software Development Kit (SDK) 2.2
+
+    <p>Drop the file <code>jave4.jar</code> onto JBindery
+    In the classname field type "<code>de.jave.jave.Jave</code>" with
+    precisely that case.
+
+    <p>Choose Save Settings... When the save dialog box appears, name the
+    file JavEApp (or any other name you want) and save it.
+    Make sure the Save as Application checkbox is checked.
+    The resulting file is the packaged Java application.
+    <p>You can double-click on the icon to launch it.
+
+    <p>Note: I do not have access to a Mac, so I am not able to check if it
+    all works. If you have more information, bug reports etc. feel free
+    to post them to <a href="mailto:markus@jave.de">markus@jave.de</a>.
+  </ul>
+</ul>
+
+
+
+
+
+
+
+
+  <li>Other operating systems:
+  <ul>
+
+    JavE should work on any system with a Java Runtime Environment (JRE)
+    1.1 or greater installed.
+
+    <p>For launching JavE have a look at the platform specific
+    documentation for you JRE. This information should help you:
+    <ul>
+     <li>The application is in the JAR-File jave4.jar.
+     <li>The main class is de.jave.jave.Jave
+     <li>There should be no other options needed to start it
+    </ul>
+  </ul>
+</ol>
+
+<p>If you have further information for the installation on a particular
+operating system please post it to <a href="mailto:markus@jave.de">markus@jave.de</a>.
+
+<hr>
+<a name="uninstall"></a>
+
+<h2>Uninstallation</h2>
+
+Uninstallation of JavE is simple: Just delete the contents of the folder you
+installed JavE to and all its subfolders - that's all.
+<p>There are no other files modified on your system (except for the ones you
+have edited with JavE).
+<p>For uninstallation of the Java Runtime Environment have a look at the
+documentation that came with it.
+
+
+<hr>
+<a name="files"></a>
+
+<h2>JavE files and folders</h2>
+
+<pre>
+  /jave4.jar                Jave Executable JAR
+  /readme.txt
+  /docs/*.*                 documentation
+  /demos/*.*                a few demonstration files
+  /icon.ico                 icon
+  /icon.bmp                 icon
+  /icon.gif                 icon
+  /clipart/*.jcf            Clipart Files
+  /fonts/*.flf              Figlet fonts
+  /fonts/categories.txt     categorisation file for figlet fonts
+  /pattern/pattern.jcf      Patterns for fill tool
+  /config/gradients.txt     Gradients for fill tool, image2ascii, etc.
+  /config/convert.txt       Rules for the generic algorithms
+  /config/convert_thick.txt Rules for the generic algorithms
+  /config/repair.txt        Rules for repair tool
+  /config/mix.txt           Rules for mixing characters
+  /config/general.txt       Rules and options for misc algorithms
+  /config/fonts.cgf         List of all fonts that have been tested with JavE
+  /tmp/*.*                  Logfiles for crash recovery, other temporary files
+</pre>
+
+
+<hr>
+<a name="add"></a>
+<h2>Additional information</h2>
+<ul>
+<li> There is an icon available (for links to the jar-file on the desktop).
+  It is included with this archive: icon.gif (icon.ico, icon.bmp)
+
+<li> On some systems (Linux, Solaris) you will discover some debug messages
+  on the shell, e.g.:
+
+<pre>Font specified in font.properties not found [-urw-itc
+zapfdingbats-medium-r-normal--*-%d-*-*-p-*-sun-fontspecific]
+  ...
+Warning: Cannot convert string "<Key>Escape,_Key_Cancel" to type
+VirtualBinding
+  ...</pre>
+
+  Those messages are warnings by the Java Virtual Machine. Please ignore them.
+  Unfortunately I do not know how to turn them off.
+</ul>
+
+<hr>
+
+<!-- LINK BAR  -->
+<center>
+ <!-- <a href="index.html">[home]</a>&nbsp; -->
+ <a href="http://www.jave.de">[JavE Homepage]</a>&nbsp;
+<!-- <a href="./docs/index.html">[docs]</a>&nbsp;-->
+ <a href="faq.html">[faq]</a>&nbsp;
+ <a href="http://www.jave.de#screenshots">[screenshots]</a>&nbsp;
+ <a href="http://www.jave.de/submission.html">[submit cliparts]</a>&nbsp;
+ <a href="http://www.jave.de/disclaimer.html">[download]</a>&nbsp;
+</center>
+<!-- END OF LINK BAR  -->
+
+</body>
+</html>

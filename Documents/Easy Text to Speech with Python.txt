@@ -1,0 +1,108 @@
+Easy Text-to-Speech with Python
+
+Python comes with a lot of handy and easily accessible libraries and we’re going to look at how we can deliver text-to-speech with Python in this article.
+
+Text-to-speech (TTS) technology reads aloud digital text. It can take words on computers, smartphones, tablets and convert them into audio. Also, all kinds of text files can be read aloud, including Word, pages document, online web pages can be read aloud. TTS can help kids who struggle with reading. Many tools and apps are available to convert text into speech.
+
+Different API’s are available in Python in order to convert text to speech. One of Such API’s is the Google Text to Speech commonly known as the gTTS API. It is very easy to use the library which converts the text entered, into an audio file which can be saved as a mp3 file. It supports several languages and the speech can be delivered in any one of the two available audio speeds, fast or slow. More details can be found here
+
+
+Convert Text into Speech
+
+Code:
+
+Import gTTS library and “os” module in order to play the converted audio
+
+from gtts import gTTS
+import os
+
+
+Creating a text that we want to convert into audio
+
+text = “Global warming is the long-term rise in the average temperature of the Earth’s climate system”
+
+
+gTTS supports multiple languages. Please refer to the documentation here. Selected ‘en’ -> English and stored in the language variable
+
+language = ‘en’
+
+
+Creating an object called speech and passing the text and language to the engine. Marked slow = False which tells the module that the converted audio should have a high speed.
+
+speech = gTTS(text = text, lang = language, slow = False)
+
+
+Saving the converted audio in a mp3 file named called ‘text.mp3’
+
+speech.save(“text.mp3”)
+
+
+Playing the converted file, using Windows command ‘start’ followed by the name of the mp3 file.
+
+os.system(“start text.mp3”)
+
+
+Output
+
+Figure
+text.mp3 file
+
+
+
+The output of the above program saved as text.mp3 file. Mp3 file should be a voice saying, 'Global warming is the long-term rise in the average temperature of the Earth’s climate system'
+
+
+
+
+Convert a Text File into Speech
+
+Here, covert the text file into speech. Reading the text file and pass to gTTS module
+
+Code
+
+Import gTTS and os library
+
+from gtts import gTTS
+import os
+
+
+Reading the text file and store into object called text. My file name is “draft.txt”
+
+file = open("draft.txt", "r").read().replace("\n", " ")
+
+
+Choosing language English
+
+language = ‘en’
+
+
+Passing the text file into gTTS module and store into speech
+
+speech = gTTS(text = str(file), lang = language, slow = False)
+
+
+Saving the converted audio in a mp3 file named called ‘voice.mp3’
+
+speech.save("voice.mp3")
+
+
+Playing the mp3 file
+
+os.system("start voice.mp3")
+
+
+Output
+
+Figure
+Converted draft.txt file into voice.mp3
+
+
+
+Draft.txt file saved as a voice.mp3 file.Play the Mp3 file to listen the text presented in the draft.txt file
+
+
+
+
+Note:
+
+GTTS is an easy tool to convert text to voice, but it requires an internet connection to operate because it depends entirely on Google to get the audio data.

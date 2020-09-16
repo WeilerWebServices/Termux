@@ -1,0 +1,5 @@
+echo -e "\#\# Termux Calling and Texting \#\#
+
+pkg install termux-api
+termux-telephony-call 7175841499
+termux-sms-send -n 7174090085 YourMs";

@@ -1,0 +1,1013 @@
+## convert_thick.txt - V0.3 Markus Gebhard 2001/5/28
+##
+## Rules for conversion to thick lines
+## Those characters are being used:
+##   dP.,'`8bY_"o
+##
+## V0.3: Added other characters to perform  better conversion
+##       (for fractals)
+###############################################################
+  
+## only one pixel? Remove
+
+X..
+...
+...
+... -> [ ]
+
+.X.
+...
+...
+... -> [ ]
+
+..X
+...
+...
+... -> [ ]
+
+...
+X..
+...
+... -> [ ]
+
+...
+.X.
+...
+... -> [ ]
+
+...
+..X
+...
+... -> [ ]
+
+...
+...
+X..
+... -> [ ]
+
+...
+...
+.X.
+... -> [ ]
+
+...
+...
+..X
+... -> [ ]
+
+...
+...
+...
+X.. -> [ ]
+
+...
+...
+...
+.X. -> [ ]
+
+...
+...
+...
+..X -> [ ]
+
+##################################################
+## New rules using AHhFDTXxUVvuI<>O7LJ[]()
+
+.X.
+X?X
+X?X
+X.X -> [A]
+
+X.X
+X?X
+XXX
+X.X -> [H]
+
+X.X
+XXX
+X?X
+X.X -> [H]
+  
+X..
+X?.
+XXX
+X.X -> [h]
+
+X..
+XX.
+X?X
+X.X -> [h]
+
+  
+X?X
+?X.
+X..
+X.. -> [F]
+  
+XX.
+X.X
+X.X
+XX. -> [D]
+  
+  
+X?X
+.X.
+.?.
+.X. -> [T]
+  
+  
+X.X
+.X.
+.X.
+X.X -> [X]
+  
+
+...
+X.X
+.X.
+X.X -> [x]
+  
+X?X
+XXX
+XXX
+X.X -> [M]
+  
+  
+  
+  
+  
+  
+X.X
+?.?
+X.X
+?XX -> [U]
+
+...
+?.?
+X.X
+?XX -> [u]
+
+  
+X.X
+?.?
+X.X
+.X. -> [V]
+  
+...
+?.?
+X.X
+.X. -> [v]
+  
+  
+  
+  
+  
+  
+  
+XXX
+.?.
+.X.
+X?X -> [I]
+  
+X?X
+.X.
+.?.
+XXX -> [I]
+
+  
+  
+...
+.?X
+.XX
+... -> [<]
+  
+...
+.XX
+..X
+... -> [<]
+  
+...
+X?.
+XX.
+... -> [>]
+  
+...
+XX.
+X..
+... -> [>]
+  
+  
+  
+  
+  
+?X?
+X.X
+X.X
+?X? -> [O]
+ 
+X?X
+..?
+..X
+.?X -> [7]
+
+.?X
+..?
+..X
+?XX -> [J]
+
+??.
+X..
+??.
+X?X -> [L]
+
+  
+X..
+?X.
+X..
+?XX -> [L]
+
+  
+  
+  
+  
+...
+XXX
+XXX
+..? -> [=]
+
+...
+XXX
+XXX
+?.. -> [=]
+
+?..
+XXX
+XXX
+... -> [=]
+  
+..?
+XXX
+XXX
+... -> [=]
+  
+  
+  
+??X
+..X
+..X
+??X -> []]
+
+X??
+X..
+X..
+X?? -> [[]
+
+
+  
+  
+  
+  
+?X?
+X..
+?..
+X?? -> [[]
+  
+XX?
+?..
+X..
+X?? -> [[]
+
+X??
+?..
+X..
+?X? -> [[]
+
+X??
+X..
+?..
+XX? -> [[]
+
+  
+  
+?X?
+..X
+..?
+??X -> []]
+  
+?XX
+..?
+..X
+??X -> []]
+
+??X
+..?
+..X
+?X? -> []]
+
+??X
+..X
+..?
+?XX -> []]
+  
+  
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+X..
+?X.
+?X.
+X.. -> [)]
+
+..X
+.X?
+.X?
+..X -> [(]
+  
+## New rules using i!:;p/\|-_
+
+.X.
+.X.
+.X.
+.X. -> [|]
+  
+.X.
+.X.
+...
+.X. -> [!]
+
+
+.X.
+...
+.X.
+?X? -> [i]
+  
+...
+.X.
+...
+.X. -> [:]
+  
+...
+.X.
+...
+XX. -> [;]
+  
+  
+  
+...
+XXX
+...
+... -> [-]
+  
+...
+...
+XXX
+... -> [-]
+  
+...
+...
+...
+XXX -> [_]
+  
+..X
+.X.
+X..
+X.. -> [/]
+  
+..X
+.X.
+.X.
+X.. -> [/]
+  
+..X
+..X
+.X.
+X.. -> [/]
+
+...
+???
+XXX
+XX. -> [p]
+  
+...
+X??
+XX?
+X?. -> [p]
+##  
+##################################################
+  
+  
+
+
+
+?X?
+XXX
+XXX
+?X? -> [8]
+
+...
+???
+XXX
+?X? -> [o]
+
+?..
+...
+XXX
+?X? -> [o]
+
+..?
+...
+XXX
+?X? -> [o]
+  
+??.
+X??
+XX?
+?X? -> [b]
+
+.??
+??X
+?XX
+?X? -> [d]
+
+?X?
+XX?
+X??
+??. -> [P]
+
+?X?
+?XX
+?X?
+.?? -> [Y]
+
+?X?
+?XX
+??X
+.?? -> [Y]
+  
+...
+...
+...
+?X? -> [_]
+
+..?
+?..
+??.
+X?? -> [.]
+
+?..
+..?
+.??
+??X -> [,]
+
+X??
+??.
+?..
+..? -> [']
+
+??X
+.??
+..?
+?.. -> [`]
+
+XXX
+???
+...
+... -> ["]
+
+XX?
+??X
+...
+... -> ["]
+
+
+################################################################
+## Die 8 wird auch bei "fast" vollen Kaestchen verwendet, also
+## dann wenn nur 1 oder 2 Pixel nicht gesetzt sind
+##
+## 1) Ein Pixel nicht gesetzt
+.XX
+XXX
+XXX
+XXX -> [8]
+
+X.X
+XXX
+XXX
+XXX -> [8]
+
+XX.
+XXX
+XXX
+XXX -> [8]
+
+XXX
+.XX
+XXX
+XXX -> [8]
+
+XXX
+X.X
+XXX
+XXX -> [8]
+
+XXX
+XX.
+XXX
+XXX -> [8]
+
+XXX
+XXX
+.XX
+XXX -> [8]
+
+XXX
+XXX
+X.X
+XXX -> [8]
+
+XXX
+XXX
+XX.
+XXX -> [8]
+
+XXX
+XXX
+XXX
+.XX -> [8]
+
+XXX
+XXX
+XXX
+X.X -> [8]
+
+XXX
+XXX
+XXX
+XX. -> [8]
+
+
+################################################################
+## 2) Zwei Pixel nicht gesetzt
+..X
+XXX
+XXX
+XXX -> [8]
+
+.X.
+XXX
+XXX
+XXX -> [8]
+
+.XX
+.XX
+XXX
+XXX -> [8]
+
+.XX
+X.X
+XXX
+XXX -> [8]
+
+.XX
+XX.
+XXX
+XXX -> [8]
+
+.XX
+XXX
+.XX
+XXX -> [8]
+
+.XX
+XXX
+X.X
+XXX -> [8]
+
+.XX
+XXX
+XX.
+XXX -> [8]
+
+.XX
+XXX
+XXX
+.XX -> [8]
+
+.XX
+XXX
+XXX
+X.X -> [8]
+
+.XX
+XXX
+XXX
+XX. -> [8]
+
+
+
+X..
+XXX
+XXX
+XXX -> [8]
+
+X.X
+.XX
+XXX
+XXX -> [8]
+
+X.X
+X.X
+XXX
+XXX -> [8]
+
+X.X
+XX.
+XXX
+XXX -> [8]
+
+X.X
+XXX
+.XX
+XXX -> [8]
+
+X.X
+XXX
+X.X
+XXX -> [8]
+
+X.X
+XXX
+XX.
+XXX -> [8]
+
+X.X
+XXX
+XXX
+.XX -> [8]
+
+X.X
+XXX
+XXX
+X.X -> [8]
+
+X.X
+XXX
+XXX
+XX. -> [8]
+
+
+XX.
+.XX
+XXX
+XXX -> [8]
+
+XX.
+X.X
+XXX
+XXX -> [8]
+
+XX.
+XX.
+XXX
+XXX -> [8]
+
+XX.
+XXX
+.XX
+XXX -> [8]
+
+XX.
+XXX
+X.X
+XXX -> [8]
+
+XX.
+XXX
+XX.
+XXX -> [8]
+
+XX.
+XXX
+XXX
+.XX -> [8]
+
+XX.
+XXX
+XXX
+X.X -> [8]
+
+XX.
+XXX
+XXX
+XX. -> [8]
+
+
+XXX
+..X
+XXX
+XXX -> [8]
+
+XXX
+.X.
+XXX
+XXX -> [8]
+
+XXX
+.XX
+.XX
+XXX -> [8]
+
+XXX
+.XX
+X.X
+XXX -> [8]
+
+XXX
+.XX
+XX.
+XXX -> [8]
+
+XXX
+.XX
+XXX
+.XX -> [8]
+
+XXX
+.XX
+XXX
+X.X -> [8]
+
+XXX
+.XX
+XXX
+XX. -> [8]
+
+
+XXX
+X..
+XXX
+XXX -> [8]
+
+XXX
+X.X
+.XX
+XXX -> [8]
+
+XXX
+X.X
+X.X
+XXX -> [8]
+
+XXX
+X.X
+XX.
+XXX -> [8]
+
+XXX
+X.X
+XXX
+.XX -> [8]
+
+XXX
+X.X
+XXX
+X.X -> [8]
+
+XXX
+X.X
+XXX
+XX. -> [8]
+
+
+XXX
+XX.
+.XX
+XXX -> [8]
+
+XXX
+XX.
+X.X
+XXX -> [8]
+
+XXX
+XX.
+XX.
+XXX -> [8]
+
+XXX
+XX.
+XXX
+.XX -> [8]
+
+XXX
+XX.
+XXX
+X.X -> [8]
+
+XXX
+XX.
+XXX
+XX. -> [8]
+
+
+XXX
+XXX
+..X
+XXX -> [8]
+
+XXX
+XXX
+.X.
+XXX -> [8]
+
+XXX
+XXX
+.XX
+.XX -> [8]
+
+XXX
+XXX
+.XX
+X.X -> [8]
+
+XXX
+XXX
+.XX
+XX. -> [8]
+
+
+XXX
+XXX
+X..
+XXX -> [8]
+
+XXX
+XXX
+X.X
+.XX -> [8]
+
+XXX
+XXX
+X.X
+X.X -> [8]
+
+XXX
+XXX
+X.X
+XX. -> [8]
+
+
+XXX
+XXX
+XX.
+XXX -> [8]
+
+XXX
+XXX
+XX.
+.XX -> [8]
+
+XXX
+XXX
+XX.
+X.X -> [8]
+
+XXX
+XXX
+XX.
+XX. -> [8]
+
+
+XXX
+XXX
+XXX
+..X -> [8]
+
+XXX
+XXX
+XXX
+.X. -> [8]
+
+
+XXX
+XXX
+XXX
+X.. -> [8]
+  
+  
+  
+## Again: Addition rules coming from testing
+  
+..X
+...
+X.X
+XXX -> [u]
+
+...
+.XX
+XX.
+XXX -> [e]
+
+XXX
+..X
+XX.
+XXX -> [2]
+  
+..X
+.X.
+X..
+X.X -> [/]
+
+  
+## abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!"  
+
+XXX
+XXX
+..X
+X.X -> [9]
+  
+  
+.XX
+X..
+X.X
+XXX -> [G]
+
+XX.
+X.X
+X..
+X.. -> [f]
+
+  
+
+..X
+.X.
+XXX
+XXX -> [6]
+
+  
+  
+XXX
+..X
+.X?
+XXX -> [Z]
+
+  
+XXX
+..X
+X.X
+XXX -> [O]
+  
+  
+  
+  
+## I am not really sure about those:
+
+  
+  
+  
+## abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!"  
+
+XX.
+..X
+.XX
+XXX -> [2]
+  
+  
+XXX
+XXX
+...
+XXX -> [8]
+  
+  
+XXX
+XXX
+...
+XX. -> ["]
+
+.XX
+.X.
+X.X
+XXX -> [d]
+
+...
+XX.
+.XX
+XXX -> [y]
+
+XXX
+X..
+XXX
+.X. -> [F]
+  
+.XX
+...
+XXX
+XXX -> [o]

@@ -1,0 +1,318 @@
+######################################################################
+#Rules for repairing shaked ascii art images:
+#
+# Each rule has 3 lines:
+#   1) rating
+#   2) line1
+#   3) line2
+# The rating is a number that tells the program how many points
+# are givern for certain combinations of characters in successive
+# lines. The points are given when the patterns in line1 and
+# line2 fit.
+# The patterns have to be of the same length,
+# ! means there has to be a character (not space)
+# ? means that it does not matter whether there is a character or not
+#
+# lines beginning with # are ignored.
+######################################################################
+
+#extra information: rating for identical characters in successive lines
+1
+
+#extra information: rating for identical characters in successive lines
+#1 character to the left
+1
+#extra information: rating for identical characters in successive lines
+#1 character to the left
+1
+
+#Zeichen hat Zeichen darunter
+#2
+#!
+#!
+#Zeichen hat Zeichen darunter um 1 versetzt nach rechts 
+#1
+#!
+# !
+#Zeichen hat Zeichen darunter um 1 versetzt nach links 
+#1
+# !
+#!
+
+
+
+#Ende => Punktabzug!
+-2
+   
+ ! 
+
+-2
+ ! 
+   
+
+
+
+
+
+#senkrechte Linien
+20
+|
+|
+
+#Zusatzpunkte, falls nicht daneben
+10
+ |
+ |
+
+10
+| 
+| 
+
+
+10
+:
+:
+
+5
+:
+ :
+5
+ :
+:
+
+12
+|
+'
+
+12
+|
++
+
+12
++
+|
+
+10
+:
+;
+
+8
+|
+:
+
+
+
+
+#Anschluss senkrecht/waagrecht
+6
+T
+|
+
+6
+_
+ |
+
+6
+ _
+|
+
+5
+_
+ )
+
+5
+ _
+(
+
+3
+.
+|
+
+#Strafpunkte fuer zu groﬂen Versatz
+-1
+!    
+   !
+-1
+   !
+!
+-2
+!    
+    !
+-2
+    !
+!
+-3
+!    
+     !
+-3
+     !
+!
+
+
+
+
+
+
+
+
+
+
+
+#Diagonale Linie
+15
+\ 
+ \
+
+15
+ /
+/ 
+
+3
+\?
+?\
+
+3
+?/
+/?
+
+9
+\
+ '
+
+9 
+\
+ `
+
+8
+ ,
+/
+
+8
+ /
+'
+
+12
+ ,
+'
+
+12
+ .
+'
+
+5
+ ;
+/
+
+5
+ /
+;
+
+5
+.
+ \
+
+5
+ .
+/
+
+
+
+
+#Diagonale Knicke
+10
+_
+ \
+
+10
+ _
+/
+
+#JFL-Regeln
+10
+ F
+J
+
+10
+J
+ L
+
+10      
+|
+J
+
+10
+|
+L
+
+10
+|
+F
+
+10      
+J
+|
+
+10
+L
+|
+
+10
+F
+|
+
+#Steigungen
+10
+ .
+'
+
+10
+ ,
+'
+
+6
+ ,
+;
+
+10
+.
+ `
+
+10
+.
+ '
+
+7
+ ;
+;
+
+10
+ _
+"
+
+10
+_
+ "
+
+10
+ _
+' 
+
+10
+_
+ '
+
+10
+_
+ `
+
+9
+ .
+"
+
+9
+ ,
+"
+
+9
+.
+ "

@@ -1,0 +1,26 @@
+All run in C:\MY-STUFF\Code\mergeall\test\test-symlinks\windows-tests\ziptools-results>
+    
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-list.py xfer-symlinks-winpaths.zip > RESULTS\1-list.txt
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-extract.py xfer-symlinks-winpaths.zip unzipped1 -skipcruft > RESULTS\2-extract.txt
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-create.py rezipped1.zip unzipped1 > RESULTS\3-create.txt
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-list.py rezipped1.zip > RESULTS\4-list.txt
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-extract.py rezipped1.zip unzipped2 -skipcruft > RESULTS\5-extract.txt
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-create.py rezipped2.zip unzipped2 > RESULTS\6-create.txt
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-create.py TEST-FOLDERS.zip unzipped1 unzipped2 rezipped1.zip rezipped2.zip  > RESULTS\7-create-test-folders.txt
+
+
+----
+Notes:
+1) To avoid the nesting unzipped2\unzipped1 folders, either cd into source paths and give shorter paths
+in create runs, or extract to "." instead or other folders here and create from "xfer-symlinks-winpaths".  
+See folder:
+
+    RESULTS/UNNESTED 
+
+located here for the latter alternative's COMMANDS, RESULTS, and TEST-FOLDERS.

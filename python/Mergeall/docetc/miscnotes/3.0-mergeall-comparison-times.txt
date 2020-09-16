@@ -1,0 +1,107 @@
+Mergeall 3.0 comparison-phase variant speed tests (final).
+
+Summary: 
+    scandir() variant is 2X slower on Mac
+    scandir() variant is no faster on Windows
+    scandir() variant was formerly 1.5~2X faster in Windows
+    Linux results are proportionately similar to Windows
+
+Machine 1: Windows 7,      Sony Vaio Z, SSD,       2012 I7
+Machine 2: Mac OS X 10.11, Macbook Pro, SSD,       2015 I5 (5th gen)
+Machine 3: Ubuntu Linux,   Sony Vaio F, harddrive, 2010 I7
+
+All tests were run:
+-on Python 3.5
+-on AC power
+-after an initial run to neutralize caching impacts
+-without logging to file or scrolling GUI comparison messages
+-interleaved in time to negate system load impacts
+
+All tests also use final mergeall 3.0 code with symlink support, 
+cruft-file skipping, and code optimizations.  The non-scandir() 
+final variant now uses stat() explicitly for type tests, making 
+it faster on Windows than before (it was formerly 2X slower).
+ 
+
+WINDOWS==================================================================
+
+--See 3.0-mergeall-comparison-times-Windows.txt for final timings--
+
+Compared    => files: 59800, folders: 4056
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+
+non-scandir(), pre stat recoding
+Phase runtime: 19.061627105722287     # and sometimes 16 or 20
+Phase runtime: 15.371371951070515
+Phase runtime: 15.431613568499811
+
+scandir()
+Phase runtime: 10.563905464248537     # and sometimes 11
+Phase runtime: 10.485056274771406
+Phase runtime: 10.537724866949139
+
+non-scandir(), post stat recoding
+Phase runtime: 10.367447133969632     # and sometimes 9.8
+Phase runtime: 10.453071287893227
+Phase runtime: 10.441923849458266
+
+MAC======================================================================
+
+Compared    => files: 59823, folders: 4051
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+
+scandir()
+Phase runtime: 9.016150443989318
+Phase runtime: 9.092939175025094
+Phase runtime: 9.013318493030965
+
+non-scandir(), pre stat recoding
+Phase runtime: 4.585963150020689
+Phase runtime: 4.354359277989715
+Phase runtime: 4.438925892987754
+
+non-scandir(), post stat recoding
+Phase runtime: 3.832143307023216
+Phase runtime: 3.8482273359550163
+Phase runtime: 3.755497715959791
+
+
+# all are slightly faster when mergeall is run directly at the console with same 
+# parameters, for causes unknown -- the launcher's stdout UTF8 encoding and/or 
+# unbufferred mode?  direct run results on Mac follow:
+
+# scandir()
+$ py3 ../mergeall.py /MY-STUFF /MY-STUFF -skipcruft -report | grep 'Phase runtime'
+Phase runtime: 8.779079572064802
+$ py3 ../mergeall.py /MY-STUFF /MY-STUFF -skipcruft -report | grep 'Phase runtime'
+Phase runtime: 8.64699007209856
+$ py3 ../mergeall.py /MY-STUFF /MY-STUFF -skipcruft -report | grep 'Phase runtime'
+Phase runtime: 8.717638614936732
+
+# non-scandir() variant
+$ py3 ../mergeall.py /MY-STUFF /MY-STUFF -skipcruft -report | grep 'Phase runtime'
+Phase runtime: 3.5495357650797814
+$ py3 ../mergeall.py /MY-STUFF /MY-STUFF -skipcruft -report | grep 'Phase runtime'
+Phase runtime: 3.5263971380190924
+$ py3 ../mergeall.py /MY-STUFF /MY-STUFF -skipcruft -report | grep 'Phase runtime'
+Phase runtime: 3.5442208040039986
+
+
+# verify same results of runs made in GUI launcher
+
+$ diff ~/Desktop/test/mergeall-date170208-time142816.txt \
+       ~/Desktop/test/mergeall-date170208-time142851.txt 
+1d0
+< Using Python 3.5+ os.scandir() optimized variant.
+4059c4058
+< Phase runtime: 9.032094128080644
+---
+> Phase runtime: 3.8343904009088874
+
+
+LINUX====================================================================
+
+Compared    => files: 59823, folders: 4051
+Differences => samefile: 0, uniqueto: 0, uniquefrom: 0, mixedmode: 0
+
+

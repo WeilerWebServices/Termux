@@ -1,0 +1,20 @@
+if islink
+    if not atlinks
+        add link     # -: msg has no type 
+    else
+        if isfile
+            add file 
+        if isdir
+            if isrecursive
+                add link
+            else
+                recur
+        else
+            add link
+if isfile
+    add file
+if isdir
+    recur
+else
+    unknown
+       

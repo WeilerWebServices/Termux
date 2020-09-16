@@ -1,0 +1,3003 @@
+<HTML>
+
+<HEAD>
+
+<TITLE>Mergeall - User Guide</TITLE>
+
+<!--analytics javascript omitted here-->
+
+<STYLE>
+/* Nov 2015: font (banish Times/serif!), toolbar button style; no external CSS file */
+/* This doc originally skipped CSS usage and used tables for simple layout; now fixed; */
+
+body {                                           
+    font-family: Arial, Helvetica, sans-serif;      /* font for entire doc: precedence list */
+}                  
+
+.panel {                                            /* now for all header lines */
+    background-color: #004080;
+    color: white;
+}
+
+.lightpanel {                                       /* used for subsections: works on any header, <P>, etc. */
+    background-color: #66ccff;
+    color: black;
+}
+
+.header {
+    margin-top: 60px;
+}
+
+.subheader {                                        /* use class="lightpanel header" to combine */
+    margin-top: 45px;
+}
+
+.busylist {                                         /* used for long lists that need whitespace help */
+    margin-top: 5px;
+}
+
+.tocmain {
+    list-style-type: square; 
+    font-weight: bold;
+    font-style: normal;
+    margin-bottom: 10px;
+}
+
+.tocnest {
+    font-weight: normal;
+    font-style: normal;
+}
+
+.datatable {
+    background-color: cornsilk;
+}                              
+
+.blocklinkbar {
+    display: block;                                 /* toolbar buttons style */
+    width: 100%;
+    text-decoration: none; 
+    color: white;
+}
+
+.blocklinkbar:hover {                               /* on toolbar hover, underline link */
+    text-decoration: underline;
+}
+
+.footertable {                                      /* a borderless table */                 
+    border-collapse: collapse;                      /* if on table only, 2px renders as outside-only border */
+    border: 0px solid black;                        /* but borders can be variable-width at some zoom levels */
+    table-layout: fixed;                            /* spread items out a bit more evenly */
+}
+
+.notebox {
+    margin-left: 40px; 
+    margin-right: 40px; 
+    margin-top: 25px;
+    margin-bottom: 20px;
+    border-style: solid; 
+    border-width: 1; 
+    padding: 5px;
+}
+
+</STYLE>
+
+</HEAD>
+
+
+<BODY>
+
+
+<P>
+<TABLE class=panel width="100%">
+<TR>
+<TH align="left"><A HREF="docetc/docimgs/index.html"><img src="docetc/docimgs/Mergeall1024.png" border=0 width=100 height=100 alt="[icon]"></A></TH>    <!--border for IE if a link-->
+<TD><H1><A NAME="mergeall"><I>Mergeall</I> &mdash; Backup and Mirror Your Stuff Your Way</A></H1></TD>
+</TR>
+</TABLE>
+
+
+
+
+<!---------------------------------------------------------------------------------------------------------------->
+
+<P>
+<TABLE>
+<TR><TD align=left>Summary:     <TD>&nbsp;A data backup and mirroring tool, and a manual but private alternative to cloud storage
+                                         
+<TR><TD align=left>Version:     <TD>&nbsp;<A HREF="docetc/MoreDocs/Revisions.html#version31">3.1</A>, December 2017
+                                    (see all version <A HREF="docetc/MoreDocs/Revisions.html#history">history</A>)
+
+<TR><TD align=left>Author:      <TD>&nbsp;&copy; M. Lutz, 2014-2017, 
+                                          <A HREF="http://learning-python.com">learning-python.com</A>
+
+<TR><TD align=left>License:     <TD>&nbsp;Provided freely, but with no warranties of any kind (see also <A HREF="README.txt">README.txt</A>)
+
+<TR><TD align=left>Screenshots: <TD>&nbsp;This program's GUI and scripts run on 
+                                          <A HREF="docetc/docimgs/macosx/index.html">Mac OS X</A>,
+                                          <A HREF="docetc/docimgs/windows/index.html">Windows</A>, 
+                                          <A HREF="docetc/docimgs/linux/index.html">Linux</A>
+
+<TR><TD align=left>Usage:       <TD>&nbsp;<A HREF="http://learning-python.com/mergeall.html">Download</A> and
+                                          <A HREF="README.txt">start</A> source code, Mac app, and Windows and Linux executables
+
+<TR><TD allign=left>History:    <TD>&nbsp;Some of the code in this system originally appeared in the book <A HREF="http://learning-python.com/about-pp4e.html">PP4E</A>
+
+</TABLE>
+
+
+
+</P>
+<H3>Contents</H3>
+
+<!------------------------------------------------------------------------------------------------>
+
+<P>
+<UL>
+<LI class="busylist tocmain"><A HREF="#introducing">Introducing Mergeall
+<UL>
+<LI class="busylist tocnest"><A HREF="#what">What mergeall does</A>
+<LI class="busylist tocnest"><A HREF="#how">How to Use mergeall</A>
+<LI class="busylist tocnest"><A HREF="#why">Why mergeall?
+</UL>
+
+<LI class="busylist tocmain"><A HREF="#gui"><B>Using the GUI</B>
+<UL>
+<LI class="busylist tocnest"><A HREF="#guimainfolders">Main Folders</A>
+<LI class="busylist tocnest"><A HREF="#guirunmode">Run Mode</A>
+<LI class="busylist tocnest"><A HREF="#guimessages">Messages</A>
+<LI class="busylist tocnest"><A HREF="#guibackups">Backups</A>
+<LI class="busylist tocnest"><A HREF="#guitextandgo">Text and "GO"</A>
+<LI class="busylist tocnest"><A HREF="#finding">Finding Your Stuff</A>
+</UL>
+
+<LI class="busylist tocmain"><A HREF="#point"><B>Usage Pointers</B>
+<UL>
+<LI class="busylist tocnest"><A HREF="#configure">Configuring Appearance and Behavior</A>
+<LI class="busylist tocnest"><A HREF="#patterns">Skew: Golden Copies and Talking Sticks</A>
+<LI class="busylist tocnest"><A HREF="#finding">Finding Your Stuff</A>
+<LI class="busylist tocnest"><A HREF="#dst">The Heartbreak of DST on Windows FAT</A>
+<LI class="busylist tocnest"><A HREF="#excel">Ignore Excel Timestamp "Cheating"</A>
+<LI class="busylist tocnest"><A HREF="#permiss">Handling File Permission Issues</A>
+<LI class="busylist tocnest"><A HREF="#diffall">Run diffall Occasionally Too</A>
+<LI class="busylist tocnest"><A HREF="#logfile">Errors: Check the Log and Rerun</A>
+<LI class="busylist tocnest"><A HREF="#backups">Always Use Backups Mode (Really)</A>
+<LI class="busylist tocnest"><A HREF="#rollbacks">Use Rollbacks in an Emergency</A>
+<LI class="busylist tocnest"><A HREF="#cruft">Dealing with System "Cruft" Files</A>
+<LI class="busylist tocnest"><A HREF="#cross">A Cross-Platform Archive Recipe</A>
+<LI class="busylist tocnest"><A HREF="#macresource">mergeall and Mac Resource Forks</A>
+<LI class="busylist tocnest"><A HREF="#symlinks">Symlinks&mdash;Copied, not Followed</A>
+<LI class="busylist tocnest"><A HREF="#winpaths">Windows Path-Length Limits Be Gone</A>
+<LI class="busylist tocnest"><A HREF="#platform">Platform Basics: Installs and Launches</A>
+<LI class="busylist tocnest"><A HREF="#cmdline">Command-Line Basics: Direct Runs</A>
+</UL>
+
+<LI class="busylist tocmain"><A HREF="#warn"><B>Usage Cautions</B>
+</UL>
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+
+<H1 class="panel header"r><A NAME="introducing">Introducing Mergeall</A></H1>
+
+<P align=center style="margin-top: 35px;"> 
+<table>
+<tr>
+<td>
+<A HREF="docetc/docimgs/macosx/composite.png"><img src="docetc/docimgs/macosx/composite.png" width=300 height=250 alt="[GUI image]" border=0></A>
+<A HREF="docetc/docimgs/windows/composite.png"><img src="docetc/docimgs/windows/composite.png" width=300 height=250 alt="[GUI image]" border=0></A>
+<A HREF="docetc/docimgs/linux/composite.png"><img src="docetc/docimgs/linux/composite.png" width=300 height=250 alt="[GUI image]" border=0></A>
+</table>
+</P>
+
+
+<P style="margin-top: 35px;">
+Welcome to <I><B>mergeall</B></I>&mdash;a cross-platform and open-source program for doing backups and mirrors
+of the content stored on your computers.  Mergeall quickly propagates changes in your content to other 
+copies.  While it can be used as a portable backup utility, its content-mirroring role
+also provides a manual but free, offline, and completely private alternative to 
+commercial <I>cloud storage</I>.  With mergeall, your stuff is <I>your</I> stuff, 
+not someone else's point of control.  If you're ready to take charge of your digital 
+property, mergeall is ready to help.
+
+<P>
+The mergeall system includes a user-friendly <A HREF="#gui">GUI</A> that runs merges 
+automatically; a command-line <A HREF="#cmdline">script</A> for ultimate control;
+and a console-based <A HREF="#console">launcher</A> that inputs details interactively.
+The mergeall package also comes with extra related tools, including <I>diffall</I> to 
+compare folders, and <I>cpall</I> to copy them.  All tools in the package work on Mac OS X,
+Windows, and Linux (see the screenshots above), and are available as a Mac app, Windows 
+and Linux executables, and portable source-code; for the latter only, you'll need a 
+Python 3.X and its tkinter GUI library (more on installs <A HREF="#platform">ahead</A>).
+
+<P>
+This document is mergeall's main user guide.  It covers usage fundamentals&mdash;what
+mergeall does, how it is used, and its GUI&mdash;and runs down a collection of pointers 
+designed to help you get the most out of the system.  Beyond this guide, you'll find 
+additional help resources in the mergeall package: 
+<A HREF="docetc/MoreDocs/Revisions.html">Revisions</A> chronicles version history;
+the original (but now dated) <A HREF="docetc/MoreDocs/Whitepaper.html">Whitepaper</A> provides 
+more background on features and roles;
+the <A HREF="docetc/docimgs/index.html">screenshots</A> and <A HREF="test/expected-output-3.0">runlogs</A>
+capture mergeall in action; and the package's many <A HREF="README.txt">README</A>
+files describe its contents.
+
+<P>
+Before we jump into mergeall's GUI, let's start with the what, how, and why basics of mergeall use. 
+
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+<H2 class="lightpanel subheader"r><A NAME="what">What mergeall Does</A></H3>
+
+<P>
+In short: this system makes a destination folder the same as a source folder quickly.  
+
+<P>
+Folders are locations on your harddrive, SSD, USB flashdrive, or network drive, 
+where you've stored your content (a.k.a. data) in named files.   Folders are also 
+known as directories, and sometimes called trees because they may have nested 
+folders with additional content; when nested this way, mergeall processes all 
+the tree's subfolders as well.
+
+<P>
+Whatever they are called, mergeall quickly makes an entire destination folder ("TO") 
+the same as a source folder ("FROM"), by updating TO in-place only for items changed 
+in FROM since the last run.  It does this without having to read files in full, by:
+
+<UL>
+<LI>Comparing tree contents to notice items you've added, removed or renamed
+<LI>Comparing the last-modified timestamps and sizes of same-named files to notice files you've changed
+</UL>
+
+<P>
+The net result allows large data sets (a.k.a. archives) to be brought up to date much 
+faster than brute-force copies or compares.  This is sometimes called an "incremental backup," 
+because it updates TO only for items changed in FROM since the last run.  For instance, 
+if only two items in the FROM source tree have been changed, only two items will be 
+updated in TO, regardless of FROM's size.  
+
+<P>
+In more tangible terms, if FROM is your photo archive's folder, mergeall will
+copy just the photos you've recently added or edited, <I>not</I> the entire archive.
+The same goes for your movies, music, books, websites, and anything else you store 
+in your computer's folders&mdash;only your latest changes need to be copied when 
+you run mergeall to update a TO folder.  Depending on your computers and storage
+devices, this can shave an update's time from hours to just minutes or seconds.
+
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A NAME="how">How to Use mergeall</A></H2>
+
+<P>
+As just described, mergeall does the job of quickly making a TO folder the same as a FROM.
+You can leverage this basic utility to process your content in two different modes:
+
+<DL>
+<DT><B>Backups</B>:
+<DD><P>
+    Regardless of the computers you may work on, mergeall can be used to backup data sets
+    to archive devices quickly, because it updates the archive for changed items <I>only</I>. 
+    For example, you can use mergeall in this mode to periodically save your changed 
+    content to a USB or network drive; after a mergeall run, your external drive
+    will be the same as the original.  This mode is especially handy if some of the 
+    devices you use are USB flashdrives or other portable drives&mdash;mergeall backup
+    runs make quick copies of your content "to go." 
+
+</P>
+<DT><B>Mirrors</B>:
+<DD><P>
+    If you work on multiple computers, mergeall can also be used to echo data-set changes 
+    across all your computers quickly.  When you want to update your other devices, simply
+    run mergeall <I>twice</I>: once to copy changes <I>to</I> an intermediate device such as a USB or 
+    network drive, and then again to propagate the changes <I>from</I> the intermediate device to 
+    other computers.  This mode allows you to make changes on one device and keep others in synch
+    if and when needed&mdash;your computers will all "mirror" the content at its original location. 
+    As a bonus, your intermediate devices serve as automatic backup copies.
+</DL>
+
+<P>
+In both these modes, you'll want to start with a complete copy of your data set initially, 
+which either mergeall or its companion <A HREF="cpall.py">cpall</A> script can create.   
+From that point forward, though, your updates will be limited to just the items changed 
+since the latest mergeall run.  This not only makes your updates fast, it minimizes wear-and-tear
+on your drives.
+
+<P>
+Though a lesser role, you can also use mergeall's <I>report-only</I> mode to isolate differences
+between any two folders on your computer.  If you need a reminder of what you've changed
+in a working folder, for instance, compare it against your stable folder with mergeall sans updates,
+and apply the changes to other copies later as you wish.  
+
+<P>
+Also keep on mind that mergeall works on folders of <I>any size and role</I>.  Whether it's 
+a small folder of photos from a recent trip, or the folder containing everything you keep 
+on your computer, mergeall will quickly backup and mirror its changed contents to other 
+locations or devices at your request.
+
+<P>
+For more pointers on using mergeall to mirror your content to multiple computers, 
+be sure to watch for the additional <A HREF="#patterns">coverage ahead</A>.
+
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="why">Why mergeall?</A></H2>
+
+<P>
+Now that you know what mergeall does, you may be asking yourself why you should bother with it,
+especially given the pervasiveness of other backup tools today.  In brief, mergeall can offer the 
+advantages of portability, transparency, privacy, and speed, depending on how it is used:
+
+<DL>
+<DT><B>As a data backup tool</B>:
+<DD><P>
+    mergeall does work similar to other backup programs, but its portable code and open-source 
+    model can be strategic advantages. 
+    <I>Portability</I> means that you can use mergeall on all major desktop platforms&mdash;Windows,
+    Mac, and Linux.  mergeall handles these systems' differences, so you can copy and use your 
+    content seamlessly across all three.  <I>Open source</I> means that you can audit and even change 
+    the program however you wish.  Changes require some programming knowledge, of course, but the 
+    fact that you can read mergeall's code means that it cannot do anything that you cannot know 
+    about&mdash;a crucial feature in a tool you must trust with your valuable data.  
+
+</P>
+<DT><B>As a data mirror tool</B>:
+<DD><P>
+    mergeall provides an alternative to "cloud" storage, where your intermediate devices take the
+    place of cloud servers, and mergeall runs do the same work as cloud uploads and downloads.  
+    Mergeall requires quick-but-manual steps to update content copies, but mergeall is free, 
+    you are not dependent on a cloud provider, and your data remains your private asset.  Because
+    you don't need to upload your content to a third-party's cloud, there is no risk of it being 
+    unavailable, subject to price increases, or covertly scanned by advertisers, governments, or worse. 
+    Moreover, when using mergeall with local devices, it will usually run <I>much</I> quicker than 
+    an Internet-based cloud.
+</DL>
+
+<P>
+In both modes, mergeall provides additional advantages we'll explore in this guide, including:
+
+<UL>
+<TABLE>
+<TR><TD><LI><A HREF="#cruft"><I>Cruft-file handling</I></A>   
+                                <TD>&nbsp;...to exclude files unwanted in cross-platform archives 
+<TR><TD><LI><A HREF="#symlinks"><I>Symlink support</I></A>       
+                                <TD>&nbsp;...to propagate links on both Unix and Windows 
+<TR><TD><LI><A HREF="#winpaths"><I>Long-path support</I></A>     
+                                <TD>&nbsp;...to remove folder path-length limits on Windows
+<TR><TD><LI><A HREF="#backups"><I>Changed-file backups</I></A>  
+                                <TD>&nbsp;...to allow you to undo any mergeall change
+<TR><TD><LI><A HREF="#rollbacks"><I>Full run rollbacks</I></A>    
+                                <TD>&nbsp;...to safeguard against both computer and human mistakes
+</TABLE>
+</UL>
+
+<P>
+As we'll see, such features help keep your content archives safe, robust, and portable.
+
+<P>
+In the end, content backup requires some diligence regardless of the software or 
+model you use.  The real differentiator today is whether you'll delegate control 
+of this important task to an unknown and self-interested third party, or retain it yourself. 
+mergeall is dedicated to the notion that your stuff is more valuable than any program,
+company, or device&mdash;and important enough to remain yours. 
+
+<P>
+For an arguably more-provocative look at the tradeoffs between manual merges and third-party 
+cloud providers, see the original 
+<A HREF="docetc/MoreDocs/Whitepaper.html#clouds">Whitepaper's coverage</A>.
+Here, we'll leave the politics aside and focus on how to use mergeall to manage your digital 
+property on your own terms.
+
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H1 class="panel header"><A name="gui">Using the GUI</A></H1>
+
+<P>
+mergeall's GUI&mdash;run by starting its app, executable, or source-code script 
+<A HREF="launch-mergeall-GUI.pyw">launch-mergeall-GUI.pyw</A>&mdash;provides 
+the simplest way to use the system.  The GUI does not offer mergeall's "selective-updates"
+mode, a use case that is rarely employed and covered briefly 
+<A HREF="#console">ahead</A>, but 
+does support both report-only and automatic-update modes, and makes it easy to configure runs
+and save and view log files. 
+
+<P>
+If you're not sure how to start the GUI's program, check out its <A HREF="README.txt">README</A>
+file and the platform pointers 
+<A HREF="#platform">ahead</A> (spoiler: a click generally works).
+The GUI itself is straightforward enough that a test drive probably suffices for most users.  As
+a more formal reference, though, the following is a quick rundown on GUI's widgets by its 
+major sections:
+
+<UL>
+<LI><A HREF="#guimainfolders">Main Folders</A>
+<LI><A HREF="#guirunmode">Run Mode</A>
+<LI><A HREF="#guimessages">Messages</A>
+<LI><A HREF="#guibackups">Backups</A>
+<LI><A HREF="#guitextandgo">Text and "GO"</A>
+</UL>
+
+<P>
+A logistical note up-front: the screenshots on the left below were captured on Mac OS X, Windows 7,  
+and Ubuntu Linux; click to view them full-size, and see the <A HREF="docetc/docimgs/index.html">screenshots</A> 
+collection for more GUI captures.  The last few here are shown only on a Mac for space, but you can 
+find Windows and Linux equivalents in the screenshots folder.  You can disable images in most 
+browsers to go text-only, but they add context.
+
+<P>
+<table border=0 cellpadding=4>
+<tr><!--492,421-->
+
+
+
+<td valign=top>
+
+<P>
+<A HREF="docetc/docimgs/macosx/main-window.png">
+<img src="docetc/docimgs/macosx/main-window.png" width=370 height=328 alt="[GUI image]" border=0>   <!-- border=0 for IE -->
+</A>
+
+<P align=center>
+<A HREF="docetc/docimgs/windows/main-window.png">
+<img src="docetc/docimgs/windows/main-window.png" width=325 alt="[GUI image]" border=0>   <!-- or height=283 -->
+</A>
+
+<P align=center style="margin-top: 40px;">
+<A HREF="docetc/docimgs/linux/main-window.png">
+<img src="docetc/docimgs/linux/main-window.png" width=325 alt="[GUI image]" border=0>   <!-- auto height scale -->
+</A>
+
+<P align=center style="margin-top: 0px; margin-botton: 0px;">
+<BR>
+<A HREF="docetc/docimgs/macosx/folder-browse.png">
+<img src="docetc/docimgs/macosx/folder-browse.png" width=250 height=232 alt="[GUI image]" border=0>
+</A>
+
+<P align=center style="margin-top: 0px; margin-botton: 0px;">
+<BR>
+<A HREF="docetc/docimgs/macosx/run-confirm.png">
+<img src="docetc/docimgs/macosx/run-confirm.png" width=270 height=250 alt="[GUI image]" border=0>
+</A>
+
+<P align=center style="margin-top: 0px; margin-botton: 0px;">
+<BR>
+<A HREF="docetc/docimgs/macosx/run-cancelled.png">
+<img src="docetc/docimgs/macosx/run-cancelled.png" width=250 height=120 alt="[GUI image]" border=0>
+</A>
+
+<P align=center style="margin-top: 0px; margin-botton: 0px;">
+<BR>
+<A HREF="docetc/docimgs/macosx/run-finished.png">
+<img src="docetc/docimgs/macosx/run-finished.png" width=250 height=120 alt="[GUI image]" border=0>
+</A>
+
+<P align=center style="margin-top: 0px; margin-botton: 0px;">
+<BR>
+<A HREF="docetc/docimgs/macosx/quit-verify.png">
+<img src="docetc/docimgs/macosx/quit-verify.png" width=250 height=120 alt="[GUI image]" border=0>
+</A>
+
+
+
+<td valign=top>
+<DL>
+
+
+
+<DT class="lightpanel header"><A name="guimainfolders"><H2>Main Folders</H2></A>
+<DD>
+<P>
+In this section of the GUI, you enter or browse for your source (<B>FROM</B>) and 
+destination (<B>TO</B>) folders (a.k.a. directory trees).
+mergeall's main purpose is to make TO the same as FROM when automatic updates are 
+enabled in the next section of the GUI.
+Both FROM and TO can be on your computer's local drive, an attached external drive, 
+or a network drive, as described <A HREF="#finding">ahead</A>.  Folder-browse dialogs
+vary per platform; here is one on <A HREF="docetc/docimgs/windows/folder-browse.png">Windows</A>
+and <A HREF="docetc/docimgs/macosx/folder-browse.png">Mac</A>.  Be sure to verify your
+choices here; TO will be changed in-place if you pick updates mode below and
+confirm the run.
+</P>
+
+
+
+<P>
+<DT class="lightpanel header"><A name="guirunmode"><H2>Run Mode</H2></A>
+<DD>
+<P>
+Select <B>report-only</B> mode&mdash;in which case FROM/TO differences are reported but no
+data is changed; or <B>automatic-updates</B> mode&mdash;in which case TO is made the same as 
+FROM by updating differing items only.  In either case, you'll be given a chance to confirm 
+the run in a <A HREF="docetc/docimgs/macosx/run-confirm.png">popup</A> before it starts,
+and no changes are made if you elect to <A HREF="docetc/docimgs/macosx/run-cancelled.png">cancel</A>.  
+mergeall also has a "selective" updates mode where you approve each change, but it is less used, 
+and requires running in a console.
+
+<P>
+Also in this section, you can 
+elect to skip "<B>cruft</B>" (a.k.a. hidden metadata) files and folders, so that they 
+won't be reported as differences, and won't be copied to, replaced in, or deleted from  
+the TO tree on updates.  Most users should leave this turned on.  It is especially 
+useful on Macs, where cruft items can badly clutter content that you also use on other 
+platforms.  Enabling this option allows each platform to retain its own cruft, but keeps 
+it out of your cross-platform copies, and avoids mirroring it to your other computers.  
+See <A HREF="#cruft">ahead</A> for more on this option.
+
+<P>
+You can also get <B>Help</B> in 
+this section, which opens this document in a web browser as a convenience (but
+you probably knew that).  On Macs, the Docs top-of-screen 
+<A HREF="docetc/docimgs/macosx/mac-menu-dock.png">menu</A> provides additional
+ways to open the Help.  Beyond this guide, you can also find install and launch 
+details in the <A HREF="README.txt">README</A>.
+</P>
+
+
+
+<P>
+<DT class="lightpanel header"><A name="guimessages"><H2>Messages</H2></A>
+<DD>
+<P>
+In this section, you can enable <B>log-file</B> saves of mergeall messages;
+can Browse for a folder where you want the log to be saved if the prefilled 
+desktop location won't do; and can elect to view the log file in a popped-up
+text editor after the run or not.  All these settings can be changed per run;
+the folder-browse widget and log-file popup toggle are available only when 
+logging is enable with the leftmost toggle at the top.
+
+<P>
+Log files are recommended for every run.  They're labeled with run date and time,
+serve as your record of changes made, and note any errors that cropped up.  
+Log files are also automatically opened in your local text editor at the end of 
+a run for easier analysis if you wish; this is a toggled option (on the far 
+right) because scrolling through the output text in the GUI itself may suffice
+for most runs.  The log file popup's initial value comes from a 
+<A HREF="#configure">config-file</A> setting. 
+There's more on using log files <A HREF="#logfile">later</A>.
+
+<P>
+You can also choose to suppress <B>comparison-phase messages</B> in the GUI here.
+These messages are progress indicators, but suppressing them both shortens the 
+output and avoids scrolling time lags on systems where the underlying mergeall 
+script runs quicker than text scrolls (including current Mac OS X installs).  
+Unlike most of the other widgets in the GUI, this toggle is dynamic&mdash;you can turn 
+it on or off while mergeall is running to hide or show messages currently being 
+generated.  Either way, these messages can still be read in the log file.
+</P>
+
+
+
+<P>
+<DT class="lightpanel header"><A name="guibackups"><H2>Backups</H2></A>
+<DD>
+<P>
+Here, you can enable automatic <B>backups</B> of items (files and folders) 
+changed&mdash;<I>strongly recommended</I> in all cases, unless your drive doesn't
+have enough space (it usually will, because only changed items are backed up).  
+Backups are saved in TO's "__bkp__" folder, in a subfolder named for the run's 
+date and time.  They also enable <I>rollbacks</I>&mdash;emergency restores of the 
+TO tree after an accidental merge, which can be data-archiving lifesavers, but 
+are only possible for runs with backups enabled. 
+
+<P>
+This section also allows you to you to 
+suppress per-file <B>backup messages</B> in both the log file and GUI here&mdash;generally
+suggested to make the log more readable, but these messages might help give more context 
+if errors occur.  See ahead for more on both <A HREF="#backups">backups</A> and 
+<A HREF="#rollbacks">rollbacks</A>.
+</P>
+
+
+
+<P>
+<DT class="lightpanel header"><A name="guitextandgo"><H2>Text and "GO"</H2></A>
+<DD>
+<P>
+Finally, the GUI dynamically scrolls mergeall messages during a run to the text area 
+near the bottom of the window (whose appearance you can <A HREF="#configure">configure</A>),
+and provides a "<B>GO</B>" button to start a mergeall run with the settings you've requested
+in the other sections of the GUI.  On "GO", a 
+<A HREF="docetc/docimgs/macosx/run-confirm.png">popup</A> confirms the run before it starts,
+and <A HREF="docetc/docimgs/macosx/run-finished.png">another</A> notifies you when the run 
+finishes.  If you choose to see messages in a popup, a text-editor window also appears just 
+after the run; it uses whatever you have registered to open text files on your computer.
+
+<P>
+The "GO" button is disabled during a run, as you cannot launch more
+than one run at a time.  Other widgets are also disabled and enabled 
+as they fall out of and into relevance, based on other settings; 
+<A HREF="docetc/docimgs/macosx/disabled-widgets.png">disabled</A>
+widgets are more lightly-shaded and unresponsive.
+
+<P>
+When you're finished mergeall-ing, simply close its main window as 
+<A HREF="docetc/docimgs/macosx/quit-verify.png">usual</A> for your platform.
+On Macs, you can also close mergeall in the top-of-screen 
+<A HREF="docetc/docimgs/macosx/mac-menu-dock.png">menu</A>
+and by right-click (double tap) on its Dock entry; a double-click
+on the app or single-click on the Dock raises and lifts mergeall 
+if it's hidden.
+</P>
+
+</DL>
+</table>
+
+
+
+
+
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H1 class="panel header"><A name="point">Usage Pointers</A></H1>
+
+<P>
+This section explores the most common issues that you may come
+across in the data-archiving wild, and gives useful hints and advice 
+along the way.  Here are the topics we'll be looking at, each of 
+which comes with a quick summary:
+
+<OL>
+<LI class=busylist><A HREF="#configure">Configuring Appearance and Behavior</A>
+<LI class=busylist><A HREF="#patterns">Skew: Golden Copies and Talking Sticks</A>
+<LI class=busylist><A HREF="#finding">Finding Your Stuff</A>
+<LI class=busylist><A HREF="#dst">The Heartbreak of DST on Windows FAT</A>
+<LI class=busylist><A HREF="#excel">Ignore Excel Timestamp "Cheating"</A>
+<LI class=busylist><A HREF="#permiss">Handling File Permission Issues</A>
+<LI class=busylist><A HREF="#diffall">Run diffall Occasionally Too</A>
+<LI class=busylist><A HREF="#logfile">Errors: Check the Log and Rerun</A>
+<LI class=busylist><A HREF="#backups">Always Use Backups Mode (Really)</A>
+<LI class=busylist><A HREF="#rollbacks">Use Rollbacks in an Emergency</A>
+<LI class=busylist><A HREF="#cruft">Dealing with System "Cruft" Files</A>
+<LI class=busylist><A HREF="#cross">A Cross-Platform Archive Recipe</A>
+<LI class=busylist><A HREF="#macresource">mergeall and Mac Resource Forks</A>
+<LI class=busylist><A HREF="#symlinks">Symlinks&mdash;Copied, not Followed</A>
+<LI class=busylist><A HREF="#winpaths">Windows Path-Length Limits Be Gone</A>
+<LI class=busylist><A HREF="#platform">Platform Basics: Installs and Launches</A>
+<LI class=busylist><A HREF="#cmdline">Command-Line Basics: Direct Runs</A>
+</OL>
+
+<P>
+This section is also the majority of this document, and provides ample details that 
+will help you use mergeall well.  In the end, mergeall is more than just its GUI.  
+By nature it relies on system-level properties, and employing it requires a bit of 
+background on things like filesystems, cruft files, and change management.  You 
+don't need a PHD in these subjects, of course, but a basic understanding will help
+you avoid or resolve issues that may crop up.
+
+<P>
+That said, these notes are mostly self-contained,
+and some users may wish to pick and choose those most relevant to their goals.
+Symlinks, for example, may be best avoided (at all costs!), and people who work 
+on just one platform can skim or skip some material here.
+If you prefer to jump right in to test-driving the system live, be sure to come
+back and take a second look here when you're ready for more details. 
+
+<P>
+For additional pointers, see also the older (and now somewhat-dated and 
+partially-redundant) 
+<A HREF="docetc/MoreDocs/Whitepaper.html#other">Whitepaper</A>'s list.
+   
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="configure">Configuring Appearance and Behavior</A></H2> 
+
+<P class=notebox>
+<B><I>Short story</I></B>: mergeall allows you to customize its GUI, as well as 
+some of its behavior, by changing simple assignments in a module file. 
+Edit this file to tailor the program as you like.
+
+<P>
+In addition to the per-run option settings available in its GUI and command line, 
+some of mergeall's appearance and behavior can optionally be customized by changing 
+assignments in the file 
+<A HREF="mergeall_configs.py">mergeall_configs.py</A>.
+
+<P>
+For instance, you can tailor the color, font, and initial size of the GUI's 
+scrolled-messages text area; you can provide an initial value for the 
+log-file popup toggle to save a click; and you can set the maximum number of changed-file
+backups that are retained in each TO destination folder (per <A HREF="#backups">ahead</A>).  
+In general, this file has settings that are unlikely to vary per run; 
+others are options in the GUI or mergeall command line.  
+
+<P>
+As touched on 
+<A HREF="#cruft">ahead</A>, this file also has advanced cruft-file pattern
+settings that most users can safely ignore (though if you know <I>why</I> you 
+may want to change these, you probably also know <I>how</I>).  Hint: see also 
+<A HREF="docetc/Tools/pickcolor.py">pickcolor.py</A> in the docetc/Tools 
+folder for a simple color-chooser GUI you might find useful for GUI configuration.
+Tip: be sure to save and restore your "mergeall_configs.py" file (or changes you've
+made to it) if you <B>upgrade</B> to a new version of mergeall in the future;
+because this file is located in the install's folder, it may otherwise be replaced.
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A NAME="patterns">Skew: Golden Copies and Talking Sticks</A></H2>
+
+<P class=notebox>
+<B><I>Short story</I></B>: if you use mergeall to copy your content to multiple computers, 
+be sure to limit your changes to one copy (the "golden" copy) at a time between mergeall
+runs.  This avoids problems that can arise if you change the same data differently.
+
+<P>
+This section provides some pointers for users who plan on using mergeall to mirror copies
+of the same content to multiple computers.  If this includes you, there's one guideline 
+that's inherent in multiple-copy scenarios, and important enough to get straight up-front: 
+you should generally make changes in only <I>one copy</I> of your content at a time 
+between mergeall runs.
+
+<P>
+This isn't required, and may be overkill when your changes are few and trivial.  
+Despite the small investment in discipline it requires, 
+though, this guideline is also generally a <I>very good idea</I>: if you do make changes
+in multiple copies without mirroring their changes to others, you'll likely wind up 
+either facing a major and manual synchronization job, or losing some changes altogether. 
+
+<P>
+Luckily, this is simpler than it may sound.  The way you'll arrange to limit changes
+to one copy at a time really boils down to where you'll keep your <I>"golden" copy</I>&mdash;the 
+official, up-to-date, and changeable version of your archive.   It may be kept on one 
+device or many, but this choice more or less determines most of your data-archiving tasks. 
+In brief, you might locate the golden copy:
+
+<DL>
+<DT><B>On a common drive</B>:
+<DD>
+<P>
+  In this scheme, your golden copy may be on a USB or network drive that all 
+  computers either access and change directly, or mirror copies from and to when
+  they wish to make changes.  Direct-access drives may not require mirrors, but 
+  all common drives can benefit from mergeall backups (especially network drives, 
+  given their well-known reliability issues), and can take advantage of mergeall's
+  other assets, including its cruft-skipping tools (a topic covered 
+  <A HREF="#cruft">ahead</A>, of special relevance to multiple-platform users).
+  
+<P>
+<DT><B>On a primary computer</B>:
+<DD>
+<P>
+  If you work mostly on one computer, you might locate your golden copy on the primary
+  computer, run mergeall to mirror read-only content copies to other computers to 
+  use but not modify, and run mergeall to mirror updatable content copies to and from 
+  other computers when they are given temporary ownership to make changes.  You'll 
+  also use mergeall to backup the golden copy, wherever it may currently reside,
+  and leverage mergeall's other benefits to keep your content cross-platform.
+
+<P>
+<DT><B>On any of your computers</B>:
+<DD>
+<P>
+  If you regularly use many computers, you can locate the golden copy in a more 
+  ad-hoc fashion, with a rotating temporary ownership for changes granted to one
+  device at a time.  This is essentially the data-archiving equivalent
+  of the aboriginal   
+  <a href="https://en.wikipedia.org/wiki/Talking_stick"><I>talking stick</I></A>
+  model: any device can be used, but only the device currently holding the "stick" 
+  is allowed to update the data, and others must wait until a peer-to-peer mergeall
+  run transfers the stick.  You don't need an actual stick to use mergeall, of course,
+  but devices should take turns at updating data that's stored on all of them.
+  mergeall can also be used here to backup the golden copy from its current owner.
+  </UL> 
+</DL>
+
+<P>
+None of these ideas must be followed dogmatically, and there are additional
+variations we'll omit here.  However you proceed, though, you'll likely spare yourself 
+problems down the road if you keep track of where your up-to-date data lives.
+
+<P>
+As an <I>example</I>, mergeall's proprietor locates content on a primary computer, and uses
+mergeall both for increment backups, and to mirror copies to other devices as needed 
+for either read-only access or temporary ownership for changes.  Both backups and 
+mirrors use USB drives, because home-networking drives proved too slow, unreliable, 
+and unportable.  Because there is a Mac in the device mix, it is also crucial to 
+employ exFAT drives and cruft-file skipping for cross-platform use (more on these
+two options later).   
+
+<P>
+As always, your mileage may vary.  Some, for instance, also use mergeall for 
+full backups and mirrors, but more ad-hoc techniques when changes are few enough 
+to be manageable with a simple staging folder.  In the end, mergeall is just a tool
+for quickly propagating changes; its role and scope are yours to decide.
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A NAME="finding">Finding Your Stuff</A></H2>
+
+<P class=notebox>
+<B><I>Short story</I></B>: your stuff (a.k.a. content) shows up under different pathnames on 
+different platforms.  Either use the GUI's Browse to find folders portably, or 
+follow the naming patterns outlined here.
+
+<P>
+If you use mergeall's GUI, the Browse buttons allow you to select your data sets' folders
+easily.  If you're using mergeall in command-line mode, or need to enter folder locations
+manually in the GUI for any reason, this section gives pointers on the syntax commonly 
+used for folder locations (a.k.a. pathnames) on various platforms.  It may 
+also help you find your data in the GUI if you jump between multiple computers.
+
+<P>
+Let's assume that you've put all your content in a root folder called "YOUR-STUFF" 
+which you've placed at the top of all your drives to help minimize pathname lengths.
+If this folder is stored on:
+
+<UL>
+<LI>A computer's <B>local</B> drive of any kind
+<LI>A <B>USB</B> flash or SSD drive named "EXTREME128G"
+<LI>A shared <B>network</B> folder named "USB_Storage" on a router-based server named 
+"readyshare.routerlogin.net"
+</UL>
+
+then it will show up at the following paths when selected in a folder-browse 
+dialog of mergeall's GUI:
+
+<DL>
+<DT><B>Windows</B>:
+<DD><P>
+<table cellpadding=2>
+<tr><td>Local:		  <td>&nbsp;C:/YOUR-STUFF
+<tr><td>USB:		  <td>&nbsp;D:/YOUR-STUFF
+<tr><td>Network:	 <td>&nbsp;//readyshare.routerlogin.net/USB_Storage/YOUR-STUFF
+</table>
+
+</P>
+<DT><B>Mac OS X</B>:
+<DD><P>
+<table cellpadding=2>
+<tr><td>Local:		  <td>&nbsp;/YOUR-STUFF
+<tr><td>USB:		  <td>&nbsp;/Volumes/EXTREME128G/YOUR-STUFF
+<tr><td>Network:	 <td>&nbsp;/Volumes/USB_Storage/YOUR-STUFF
+</table>
+
+</P>
+<DT><B>Linux</B>:
+<DD><P>
+<table cellpadding=2>
+<tr><td>Local:   	<td>&nbsp;/YOUR-STUFF
+<tr><td>USB:     	<td>&nbsp;/media/&lt;username&gt;/EXTREME128G/YOUR-STUFF
+<tr><td>Network: 	<td>&nbsp;/media/readyshare/YOUR-STUFF (once mounted)
+</table>
+</DL>
+</P>
+
+<P style="margin-top: 20px;">
+Disclaimer: your paths may vary.  For instance, you can use either forward or
+backward slashes ("/" or "\") as separators on Windows when entering paths manually;
+drive letters may differ on Windows if you have additional devices; network drives
+may also be mapped to drive letters like "Z:\" on Windows; Linux allows network 
+drives to be mounted anywhere; and network drive details and requirements can 
+vary more widely still (not to mention their reliability!).  See your system's help 
+resources for more details if needed.
+
+<P>
+Also notice that the paths above assume that the root of your data folder is stored 
+at the top of your drives, to minimize the length of your folder pathnames.  This makes
+paths easier to read, but is usually no longer required as of mergeall 3.0, which
+lifts pathname length limitations on Windows (see the details 
+<A HREF="#winpaths">ahead</A>).
+If you instead locate your data in your per-user account folder, your local-drive 
+paths may look like this:
+
+<DL>
+<DD>
+<table cellpadding=2>
+<tr><td><B>Windows:</B>		<td>&nbsp;C:\Users\&lt;username&gt;\YOUR-STUFF
+<tr><td><B>Mac OS X:</B>	<td>&nbsp;/Users/&lt;username&gt;/YOUR-STUFF
+<tr><td><B>Linux:</B>		<td>&nbsp;/home/&lt;username&gt;/YOUR-STUFF
+</table>
+</DL>
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="dst">The Heartbreak of DST on Windows FAT</H2> 
+
+<P class=notebox>
+<B><I>Short story</I></B>: format external drives as exFAT to avoid FAT32's
+time-change problems.  exFAT is built-in on Windows and Mac OS X, and solves
+the issue for drives used on either or both.  
+Linux requires an install for exFAT, and may benefit from a provided fixer 
+script or other techniques.
+
+
+<H3>The Issue</H3>
+
+<P>
+To achieve its speed, mergeall detects differences in files by 
+checking their last-modified timestamps, instead of reading them 
+byte-for-byte.  This normally works well and allows mergeall to 
+compare archives very quickly, but it's also a dependency that 
+can cause issues in some contexts.  
+
+<P>
+For example, the FAT32 filesystem&mdash;born on Windows but supported everywhere,
+and commonly used by default on older portable devices like USB flashdrives&mdash;handles
+file last-modified times in a unique way that throws off comparisons to 
+internal drives when your computer's clock is adjusted for Daylight Savings Time (DST).  
+If you use a FAT32 drive with mergeall, you'll need to adopt a policy to address 
+this issue, or all your files will be recopied after DST rollovers.
+
+
+<H3>The Cause</H3>
+
+<P>
+Without going into all the gritty details, modern filesystems used for internal
+drives on Windows, Mac OS X, and Linux, record file times in <I>UTC time</I>, which 
+is the absolute number of seconds since a fixed starting point in the past.  
+Because these time values are standard and absolute, they compare correctly across 
+all filesystems and platforms.  By contrast, the older FAT32 filesystem records file 
+times as <I>local time</I>; a file changed at 2PM records 2PM, not seconds since a fixed
+reference point (no,  
+<A HREF="https://msdn.microsoft.com/en-us/library/windows/desktop/ms724290%28v=vs.85%29.aspx">really</A>).
+
+<P>
+The problem with this is that the two schemes' times may differ after adjusting for 
+time zones or DST.  In particular, the timestamps of files stored on a FAT32 external 
+drive are prone to be skewed from those on internal drives that use UTC-based filesystems. 
+Hence the drama&mdash;if you compare copies of your archive on USB sticks to copies
+on internal drives on a computer that's set to change its clock at DST rollover, 
+timestamp-based programs like mergeall may report all your files as different twice a year,
+even though you haven't touched them!
+
+<P>
+It's easy to verify this for yourself.  First, copy some files from your computer's 
+local drive to a FAT32-formatted external drive.  Then, to trigger the time skew, 
+either:
+
+<UL>
+<LI>Change your time zone to one that is an hour different from yours
+<LI>Change your date to one in the future past the next DST rollover
+<LI>Set date and time to just seconds before the next DST update and wait 
+</UL>
+
+You may also need to eject and reinsert the FAT32 drive after the change to 
+subvert caching, especially on a Mac.  If all goes (not!) well, the modification 
+times on the FAT2 drive will wind up disagreeing with those on the local 
+drive&mdash;and mergeall will report all the files as differences.  If you 
+repeat this with an exFAT drive, you will notice that the drive's times 
+don't change like FAT32's (and probably be able to guess where this note is headed).
+
+<P>
+Time changes are a well-known source of problems on Windows.  FAT32 DST rollovers
+don't impact the <A HREF="#diffall"><I>diffall</I></A> program because it 
+reads byte-for-byte (and is <I>much</I> slower as a result); but some programs 
+can be derailed by them just like mergeall (including software build and source-control 
+systems), and other programs are sensitive to <I>any</I> automatic clock
+changes (including <I><A HREF="http://learning-python.com/pymailgui.html">PyMailGUI</A></I>, 
+whose timer loop can hang indefinitely).  FAT32's time-change issue may be a relic 
+of computers past, but it's not going away anytime soon.
+
+
+
+<H3>The Fixes</H3>
+
+<P>
+Luckily, this issue is easy to work around.  If you will be using mergeall in 
+a way that makes DST rollover issues a possibility, you can address them with
+one of the following schemes, in roughly decreasingly-recommended order:
+
+<UL>
+<LI>
+Format external drives using <B>exFAT</B> instead of FAT32 if you'll be merging
+on Windows, Mac OS X, or both.  exFAT is a UTC-timestamp filesystem designed to work 
+well on flashdrives.  It's standard on Windows and Mac, and avoids the DST rollover 
+issue altogether for drives used on one or both of these platforms.  As a bonus, 
+exFAT can store files larger than 4GB that FAT32 cannot.
+Downside: on Linux only, 
+exFAT requires a third-party install today, and may or may not do as well on DST 
+rollovers or time zone changes&mdash;a story too convoluted to cover here (more 
+details on this <A HREF="#cross">ahead</A>).  In the worst case, though, you 
+can use one of the other options on this list to manage copies on Linux.
+
+<BR><BR>
+<LI>
+Run the included 
+<A HREF="fix-fat-dst-modtimes.py"><B>fix-fat-dst-modtimes.py</B></A> script 
+at DST rollovers to quickly and automatically adjust last-modified
+times on your archive copy's files by an hour.  This script changes 
+file timestamps only, and doesn't rewrite any of your data.  It's a fast fix
+that can be applied to either your FAT32 drive or local drive to bring them
+in synch twice a year as needed.
+
+<BR><BR>
+<LI> 
+Keep <B>two copies</B> of your archive&mdash;one to use when DST 
+is active, and one to use when it is not.   When DST time changes happen,
+simply start merging to the other FAT32 drive's copy, so it agrees with 
+your internal drive's times.  Bonus: you'll automatically have an extra long-term 
+copy of your archive, which is a good policy to adopt under any archiving regime.
+
+<BR><BR>
+<LI>
+Do nothing, and allow mergeall to <B>recopy</B> your archive at DST rollovers.
+The price of inaction here depends on the speed of your drives and the size of your 
+archive&mdash;smaller archives may recopy fast enough to make this minor or moot,
+though 100G on a USB 2.0 stick may be right out.  Note that you may want to run
+this merge without <A HREF="#backups">backups mode</A> to avoid doubling your 
+storage size (else every file is also backed up!).  Upside: you'll get a fresh 
+copy twice a year, which may help some storage devices retain data longer.
+
+<BR><BR>
+<LI>
+Turn off your DST <B>auto-adjustment</B> setting in Windows.  This doesn't apply 
+to other platforms, but if you'll merge only on Windows, it suffices to avoid
+timestamp skew on FAT32 drives.  You'll just need to manually adjust your clock 
+twice a year, but this is a trivial task, and no worse than most "real" world clocks.
+
+<BR><BR>
+<LI>
+Format external drives in other UTC-based filesystems (e.g., <B>NTFS, HFS+, ext</B>),
+so that their timestamp protocol matches that on your local drives.  For instance,
+using your Windows harddrive's NTFS on your flashdrives ensures that their times agree
+(and ditto for HFS+ on Macs).  Like exFAT, this avoids DST issue; unlike exFAT, these 
+filesystems are not directly supported across platforms, and may impact 
+your drive's performance.  Portability requires third-party 
+<A HREF="https://duckduckgo.com/?q=mac+ntfs+windows+hfs%2B">drivers</A>, 
+and performance depends on your 
+<A HREF="http://www.flexense.com/fat32_exfat_ntfs_usb3_performance_comparison.html">usage</A>. 
+</UL>
+
+<P>
+There's more coverage <A HREF="#cross">later</A> on formatting drives with 
+exFAT to work around the DST issue; it's presented in the context of 
+cross-platform use, but applies to single-platform merges as well.  
+The drive-formatting options above may be the best cure for DST tragedy, 
+but they are not to be taken lightly&mdash;because formatting erases existing data, 
+you'll want to either format drives up-front, or recopy the drive's content 
+from another copy after reformatting to use a new filesystem.
+
+<P>
+For tips on formatting your drives, try your computer's help resources 
+or a web search.  In brief: on <I>Windows</I>, right-click a drive's icon in Computer
+and select Format; on <I>Mac OS X</I>, open Disk Utility in Launchpad and select 
+your drive and Erase; and on <I>Linux</I>, right-click on the drive in Files and 
+choose Format.  We'll skip other techniques for space here, but add that Windows 
+may not allow you to pick some FAT filesystems for large drives, though Mac will.
+
+<P>
+Also note that many external drives&mdash;especially larger ones&mdash;are shipped 
+preformatted to use exFAT today, to leverage its features and portability; be 
+sure to check your drive first to see if formatting is required.
+
+
+
+</P>
+<H3>Postscript: More FAT notes</H3>
+
+<UL>
+<LI>
+<P>
+<A name="dstfixproven">This</A> section's recommended 
+fix&mdash;formatting external drives with exFAT in order to sidestep DST 
+rollover issues&mdash;<B>has now been proven definitively to work</B> 
+on Windows and Mac OS X with no add-ons; and on Linux with the exFAT 
+driver add-on described above.  Specifically, the March 12, 2017 DST time
+change passed without making file timestamps out of synch between any internal
+and exFAT-formatted external drives, on any of these three platforms.  
+That said, Linux can still be influenced anytime by changes in a system
+clock shared with Windows on dual-boot machines; fence hoppers beware.
+</P>   <!-- need for IE -->
+
+<LI>
+<P>
+Some systems, including some clouds, try to work around FAT32 time 
+issues by assuming that a file changed exactly one hour (<B>3,600 seconds</B>)
+later or earlier hasn't really been changed at all, especially if its size is also unchanged. 
+This seems a heuristic hack, that's a recipe for disaster&mdash;what if you 
+<I>do</I> change a file in an hour in a way that doesn't make it larger or 
+smaller?  Worse, what if you discard the original, assuming the 3,600-second 
+system has copied it elsewhere?  For such reasons, mergeall refuses to employ 
+such "good enough" and "probably never" solutions; software is not supposed 
+to be opinion-based, especially when your content is on the line.
+</P>
+
+<LI>
+<P>
+It's worth noting that the FAT32 filesystem also records file 
+modification times with a limited <B>two-second granularity</B>&mdash;modtimes 
+are accurate only within a two-second range, because they save seconds as two-second 
+intervals.  This can also throw comparisons off: files that are really the same 
+may look different due to their limited timestamp accuracy.  In this case, though,
+no user action is required, because mergeall works around the problem automatically. 
+Although this also applies a heuristic, you're less likely to change and discard 
+a file just one second after mergeall compares it.  Check out the docstring in
+<A HREF="mergeall.py">mergeall.py</A> for the full story.
+</P>
+
+<LI>
+<P>
+Both exFAT and FAT32 also have <B>symlinks limitations</B> only 
+on Windows&mdash;as in, they cannot recognize or record symlinks at all!&mdash;but 
+this is a rare and obscure type of file that is not a part of normal content, and 
+most (if not all) mergeall users do not need to care.  If you may, though, see the 
+coverage <A HREF="#symlinks">ahead</A>.
+</P>
+</UL>
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="excel">Ignore Excel Timestamp "Cheating"</A></H2>
+
+<P class=notebox>
+<B><I>Short story</I></B>: ignore spurious diffall reports for older Excel files that 
+you've viewed but haven't changed.  Their content may differ in trivial and 
+unimportant ways, even if their modified times are the same.
+
+<P>
+Also in the timestamp department: if you use a newer Microsoft Excel to open 
+an older spreadsheet, you should be aware that Excel may change the file's content
+trivially, without updating the file's last-modified timestamp.  
+This does not make the file register as a difference in the 
+timestamp-based <I>mergeall</I>, but it does in the byte-by-byte <I>diffall</I>.
+It's safe to simply ignore these files in diffall, as the Excel
+change is just metadata that doesn't have anything to do with your
+spreadsheet's content.  Still, it's a special-case for archive 
+tools&mdash;and arguably a bug in Excel's behavior!
+
+
+<H3><A name="sierracruft">Update: Beware Other Cheaters</A></H3>
+
+<P>
+Though exceedingly rare, it's also worth noting that other programs which change 
+file modtimes may also subvert file timestamp-based programs like Mergeall.  
+In particular, any program that copies over prior modtimes after changing content
+may make changed files register as <I>unchanged</I>&mdash;and prevent Mergeall propagation.  
+This was the case with an initial design in 
+<A HREF="http://learning-python.com/pygadgets.html">PyPhoto's</A> thumbnail-file 
+generator, a tool which uses modtimes for its own change detection, but was fixed by
+a later design that stored original modtimes separately from thumb files.  Modtime 
+cheaters are rare (and no other instances have been seen or reported to date), but any
+other cases are officially outside Mergeall's scope.  For more on the PyPhoto use case, 
+see its file viewer_thumbs.py available in its online 
+<A HREF="http://learning-python.com/pygadgets-products/unzipped/_PyPhoto/PIL/">source code</A>.
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="permiss">Handling File Permission Issues</A></H2> 
+
+<P class=notebox>
+<B><I>Short story</I></B>: mergeall can't remove or replace files that are marked as read-only,
+locked, or otherwise in-use.  Change permissions and rerun mergeall to synch these files.
+
+<P>
+Besides timestamps, mergeall is also dependent on permission settings 
+of files it must modify to bring your archive copies in synch.  If a
+file to be updated or removed is marked as read-only, is locked, or is
+otherwise in use when mergeall reaches it, it will likely fail to update, 
+generate an error message in the mergeall log file, and leave an unresolved 
+difference to be addressed in future runs.  
+
+<P>
+<B>To <I>spot</I> permission-related errors, either:</B>
+
+<UL>
+<LI><I>Run mergeall again</I>&mdash;these files are skipped and report as 
+differences again in future runs.
+
+<BR><BR>
+<LI><I>Look for error messages in the log file</I>&mdash;search for "**Error" 
+if needed per the note <A HREF="#logfile">ahead</A>.  
+</UL>
+
+<P>
+<B>To <I>fix</I> permission-related errors, either:</B>
+
+<UL>
+<LI>
+<I>Run mergeall again</I>&mdash;a file temporarily in use may be freed
+up in the next mergeall run. Especially on Windows, a simple rerun 
+fixes many permission errors in practice.  Be sure to close any programs
+using the failing files first.
+
+<BR><BR>
+<LI>
+<I>Change file permissions</I>&mdash;a file explicitly marked as read-only 
+or locked may require that you change its permissions to allow mergeall to 
+process it.  Such settings can appear automatically (e.g., on some images
+copied from cameras), but may also be intentional, and can be easily 
+changed with a right-click or other GUI operation on most platforms.
+</UL>
+
+<P>
+Either way, fixing permission failures may require a manual step, but mergeall never 
+removes read-only settings itself, because your data is your personal property.  
+If you mark a file as read-only to protect it, mergeall will respect your choice
+until you lift the restriction.  Shouldn't every program?
+
+
+
+<H3>A PS to Mac Users: Disable File Auto-Locking</H3>
+
+<P>
+Curiously, some Mac OS X systems may automatically lock files that have 
+not been edited for two weeks&mdash;which can all but guarantee future mergeall 
+update failures in some scenarios (propagating files changed elsewhere to the 
+machine with locked files, for instance).
+This may have been in support of Apple's Time Machine backup system, and
+may not be present in all Macs, but seems pointless and extreme (its only  
+rationale seems to be Mac auto-saves&mdash;another curious and extreme <A HREF="#macautosave">model</A>).
+To disable automatic file locking, unclick the option in Time Machine's System Preference form, 
+if present.   For more information, run a 
+<A HREF="https://duckduckgo.com/?q=mac+disable+file+locking">web search</A>.
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="diffall">Run diffall Occasionally Too</A></H2> 
+
+<P class=notebox>
+<B><I>Short story</I></B>: mergeall reports differences based on file modification times
+and sizes, and folder structure.  diffall does a more-complete bytewise comparison
+that's much slower, but should be run periodically to verify your content.
+
+<P>
+mergeall excels at comparing folder trees fast, but its results are only as 
+good as file last-modified timestamps, which, as we've seen in prior sections,
+can sometimes be unreliable.  If you want to be <I>really</I>
+sure that an archive copy matches the original, run the included
+<A HREF="diffall.py">diffall.py</A> script 
+to perform a byte-by-byte comparison of each file.  
+
+<P>
+diffall compares full content instead of detecting last-modified timestamp mismatches.
+It also runs <I>much</I> slower&mdash;one large tree that compares in 8 seconds 
+with mergeall requires 12 minutes in diffall for a given set of drives.  That's
+almost 100X slower, and an example of the reason mergeall was written in the 
+first place.  Life is too short for brute force copies and compares&#0153;.
+
+<P>
+Still, given the many ways that timestamps and storage devices can fail, it's 
+recommended to run diffall on archive copies occasionally to verify that your 
+content is truly in synch.  So start a diffall, grab a coffee, and watch the 
+bytes fly.  Unlike mergeall, diffall has no GUI, and is run only from a command line; 
+see <A HREF="#cmdline">ahead</A> for pointers on this mode. 
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="logfile">Errors: Check the Log and Rerun</A></H2> 
+
+<P class=notebox>
+<B><I>Short story</I></B>: errors happen&mdash;especially when using storage devices
+with limited lifespans.  Be sure to check for error messages in mergeall logs, 
+and address as needed.
+
+<P>
+Speaking of verifying results: you should also generally verify mergeall's actions 
+by checking its saved log file for error messages.  See <A HREF="#gui">above</A> 
+for notes on enabling log files.  They report a brief summary at the end which 
+normally suffices, but they may also contain error messages for operations that 
+may have failed along the way.  
+
+<P>
+When errors occur, you will usually see a line at the end of the "*Summary" section that 
+looks like this:
+
+<PRE>   **There are error messages in the log file above: see "**Error"</PRE>
+
+When this message appears, search the saved log file for string "**Error" to 
+find any updates-related error messages quickly. 
+This is especially useful for isolating file read-only permission failures in a 
+large archive's merge (more on these <A HREF="#permiss">above</A>).  
+
+<P>
+For more fidelity, a quick mergeall <I>rerun</I> in report-only mode can also verify 
+success or pinpoint any files that failed to merge, and <I>diffall</I> can be used to verify 
+results when you want a full content comparison per the preceding <A HREF="#diffall">note</A>. 
+mergeall may be automatic, but automation can and should only go so far, especially when 
+handling your valuable content; human operators (i.e., you) should still expect to step in 
+when things go wrong.
+
+<P>
+It's worth noting that mergeall is clever enough to ignore some errors that are irrelevant to your
+merge.  On Macs, for example, hidden "._X" AppleDouble resource-fork 
+files (described <A HREF="#cruft">ahead</A>) may be automatically
+removed with their "X" data-fork (i.e., real) file counterparts.  If a folder removal
+gets to the data-fork file first, it ignores errors that may arise when trying to remove
+a resource-fork file that has already been removed automatically (rare, but true!).  A similar
+error is skipped for auto-removed folders on Windows.  Like others, both of these cases would be 
+cleared up by simply rerunning mergeall, but you should check the log to be sure.
+
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="backups">Always Use Backups Mode (Really)</A></H2> 
+
+<P class=notebox>
+<B><I>Short story</I></B>: mergeall's "-backup" mode saves backup copies of every 
+file removed or replaced during a run, so you can restore them manually or
+by automatic rollbacks.  You want to do this, unless your drive is out of space, 
+or you're recopying an archive in full.
+
+<P>
+When running mergeall in updates mode, always be sure to use its "-backup"
+mode argument&mdash;and its corresponding toggle in the 
+<A HREF="docetc/docimgs/macosx/main-window.png">GUI</A>&mdash;to 
+save modified files, unless you are too tight on space to store backup copies.  
+If used, backups mode allows you to back out any of mergeall's changes in the 
+future, and completely rollback a mergeall run immediately after it finishes.  
+
+<P>
+Backups mode keeps a copy of every file replaced or removed in the TO tree,
+and notes all files added to TO.  This saved data and additions list show up 
+in the TO tree's "__bkp__" folder&mdash;mergeall's equivalent of a <I>recycle bin</I>&mdash;and
+is retained for a fixed number of runs.  When available, this data can be 
+used to manually back out specific items, or cancel an entire run's changes 
+with the included <A HREF="#rollbacks">rollback.py</A> script&mdash;indispensable
+if you accidentally swap FROM for TO! 
+
+<P>
+Because they record only items changed in the TO tree, backups are usually 
+very small, and there's generally no reason to avoid them (they incur a 
+minor speed hit to save changed data, but it's usually negligible).  On the 
+contrary, skipping backups mode means there is no way to undo mergeall's 
+changes&mdash;a <I>sizeable</i> risk, given the tendencies of computers, 
+drives, and, yes, humans to fail.  
+In fact, backups are so important that they are "on" by default in the GUI 
+launcher, so no action is normally required. 
+As a rule, they should be disabled only in the 
+very unlikely event that your target drive has space for changes only.  
+
+<P>
+One exception worth noting: you may want to <I>not</I> use backups mode 
+if you're allowing mergeall to rewrite your archive in full twice a year 
+on DST rollover, as described <A HREF="#dst">earlier</A>.  Because this 
+scheme replaces <I>every</I> file in the archive, using backups means you'll 
+create a complete and redundant copy of your archive in its "__bkp__" folder&mdash;and
+may exceed your drive's space limits in the process.  In all other use 
+cases, though, mergeall's backups mode is strongly recommended.
+
+<P>
+For the full story on backups, see the original whitepaper's coverage of 
+<A HREF="docetc/MoreDocs/Whitepaper.html#backups">backups</A> and 
+<A HREF="docetc/MoreDocs/Whitepaper.html#restores">rollbacks</A> (a.k.a. restores).
+We'll revisit this topic in the usage cautions <A HREF="#warn">ahead</A>, 
+because it's one of the best things you can do to safeguard your content.
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="rollbacks">Use Rollbacks in an Emergency</A></H2> 
+
+<P class=notebox>
+<B><I>Short story</I></B>: when backups are enabled, mergeall's "-restore" mode or "rollback.py" 
+script can be used to back out all the changes made by the prior run.  Use this in case 
+of catastrophic failure&mdash;if a drive dies, or you accidentally transpose your FROM and 
+TO trees, for example.
+
+<P>
+This pointer is an offshoot of the former, but it's worth calling out 
+separately: if a run goes horribly awry, you can back out <I>all</I> its changes 
+in a single step, by running a full rollback of the prior run's updates.   This 
+restores your archive to its former self, before the merge gone bad.
+Rollbacks can be kicked off in two ways:
+
+<UL>
+<LI>
+For simplicity fans, run the included <A HREF="rollback.py">rollback.py</A> script 
+via command-line or Windows click, and provide the directory path of your archive's 
+root (top-most) folder as either command-line argument, or console input when prompted.
+
+<BR><BR>
+<LI>
+If you happen to like coding complicated command lines, you can also invoke a
+rollback by using mergeall's "-restore" command-line argument, though you'll 
+need to also locate and provide the latest backup's folder path manually on a command line.  
+</UL>
+
+<P>
+Both rollback techniques assume that you haven't made any changes you wish to save
+since the merge being rolled back, and require that the prior run was made with 
+<A HREF="#backups">backups</A> enabled&mdash;yet another reason to do so.
+Assuming your archive qualifies, though, a rollback will put back items replaced or removed 
+and erase items added, restoring the archive to its state before the latest mergeall 
+run.  
+
+<P>
+It's even possible to rollback <I>multiple</I> mergealls: simply delete the 
+most-recent backup ("__bkp__") folder after each rollback.py run.  This 
+allows you to completely reset all the content on a backup device to the 
+state it was in on a prior date, as long as that device was used only for 
+backups-enabled mergealls since that date.
+
+<P>
+Rollbacks are an emergency measure, and shouldn't be performed lightly;
+you're always better off being careful with your selections when launching 
+a data-changing tool like mergeall.  When needed, though, both piecemeal 
+restores and full rollbacks from backups can set your archive right again.
+
+<P>
+For more details on how to invoke rollbacks, see the original whitepaper's 
+in-depth <A HREF="docetc/MoreDocs/Whitepaper.html#restores">coverage</A>
+which we we'll omit here for space.
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="cruft">Dealing with System "Cruft" Files</A></H2> 
+
+<P class=notebox>
+<B><I>Short story</I></B>: use the "-skipcruft" mode to avoid propagating platform-dependent
+metadata files to archive copies and other computers, and/or run a provided script to 
+remove such files on demand.  The mode retains these files on their creating platform&mdash;and
+only!
+
+
+<H3>The Issue</H3>
+
+<P>
+If you plan on using your archive on multiple platforms, you should 
+also be aware that some are prone to create numerous files in your archive's 
+folders, to store metadata used only by the platform on which these files are created.  
+These items, including both simple files and complete folders, are usually small in size
+and are normally-<A HREF="https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory">hidden</A>
+by default.  But they are also generally-useless clutter&mdash;a.k.a. <I>cruft</I>&mdash;on 
+other platforms, and can wreak havoc in many usage scenarios and programs.  They can be 
+especially problematic for data archiving tools like mergeall which process files generically.
+
+<P>
+Mac OS X is particularly notorious for generating cruft files alongside your
+content.  As a very partial sample:
+
+<UL>
+<LI>A ".DS_Store" file can be created on a Mac just by viewing a folder in Finder. 
+
+<LI>A ".TemporaryItems" folder might be left behind by file operations.
+
+<LI>A ".com.apple.timemachine.donotpresent" pops up on drives excluded from backups.
+
+<LI>A ".fseventsd" folder is added to manage file-system events.
+<LI>
+A "._*" companion file may appear whenever a file is used on a non-Mac 
+drive&mdash;even if it's just opened.  
+</UL>
+
+The first of the above is a common sight on all Mac drives, and may appear in any folder. 
+The last&mdash;which also goes by names 
+<A HREF="https://en.wikipedia.org/wiki/AppleSingle_and_AppleDouble_formats">AppleDouble</A>
+and <A HREF="https://en.wikipedia.org/wiki/Resource_fork">resource fork</A>, and is used to 
+emulate Mac-specific behavior&mdash;crops up only on drives using a non-Mac filesystem, but can 
+accumulate quickly.  In fact, a Windows drive's folder viewed on a Mac can sprout <I>both</I> a 
+".DS_Store" and a "._.DS_Store" companion!  This can easily get out of control; like them or not, 
+Macs can create so many cruft items that it can be difficult to see your content's actual files.
+
+<P>
+Nor is Mac the only offender.  Windows and Linux computers can add cruft files too 
+(e.g., "desktop.ini" folder-view options and "Thumbs.db" icon caches on Windows), 
+though far less often than Macs.  Installed programs may also create platform-specific 
+items&mdash;including Python's own ".pyc" bytecode files, which always report
+differences if compared between platforms, always trigger recompiles if copied 
+between platforms, and may be fairly labeled as undesirable cruft in
+cross-device archives.
+
+<P>
+To see how big an issue cruft files may be, unhide them on your computer.  On Windows,
+set your Folder View options to show hidden files in Explorer (or try its View tab if 
+it has one).  On Mac, run this in Terminal (and replace "TRUE" with "FALSE" to rehide 
+files after you've recovered from the shock!):
+
+<PRE style="margin-left: 45px;">defaults write com.apple.finder AppleShowAllFiles TRUE;killall Finder</PRE>
+
+<P>
+Even with this trick, Mac's Finder still won't show you "._" companion files on non-Mac 
+drives (or ".DS_Store" files as of <A HREF="#sierracruft">Sierra</A>), but a "ls -a" 
+command in its Terminal will.  If you are familiar with programming, a Python 
+os.listdir() run at its interactive prompt on any platform shows all files 
+too&mdash;hidden or not.
+
+<P>
+While some casual users may safely keep hidden cruft files hidden and ignore this 
+issue altogether, anyone who produces content on computers will likely need to care 
+about these files' presence eventually.  If your job title or hobby includes uploading
+websites, packaging programs for release, writing file-processing tools, or exchanging
+any sort of data in any sort of way, phantom cruft files can be a major nuisance.
+
+<P>
+Luckily, mergeall provides two options to avoid duplicating these files to other copies
+and computers, as the next section explains.
+</P>
+
+
+
+<H3>The Fixes</H3>
+
+<P>
+If you work on just one platform, you may not need to care about any of
+these items&mdash;they serve roles (e.g., Mac companion files simulate 
+Mac filesystems), might be useful to include in your archives,
+and probably shouldn't be blindly deleted in any event. 
+If you use your archive on multiple platforms, though, you may not 
+want such files and folders to clutter your content.  To prevent cruft 
+from showing up in your archives, you can do either of the following:
+
+<UL>
+
+<LI>
+Run the included script 
+<A HREF="nuke-cruft-files.py"><B>nuke-cruft-files.py</B></A> to delete
+all these items from an archive copy on demand.  You can run this
+to clean up on the platform that creates these files; on an intermediate 
+transfer device (e.g., a USB or network drive); or on the platform
+to which you're mirroring the archive.  In any of these modes,
+this script provides a brute-force but manual way to purge cruft 
+from your archive copies.  See it's code for more on its operation,
+as well as more about cruft in general.
+
+<BR><BR>
+<LI>
+Use the <B>"-skipcruft"</B> option, available in the
+<A HREF="mergeall.py">mergeall</A>,
+<A HREF="diffall.py">diffall</A>, and 
+<A HREF="cpall.py">cpall</A> programs, 
+to ignore these items entirely in both difference reports 
+and updates (the related <A HREF="http://learning-python.com/ziptools.html">ziptools</A>
+system supports this flag too).  This option automatically keeps platform-specific 
+cruft items out of your archive copies, except on the platform on which they are
+created.  Mac cruft stays on the Mac, and ditto for Windows and Linux.
+
+</UL>
+
+<P>
+The <I>first</I> of these options&mdash;the script&mdash;can also be used to create
+an initial cruft-free archive copy, and to clean a folder accessed on a Mac 
+but never the subject of a mergeall (for a graphic example of why this might be
+useful, see your Windows USB or network drives with hidden files visible after 
+a Mac session).
+The <I>second</I> option, "-skipcruft," is more automatic, and is supported by all
+three of the mergeall system's main programs as follows:
+
+<P>
+<DL>
+<DT>
+<B>In mergeall</B>:
+<DD>
+<P>
+The "-skipcruft" command-line option&mdash;and its corresponding toggle in the 
+<A HREF="docetc/docimgs/macosx/main-window.png">GUI</A>&mdash;ignores 
+cruft files and folders in both the FROM and TO folder trees.
+This means that cruft items:
+
+<P>
+<UL>
+<LI>Will not be reported as differences in comparison reports 
+<LI>Will not be copied to, replaced in, or deleted from the TO 
+destination folder in updates mode
+</UL>
+
+<P>
+In other words, this option allows you to avoid <I>both</I> copying metadata 
+files to TO if absent, and removing or replacing them on TO if already 
+present.  For example, a Mac's cruft is neither deleted when it is TO, 
+nor copied to other drives when it is FROM.  It stays on the Mac, 
+but isn't copied to drives or computers where it's irrelevant
+
+<P>
+The net effect is that all your archive copies still wind up the same after merges, 
+<I>except</I> for their unique cruft items, which are allowed to vary on each device. 
+When used for all your merges, platform-specific items remain on the creating 
+platform, but are not transferred to other copies or computers.  That's ideal 
+for multiple-computer users.
+
+<P>
+The "-skipcruft" option may slow mergeall runs slightly, 
+but not enough to be a concern.  As one metric, a large archive of 98G space and 60k 
+files generally compares with and without cruft skipping in 3.8 and 1.8 seconds on 
+a fast computer, respectively; and in 10 and 7 seconds on a moderately-fast computer, 
+respectively&mdash;a trivial 2- or 3-second penalty.  In exchange, you can focus on your 
+actual content, instead of dealing with the union of all your platforms' cruft.
+</P>
+
+<DT>
+<B>In diffall</B>:
+<DD>
+<P>
+The "-skipcruft" command-line option ignores cruft files and folders in both trees, 
+so they won't be reported as differences.  This works much like mergeall's 
+comparison reports, and has similar benefits: you can focus on your content, 
+not system cruft.  This option has no noticeable impact on speed in diffall,
+because the script spends most of its time reading data in full.
+</P>
+
+<DT>
+<B>In cpall</B>:
+<DD>
+<P>
+The "-skipcruft" command-line option ignores cruft files and folders in the source tree, 
+thereby preventing them from being copied to the destination.  This is similar
+to what some copy/paste and drag-and-drop copiers do, but it's a switchable
+option in cpall.  The speed overhead of this option is also irrelevant here,
+as the time needed to write files overshadows all else.
+</P>
+</DL>
+
+<P>
+Cruft filename patterns are defined in the 
+<A HREF="mergeall_configs.py">mergeall_configs.py</A> file described 
+<A HREF="#configure">earlier</A>.  You can tailor
+them if needed, but the "factory presets" include common cruft file names on Mac, 
+Windows, and Linux, and most users can safely use the definitions as shipped.
+For instance, the Python bytecode preset means it's skipped in both FROM (so
+it's never copied) and TO (so it's never removed).
+
+
+
+<H3>To Cruft or Not to Cruft</H3>
+
+<P>
+To wrap up, keep in mind that you might <I>not</I> want to 
+skip cruft files in your archives if you work on a <B>single platform</B>&mdash;and
+if this is your story and you can't imagine why you should care, you probably don't need to.
+For such users, merges <I>without</I> the "-skipcruft" option still treat cruft files 
+like any other, copying them to and from other drives and computers, and reporting and
+synchronizing them when they differ.  In this mode, what you save is what you'll get;
+mergeall doesn't treat cruft files specially, but your platform may (if you use a 
+Mac, see the upcoming <A HREF="#macresource">pointer</A> on resource forks).  
+
+<P>
+On the other hand, most people who use&mdash;or may someday use&mdash;an archive copy on
+<B>multiple platforms</B> are likely to care about their content being corrupted with system files 
+which serve no purpose on other platforms, may or may not be hidden in other programs,
+and can seem downright rude.  Especially for users in this category, 
+<I>"-skipcruft" is generally recommended for content portability</I>.  
+It keeps your archive copies free of both files that naturally vary per platform, 
+and unfortunate artifacts of proprietary engineering choices.
+
+<P>
+For a more technical look at cruft handling, see also 
+its new feature summary in the <A HREF="docetc/MoreDocs/Whitepaper.html#cruft30">Whitepaper</A>;
+the cruft-skipping examples sketched in <A HREF="mergeall_configs.py">mergeall_configs.py</A>'s comments;
+and the run logs available in the <A HREF="test/expected-output-3.0">test folder</A> (the
+HTML files there provide the quickest look).
+Cruft also rears its head in the <A HREF="test/ziptools">ziptools</A> package developed for 
+mergeall testing but available separately, as well as website 
+<A HREF="http://learning-python.com/genhtml.html">generation</A> and
+<A HREF="http://learning-python.com/pp4e-updates.html#examples">upload</A> scripts.
+And for more on how to leverage cruft-skipping, read on to the 
+<A HREF="#cross">next pointer</A>'s coverage of mergeall cross-platform usage patterns.
+
+
+
+<H3><A name="macautosave">A PS to Mac Users: Disable Auto-Saves</A></H3>
+
+<P>
+One final crufty hint: Mac users may also wish to turn off the 
+<I>auto-save mode</I> of common apps, which writes files whenever they 
+are opened and closed&mdash;and updates their last-modified timestamps in the process, 
+guaranteeing a possibly-pointless mergeall copy, and usually-useless "._*" cruft files 
+on non-Mac drives.  System Preference's 
+"Ask to keep changes when closing documents" or Terminal commands of the following
+form may do the job 
+(see more details <A HREF="https://duckduckgo.com/?q=Mac+OS+X+disable+autosave">here</A> 
+and <A HREF="https://discussions.apple.com/thread/7396743?start=0&tstart=0">here</A>):
+
+<PRE style="margin-left: 45px;">defaults write com.apple.Preview ApplePersistence -bool no
+defaults write com.apple.TextEdit ApplePersistence -bool no
+defaults write com.apple.TextEdit AutosavingDelay -int 0</PRE>
+
+<P>
+Caveat: you'll need to save your files yourself after doing this, but in-place auto-save 
+is a controversial and dubious feature in the first place (why would a text editor
+automatically overwrite files with experimental edits without your consent?), and its 
+impact on backup and archiving tools seems unfortunate at best.  Luckily, Mac users seem
+to have convinced their vendor to make it optional.
+
+
+
+<H3><A name="sierracruft">An Update for Mac Users: Sierra Hides its Cruft</A></H3>
+
+<P>
+As of Mac OS Sierra (10.12), setting your defaults to display hidden files as
+described above still works as before, but Finder has been special-cased to 
+never display ".DS_Store" files.  That is, the ".DS_Store" files are still there 
+(and can be seen via a "ls -a" in Terminal, or an os.listdir() in Python), 
+but Finder will no longer show them to you&mdash;even if you ask it to.   
+There's more discussion on this 
+<A HREF="http://www.learning-python.com/post-release-updates.html#mergeallsierra">here</A>.
+This seems almost antagonistic towards content producers, who need to care about
+all the files in their folders.  Hopefully, Mac OS will someday find a better way 
+to store Finder metadata than dumping it all over our drives and pretending it's not
+there, but this policy is still in force as of High Sierra (10.13).
+As it stands, most Mac OS users are left to puzzle over why the act of viewing a folder 
+is enough to change its <A HREF="docetc/MoreDocs/Revisions.html#version31">modtime</A>.
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="cross">A Cross-Platform Archive Recipe</A></H2>
+
+<P class=notebox>
+<B><I>Short story</I></B>: this section ties together prior topics in a generally-recommended
+model.  To simplify using your content on multiple platforms, format external drives as 
+exFAT where possible, and keep them cruft-free by always using "-skipcruft" on all platforms.
+
+<P>
+As we've <A HREF="#gui">seen</A>, mergeall works portably on Windows, Mac OS X, and Linux. 
+We've also <A HREF="#patterns">seen</A> that there are different ways to use mergeall when
+working on multiple computers, which we won't rehash here.  If you work on computers with
+multiple operating-system platforms, though, and use external USB 
+drives in one of the multiple-computer usage patterns described 
+<A HREF="#patterns">earlier</A>, then you will probably want to:
+
+
+
+
+<DL>
+<DT><B>1) Format external drives as exFAT wherever possible (and FAT32 otherwise)</B>:
+<DD>
+
+<P>
+Making a smart choice on filesystems turns out to be complicated but crucial in a 
+multiple-platform scenario.  In short, FAT32 is still the gold standard in portability, 
+and is supported by nearly every device out there with a USB port.  On the other hand, 
+the newer exFAT is almost as portable, and completely eliminates FAT32's timestamp-skew
+issues on DST rollovers discussed <A HREF="#dst">earlier</A> on both Windows 
+and Mac OS X, though Linux users must enable support, and may still
+need to address some timestamp skew with a procedural solution.
+
+<P>
+In a bit more detail, filesystem choice is simpler when you're running on just 
+one platform.  Each platform provides a set of native&mdash;if often 
+proprietary&mdash;options, including FAT32, exFAT and NTFS on Windows; HFS+ 
+(a.k.a. Mac OS Extended) on Mac; and the ext variants on Linux.  
+Unfortunately, most of these are off the table when you go cross-platform.  
+Linux, for example, lacks exFAT out of the box; Mac's NTFS support is just 
+read-only as shipped; and Windows does neither Mac's HFS+ nor Linux's ext 
+by itself. 
+
+<P>
+FAT32 and exFAT are the exceptions to these rules.  Of these, <B>FAT32</B> is the most
+widely-supported filesystem across mergeall's platforms today.  In fact, it's
+currently the only direct option for full portability that does not require 
+unsupported switches or third-party drivers.  FAT32 may perform less 
+optimally than some alternatives in some contexts, but the difference is probably 
+trivial for most users.  
+
+<P>
+<A name="exfat">The</A> newer <B>exFAT</B> is <I>almost</I> as portable as FAT32, 
+but not quite.  It is supported natively on both Windows and Mac without any extra steps, 
+but must currently be enabled on Linux with an additional 
+<A HREF="https://en.wikipedia.org/wiki/ExFAT#Adoption">install</A>.  
+For the latter, a command-line like the following suffices on modern Ubuntu Linux 
+platforms, after which exFAT drives mount in read/write mode automatically (see 
+<A HREF="https://duckduckgo.com/?q=exfat-fuse">the web</A> for other 
+options if this doesn't work for you):
+
+<PRE>    sudo apt-get install exfat-fuse exfat-utils</PRE>
+
+<P>
+But wait&mdash;if FAT32 if most portable, why not always use it everywhere?  In a word, <I>timestamps</I>. 
+As noted <A HREF="#dst">earlier</A>, FAT32 records them as a "local time" which triggers spurious
+differences in tools like mergeall and others when time zone or DST changes kick in.  The exFAT
+filesystem records timestamps using UTC standard time, which sidesteps the nasty comparison 
+issues of FAT32 altogether on both Windows and Mac&mdash;your files will just continue to 
+synch normally after the system adjusts your time at DST changes. exFAT also supports larger
+files than FAT32 (per <A HREF="#dst">earlier</A>), though this is incidental to mergeall's
+synchronization.
+
+<P>
+The only significant catch here: <I>Linux</I> exFAT support isn't quite as complete 
+as it is on Windows and Mac, and may do no better in some contexts than FAT32. 
+Its currently-available version may survive DST rollovers, but might not adjust 
+on time zone changes, and might not record UTC times on file writes.  For the full
+story, 
+try <A HREF="https://github.com/relan/exfat/issues/38">this page</A>'s
+bug report, these field <A HREF="docetc/miscnotes/linux-fat32-exfat-timestamps.txt">notes</A>,
+or a general web search. 
+
+<P> 
+The upside is that Linux can be addressed with one of the more custom approaches 
+described earlier; the <A HREF="fix-fat-dst-modtimes.py">fix-fat-dst-modtimes</A> script,
+for example, can be used to bring timestamps back in sync with a local Linux drive
+if needed.  
+If the exFAT story on Linux seems too iffy, you can also resort to FAT32 drives; 
+if so, a "timedatectl set-local-rtc 1" may help if drive times seem radically off 
+(<A HREF="https://wiki.archlinux.org/index.php/Time">details</A>).  Neither exFAT nor
+FAT32 support symlinks on Windows, but this is likely a factor to few (if any) 
+mergeall users; see the details <A HREF="#symlinks">ahead</A>.
+
+<P>
+In sum: <I>exFAT</I> is your best option if you'll be using mergeall to manage a drive on 
+Windows, Macs, or both&mdash;it's an automatic DST fix for both single- and
+multiple-platform users.  exFAT is recommended if Linux will be in your platform mix too, 
+but you may want to either run merges to a shared partition on the 
+Windows side only; use one of the other fixes described <A HREF="#dst">earlier</A> 
+to manage timestamps on a local Linux drive; or lobby Linux developers to get 
+past exFAT's patent issues and make it a first-class filesystem citizen. 
+(Update: the exFAT solution has now been proven to work on Windows, Mac OS X,
+and Linux, by the March, 2017 DST rollover; see <A HREF="#dstfixproven">above</A>.)
+
+
+
+
+</P>
+<DT><B>2) Create cruft-free external drives</B>:
+<DD>
+<P>
+To keep your archives portable, allow your computers to generate as much cruft as 
+they wish, but keep your external drive cruft-free. The first step in this
+scheme is making archive copies on your drives.
+To create an initial cruft-free copy for your external drives from another 
+copy, use either mergeall or the <A HREF="cpall.py">cpall</A> script
+with the "-skipcruft" option.  To decruft an existing copy on an external drive, 
+use the <A HREF="nuke-cruft-files.py">nuke-cruft-files.py</A> script described 
+earlier.  To verify your copies, run mergeall's 
+report mode and/or <A HREF="diffall.py">diffall</A>'s bytewise compare, 
+again with "-skipcruft" in both.
+
+
+
+
+</P>
+<DT><B>3) Always use "-skipcruft" for local drives</B>:
+<DD>
+<P>
+To keep your external drive copies cruft-free, always use the "-skipcruft" option 
+(and its toggle in mergeall's <A HREF="docetc/docimgs/macosx/main-window.png">GUI</A>)
+when reporting or transferring changes made on any
+computer's local drive, per the prior <A HREF="#cruft">section</A>.  
+For reports, this avoids treating the local drive's cruft files as differences.  
+For transfers, it ensures that platform-specific items will be retained on the 
+creating computer, but kept off external drives, and thus never propagated to other 
+computers.  More specifically:
+
+<P>
+<UL>
+<LI>Skipping cruft when merging to <I>external drives</I> means it won't be copied.
+<LI>Skipping cruft when merging to <I>local drives</I> means it won't be deleted.
+</UL>
+
+<P>
+The <I>combination</I> of these two means that cruft will remain on platforms 
+where it is used, but won't be propagated to platforms where it is pointless, 
+and won't accumulate in your external copies.
+Each computer will retain just the cruft that is created by that computer: 
+Mac cruft will never be mirrored through external drives to Windows, and vice versa.
+
+
+
+</DL>
+ 
+<P>
+While there are many ways to use mergeall (and advice for network drive users may vary),
+these guidelines allow each platform to use its own proprietary files normally, while 
+your external drives remain free of platform-specific additions.  That is, your content 
+will retain <I>just your actual content</I>, and will not include the union of each
+platform's clutter.  Yours will be a data-archiving world blissfully ignorant of 
+proprietary platform quirks, designed, perhaps, to rope you in to a single vendor's 
+offerings&mdash;except, of course, for other oddments such as 
+<A HREF="docetc/Tools/fixeoln.py">end-lines</A> and file pathname 
+<A HREF="#finding">syntax</A> which are beyond this note's scope. 
+</P>
+
+
+
+
+<H3>Update: APFS</H3>
+
+<P>
+The filesystem Tower of Babel recently grew a new floor.  
+As this was being written, Apple announced a new Apple File System 
+(<A HREF="https://en.wikipedia.org/wiki/Apple_File_System">APFS</A>) which 
+is optimized for flash storage, and poised to subsume filesystems on multiple Apple 
+products, including HFS+ on Mac OS X (whose "X" has also been strangely deprecated).  
+Though the future remains to be written, this seems likely destined to be as proprietary
+as other single-platform filesystems: using it for your external drives may lock you into
+an Apple-only world. When in doubt, choose a portable filesystem like exFAT.
+(<I>Update Update</I>: APFS is now the default filesystem as of Mac OS High Sierra 10.13, 
+and is even 
+<A HREF="http://learning-python.com/post-release-updates.html#mergeallsierra"><I>mandatory</I></A> 
+for flash-based system drives; engineers love to change things&mdash;and some seem to 
+enjoy imposing them too...)
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="macresource">mergeall and Mac Resource Forks</A></H2> 
+
+<P class=notebox>
+<B><I>Short story</I></B>: as a cross-platform tool, mergeall processes the platform-neutral data
+portion of files, and ignores the proprietary and normally-optional "resource fork" extension 
+that has meaning only on a Mac.  You may not need to care, but this section spells out the 
+tradeoffs.
+
+<P>
+mergeall works well on Mac OS X (in fact, this is the primary platform of 
+mergeall's proprietor), but it has an intentional cross-platform focus.  Because it
+aims to provide the same functionality on Windows, Linux, and Macs, mergeall deals in concepts 
+common to all three, and may not support some platform-specific paradigms as directly as 
+some single-platform tools.  Although the cruft-skipping tools described <A HREF="#cruft">above</A>
+are recommended on the Mac too (and Mac is by far the biggest cruft offender), some 
+cruft-related Mac scenarios merit a few extra words.
+
+
+<H3>How mergeall Handles Mac Forks</H3>
+
+<P>
+If you make use of some of the Mac's many unique filesystem features, you may be interested 
+to know that mergeall primarily processes Mac "<I>data forks</I>" only&mdash;the normal bytes 
+used to store content by name, that users of Windows, Linux, and almost every other computing
+system ever created would call the "file."  Although this is deliberate, it may impact 
+some Mac users in two ways.  Namely, mergeall:
+
+<UL>
+<LI>Never creates files to save Mac "<I>resource forks</I>" 
+by itself, even when copying files from Mac drives
+
+<LI>Treats resource-fork files created by other programs like 
+any other file, and won't merge them back to data fork files
+</UL>
+
+These have some implications we'll explore in a moment, but first we need to digress briefly
+for readers new to the Mac's forked-file model.
+
+
+<H3>Okay, But What's a Fork?</H3>
+
+<P>
+If you don't know what these forks are all about, check out the watercooler-level
+<A HREF="https://en.wikipedia.org/wiki/Resource_fork">overview</A>, and other 
+<A HREF="http://xahlee.info/UnixResource_dir/macosx.html">resources</A>.  
+In short, Mac's native filesystem can represent files in two parts&mdash;data 
+and resource&mdash;called forks.  Actual content (e.g., the bytes of an image or
+text of a memo) is stored in the data fork, and extra metadata (e.g., icons or 
+last cursor position) can be stored in the resource fork instead of another file.
+Resource forks are part of a "file" on Mac drives, but are not accessible to most
+normal file interfaces and tools, and may show up as separate 
+"._*" files on non-Mac drives (discussed <A HREF="#cruft">earlier</A>).
+
+<P>
+In effect, the Mac's resource forks are a non-standard and proprietary extension to 
+a file's main data, which are a legacy of computers past, have meaning only on Macs, 
+and are not meant for storing data crucial to your digital property.  They have also 
+been somewhat subsumed by more recent structures like  
+<A HREF="https://en.wikipedia.org/wiki/Extended_file_attributes">extended attributes</A> and 
+<A HREF="https://en.wikipedia.org/wiki/Bundle_(macOS)">application bundles</A>
+and are not used by many programs or files today.  In fact, Office appears to create 
+empty resource forks on Macs just for historical 
+<A HREF="https://www.google.com/#q=mac+resurce+fork+microft+office">reasons</A>.  
+Still, resource forks can cause confusion for cross-platform users if present&mdash;especially
+in the context of mirroring files across machines and drives, which is mergeall's domain.
+
+
+<H3>Why it May (or May Not) Matter</H3>
+
+<P>
+The good news is that you probably don't need to care.  If you (like mergeall's developer) 
+use tools on the Mac that create platform-neutral files, you can probably stop reading this
+note now, and use mergeall as it is intended.  The files that truly contain your 
+images, text, music, Office documents, ebooks, web pages, and other content will
+be copied to and from your drives by mergeall as advertised and expected.
+
+<P>
+For more Mac-centric users, though, mergeall's behavior can pose tradeoffs that are worth 
+discussing up-front.  For one thing, you may lose resource-fork attributes associated with 
+some files, but these are Mac-only extensions that are meaningless elsewhere; do not 
+contain the actual content of your files; and are rarely-important and generally-trivial 
+metadata that can be recreated the next time you use a file on a Mac.  
+
+<P>
+As another consequence, Mac "._*" AppleDouble 
+resource-fork files created by Mac apps or Finder on a non-Mac external drive will be either:
+
+<UL>
+<LI>Skipped altogether if you use the "-skipcruft" option
+<LI>Treated the same as any other file if you do not use "-skipcruft"  
+</UL>
+
+<P>
+In the latter case, mergeall will delete "._*" files if they are unique in its 
+TO folder, and will copy them verbatim if they are in FROM&mdash;without
+merging them with corresponding data fork files on Mac drives.  
+That is, files that were split by Mac programs into two parts (data + resource) on a non-Mac 
+drive remain in two parts if copied back to a Mac drive by 
+<A HREF="https://www.macdisk.com/macforken.php">resource-agnostic</A>
+programs like mergeall.
+
+<P>
+Luckily, this is a rare scenario: "._*" files show up only on drives using a non-Mac filesystem;
+mergeall never creates such files itself (as mentioned, on Mac drives it normally processes 
+data forks only); and most resource forks can be safely ignored in any event.  Still, 
+Mac-only users facing the prospect of lost resource forks when files are round-tripped 
+to and from non-Mac drives may wish to either:
+
+<UL>
+<LI>Format external drives with Mac filesystems (e.g., HFS+, Mac OS X Extended) to
+avoid "._*" files altogether
+
+<LI>Use Finder to copy non-Mac archives back to Mac 
+<A HREF="http://apple.stackexchange.com/questions/139557/how-should-i-reconcile-dot-underscore-files-after-a-manual-backup">drives</A> so resources are merged automatically
+
+<LI>
+Use the Mac's
+<A HREF="https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/dot_clean.1.html">dot_clean -m</A>
+command in Terminal to merge resource fork files back to data files after they 
+are copied to Mac drives
+</UL>
+
+<P>
+If that sounds like an extra hassle, it is, but it's an unavoidable consequence of 
+the Mac's special-case dual-file format on non-Mac drives.  Still, most users can safely 
+ignore resource forks completely, and skip them with mergeall automatically. 
+For programmers interested in more details on this front, check out this 
+<A HREF="docetc/miscnotes/mac-appledouble-resourceforks-live.txt">session log</A> that 
+demos the main concepts.
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="symlinks">Symlinks&mdash;Copied, not Followed</A></H2> 
+
+<P class=notebox>
+<B><I>Short story</I></B>: if your archive contains any symbolic links, mergeall copies the 
+links themselves, not the files or directories they reference.  This avoids creating 
+duplicate copies of content when it's both stored and referenced by links, though 
+symlinks by nature also have major portability constraints that may be better addressed 
+with <I>ziptools</I> in cross-platform content.
+
+<P>
+Symbolic links (a.k.a. "symlinks") are reference points to other files and folders, and are 
+more common on Unix systems like Mac OS X and Linux than on Windows, due in part to usability
+issues on the latter.  They're also relatively rare.  In fact, if you've never heard of them, 
+chances are good that you can skip the rest of this note (and you'll probably be able to sleep
+better if you do: symlinks are a thorny topic of interest mostly to advanced users accustomed 
+to thorny topics).  
+
+<P>
+Even if you have heard of them, these links are generally discouraged in a tree managed by mergeall:
+your archives are better populated with actual content data, not links between locations that 
+may become invalid when items are renamed or moved.  Moreover, symlinks cannot generally be used 
+across multiple platforms, due to path-syntax and filesystem-support constraints; symlinks created 
+on Unix usually must stay on Unix, and ditto for Windows.
+
+
+<H3>Support in mergeall (If You Insist)</H3>
+
+<P>
+That being said, some types of content make use of symbolic links to avoid data 
+repetition, especially in the Unix development world.  
+Mac app bundles, for example, commonly use both links and links to links, and enough of each to 
+confuse many an intrepid code explorer.  If your archive does contain such links, mergeall supports
+them on both Unix and Windows, and is careful to always compare and copy the <I>link itself</I>&mdash;the 
+pathname to the referenced item&mdash;instead of the file or folder to which the link ultimately refers.
+
+<P>
+This is intentional: it avoids making duplicate copies of files and folders that both
+reside in an archive and are referenced from links within it.  If links were 
+followed instead of copied, such duplicates could multiply your storage space requirements
+arbitrarily: for 1 item and N links to it, you'd wind up with 1 + N copies of the 
+item&mdash;and wipe out your symlinks in the process.  This means you can't use symlinks 
+to trick mergeall into copying items external to your archive, but you can always copy such
+items yourself, and symlinks themselves record important structural information that should 
+be retained in data archives.
+
+
+
+</P>
+<H3>Relocation Constraints</H3>
+
+<P>
+The only real downside of copying symlinks instead of following them is the constraints 
+that this policy comes with.  In short, only intra-archive links relative to the
+archive itself will survive relocation.  Here are the specifics:
+
+
+<DL>
+
+<DT><B>In-archive paths</B>:
+<DD>
+<P>
+Your links should not generally reference items outside the archive's tree, because
+those items may not be present in a copy on another computer.  An out-of-archive 
+file referenced by a link, for example, will not be copied by mergeall, and
+won't be part of your archive.  If the file is absent where another archive copy
+is used, the link will be broken.
+</P>   <!-- needed for IE -->
+
+
+<DT><B>Relative paths</B>:
+<DD>
+<P>
+Your links' paths should usually be relative to the archive itself.  For instance, they 
+should start with "." (current folder), ".." (parent folder), or the name of a file 
+or subfolder in the link's own folder.  They 
+should not use absolute pathnames that begin with "C:" on Windows or "/" on Unix, 
+because those paths may not be valid in other copies stored on other drives or 
+computers.
+</P>
+</DL>
+
+
+
+</P>
+<H3>General Constraints</H3>
+
+<P>
+The prior section's rules are aimed at making links transportable with the rest of your
+archive.  Perhaps more fundamentally, though, symlinks impose major constraints on 
+portability that link-aware, cross-platform programs like mergeall reluctantly inherit:
+
+
+<DL>
+<DT><B>Version support</B>:
+<DD>
+<P>
+Symlinks work on both Unix (e.g., Mac and Linux) and all recent Windows under 
+<I>Python 3.X</I>, but only on Unix under <I>Python 2.X</I>, and Windows symlink 
+support isn't complete until <I>Python 3.3</I>.  In other words, if your archives 
+have symlinks, they will work on Unix in any Python, but require 3.3 or later to
+be updated on Windows.  Windows itself doesn't support symlinks until Vista, 
+so even with Python 3.X, symlinks on XP are right out.
+</P>
+
+
+<DT><B>Windows permissions</B>:
+<DD>
+<P>
+Your link updates likely won't work at all on Windows without escalated permissions.
+To create symlinks on Windows, for example, you can launch a Command Prompt window with
+a right-click to select "Run as administrator" privileges, and run the 
+<A HREF="mergeall.py">mergeall.py</A> script there using a command line.  
+If you installed mergeall and its GUI as
+a self-contained executable, you may need to launch it the same way to make your link 
+updates work.  There are other ways to run programs with administrator permissions which
+we'll omit here for space; see your system resources for more details.
+
+<P>
+Windows 10 relaxes these rules somewhat, per 
+<A HREF="https://blogs.windows.com/buildingapps/2016/12/02/symlinks-windows-10/">this blog note</A>&mdash;though
+this still requires special "Developer Mode" software and the initial blessing of
+an admin user, and hardly constitutes Unix symlink compatibility, given the path and 
+filesystem interoperability issues up next.  It may be slightly easier to make symlinks
+on Windows 10, but don't expect to copy them to or from a Unix box any time soon. 
+</P>
+
+
+<DT><B>Path portability</B>:
+<DD>
+<P>
+Your links won't be portable between Unix and Windows if they contain any 
+path-separator characters, or other platform-specific syntax.  Such links will 
+always work on similar platforms, but will fail on the other side of the Unix/Windows 
+fence.  A Windows link path with any "\" won't work on Unix, and a Unix link path with 
+any "/" won't work on Windows.  
+
+<P>
+mergeall cannot automatically compensate for such differences, because it's 
+impossible to know all the places where your archive copy may ultimately be used (a USB
+drive, for example, might be plugged into Windows, Unix, or both).  
+Even so, this is probably a moot point for most users: you probably won't be able to 
+throw your links over that cross-platform fence in the first place, for reasons the
+next and final point explains.
+</P>
+
+
+<DT><B>Filesystem portability</B>:
+<DD>
+<P>
+On Mac OS X Unix, symlinks can be created and used on drives formatted with 
+the cross-platform exFAT and FAT32 filesystems.  Windows, however, supports symlinks (a.k.a. "soft links") 
+only on drives formatted to use its NTFS filesystem, per both testing and MSDN pages 
+<A HREF="https://msdn.microsoft.com/en-us/library/windows/desktop/ee681827(v=vs.85).aspx">here</A> and 
+<A HREF="https://msdn.microsoft.com/en-us/library/windows/desktop/aa365680%28v=vs.85%29.aspx">here</A>.
+Though path syntax and other issues described above make symlinks unlikely candidates for cross-platform
+use, filesystem constraints may pose an absolute catch-22 for some people working on multiple platforms. 
+
+<P>
+Notably, the exFAT and FAT32 portable drive formats are not an option for transporting symlinks between Unix
+and Windows, and NTFS is a one-way trip to nowhere on Mac OS X:
+
+<P>
+<UL>
+<LI>
+<P>Windows won't <I>recognize</I> symlinks created by Unix on exFAT or FAT32 drives (they show up as non-link 
+files with link-description text), and won't be able to <I>create</I> new symlinks on such drives to be used 
+on either platform.
+</P>
+
+<LI>  
+<P>Mac OS X won't <I>recognize</I> symlinks created by Windows on NTFS drives (they show up as zero-length non-link files), and its read-only support for NTFS noted <A HREF="#cross">earlier</A> precludes <I>creating</I> symlinks on such drives.
+</P>
+</UL>
+
+<P>
+For users of portable drives, the combination of these two platforms' policies and implementations renders 
+symlinks even more nonportable.  And much like path syntax, even if symlinks retained their content across 
+platforms, automatic conversions in mergeall would be ruled out by the fact that an archive copy may be used
+on either platform&mdash;or both.
+
+<P>
+Nor are external drives the only factor here: the platforms themselves record symlinks in 
+proprietary forms.  In testing on shared <I>network drives</I>, for example, links made by Windows on NTFS 
+drives were not recognized by Windows or Mac; links made by Mac on exFAT and FAT were not recognized 
+by Windows; and permission issues cropped up regularly.  Your networks' file interfaces may vary, 
+and third-party filesystem drivers may lift some constraints, but further options seem limited 
+for most users. 
+
+<P>
+Naturally, this issue concerns cross-platform users only, and symlinks' path syntax may negate 
+their portability before they are ever written to drives.  To be sure, you can still use symlinks
+on the platform that created them&mdash;Windows symlinks work on Windows as long as they are stored
+on NTFS drives, and Mac OS X symlinks work on Mac OS X as long as you save them on non-NTFS drives.
+For users hoping to use their archives on multiple platforms, however, <I>symlinks are 
+interoperability's end</I>.
+</P>
+
+
+
+<DT><B>Round-trip viability</B>:
+<DD>
+<P>
+
+<P>
+The silver lining for mergeall users here is that symlinks created on Unix will generally survive archive
+<I>round-trips</I> to and from Windows.  A mergeall run on Windows from an exFAT drive will treat any
+Unix symlinks in the archive as simple files, and drop their symlink type.  Still, because there is 
+no reason to modify these files on Windows (they are broken links there, after all), they won't be 
+recopied back to the intermediate drive as simple files by later merges, and thus won't overwrite
+the originals on Unix.  
+
+<P>
+In more gory detail: Unix symlinks propagated to Windows on an exFAT drive will be seen by Windows as 
+simple files for both exFAT-to-Windows and Windows-to-exFAT merges, but as unchanged links by Unix 
+when merging from exFAT back to Unix.  The net result is that they will be left intact back on Unix, 
+as long as they are unchanged on Windows (and there is no reason to change them there).  
+
+<P>
+Symlinks created on Windows may fare worse: they can't be added to exFAT or FAT32 drives in the first
+place, making them <I>non-archivable data</I> without NTFS, which, as noted, falls short on Macs. 
+On the other hand, symlinks are very rare on Windows; their relative newness and extra permission 
+requirements virtually guarantee their absence in personal content archives.  Thus, for the vast 
+majority of users, exFAT still remains the recommended best external-drive option for cross-platform 
+archives maintained by mergeall.
+
+
+<P>Finally, if you want to be <I>really</I> sure that your links survive round-trips between 
+multiple platforms, you can always zip their enclosing folders for transport with the <I>ziptools</I> 
+package described ahead in this section.  This package allows you to zip symlinks for transit to avoid any 
+platform mutations, and unzip them if and where they are used.  It also translates link path-separator 
+syntax, and allows you to avoid any spurious symlink differences that may be reported by mergeall 
+runs.  When in doubt, zip and unzip links in your archive to make their content visible on a 
+"need to know" basis.
+</P>
+
+</DL>
+
+
+
+</P>
+<H3>Summary</H3>
+
+<P>
+As you can see, the rules of engagement for symlinks are complex, and symlinks 
+may be best avoided in most content archives, especially for cross-platform 
+use.  To summarize, <I>mergeall</I>:
+
+<UL>
+<LI>Supports symlinks created and used on Windows, as long as they 
+are stored on NTFS drives (but not exFAT or FAT32)
+<LI>Supports symlinks created and used on Unix, as long as they are 
+stored on supportive drives (but not NTFS on Macs)
+<LI>Does not support symlinks that can be used on <I>both</I> Windows 
+and Unix, because these platforms don't either
+<LI>On each platform compares and copies symlinks themselves, not the items symlinks reference
+<LI>Recommends exFAT for cross-platform drives, unless Windows symlinks are absolutely required 
+</UL>
+
+<P>
+Thorny, indeed; but if you are bold enough to use conforming links on your platform of
+choice, they will happily redirect accesses in all your mergeall archive copies.
+
+
+</P>
+<H3>Postscript: ziptools Saves the Day!</H3>
+
+<P>
+But wait: if you really need to copy your symlinks between Windows and Unix portably, all is not lost. 
+You can still do so by zipping and unzipping them using the <I>ziptools</I> system&mdash;a 
+complementary tool which stores files, folders, and symlinks in zipfiles, and is both shipped with 
+mergeall in its <A HREF="test/ziptools">test/ziptools</A> folder and available
+<A HREF="http://learning-python.com/ziptools.html">separately</A>.
+
+<P>
+Like mergeall, ziptools by default copies links, not the items they reference, to avoid duplicate 
+content.  Because of its very  different goals and purpose, though, ziptools has some strategic 
+advantages when it comes to symlinks: 
+
+<UL>
+<LI>
+<P>
+Unlike mergeall's incremental file-by-file approach, ziptools stores symlinks in a platform-neutral
+format within a single, generic file copied as a whole&mdash;which makes it immune from both 
+representation and filesystem portability concerns.  
+</P>
+
+<LI>
+<P>
+Unlike mergeall's 
+copy-once-use-anywhere model, ziptools by default assumes you'll use data only where you unzip 
+it&mdash;which frees it to translate link-path syntax portably for the target platform 
+(Windows "\" is translated to "/" when unzipping on Unix, and vice-versa).
+</P>
+</UL>
+
+<P>  
+Though this requires zipping and unzipping steps, and is subject some of the other constraints 
+outlined above, the net effect allows you to transfer symlinks cross-platform on exFAT drives, 
+and makes symlinks almost completely portable between Unix and Windows.  As a bonus, ziptools 
+can also follow symlinks instead of copying them; in this mode, links are replaced with the 
+items they reference, yielding self-contained (if potentially-redundant) archives.
+
+<P>
+See ziptools' <A HREF="test/ziptools/README.txt">README</A> for more details.  ziptools is 
+not a replacement for mergeall's incremental updates, because it processes data only as a 
+whole&mdash;a 100G archive always requires making, copying, and unpacking a 100G zipfile 
+(sans compression), no matter how few changes you've made!  Still, ziptools can be used to
+manage symlinks in isolated parts of an archive: simply <I>zip</I> symlink-laden folders 
+with ziptools before they are the subject of a mergeall, and <I>unzip</I> them when 
+needed... and your archives shall forever dwell in portable-symlink Valhalla (where supported).
+
+
+</P>
+<H3>Punchline: But Don't Ask About FIFOs...</H3>
+
+<P>
+A footnote for Unix users (mostly): as a policy, mergeall never automatically discards any
+non-cruft items in your archive, unless they are impossible to copy.  That is, everything that can
+be propagated is propagated.  Even <I>potentially-invalid symbolic links</I>&mdash;which point to 
+non-existent or non-file/folder items&mdash;are propagated by mergeall on the grounds that such 
+links may hold a purpose for you, or become valid when moved to other computers.   This 
+policy is also adopted by the cpall and ziptools programs; your invalid links are your business, 
+and your asset.
+
+<P>
+Unlike invalid symlinks, though, mergeall never processes or propagates any <I>FIFO files</I> 
+in a data archive; it simply prints messages to the log denoting their presence and 
+skips the entry altogether.  If you know what FIFOs are, you'll understand why this is so; 
+if not, consider this an introduction to named pipes used in client/server dialogs, 
+which have an inherent and temporal system state, are not normal files but can masquerade 
+as such in folders&mdash;and <I>really</I> have no business being mixed in with your archived
+content!
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="winpaths">Windows Path-Length Limits Be Gone</A></H2> 
+
+<P class=notebox>
+<B><I>Short story</I></B>: on all versions of Windows, mergeall, diffall, and cpall automatically
+remove the usual 260-character length limit on pathnames used to access content, so you can 
+nest folders with wild abandon (and use archives created on less-restrictive platforms).
+
+
+<H3>The Issue</H3>
+
+<P>
+Since the dawn of PC time, Windows has had a habit of imposing limits that grow absurd as
+new hardware comes online.  Pathnames&mdash;the lists of slash-separated names of nested folders
+used to organize and access files&mdash;are a prime example.  They have historically been limited to just 
+<A HREF="https://msdn.microsoft.com/en-us/library/aa365247.aspx#maxpath">260 total characters</A>
+on Windows including the filename at the end, which makes it difficult 
+(and in some programs impossible) to use nested content.  Oddly, this limit is baked into 
+Windows itself, not 
+<A HREF="https://msdn.microsoft.com/en-us/library/windows/desktop/ee681827(v=vs.85).aspx#limits">filesystems or devices</A>; whether you use exFAT or NTFS on flashdrives or SSDs, 
+long paths can fail.
+
+<P>
+Though this path-length limit was retained partly for backward compatibility, its lifespan
+was also prolonged by dubious justifications.  The rationale that most users would never 
+create such long file or path names has grown moot in today's world of digital storage of
+everything, and web browsers that regularly save pages with arbitrarily-rambling titles 
+as filenames.  Windows 10 finally lifts the limit as an option, but not by default: users 
+must enable long paths with registry settings or Group Policy choices, and this obviously 
+doesn't help the 1 billion people (more or less) using prior versions of Windows.  
+
+<P>
+For most Windows users in 2017, Windows pathname limits still seem a throwback to hardware
+of some PC Paleolithic gone by.
+
+
+<H3>The Fix</H3>
+
+<P>
+Though not widely-known and cumbersome to apply, Windows luckily provides a fix that 
+removes normal pathname length limits.  In short, prefixing pathnames that exceed the 
+limit with a "\\?\" substring invokes alternative Windows API tools that lift the
+limit altogether.  Windows network paths require a bit more transformation that we'll ignore
+here, and some tools that traverse folders require the prefix regardless of length as 
+a preemptive measure.  When extended this way, though, long pathnames work as they should.
+
+<P>
+This trick is <B>automatically applied</B> as needed to remove the Windows path-length limit in 
+<I>mergeall</I> and its <I>diffall</I> and <I>cpall</I> companion tools so you can use 
+archives with richly-nested folder trees and absurdly-long filenames without errors or skips.
+The related and included <A HREF="test/ziptools">ziptools</A> system uses the same technique 
+to also support long paths on Windows both when adding to and extracting from zip archives.
+
+<P>
+In other words, long paths on Windows just work in all these tools, with <I>no extra action 
+required on your part</I>.  This is especially useful in cross-platform use cases, when 
+archives are extended on platforms without such draconian limits (e.g., Mac OS X and Linux).
+
+<P>
+Because we all inhabit a physical universe with limited resources, there are still a few
+constraints to keep in mind.  Pathnames cannot be infinitely long on any platform even
+with this Windows fix (after 1K characters, portability grows murky); path components&mdash;the 
+names between and after the slashes&mdash;still can't be longer than 255 characters apiece; and 
+Windows' own file explorer won't be able to handle long paths in your archive that 
+mergeall correctly propagates.
+
+<P>
+Still, mergeall's extended limits should be adequate to handle any archiving path that 
+qualifies  as reasonable.  At least by today's definition of reasonable...
+ 
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="platform">Platform Basics: Installs and Launches</A></H2>
+
+<P class=notebox>
+<B><I>Short story</I></B>: mergeall ships as both standalone executable and source-code;
+For source, you'll use standard techniques to install software that mergeall requires,
+and launch the programs that mergeall provides; this section gives tips on both
+for novices.
+
+<P>
+mergeall, its GUI, and the diffall and cpall programs included in the 
+mergeall package work and are used on all versions of 
+<A HREF="docetc/docimgs/macosx/composite.png">Mac OS X</A>, 
+<A HREF="docetc/docimgs/windows/composite.png">Windows</A>, and 
+<A HREF="docetc/docimgs/linux/composite.png">Linux</A> released in 
+recent years.  For instance, mergeall's development team presently uses 
+these programs on a regular basis on Windows 7, 8, and 10; Mac OS X El Capitan 
+Sierra, and High Sierra (10.11, 10.12, and 10.13); and Ubuntu Linux.  
+Each platform has usage 
+idiosyncrasies that are beyond this guide's scope, but this section runs 
+over a few basics for users who may be new to running Python on these systems.
+
+
+
+<H3><A name=frozen>Using Standalone Packages</A></H3>
+
+<P>
+First off, mergeall is packaged and shipped in multiple formats at its 
+<A HREF="http://learning-python.com/mergeall.html">download site</A>.  It's available in both 
+<I>source-code</I> form that runs on all platforms and provides complete transparency,
+as well as "frozen" <I>standalone</I> executable forms that are not portable but are 
+easiest to install and more closely reflect many users' concept of a "program."
+
+<P>
+In the <I>standalone</I> category, mergeall is available as a Mac app, a Windows ".exe" 
+executable, and a Linux executable, each of which installs with a simple unzip.  These 
+mergealls each run on only one platform, but:
+<UL>
+<LI>Do not require anything else to be installed 
+<LI>Launch with a simple app or executable click
+<LI>Integrate well with platform GUI paradigms such as icons
+<LI>Are immune to changes in any Pythons installed on your computer
+</UL>
+
+<P>
+If you won't be digging through mergeall's code, chances are good that the  
+standalone packages are the best mergealls for you.   
+They all install with a single download and unzip, and run with a simple click,
+so we won't say more about them here.  See the
+<A HREF="README.txt">README</A> file for complete usage details on 
+these packages; for this purposes of this note, standalone mergealls 
+are fully off-page.
+
+
+<H3><A name=sourcecode>Using the Source-Code Package</A></H3>
+
+<P>
+mergeall's <I>source-code</I> package may be a bit more novel to some users, however, and 
+merits extra coverage here.  The programs in the source-code package run on all
+platforms, and are provided as a zipfile&mdash;installing 
+the <B>mergeall</B> system in this form is as simple as unzipping into a folder 
+on your computer.
+
+<P><A name="whichpy">
+When</A> using programs in mergeall's source-code package, you'll also need to install a 
+<I>Python</I> to run them (if one isn't already available), and standard Python source-code 
+<I>launching</I> techniques to start them.  On the former topic, the latest <B>Python 3.X</B> 
+is generally recommended, and has been the most-used mergeall host to date.  In more detail:
+<UL>
+<LI>Python 3.5, 3.4, and 3.3 have all been verified, but later 3.X are expected to work too
+<LI>Python 3.X  is recommended for archives with <A HREF="docetc/MoreDocs/Revisions.html#version16">Unicode</A> filenames
+<LI>Python 3.3+ is recommended for trees with <A HREF="#symlinks">symlinks</A> on Windows (and 3.X is required)
+</UL>
+
+<P>
+Python 2.X also runs mergeall, but may have Unicode issues on some platforms, and won't support 
+symlinks outside Unix.  If at all possible, install and use a Python 3.X for mergeall.
+Prior versions of mergeall also recommended Python 3.5+ for 
+<A HREF="docetc/MoreDocs/Revisions.html#version22">speed</A> on Windows and Linux, but
+this constraint has been removed in the latest mergeall release.
+
+
+<P>
+Because this story diverges from this point forward, the following 
+provides some additional pointers on both Python installs and program-launching
+techniques for the source-code package on each of mergeall's supported platforms:
+
+<P>
+<DL>
+<DT><B>On Windows</B>:
+<DD>
+<P>
+The Python self-installers for Windows from 
+<A HREF="http://www.python.org/downloads/">python.org</A> ship 
+with everything you need, including the tkinter GUI library and the Tcl/Tk
+libraries it uses.  Get the latest and greatest 3.X if it's not present 
+in your machine's Start menu or screen, and click to install.  
+
+<P>
+After Python is installed, you can run a program from a Command Prompt
+command line (e.g., "py -3 &lt;program&gt; ..."); from IDLE's Run menu after 
+opening the program's source file; and by clicking or tapping on the program's
+file icon in Explorer.  Programs which require command-line arguments
+(including the basic mergeall.py script) won't work if clicked directly; run these 
+in Command Prompt.  You can also create a shortcut to the GUI launcher on your 
+desktop for quick access (e.g., Copy + right-click).  See the docetc/launcher-configs 
+<A HREF="docetc/launcher-configs">folder</A> for ".ico" desktop icon files to use with shortcuts.
+
+<P>
+Clicks (and taps) launch scripts without setup on Windows, because 
+Python associates itself when installed to open script files&mdash;an automatic 
+scheme that makes usage simple for running programs written in scripting
+languages and shipped as source code.  Python also comes with the "py" launcher
+on Windows, which makes it easy to specify a version to run; see
+<A HREF="http://learning-python.com/py33-windows-launcher.html">this page</A>
+for an introduction.
+</P>
+
+
+<DT><B>On Mac OS X</B>:
+<DD>
+<P>
+Your computer has a Python preinstalled by Apple, but at this writing
+it's not very recent, and its tkinter GUI library is buggy.  Per the instructions 
+<A HREF="https://www.python.org/download/mac/tcltk/">here</A>, download
+and click to run the latest Python 3.X self-installer for Mac from 
+<A HREF="http://www.python.org/downloads">python.org</A>, and do the same to
+get the recommended Tcl/Tk&mdash;which at this writing is 8.5 from 
+<A HREF="http://www.activestate.com/activetcl/downloads">ActiveState</A>.
+This story is prone to change (e.g., Python might someday include the newer 
+Tcl/Tk 8.6 for Mac as it does for Windows), so watch python.org for details.  
+Some Mac users might also be interested in installing both Python 
+and Tk using the <A HREF="http://brew.sh/">Homebrew</A> package manager, which 
+may offer more recent versions;
+see its <A HREF="http://docs.brew.sh/Homebrew-and-Python.html">Python</A> page.
+
+<P>
+After the installs,
+you can run a program from a Terminal command line (e.g., 
+"python3 &lt;program&gt; ..."); from IDLE's Run menu after opening the program's
+source file; by dragging the program's file icon to the Python Launcher you get with 
+the install; or by clicking the program's file icon in Finder after associating it 
+with the launcher using a right- (or control-)click.  The Mac Python Launcher can be set to open 
+scripts without a console; you may not want one for GUIs with no text output (like mergeall's).   
+Once associated, you can also create an Alias for a script and drag it to the desktop 
+for quick access.  
+</P>
+
+
+<DT><B>On Linux</B>:
+<DD>
+<P>
+Your machine almost certainly already has a usable Python, its tkinter GUI library, 
+and Tcl/Tk, because they are core tools on this platform.  
+If not, or if your versions are out of date, an "apt-get" on Ubuntu or a "yum install" 
+on Fedora should allow you to install required packages.  For instance, 
+"sudo apt-get install python3-tk" fetches tkinter for Python 3.X on Ubuntu.  
+It's also straightforward to build Python from its 
+<A HREF="https://www.python.org/downloads/source/">source code</A> 
+on Linux, if you've ever dabbled with "configure" and "make" commands.  
+
+<P>
+Once Python is verified or installed, you can run a program from a terminal command
+line (e.g., "python3 &lt;program&gt; ..."); from IDLE's Run menu after opening 
+the program's source file; or by clicking on the program's file icon in the 
+system's file explorer after you've configured to run in this mode.
+
+<P>
+Running by icon clicks may require giving the file executable 
+permission with a "chmod +x &lt;filename&gt;" or file icon right-click; 
+setting the file explorer's Properties to run scripts on clicks instead 
+of opening them in a text editor; ensuring that the script's top "#!" line 
+references your Python (see "which python3"); and 
+converting end-lines in the file to Unix form if needed (depending on the site of 
+their latest edits, they may ship in either Windows/DOS or Unix form&mdash;see the 
+<A HREF="docetc/Tools/fixeoln.py">fixeoln.py</A> script 
+in the docetc/Tools folder if you have no other converter).
+</P>
+
+
+</DL> 
+
+<P>
+Naturally, you may find additional install and launch schemes on each platform,
+but we'll cut this story short here.  For more platform pointers, 
+see your local help resources or try a web search.  For tips on formatting
+drives on each platform, see <A HREF="#dst">this note</A>.
+For more on command-line modes, read on to the next and final pointer.
+</P>
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H2 class="lightpanel subheader"><A name="cmdline">Command-Line Basics: Direct Runs</A></H2>
+
+<P class=notebox>
+<B><I>Short story</I></B>: you can use a command line to run mergeall, and must use one
+to run most other programs in its package.  This section gives a brief platform-agnostic
+tutorial on the subject aimed at current or future power users, and provides links to examples.
+
+<P>
+mergeall comes with a GUI described <A HREF="#gui">earlier</A> to make launches easy,
+but all the major programs in the mergeall system&mdash;<A HREF="mergeall.py">mergeall</A>,
+<A HREF="diffall.py">diffall</A>, and <A HREF="cpall.py">cpall</A>&mdash;can
+also be run with direct command lines, and most utility scripts require this mode.  
+mergeall also includes a console launcher which asks for run parameters at a console 
+instead of collecting them in a GUI.  While many mergeall users may never need to type
+a command line, they're useful enough to warrant a quick overview here.
+ 
+<P>
+One note up-front: if you are using any of the <I>standalone</I> (a.k.a. "frozen") executable 
+packages described in the prior <A HREF="#frozen">section</A>, your mergeall programs 
+are executables instead of source files, but all of the command lines in this section work the 
+same without any extra steps if you omit ".py" extensions and any Python reference at the front
+of the command.  See the <A HREF="README.txt">README</A> file for supplemental details on these 
+package's command lines omitted here for space.
+</P>
+
+
+<H3>Coding Command Lines</h3>
+
+<P>
+Command lines are somewhat advanced, but also powerful and fast.  They're typed into whatever
+your platform provides to run shell commands&mdash;"Command Prompt" on Windows, 
+"Terminal" on Mac OS X and Linux, and so on.  For instance, mergeall is structured as a 
+command-line script which is normally launched by the GUI, but you can also run it yourself with 
+direct commands of this sort:
+
+<PRE style="margin-left: 45px;">mergeall.py &lt;from&gt &lt;to&gt; -report -skipcruft
+mergeall.py &lt;from&gt &lt;to&gt; -auto -backup -quiet -skipcruft
+</PRE>
+
+<P>
+Replace "&lt;from&gt;" and "&lt;to&gt;" with your folders' path names, and be sure
+to either run these in mergeall's folder ("cd" there first),  or replace "mergeall.py"
+with the full directory path to this script file on your computer.  
+
+<P>
+The first command above runs mergeall's report-only mode, and the second runs its 
+automatic updates.  On some systems the above is all you must type; for source-code
+programs Windows automatically runs ".py" files with Python, and Unix (Mac and Linux) 
+know to do the same if the file's "#!" line points to the Python you want to use and
+the file has been marked as executable (e.g., with "chmod +x &lt;filename&gt;")
+per the prior <A HREF="#sourcecode">section</A>.
+
+<P>
+For more control, on Windows add a "py -3" at the front of the command to use an 
+installed Python 3.X instead of 2.X; on Mac OS X and Linux, a "python3" has the 
+same effect (as does a shorter "py3" if you also "alias py3=python3"):
+
+<PRE style="margin-left: 45px;">py -3 mergeall.py &lt;from&gt &lt;to&gt; -report -skipcruft         # Windows
+python3 mergeall.py &lt;from&gt &lt;to&gt; -report -skipcruft       # Unix
+py3 mergeall.py &lt;from&gt &lt;to&gt; -report -skipcruft           # Unix for the lazy
+</PRE>
+
+<P>
+You can also send the command's output to a <I>file</I> for later viewing on any 
+platform, by adding a ">" redirection at the end&mdash;especially handy for 
+processing large folders that generate lots of output: 
+
+<PRE style="margin-left: 45px;">mergeall.py &lt;from&gt &lt;to&gt; -report -skipcruft > results.txt
+</PRE>
+
+<P>
+The diffall bytewise folder-comparison program and the cpall folder-copy
+program don't have GUIs, but can be run from simple command lines too:
+
+<PRE style="margin-left: 45px;">diffall.py &lt;from&gt &lt;to&gt; -skipcruft > results.txt
+cpall.py &lt;from&gt &lt;to&gt; -skipcruft > results.txt
+</PRE>
+
+<P>
+The same goes for the other programs shipped with mergeall and mentioned earlier in this 
+guide; see these scripts' <A HREF=".">source files</A> for more details on their command-line 
+arguments:
+
+<PRE style="margin-left: 45px;">fix-fat-dst-modtimes.py &lt;rootpath&gt; -add
+nuke-cruft-files.py &lt;rootpath&gt; -listonly -alldots > savereport.txt
+</PRE>
+
+<P>
+Not all these programs require a command line&mdash;<I>mergeall</I> can also be run from its 
+<A HREF="#gui">GUI</A> (which itself can be started by either command line or icon click) and 
+console interface (up next); and <I>nuke-cruft-files</I> prompts for inputs if you don't list
+any in the command, or simply click its file's icon.  In general, though, the command-line 
+technique is both quick and direct, and supported across all desktop computers. 
+
+
+
+<H3><A name="console">Console Launcher</A></H3>
+
+<P>
+As mentioned, mergeall also includes a <I>console launcher</I> that asks you for
+each input instead of collecting them from a GUI.  Though most users will 
+prefer the convenience of the GUI, the console interface is simple to run, and 
+supports a mode that asks you to approve or disapprove each update along the 
+way (mergeall's "selective updates" mode).  The console launcher itself can be 
+started by command line or icon click, and runs like this:
+
+<PRE style="margin-left: 45px;">
+c:\...\mergeall> launch-mergeall-Console.py
+mergeall 3.0
+
+FROM path = "test\test1"
+use this? (y=yes): y
+
+TO path = "test\test2"
+use this? (y=yes): y
+
+Report differences only? (y=yes): n
+Automatically resolve differences in TO (else asks)? (y=yes): y
+...<I>and so on: try it yourself</I>...
+</PRE>
+
+For a screenshot of the console launcher at work, click 
+<A HREF="docetc/docimgs/windows/x-nongui-console-launcher.png">here</A>.
+Better yet, run it live&mdash;its defaults use the shipped test folders,
+and won't change your content.  While mergeall's GUI is simpler for
+common usage, both the console interface and direct mergeall command lines
+support selective updates that provide more control over changes when 
+needed; we'll skip this lesser-used mode here for space, but check out this 
+<A HREF="docetc/docimgs/windows/x-nongui-console-selective.png">screenshot</A> 
+to sample its flavor.
+
+
+
+<H3>Examples and Bigger Ideas</H3>
+<P>
+For examples of mergeall command lines in action, browse the results
+of the same basic test sequence run on all three of the leading desktop 
+platforms, formatted as HTML for easy viewing&mdash;choose your favorite,
+or collect the whole set:
+
+<UL>
+<LI><A HREF="test/expected-output-3.0/BASIC-TESTS-MacOSX.html"><B>Mac OS X</B></A>
+<LI><A HREF="test/expected-output-3.0/BASIC-TESTS-Windows.html"><B>Windows</B></A>
+<LI><A HREF="test/expected-output-3.0/BASIC-TESTS-Linux.html"><B>Linux</B></A>
+</UL>
+
+<P>
+These files present a series of test commands and their outputs, including mergealls,
+diffalls, rollbacks, and all with and without skipping cruft.  For more command-line fun, 
+there are additional test results for study in the expected outputs 
+<A HREF="test/expected-output-3.0/">folder</A>, and a screenshot of a command-line
+run <A HREF="docetc/docimgs/windows/x-nongui-commandline.png">here</A>.
+
+<P>
+Finally, because you can use command lines to run mergeall, diffall, and cpall,
+so too can jobs you might schedule to run regularly, and programs you might code 
+in the future.  For instance:
+
+<UL>
+<LI>
+<P>
+<I><B>Scheduled runs</B></I>&mdash;if a backup drive is always accessible, you 
+could schedule a mergeall command line to update it automatically using
+a cron job on Unix, Task Scheduler on Windows, or other.
+</P>
+
+<LI>
+<P>
+<I><B>Other programs</B></I>&mdash;Python's os.system(), os.popen(), and 
+subprocess.Popen() can run a mergeall command line, and the latter 
+two can even read its output for custom purposes.  
+</P>
+</UL>
+
+<P>
+The first of these requires some system knowledge, the second crosses over
+into the larger realm of programming, and both are officially outside this 
+guide's scope.  See system and Python resources to get started on these fronts.
+</P>
+
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<H1 class="panel header"><A name="warn">Usage Cautions</A></H1>
+
+<P>
+In closing, here's a friendly reminder from our legal department.
+By design, this program may change your TO destination folder tree
+in-place, by adding, replacing, and deleting files and folders
+as needed to make TO the same as the FROM source.
+Before using this program on folders with content you care about, 
+it is strongly suggested that you do all of the following:
+
+<UL>
+<LI>Make backup copies of your data.
+<LI>Test drive the program on less-important test folders.
+<LI>Read as much of this document as your time allows.
+<LI>Use mergeall's "-report" mode to preview changes.
+<LI>Use mergeall's "-backup" mode to save changed data.
+<LI>See 
+<A HREF="mergeall.py">mergeall.py</A> and the original  
+<A HREF="docetc/MoreDocs/Whitepaper.html">whitepaper</A>
+for additional usage details.
+</UL>
+
+Though this program is designed to be useful and robust&mdash;and has been successfully
+used to manage all of its author's digital content on multiple platforms for three years 
+and counting&mdash;this system is provided as is, and without warranties of any kind.  
+By using it, you accept all responsibility for any actions it takes. 
+
+<P>
+Lest that sound too scary, the "<A HREF="docetc/MoreDocs/Whitepaper.html#backups">-backup</A>" 
+option (and its toggle in the GUI) greatly lessens data loss risk, 
+by making automatic copies of all items replaced or deleted in the TO destination folder, 
+and noting new additions.  Unless you are extremely tight on space, this should always be 
+used, as it allows mergeall changes to be rolled back&mdash;by either manual piecemeal copies,
+or full automatic rollbacks of changes immediately 
+after a run.  See earlier for more on the <A HREF="#backups">backups</A> and 
+<A HREF="#rollbacks">rollbacks</A> options. 
+
+<P>
+That being said, mergeall's backups and restores should not be considered foolproof, 
+given the many ways that storage devices (and sometimes even humans like us) may fail.
+Users are encouraged to keep multiple archive copies, whose mergeall updates are 
+rotated by age.  With USB drives getting cheaper every day, there's little good
+reason for a single point of failure in your backup plans.
+
+
+<P><I>Mac Users</I>: please also read this <A HREF="#macresource">usage pointer</A> about 
+resource forks before using mergeall on content you care about.  mergeall may be used
+successfully on Macs too, but has a cross-platform orientation that limits its scope to 
+files that work on all supported computers.
+</P>
+
+
+
+
+</P>
+<H2 class="lightpanel subheader"><I>Before You Go...</I></H2>
+
+<P>
+If you like this program, you may also be interested in these other productivity tools 
+brought to you by the makers of mergeall:
+
+<p>
+<table border=0>
+<tr><th><A HREF="http://learning-python.com/frigcal.html"><I>frigcal</I></A>     
+                <td> &nbsp;&mdash;&nbsp; <td>Personal Calendar GUI; No Login Required
+<tr><th><A HREF="http://learning-python.com/pyedit.html"><I>PyEdit</I></A> 
+                <td> &nbsp;&mdash;&nbsp; <td>Edit Text.  Run Code.  Have Fun.
+<tr><th><A HREF="http://learning-python.com/pymailgui.html"><I>PyMailGUI</I></A> 
+                <td> &nbsp;&mdash;&nbsp; <td>Email Without the Evil
+<tr><th><A HREF="http://learning-python.com/pygadgets.html"><I>PyGadgets</I></A> 
+                <td> &nbsp;&mdash;&nbsp; <td>GUI Toys, Just for the Hack of It
+</table>
+
+<P>
+You can find these and other free software packages at the
+<A HREF="http://learning-python.com/programs.html">programs site</A>.
+
+
+
+
+<!------------------------------------------------------------------------------------------------>
+
+</P>
+<!--borrowed from websites' theme-->
+<TABLE class="panel header footertable" width="100%">
+<TD align=center>
+  <A class=blocklinkbar href="http://www.python.org">                              <!--border=0 for IE img links-->
+  <IMG SRC="docetc/docimgs/PythonPowered.gif" ALT="[Python Logo]" border=0 width=55 height=22></A>   <!--scale larger gif for res-->
+<TD align=center>
+  <B><A class=blocklinkbar HREF="http://learning-python.com/index.html">Books</A></B>
+<TD align=center>
+  <B><A class=blocklinkbar HREF="http://learning-python.com/programs.html">Programs</A></B>
+<TD align=center>
+  <B><A class=blocklinkbar HREF="http://learning-python.com/posts.html">Posts</A></B>
+<TD align=center>
+  <B><A class=blocklinkbar HREF="mailto:lutz@learning-python.com">Feedback</A></B>
+<TD align=center>                                                                              
+  &copy;<I> M. Lutz</A></I>   
+</TABLE>
+
+
+</BODY>
+</HTML>

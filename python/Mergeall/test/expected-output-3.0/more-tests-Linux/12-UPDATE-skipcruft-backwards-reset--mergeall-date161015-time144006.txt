@@ -1,0 +1,87 @@
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+Skipping system cruft (metadata) files in both FROM and TO
+comparing [/home/name/Desktop/mergeall-3.0-beta/test/test2] [/home/name/Desktop/mergeall-3.0-beta/test/test1]
+excluding /home/name/Desktop/mergeall-3.0-beta/test/test2/__bkp__
+comparing [/home/name/Desktop/mergeall-3.0-beta/test/test2/d3] [/home/name/Desktop/mergeall-3.0-beta/test/test1/d3]
+Phase runtime: 0.003968212000017957
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('f3.txt',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1',
+  'modtime'),
+ ('f6.txt',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1',
+  'filesize'),
+ ('f3.txt',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2/d3',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1/d3',
+  'modtime'),
+ ('.htaccess',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2/d3',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1/d3',
+  'modtime')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['f1.txt', 'd1'],
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1'),
+ (['f4.txt'],
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2/d3',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1/d3')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['f2.txt', 'd2'],
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1'),
+ (['f5.txt'],
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2/d3',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1/d3')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[('m2',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1'),
+ ('m1',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test2',
+  '/home/name/Desktop/mergeall-3.0-beta/test/test1')]
+------------------------------------------------------------------------------- 
+*Resolving tree differences
+Skipping system cruft (metadata) files in FROM folders
+....backing up all items to /home/name/Desktop/mergeall-3.0-beta/test/test1/__bkp__/date161015-time144008
+replaced same file, using FROM /home/name/Desktop/mergeall-3.0-beta/test/test2/f3.txt
+replaced same file, using FROM /home/name/Desktop/mergeall-3.0-beta/test/test2/f6.txt
+replaced same file, using FROM /home/name/Desktop/mergeall-3.0-beta/test/test2/d3/f3.txt
+replaced same file, using FROM /home/name/Desktop/mergeall-3.0-beta/test/test2/d3/.htaccess
+removed old TO file, /home/name/Desktop/mergeall-3.0-beta/test/test1/f1.txt
+removed old TO dir, /home/name/Desktop/mergeall-3.0-beta/test/test1/d1
+removed old TO file, /home/name/Desktop/mergeall-3.0-beta/test/test1/d3/f4.txt
+copied new FROM file, /home/name/Desktop/mergeall-3.0-beta/test/test2/f2.txt
+copied new FROM dir, /home/name/Desktop/mergeall-3.0-beta/test/test2/d2
+copied new FROM file, /home/name/Desktop/mergeall-3.0-beta/test/test2/d3/f5.txt
+replaced dir with file, using FROM /home/name/Desktop/mergeall-3.0-beta/test/test2/m2
+replaced file with dir, using FROM /home/name/Desktop/mergeall-3.0-beta/test/test2/m1
+Phase runtime: 0.0038319759996738867
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 6, folders: 2
+Differences => samefile: 4, uniqueto: 3, uniquefrom: 3, mixedmode: 2
+Changed:
+files   => created: 2, deleted: 2, replaced: 5
+folders => created: 1, deleted: 1, replaced: 1
+-------------------------------------------------------------------------------
+Finished.

@@ -1,0 +1,46 @@
+--------------------
+Comparing test1 to test2
+*UNIQUE items in test2:
+... __bkp__
+Comparing contents
+f3.txt matches
+f1.txt matches
+f6.txt matches
+.DS_Store matches
+f0.txt matches
+._.TemporaryItems matches
+m1 matches
+--------------------
+Comparing test1/d1 to test2/d1
+Directory lists are identical
+Comparing contents
+._someimage.png matches
+._.DS_Store matches
+fa1.txt matches
+--------------------
+Comparing test1/m2 to test2/m2
+Directory lists are identical
+Comparing contents
+.htaccess matches
+.DS_Store matches
+--------------------
+Comparing test1/d3 to test2/d3
+Directory lists are identical
+Comparing contents
+f3.txt matches
+f2.txt matches
+.Trashes matches
+f4.txt matches
+.htaccess matches
+.DS_Store matches
+--------------------
+Comparing test1/d3/.fseventsd to test2/d3/.fseventsd
+Directory lists are identical
+Comparing contents
+no_log matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 5, Files checked: 19, Files skipped: 0
+Diffs found: 1
+- items UNIQUE at [test1] - [test2]
+End of report.

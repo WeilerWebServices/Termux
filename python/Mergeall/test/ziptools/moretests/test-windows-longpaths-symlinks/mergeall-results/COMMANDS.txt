@@ -1,0 +1,39 @@
+All run in C:\MY-STUFF\Code\mergeall\test\test-symlinks\windows-tests\mergeall-results>
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-extract.py xfer-symlinks-winpaths.zip . -skipcruft > RESULTS\start-extract.txt
+
+  mkdir copied-by-mergeall
+
+  c:\MY-STUFF\Code\mergeall\mergeall.py xfer-symlinks-winpaths copied-by-mergeall -auto -skipcruft -backup > RESULTS\mergeall-1-copy.txt
+
+  c:\MY-STUFF\Code\mergeall\mergeall.py xfer-symlinks-winpaths copied-by-mergeall -report -skipcruft > RESULTS\mergeall-2-report.txt
+
+  c:\MY-STUFF\Code\mergeall\mergeall.py copied-by-mergeall xfer-symlinks-winpaths -auto -skipcruft -backup > RESULTS\mergeall-3-post-longpath-change.txt
+
+  c:\MY-STUFF\Code\mergeall\mergeall.py xfer-symlinks-winpaths copied-by-mergeall -report -skipcruft > RESULTS\mergeall-4-report.txt
+
+  cd copied-by-mergeall\symlinks
+
+  py
+  >>> import os
+  >>> os.readlink('badlink')
+  'nonesuch'
+  >>> os.remove('badlink')
+  >>> os.symlink('file.txt', 'badlink')
+  >>> os.readlink('badlink')
+  'file.txt'
+  >>> ^Z
+
+  cd ..\..
+
+  c:\MY-STUFF\Code\mergeall\mergeall.py copied-by-mergeall xfer-symlinks-winpaths -auto -skipcruft -backup > RESULTS\mergeall-5-post-symlink-change.txt
+
+  c:\MY-STUFF\Code\mergeall\mergeall.py xfer-symlinks-winpaths copied-by-mergeall -report -skipcruft > RESULTS\mergeall-6-report.txt
+
+  c:\MY-STUFF\Code\mergeall\test\ziptools\zip-create.py TEST-FOLDERS.zip xfer-symlinks-winpaths copied-by-mergeall -skipcruft > RESULTS\end-create-test-folders.txt
+
+
+----
+Notes:
+1) The mergeall tests can be run in the mergeall GUI launcher too, but admin permission is required of 
+the process to create and update symlinks, unless permitted globally in recent versions of Windows.

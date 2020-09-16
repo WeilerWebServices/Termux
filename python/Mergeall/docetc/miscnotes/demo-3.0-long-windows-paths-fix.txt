@@ -1,0 +1,518 @@
+# How adding a '\\?\' makes long paths work on Windows (a mergeall 3.0 enhancement)
+
+=======================================================================================================
+
+# Without the fix
+
+>>> n = glob.glob(r'E:/MY-STUFF\__more__\Misc\1_TO-FEB-28-17\Dynamic*')[0]
+>>> n
+'E:/MY-STUFF\\__more__\\Misc\\1_TO-FEB-28-17\\Dynamic-ip.org - ip address,what is my ip,what is my i
+p location,what is my ip address,internet ip address,find an ip location,what is my ip org,my curren
+t ip,what is my ip addres,my current ip address,linux ip address.htm'
+>>>
+>>> os.lstat(n)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'E:/MY-STUFF\\__more__\\M
+isc\\1_TO-FEB-28-17\\Dynamic-ip.org - ip address,what is my ip,what is my ip location,what is my ip
+address,internet ip address,find an ip location,what is my ip org,my current ip,what is my ip addres
+,my current ip address,linux ip address.htm'
+>>>
+>>> os.path.isfile(n)
+False
+>>>
+>>> open(n).read()[:20]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'E:/MY-STUFF\\__more__\\Misc\\1_TO-FEB-28-17
+\\Dynamic-ip.org - ip address,what is my ip,what is my ip location,what is my ip address,internet ip
+ address,find an ip location,what is my ip org,my current ip,what is my ip addres,my current ip addr
+ess,linux ip address.htm'
+
+=======================================================================================================
+
+# Almost, but also need to change any '/' to '\'
+
+>>> n = '\\\\?\\' + n
+>>> n
+'\\\\?\\E:/MY-STUFF\\__more__\\Misc\\1_TO-FEB-28-17\\Dynamic-ip.org - ip address,what is my ip,what
+is my ip location,what is my ip address,internet ip address,find an ip location,what is my ip org,my
+ current ip,what is my ip addres,my current ip address,linux ip address.htm'
+>>>
+>>> os.lstat(n)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+FileNotFoundError: [WinError 3] The system cannot find the path specified: '\\\\?\\E:/MY-STUFF\\__mo
+re__\\Misc\\1_TO-FEB-28-17\\Dynamic-ip.org - ip address,what is my ip,what is my ip location,what is
+ my ip address,internet ip address,find an ip location,what is my ip org,my current ip,what is my ip
+ addres,my current ip address,linux ip address.htm'
+>>>
+>>> os.path.isfile(n)
+False
+>>>
+>>> open(n).read()[:20]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: '\\\\?\\E:/MY-STUFF\\__more__\\Misc\\1_TO-FE
+B-28-17\\Dynamic-ip.org - ip address,what is my ip,what is my ip location,what is my ip address,inte
+rnet ip address,find an ip location,what is my ip org,my current ip,what is my ip addres,my current
+ip address,linux ip address.htm'
+
+=======================================================================================================
+
+# With the complete fix (sans UNC path extras: see code)
+
+>>> n = n.replace('/', '\\')
+>>> n
+'\\\\?\\E:\\MY-STUFF\\__more__\\Misc\\1_TO-FEB-28-17\\Dynamic-ip.org - ip address,what is my ip,what
+ is my ip location,what is my ip address,internet ip address,find an ip location,what is my ip org,m
+y current ip,what is my ip addres,my current ip address,linux ip address.htm'
+>>>
+>>> os.lstat(n)
+os.stat_result(st_mode=33206, st_ino=105487163584, st_dev=4069900332, st_nlink=1, st_uid=0, st_gid=0
+, st_size=16677, st_atime=1488394938, st_mtime=1405018908, st_ctime=1488394939)
+>>>
+>>> os.path.isfile(n)
+True
+>>>
+>>> open(n).read()[:20]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "C:\Program Files\Python 3.5\lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 13081: character maps to <undefined>
+>>>
+>>> open(n, encoding='utf8').read()[:20]
+'<!DOCTYPE html PUBLI'
+
+
+
+
+=============================================================================================================================
+
+# More fun with Python file tools: long paths fail in os.makedirs(),
+# shutil.rmtree(), and os.listdir() too unless a '\\?\' prefix is used 
+# on the path name on Windows (shutl.rmtree() requires preemptive \\?\). 
+
+
+
+# PREFIXED: OK
+
+>>> import os, shutil
+>>> r = '\\\\?\\C:\\Users\\Public\\temp\\'
+>>> n = 'x' * 255
+>>>
+>>> m = r + n + '\\' + n + '\\' + n
+>>> m
+'\\\\?\\C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+>>>
+>>> len(m)
+792
+>>>
+>>> os.makedirs(m)
+>>> shutil.rmtree(m)
+>>>
+>>> os.makedirs(m)
+>>> for (d, s, f) in os.walk(r):
+...     print(d)
+...
+\\?\C:\Users\Public\temp\
+\\?\C:\Users\Public\temp\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+\\?\C:\Users\Public\temp\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+\\?\C:\Users\Public\temp\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+>>>
+>>> os.listdir(m)
+[]
+>>>
+>>> shutil.rmtree(m)
+>>> for (d, s, f) in os.walk(r):
+...     print(d)
+...
+\\?\C:\Users\Public\temp\
+\\?\C:\Users\Public\temp\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+\\?\C:\Users\Public\temp\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+>>>
+>>> shutil.rmtree(r)
+>>> for (d, s, f) in os.walk(r):
+...     print(d)
+...
+>>>
+
+
+
+# NO PREFIX: FAILS
+
+>>>
+>>> r = 'C:\\Users\\Public\\temp\\'
+>>> n = 'x' * 255
+>>> m = r + n + '\\' + n + '\\' + n
+>>> len(m)
+788
+>>> os.makedirs(m)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "C:\Users\mark\AppData\Local\Programs\Python\Python35\lib\os.py", line 231, in makedirs
+    makedirs(head, mode, exist_ok)
+  File "C:\Users\mark\AppData\Local\Programs\Python\Python35\lib\os.py", line 231, in makedirs
+    makedirs(head, mode, exist_ok)
+  File "C:\Users\mark\AppData\Local\Programs\Python\Python35\lib\os.py", line 241, in makedirs
+    mkdir(name, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+>>>
+>>>
+>>> r = '\\\\?\\C:\\Users\\Public\\temp\\'
+>>> n = 'x' * 255
+>>> m = r + n + '\\' + n + '\\' + n
+>>> len(m)
+792
+>>> os.makedirs(m)
+>>>
+>>>
+>>> r = 'C:\\Users\\Public\\temp\\'
+>>> n = 'x' * 255
+>>> m = r + n + '\\' + n + '\\' + n
+>>> shutil.rmtree(r)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "C:\Users\mark\AppData\Local\Programs\Python\Python35\lib\shutil.py", line 488, in rmtree
+    return _rmtree_unsafe(path, onerror)
+  File "C:\Users\mark\AppData\Local\Programs\Python\Python35\lib\shutil.py", line 383, in _rmtree_unsafe
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "C:\Users\mark\AppData\Local\Programs\Python\Python35\lib\shutil.py", line 381, in _rmtree_unsafe
+    os.unlink(fullname)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+>>>
+>>>
+>>> r = '\\\\?\\C:\\Users\\Public\\temp\\'
+>>> n = 'x' * 255
+>>> m = r + n + '\\' + n + '\\' + n
+>>>
+>>> shutil.rmtree(r)
+>>>
+
+
+
+
+=============================================================================================================================
+# OTHER TOOLS
+
+
+
+
+# os.listdir(), os.stat()/lstat()
+
+>>>
+>>> r = '\\\\?\\C:\\Users\\Public\\temp\\'
+>>> n = 'x' * 255
+>>> m = r + n + '\\' + n + '\\' + n
+>>>
+>>> os.makedirs(m)
+>>>
+>>>
+>>>
+>>> os.listdir(m)
+[]
+>>>
+>>> m[4:]
+'C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+>>>
+>>> os.listdir(m[4:])
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+>>>
+>>>
+>>>
+>>> os.lstat(m)
+os.stat_result(st_mode=16895, st_ino=26740122787754876, st_dev=3499348471, st_nlink=1, st_uid=0, st_gid=0, st_size=0, st_atim
+e=1488681755, st_mtime=1488681755, st_ctime=1488681755)
+>>> os.lstat(m[4:])
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+>>>
+
+
+
+
+# os.path tools (type/time calls run os.stat() internally)
+
+>>>
+>>> os.path.isdir(m)
+True
+>>> os.path.isdir(m[4:])
+False
+>>>
+>>>
+>>>
+>>> os.path.split(m)
+('\\\\?\\C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+>>>
+>>> os.path.join(m, 'spam')
+'\\\\?\\C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\spam'
+>>>
+>>> os.path.abspath(m)
+'\\\\?\\C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+>>>
+
+
+
+
+# os.walk() and os.listdir() both require prefix (os.walk() preemptively - uses os.listdir() internally)
+
+>>>
+>>> shutil.rmtree(r)
+>>>
+>>>
+>>> r
+'\\\\?\\C:\\Users\\Public\\temp\\'
+>>> m
+'\\\\?\\C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+>>>
+>>> os.makedirs(m)
+>>>
+>>>
+>>> for (d, s, f) in os.walk(r):
+...     print(d)
+...
+\\?\C:\Users\Public\temp\
+\\?\C:\Users\Public\temp\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+\\?\C:\Users\Public\temp\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+\\?\C:\Users\Public\temp\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+>>>
+>>>
+>>> r[4:]
+'C:\\Users\\Public\\temp\\'
+>>>
+>>> for (d, s, f) in os.walk(r[4:]):
+...     print(d)
+...
+C:\Users\Public\temp\
+>>>
+>>>
+>>> for (d, s, f) in os.walk('C:\\Users\\Public\\temp'):
+...     print(d)
+...
+C:\Users\Public\temp
+>>>
+>>>
+>>>
+>>> os.listdir(r)
+['xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxx']
+>>>
+>>> os.listdir(r[4:])
+['xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxx']
+>>>
+>>>
+>>>
+>>> os.listdir('\\\\?\\C:\\Users\\Public\\temp\\' + n)
+['xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxx']
+>>>
+>>> os.listdir('C:\\Users\\Public\\temp\\' + n)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+>>>
+
+
+
+
+=====================================================================================================================
+
+# DIRECTORY LIMITS VARY: must allows for 8.3 filename (12) at end (plus 1 for NULL)
+
+
+# dir limit = 247
+
+>>>
+>>> r
+'C:\\Users\\Public\\temp\\'
+>>> len(r)
+21
+>>> len(r + ('x' * (247 - len(r))))
+247
+>>> len(r + ('x' * (248 - len(r))))
+248
+>>>
+>>> os.mkdir(r + ('x' * (248 - len(r))))
+FileNotFoundError: [WinError 206] The filename or extension is too long: 'C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+>>>
+>>> os.mkdir(r + ('x' * (247 - len(r))))
+>>> os.rmdir(r + ('x' * (247 - len(r))))
+>>>
+
+
+# file limit = 259
+
+>>>
+>>> r
+'C:\\Users\\Public\\temp\\'
+>>> len(r + ('x' * (259 - len(r))))
+259
+>>> len(r + ('x' * (260 - len(r))))
+260
+>>>
+>>> open(r + ('x' * (260 - len(r))), 'w').write('spam')
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+>>>
+>>> open(r + ('x' * (259 - len(r))), 'w').write('spam')
+4
+>>> open(r + ('x' * (259 - len(r))), 'r').read()
+'spam'
+>>> os.remove(r + ('x' * (259 - len(r))))
+>>>
+
+
+# over-limit paths work for both with \\?\
+
+>>>
+>>> r = '\\\\?\\' + r
+>>> r
+'\\\\?\\C:\\Users\\Public\\temp\\'
+>>>
+>>> len(r + ('x' * (248 - len(r))))
+248
+>>> len(r + ('x' * (260 - len(r))))
+260
+>>>
+>>> os.mkdir(r + ('x' * (248 - len(r))))
+>>> os.rmdir(r + ('x' * (248 - len(r))))
+>>>
+>>> open(r + ('x' * (260 - len(r))), 'w').write('spam')
+4
+>>> open(r + ('x' * (260 - len(r))), 'r').read()
+'spam'
+>>> os.remove(r + ('x' * (260 - len(r))))
+>>
+
+
+# os.rmdir (and others) doesn't have dir limit: not making one
+
+>>> os.listdir(r)
+[]
+>>> r1 = '\\\\?\\C:\\Users\\Public\\temp\\'
+>>> r2 = 'C:\\Users\\Public\\temp\\'
+>>>
+>>> len(r1) + len('x' * (248-len(r2)))
+252
+>>> len(r2) + len('x' * (248-len(r2)))
+248
+>>>
+>>> os.mkdir(r2 + ('x' * (248-len(r2))))
+FileNotFoundError: [WinError 206] The filename or extension is too long: 'C:\\Users\\Public\\temp\\xxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+>>>
+>>> os.mkdir(r1 + ('x' * (248-len(r2))))
+>>> os.rmdir(r1 + ('x' * (248-len(r2))))
+>>>
+>>> os.mkdir(r1 + ('x' * (248-len(r2))))
+>>> os.rmdir(r2 + ('x' * (248-len(r2))))
+>>>
+>>> os.mkdir(r1 + ('x' * (248-len(r2))))
+>>> os.listdir(r2 + ('x' * (248-len(r2))))
+[]
+>>> os.lstat(r2 + ('x' * (248-len(r2))))
+os.stat_result(st_mode=16895, st_ino=53761720551931930, st_dev=3499348471, st_nlink=1, st_uid=0, st_gid=0, st_size=0, st_atim
+e=1488811654, st_mtime=1488811654, st_ctime=1488811654)
+>>>
+>>> os.path.isdir(r2 + ('x' * (248-len(r2))))
+True
+>>> len(r2) + len(os.listdir(r2)[0])
+248
+>>> os.rmdir(r2 + ('x' * (248-len(r2))))
+>>>

@@ -1,0 +1,1 @@
+Source code before symlink support was added, for reference only.

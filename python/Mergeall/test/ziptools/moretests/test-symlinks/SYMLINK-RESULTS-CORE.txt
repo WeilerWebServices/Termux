@@ -1,0 +1,525 @@
+Run on Mac OS X, Python 3.5 (python.org), mergeall 3.0 (ziptools 1.0).
+
+The tests run here exercise the basics of ziptools' symlinks support.
+See FULL-SYMLINK-RESULTS.txt for more comprehenesive and advanced tests.
+
+
+# create zipfile ====================================================================================================
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ date       # ziptools run time 
+Wed Mar  8 17:48:47 PST 2017
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py -skipcruft zip-on-macosx.zip test1 test2
+Zipping ['test1', 'test2'] to zip-on-macosx.zip
+Cruft patterns: {'keep': ['.htaccess'], 'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]']}
+Adding folder test1
+--Skipped cruft file test1/.DS_Store
+Adding folder test1/dir
+Adding  file  test1/dir/nestedfile
+Adding  link  ~folder test1/dirlink
+Adding  file  test1/file
+Adding  link  ~file test1/filelink
+Adding  link  ~file test1/nestedfilelink
+Adding folder test2
+Adding folder test2/dir
+Adding  file  test2/dir/nestedfile
+Adding  link  ~file test2/dirlink
+Adding  link  ~file test2/extralink
+Adding  file  test2/file
+Adding  link  ~file test2/nestedfilelink
+
+
+
+# list zipfile ======================================================================================================
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l zip-on-macosx.zip     # zipfile's time
+total 8
+-rw-r--r--  1 blue  wheel  1557 Mar  8 17:50 zip-on-macosx.zip
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-list.py zip-on-macosx.zip
+File Name                                             Modified             Size
+test1/                                         2017-03-08 15:20:44            0
+test1/dir/                                     2017-01-28 17:40:32            0
+test1/dir/nestedfile                           2017-01-28 17:40:32           12
+test1/dirlink                                  2017-02-09 06:43:30            3
+test1/file                                     2017-01-28 17:32:04            5
+test1/filelink                                 2017-02-09 06:43:30            4
+test1/nestedfilelink                           2017-02-09 06:43:30           14
+test2/                                         2017-02-09 06:43:30            0
+test2/dir/                                     2017-01-28 17:44:28            0
+test2/dir/nestedfile                           2017-01-28 17:40:32           12
+test2/dirlink                                  2017-02-09 06:43:30            4
+test2/extralink                                2017-02-09 06:43:30            4
+test2/file                                     2017-01-28 17:32:04            5
+test2/nestedfilelink                           2017-02-09 06:43:30           14
+
+
+
+# extract zipfile to new folder ./temp ==============================================================================
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py zip-on-macosx.zip temp
+Unzipping from zip-on-macosx.zip to temp
+Extracted test1/
+		=> temp/test1
+Extracted test1/dir/
+		=> temp/test1/dir
+Extracted test1/dir/nestedfile
+		=> temp/test1/dir/nestedfile
+(Link) Extracted test1/dirlink
+		=> temp/test1/dirlink
+Extracted test1/file
+		=> temp/test1/file
+(Link) Extracted test1/filelink
+		=> temp/test1/filelink
+(Link) Extracted test1/nestedfilelink
+		=> temp/test1/nestedfilelink
+Extracted test2/
+		=> temp/test2
+Extracted test2/dir/
+		=> temp/test2/dir
+Extracted test2/dir/nestedfile
+		=> temp/test2/dir/nestedfile
+(Link) Extracted test2/dirlink
+		=> temp/test2/dirlink
+(Link) Extracted test2/extralink
+		=> temp/test2/extralink
+Extracted test2/file
+		=> temp/test2/file
+(Link) Extracted test2/nestedfilelink
+		=> temp/test2/nestedfilelink
+
+
+
+# compare to originals (modtimes, content) ==========================================================================
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l zip-on-macosx.zip
+total 8
+-rw-r--r--  1 blue  wheel  1557 Mar  8 17:50 zip-on-macosx.zip
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l test1
+total 32
+drwxr-xr-x  3 blue  wheel  102 Jan 28 17:40 dir
+lrwxr-xr-x  1 blue  wheel    3 Feb  9 06:43 dirlink -> dir
+-rw-r--r--  1 blue  wheel    5 Jan 28 17:32 file
+lrwxr-xr-x  1 blue  wheel    4 Feb  9 06:43 filelink -> file
+lrwxr-xr-x  1 blue  wheel   14 Feb  9 06:43 nestedfilelink -> dir/nestedfile
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l temp/test1
+total 32
+drwxr-xr-x  3 blue  wheel  102 Jan 28 17:40 dir
+lrwxr-xr-x  1 blue  wheel    3 Feb  9 06:43 dirlink -> dir
+-rw-r--r--  1 blue  wheel    5 Jan 28 17:32 file
+lrwxr-xr-x  1 blue  wheel    4 Feb  9 06:43 filelink -> file
+lrwxr-xr-x  1 blue  wheel   14 Feb  9 06:43 nestedfilelink -> dir/nestedfile
+
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l test2
+total 32
+drwxr-xr-x  3 blue  wheel  102 Jan 28 17:44 dir
+lrwxr-xr-x  1 blue  wheel    4 Feb  9 06:43 dirlink -> file
+lrwxr-xr-x  1 blue  wheel    4 Feb  9 06:43 extralink -> file
+-rw-r--r--  1 blue  wheel    5 Jan 28 17:32 file
+lrwxr-xr-x  1 blue  wheel   14 Feb  9 06:43 nestedfilelink -> dir/nestedfile
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l temp/test2
+total 32
+drwxr-xr-x  3 blue  wheel  102 Jan 28 17:44 dir
+lrwxr-xr-x  1 blue  wheel    4 Feb  9 06:43 dirlink -> file
+lrwxr-xr-x  1 blue  wheel    4 Feb  9 06:43 extralink -> file
+-rw-r--r--  1 blue  wheel    5 Jan 28 17:32 file
+lrwxr-xr-x  1 blue  wheel   14 Feb  9 06:43 nestedfilelink -> dir/nestedfile
+
+
+# verify in Python 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3
+>>> import os
+>>> os.readlink('temp/test1/filelink')   # the link itself
+'file'
+>>> open('temp/test1/filelink').read()   # what the link refers to (referent)
+'stuff'
+
+
+
+# ===================================================================================================================
+# verify created zipfile works in Mac OS X unzip (also verified in Finder + Archive Utility);
+# these work too, but they are nonportable, not in changeable/readable source-code form,
+# and may not support advanced features of ziptools as well (cruft, symlink portability, times)
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ mkdir temp2
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ cp zip-on-macosx.zip temp2
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ cd temp2
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2$ ls -l 
+total 8
+-rw-r--r--  1 blue  wheel  1557 Mar  8 17:57 zip-on-macosx.zip
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2$ unzip -l zip-on-macosx.zip 
+Archive:  zip-on-macosx.zip
+  Length     Date   Time    Name
+ --------    ----   ----    ----
+        0  02-07-17 15:13   test1/
+        3  02-07-17 15:13   test1/dirlink
+        5  01-28-17 17:32   test1/file
+        4  02-07-17 15:13   test1/filelink
+       14  02-07-17 15:13   test1/nestedfilelink
+        0  01-28-17 17:40   test1/dir/
+       12  01-28-17 17:40   test1/dir/nestedfile
+        0  02-07-17 15:13   test2/
+        4  02-07-17 15:13   test2/dirlink
+        4  02-07-17 15:13   test2/extralink
+        5  01-28-17 17:32   test2/file
+       14  02-07-17 15:13   test2/nestedfilelink
+        0  01-28-17 17:44   test2/dir/
+       12  01-28-17 17:40   test2/dir/nestedfile
+ --------                   -------
+       77                   14 files
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2$ unzip zip-on-macosx.zip
+Archive:  zip-on-macosx.zip
+   creating: test1/
+  inflating: test1/dirlink           -> dir 
+  inflating: test1/file              
+  inflating: test1/filelink          -> file 
+  inflating: test1/nestedfilelink    -> dir/nestedfile 
+   creating: test1/dir/
+  inflating: test1/dir/nestedfile    
+   creating: test2/
+  inflating: test2/dirlink           -> file 
+  inflating: test2/extralink         -> file 
+  inflating: test2/file              
+  inflating: test2/nestedfilelink    -> dir/nestedfile 
+   creating: test2/dir/
+  inflating: test2/dir/nestedfile    
+finishing deferred symbolic links:
+  test1/dirlink          -> dir
+  test1/filelink         -> file
+  test1/nestedfilelink   -> dir/nestedfile
+  test2/dirlink          -> file
+  test2/extralink        -> file
+  test2/nestedfilelink   -> dir/nestedfile
+
+
+# 
+# ** Mac's unzip doesn't propagate link times like ziptools! **
+#
+
+//MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2$ ls -l test1             # Mac unzip
+total 32
+drwxr-xr-x  3 blue  wheel  102 Jan 28 17:40 dir
+lrwxr-xr-x  1 blue  wheel    3 Mar  8 17:59 dirlink -> dir
+-rw-r--r--  1 blue  wheel    5 Jan 28 17:32 file
+lrwxr-xr-x  1 blue  wheel    4 Mar  8 17:59 filelink -> file
+lrwxr-xr-x  1 blue  wheel   14 Mar  8 17:59 nestedfilelink -> dir/nestedfile
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2$ ls -l ../temp/test1      # ziptools
+total 32
+drwxr-xr-x  3 blue  wheel  102 Jan 28 17:40 dir
+lrwxr-xr-x  1 blue  wheel    3 Feb  9 06:43 dirlink -> dir
+-rw-r--r--  1 blue  wheel    5 Jan 28 17:32 file
+lrwxr-xr-x  1 blue  wheel    4 Feb  9 06:43 filelink -> file
+lrwxr-xr-x  1 blue  wheel   14 Feb  9 06:43 nestedfilelink -> dir/nestedfile
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2$ ls -l test2              # Mac unzip 
+total 32
+drwxr-xr-x  3 blue  wheel  102 Jan 28 17:44 dir
+lrwxr-xr-x  1 blue  wheel    4 Mar  8 17:59 dirlink -> file
+lrwxr-xr-x  1 blue  wheel    4 Mar  8 17:59 extralink -> file
+-rw-r--r--  1 blue  wheel    5 Jan 28 17:32 file
+lrwxr-xr-x  1 blue  wheel   14 Mar  8 17:59 nestedfilelink -> dir/nestedfile
+ 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2$ ls -l ../temp/test2      # ziptools
+total 32
+drwxr-xr-x  3 blue  wheel  102 Jan 28 17:44 dir
+lrwxr-xr-x  1 blue  wheel    4 Feb  9 06:43 dirlink -> file
+lrwxr-xr-x  1 blue  wheel    4 Feb  9 06:43 extralink -> file
+-rw-r--r--  1 blue  wheel    5 Jan 28 17:32 file
+lrwxr-xr-x  1 blue  wheel   14 Feb  9 06:43 nestedfilelink -> dir/nestedfile
+
+
+# verify in Python 
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/temp2$ py3
+>>> import os
+>>> os.readlink('test1/filelink')   # the link itself
+'file'
+>>> open('test1/filelink').read()   # what the link refers to
+'stuff'
+
+
+
+# ===================================================================================================================
+# verify fifos (et al) ignored, invalid zips added, in another folder
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ mkdir exotica
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ cd exotica
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/exotica$ py3
+>>> import os
+>>> open('file', 'w').write('spam')
+4
+>>> os.mkdir('dir')
+>>> os.mkfifo('fifo')
+>>> 
+>>> os.symlink('file', 'filelink')
+>>> os.symlink('dir', 'dirlink')
+>>> os.symlink('fifo', 'fifolink')
+>>> os.symlink('nowhere', 'nowherelink')
+>>> 
+>>> ^D
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/exotica$ ls -l
+total 40
+drwxr-xr-x  2 blue  wheel  68 Mar 11 13:22 dir
+lrwxr-xr-x  1 blue  wheel   3 Mar 11 13:23 dirlink -> dir
+prw-r--r--  1 blue  wheel   0 Mar 11 13:23 fifo
+lrwxr-xr-x  1 blue  wheel   4 Mar 11 13:23 fifolink -> fifo
+-rw-r--r--  1 blue  wheel   4 Mar 11 13:22 file
+lrwxr-xr-x  1 blue  wheel   4 Mar 11 13:23 filelink -> file
+lrwxr-xr-x  1 blue  wheel   7 Mar 11 13:23 nowherelink -> nowhere
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks/exotica$ cd ..
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py
+Zip file to create? exotica
+Items to zip (comma-separated)? exotica
+Skip cruft items (y=yes)? y
+Follow links to targets (y=yes)? n
+About to ZIP
+	['exotica'],
+	to exotica.zip,
+	skipping cruft,
+	not following links
+Confirm with 'y'? y
+Zipping ['exotica'] to exotica.zip
+Cruft patterns: {'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]'], 'keep': ['.htaccess']}
+Adding folder exotica
+--Skipped cruft file exotica/.DS_Store
+Adding folder exotica/dir
+Adding  link  ~folder exotica/dirlink
+--Skipped unknown type: exotica/fifo
+Adding  link  ~unknown exotica/fifolink
+Adding  file  exotica/file
+Adding  link  ~file exotica/filelink
+Adding  link  ~unknown exotica/nowherelink
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-list.py  exotica.zip
+File Name                                             Modified             Size
+exotica/                                       2017-03-11 13:24:02            0
+exotica/dir/                                   2017-03-11 13:22:52            0
+exotica/dirlink                                2017-03-11 13:23:32            3
+exotica/fifolink                               2017-03-11 13:23:42            4
+exotica/file                                   2017-03-11 13:22:50            4
+exotica/filelink                               2017-03-11 13:23:18            4
+exotica/nowherelink                            2017-03-11 13:23:56            7
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ mv exotica exotica-start
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py exotica.zip
+Unzipping from exotica.zip to .
+Extracted exotica/
+		=> exotica
+Extracted exotica/dir/
+		=> exotica/dir
+(Link) Extracted exotica/dirlink
+		=> exotica/dirlink
+(Link) Extracted exotica/fifolink
+		=> exotica/fifolink
+Extracted exotica/file
+		=> exotica/file
+(Link) Extracted exotica/filelink
+		=> exotica/filelink
+(Link) Extracted exotica/nowherelink
+		=> exotica/nowherelink
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls -l exotica
+total 40
+drwxr-xr-x  2 blue  wheel  68 Mar 11 13:22 dir
+lrwxr-xr-x  1 blue  wheel   3 Mar 11 13:23 dirlink -> dir
+lrwxr-xr-x  1 blue  wheel   4 Mar 11 13:23 fifolink -> fifo
+-rw-r--r--  1 blue  wheel   4 Mar 11 13:22 file
+lrwxr-xr-x  1 blue  wheel   4 Mar 11 13:23 filelink -> file
+lrwxr-xr-x  1 blue  wheel   7 Mar 11 13:23 nowherelink -> nowhere
+
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../../../diffall.py exotica exotica-start -skipcruft
+--------------------
+Comparing exotica to exotica-start
+*UNIQUE items in exotica-start:
+... fifo
+Comparing contents
+dirlink matches
+fifolink matches
+file matches
+filelink matches
+nowherelink matches
+--------------------
+Comparing exotica/dir to exotica-start/dir
+Directory lists are identical
+Comparing contents
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 2, Files checked: 5, Files skipped: 0
+System metadata (cruft) files were skipped
+Diffs found: 1
+- items UNIQUE at [exotica] - [exotica-start]
+End of report.
+
+
+
+# ===================================================================================================================
+# path boundary cases
+
+
+# absolute -> relative paths
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py -skipcruft temp.zip ~/Movies /Users/blue/Music/
+Zipping ['/Users/blue/Movies', '/Users/blue/Music/'] to temp.zip
+Cruft patterns: {'keep': ['.htaccess'], 'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]']}
+Adding folder /Users/blue/Movies
+--Skipped cruft file /Users/blue/Movies/.localized
+Adding folder /Users/blue/Music/
+--Skipped cruft file /Users/blue/Music/.localized
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-list.py temp.zip
+File Name                                             Modified             Size
+Users/blue/Movies/                             2016-08-31 17:37:18            0
+Users/blue/Music/                              2016-08-31 17:37:18            0
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py temp.zip temp3
+Unzipping from temp.zip to temp3
+Extracted Users/blue/Movies/
+		=> temp3/Users/blue/Movies
+Extracted Users/blue/Music/
+		=> temp3/Users/blue/Music
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls temp3
+Users
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls temp3/Users/
+blue
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ ls temp3/Users/blue/
+Movies	Music
+
+
+# leading dots stripped
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-create.py -skipcruft temp.zip ./test1 ./test2
+Zipping ['./test1', './test2'] to temp.zip
+Cruft patterns: {'keep': ['.htaccess'], 'skip': ['.*', '[dD]esktop.ini', 'Thumbs.db', '~*', '$*', '*.py[co]']}
+Adding folder ./test1
+--Skipped cruft file ./test1/.DS_Store
+Adding folder ./test1/dir
+Adding  file  ./test1/dir/nestedfile
+Adding  link  ~folder ./test1/dirlink
+Adding  file  ./test1/file
+Adding  link  ~file ./test1/filelink
+Adding  link  ~file ./test1/nestedfilelink
+Adding folder ./test2
+Adding folder ./test2/dir
+Adding  file  ./test2/dir/nestedfile
+Adding  link  ~file ./test2/dirlink
+Adding  link  ~file ./test2/extralink
+Adding  file  ./test2/file
+Adding  link  ~file ./test2/nestedfilelink
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-list.py temp.zip
+File Name                                             Modified             Size
+test1/                                         2017-03-08 15:20:44            0
+test1/dir/                                     2017-01-28 17:40:32            0
+test1/dir/nestedfile                           2017-01-28 17:40:32           12
+test1/dirlink                                  2017-02-09 06:43:30            3
+test1/file                                     2017-01-28 17:32:04            5
+test1/filelink                                 2017-02-09 06:43:30            4
+test1/nestedfilelink                           2017-02-09 06:43:30           14
+test2/                                         2017-02-09 06:43:30            0
+test2/dir/                                     2017-01-28 17:44:28            0
+test2/dir/nestedfile                           2017-01-28 17:40:32           12
+test2/dirlink                                  2017-02-09 06:43:30            4
+test2/extralink                                2017-02-09 06:43:30            4
+test2/file                                     2017-01-28 17:32:04            5
+test2/nestedfilelink                           2017-02-09 06:43:30           14
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../zip-extract.py temp.zip temp4
+Unzipping from temp.zip to temp4
+Extracted test1/
+		=> temp4/test1
+Extracted test1/dir/
+		=> temp4/test1/dir
+Extracted test1/dir/nestedfile
+		=> temp4/test1/dir/nestedfile
+(Link) Extracted test1/dirlink
+		=> temp4/test1/dirlink
+Extracted test1/file
+		=> temp4/test1/file
+(Link) Extracted test1/filelink
+		=> temp4/test1/filelink
+(Link) Extracted test1/nestedfilelink
+		=> temp4/test1/nestedfilelink
+Extracted test2/
+		=> temp4/test2
+Extracted test2/dir/
+		=> temp4/test2/dir
+Extracted test2/dir/nestedfile
+		=> temp4/test2/dir/nestedfile
+(Link) Extracted test2/dirlink
+		=> temp4/test2/dirlink
+(Link) Extracted test2/extralink
+		=> temp4/test2/extralink
+Extracted test2/file
+		=> temp4/test2/file
+(Link) Extracted test2/nestedfilelink
+		=> temp4/test2/nestedfilelink
+
+
+# verify with mergeall's diffall
+
+//MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../../../diffall.py test1 temp4/test1
+--------------------
+Comparing test1 to temp4/test1
+*UNIQUE items in test1:
+... .DS_Store
+Comparing contents
+dirlink matches
+file matches
+filelink matches
+nestedfilelink matches
+--------------------
+Comparing test1/dir to temp4/test1/dir
+Directory lists are identical
+Comparing contents
+nestedfile matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 2, Files checked: 5, Files skipped: 0
+Diffs found: 1
+- items UNIQUE at [test1] - [temp4/test1]
+End of report.
+
+/MY-STUFF/Code/mergeall/test/ziptools/test-symlinks$ py3 ../../../diffall.py test2 temp4/test2
+--------------------
+Comparing test2 to temp4/test2
+Directory lists are identical
+Comparing contents
+dirlink matches
+extralink matches
+file matches
+nestedfilelink matches
+--------------------
+Comparing test2/dir to temp4/test2/dir
+Directory lists are identical
+Comparing contents
+nestedfile matches
+================================================================================
+Runtime hrs:mins:secs = 0:0:0.00
+Dirs checked 2, Files checked: 5, Files skipped: 0
+No diffs found.
+End of report.

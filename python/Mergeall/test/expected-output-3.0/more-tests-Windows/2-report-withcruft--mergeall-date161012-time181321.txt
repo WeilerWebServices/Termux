@@ -1,0 +1,69 @@
+Using Python 3.5+ os.scandir() optimized variant.
+Starting.
+------------------------------------------------------------------------------- 
+*Collecting tree differences
+comparing [C:/MY-STUFF/Code/mergeall/test/test1] [C:/MY-STUFF/Code/mergeall/test/test2]
+excluding C:/MY-STUFF/Code/mergeall/test/test2\__bkp__
+comparing [C:/MY-STUFF/Code/mergeall/test/test1\d3] [C:/MY-STUFF/Code/mergeall/test/test2\d3]
+Phase runtime: 0.0003997652234555647
+------------------------------------------------------------------------------- 
+*Reporting tree differences
+-------------------------------------------------------------------------------
+SAMEFILE DIFFERENCES: (name, dirfrom, dirto, why)
+**These items will be replaced in dirto by automatic resolution**
+
+[('.htaccess',
+  'C:/MY-STUFF/Code/mergeall/test/test1\\d3',
+  'C:/MY-STUFF/Code/mergeall/test/test2\\d3',
+  'modtime'),
+ ('f3.txt',
+  'C:/MY-STUFF/Code/mergeall/test/test1\\d3',
+  'C:/MY-STUFF/Code/mergeall/test/test2\\d3',
+  'modtime'),
+ ('f3.txt',
+  'C:/MY-STUFF/Code/mergeall/test/test1',
+  'C:/MY-STUFF/Code/mergeall/test/test2',
+  'modtime'),
+ ('f6.txt',
+  'C:/MY-STUFF/Code/mergeall/test/test1',
+  'C:/MY-STUFF/Code/mergeall/test/test2',
+  'filesize')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRTO: (names, dirfrom, dirto)
+**These items will be deleted from dirto by automatic resolution**
+
+[(['$RECYCLE.BIN', '.Trash-1000', 'd2', 'Desktop.ini', 'f2.txt'],
+  'C:/MY-STUFF/Code/mergeall/test/test1',
+  'C:/MY-STUFF/Code/mergeall/test/test2'),
+ (['desktop.ini', 'f5.txt', 'Thumbs.db'],
+  'C:/MY-STUFF/Code/mergeall/test/test1\\d3',
+  'C:/MY-STUFF/Code/mergeall/test/test2\\d3')]
+-------------------------------------------------------------------------------
+UNIQUE ITEMS IN DIRFROM: (names, dirfrom, dirto)
+**These items will be copied over to dirto by automatic resolution**
+
+[(['.DS_Store', '._.TemporaryItems', 'd1', 'f1.txt'],
+  'C:/MY-STUFF/Code/mergeall/test/test1',
+  'C:/MY-STUFF/Code/mergeall/test/test2'),
+ (['.DS_Store', '.fseventsd', '.Trashes', 'f4.txt'],
+  'C:/MY-STUFF/Code/mergeall/test/test1\\d3',
+  'C:/MY-STUFF/Code/mergeall/test/test2\\d3')]
+-------------------------------------------------------------------------------
+MIXED MODE NAMES: (name, dirfrom, dirto)
+**These items will be replaced in dirto by automatic resolution**
+
+[('m1',
+  'C:/MY-STUFF/Code/mergeall/test/test1',
+  'C:/MY-STUFF/Code/mergeall/test/test2'),
+ ('m2',
+  'C:/MY-STUFF/Code/mergeall/test/test1',
+  'C:/MY-STUFF/Code/mergeall/test/test2')]
+------------------------------------------------------------------------------- 
+*Summary
+Compared    => files: 6, folders: 2
+Differences => samefile: 4, uniqueto: 8, uniquefrom: 8, mixedmode: 2
+Changed:
+files   => created: 0, deleted: 0, replaced: 0
+folders => created: 0, deleted: 0, replaced: 0
+-------------------------------------------------------------------------------
+Finished.
