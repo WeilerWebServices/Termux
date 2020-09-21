@@ -1,0 +1,15 @@
+usage: __main__.py [-h] [--save] [--max-songs MAX_SONGS] [-q]
+                   {song,artist} terms [terms ...]
+
+Download song lyrics from Genius.com
+
+positional arguments:
+  {song,artist}         Specify whether search is for 'song' or 'artist'
+  terms                 Provide terms for search
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --save                If specified, saves songs to JSON file
+  --max-songs MAX_SONGS
+                        Specify number of songs when searching for artist
+  -q, --quiet           Turn off the API verbosity
