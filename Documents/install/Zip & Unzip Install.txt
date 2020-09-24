@@ -1,13 +1,15 @@
-Create Zip file - Termux tutorial
-Fisrt update and install requirments ..
+	Zip & Unzip Install
 
+Fisrt update and install requirments
+====================================
 $ apt update -y &&  apt upgrade -y
 
 $ apt install zip
 
 $ apt install unzip
 
-Creating Zip file :
+Creating Zip file
+=================
 
 $ zip name.zip [your files]
 
@@ -15,8 +17,9 @@ Here name.zip is the name for that zip file
 
 your files means = your files to make zip such as .txt .md folder .png .jpg etc..,
 
-Unzip process :
+Unzip process
+=============
 
 $ unzip name.zip
 
-that's it it will unzip your zip file.
+That will unzip your zip file.

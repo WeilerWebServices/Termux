@@ -1,0 +1,68 @@
+Python Text to Speech Example
+Here you will get python text to speech example.
+
+In this tutorial we are going to learn that how to convert text to speech in Python. Here we’ll show you two best and easiest ways to convert your text into speech
+
+Text to speech without internet connection (using pyttsx3)
+Text to speech having internet connection (using gTTS)
+Python Text to Speech Example
+Method 1: Using pyttsx3
+Pyttsx3 is an offline cross-platform Test-to-Speech library which is compatible with both Python 3 and Python 2 and supports multiple TTS engines
+
+To use pyttsx3, first we have to download and install it. In order to install it open your command prompt or terminal and type this command.
+
+
+pip install pyttsx3
+
+If you’re using windows operating system then you also have to install “pypiwin32” to make it work. To install pypiwin32 again type this command and hit enter in command prompt.
+
+python  -m  pip install pypiwin32
+
+Make sure you’ve internet connection while running both of the command. It is one time process, after you’ve installed pyttsx3 now to use it, the program will be as shown below.
+
+import pyttsx3
+engine = pyttsx3.init()
+engine.say("hello crazy programmer")
+engine.setProperty('rate',120)
+engine.setProperty('volume', 0.9)
+engine.runAndWait()
+In this program, in first Line we’re initializing pyttsx3 for use then we’re passing the text in method say(). After it we’re setting some properties like volume and rate of the voice. Here we’re passing 120 as rate, which means it will speak 120 words per minute and last line of above program will be produce an audio saying “hello crazy  programmer”.
+
+
+We can also modify the voice like we can change it into female voice (by default its male), age and language.
+
+Method 2: Using gTTS (Google Text to Speech)
+Google Text to Speech is one of the best TTS API out there, because it will generate audio as approximately similar to human voice while other APIs generate audio like a metallic voice or robotic voice. But there is also a disadvantage of gTTS, it will need an internet connection to convert the text into an audio. So it can be slow then other offline APIs.
+
+To install gTTS API open your command prompt or terminal and type this command:
+
+pip  install gTTS
+
+Program for conversion will be as shown below.
+
+from gtts import gTTS
+tts = gTTS(text="Hello crazy programmer", lang='en')
+tts.save("audio.mp3")
+Unlike other APIs it will generate an audio and will save into the same directory where your program stored.
+
+To play this audio we’ll need another tool to play audio on command line.
+
+If you’re using Linux (eg. Ubuntu) then mpg321 will be best command line player.
+
+To install it open terminal and type this command-
+
+apt-get install mpg321
+
+Now we can use this command to play any audio on command line:
+
+mpg321 audio.mp3 -quiet
+
+To run this command in python program, add these two lines into above program
+
+import os     #will be on the top
+os.system('mpg321 audio.mp3 -quiet')
+
+On other hand, for windows, we doesn’t have to install any new software or API to play the mp3 file. All we have to do is open command prompt and enter the name of your file it will play that file using your default media player. So to run this command in python add these two lines in above program.
+
+import os       #will be on the top
+os.system("audio.mp3")

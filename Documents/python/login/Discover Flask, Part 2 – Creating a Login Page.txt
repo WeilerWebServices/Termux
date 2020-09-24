@@ -1,0 +1,60 @@
+Discover Flask, Part 2 – Creating a Login Page
+
+Last time we went over how to set up a basic Flask structure and then developed a static site, styled with Bootstrap. In this second part of the series, we’ll be adding a login page for end users to, well, login to.
+
+Building on the code from the previous tutorial, we need to:
+
+Add a route to handle requests to the login URL; and
+
+Add a template for the login page
+
+Add a route to handle requests to the login URL#
+
+Make sure your virtualenv is activated. Open app.py in your code editor and add the following route:
+
+# Route for handling the login page logic @app.route('/login', methods=['GET', 'POST']) def login(): error = None if request.method == 'POST': if request.form['username'] != 'admin' or request.form['password'] != 'admin': error = 'Invalid Credentials. Please try again.' else: return redirect(url_for('home')) return render_template('login.html', error=error)
+
+Make sure you also update the imports:
+
+from flask import Flask, render_template, redirect, url_for, request
+
+So, what’s going on?
+
+First, notice that we specified the applicable HTTP methods for the route, GET and POST, as an argument in the route decorator.
+
+GET is the default method. So, if no methods are explicitly defined, Flask assumes that the only available method is GET, as is the case for the previous two routes, / and /welcome.
+
+For the new /login route we need to specifiy the POST method as well as GET so that end users can send a POST request with their login credentials to that /login endpoint.
+
+The logic within the login() function tests to see if the credentials are correct. If they are correct, then the user is redirected to the main route, /, and if the credentials are incorrect, an error populates. Where do these credentials come from? The POST request, which you’ll see in just a minute.
+
+In the case of a GET request, the login page is simply rendered.
+
+NOTE: The url_for() function generates an endpoint for the provided method.
+
+Add a template for the login page#
+
+Create a new file called login.html, adding it to the “templates” directory:
+
+Please login
+
+{{  request.form.username }}
+ 
+••••••••••••••••••••••••••••
+ 
+{% if error %}
+Error: {{ error }} {% endif %}
+
+Time for a quick test …
+
+Fire up the server. Navigate to http://localhost:5000/login.
+
+Enter the incorrect credentials, then press login. You should get this response: “Error: Invalid Credentials. Please try again.”
+
+Now use “admin” for both the username and password and you should be redirected to the / URL.
+
+Can you tell what’s happening here? When the form is submitted, a POST request is sent along with the form data, value="{{request.form.username }}" and value="{{request.form.password }}", to the controller, app.py - which then handles the request and either responds with an error message or redirects the user to the / URL. Be sure to check out the accompanying video to dig deeper into this with Chrome Developer Tools!
+
+Finally, we have some logic in our templates. Originally, we passed in None for the error. Well, if the error is not None, then we display the actual error message, which gets passed to the template from the views:
+
+Error: {{ error }}
