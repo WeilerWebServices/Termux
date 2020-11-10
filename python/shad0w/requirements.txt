@@ -1,0 +1,9 @@
+pyopenssl
+flask
+prompt_toolkit
+pefile
+cffi
+donut-shellcode
+requests
+PrettyTable
+pygments
